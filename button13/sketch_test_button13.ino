@@ -11,7 +11,7 @@ void setup() {
   pinMode(A5, INPUT_PULLUP);
 }
 
-void loop() {      
+void loop() {
 
   button = !digitalRead(A5);
   digitalWrite(13, button);

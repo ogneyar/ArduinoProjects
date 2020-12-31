@@ -9,9 +9,9 @@ void setup() {
 }
 
 void loop() {      
-  if (millis() - last_time > 5000) {
+  if (millis() - last_time > 500) {
       last_time = millis();
 
-      Serial.println("5000");
+      Serial.println("500");
   }
 }
