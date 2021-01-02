@@ -1,50 +1,47 @@
 #include <Wire.h>                  // подключаем библиотеку I2C
 #include <LiquidCrystal_I2C.h>     // подключаем библиотеку дисплея 
 
-LiquidCrystal_I2C lcd(0x27,16,2);  // Устанавливаем какой дисплей
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Устанавливаем какой дисплей
 
-boolean flag;
-int i, j, k, m;
-const char* pict;
-char * first_string, * fi_string;
+bool flag;
+int i, j, k, m, r, s; 
+char * pict, * fi_string; 
+const char first_string[17] = "-=Hell o World=-";
 word last_time;
 
 void setup()
-{
+{  
+  i = 0; // 8 байт (если 0)  
+  j = 15; // 12 байт (если > 0)
+  k = 0;  
+  pict = (char *)" "; // 12 байт (если " ") + 2 байта за каждые 2 английских символа или 1 русских
+  flag = true; // 4 байта если false и 6 байт если true  
+  last_time = millis(); // 8 байт (если 0), 12 байт (если 1) и 30 байт (если millis()) 
+  fi_string = (char *)first_string; // 12 байт
 
-  Serial.begin(9600);
-  Serial.println("Hell o world");
+  Serial.begin(9600); // 6 байт
+  Serial.println("Hell o world"); // 38 байт
 
-
-  pinMode(13,OUTPUT);
+  pinMode(13, OUTPUT);
   // инициализируем дисплей
   lcd.init();
   // Включаем подсветку дисплея
   lcd.backlight();
   // переходим на позицию - первый ноль это позиция символа
   // второй ноль это позиция строки
-  lcd.setCursor(0, 0);  
-  // выводим надпись 
-  first_string = "-=Hell o World=-";  
+  lcd.setCursor(0, 0);
+  // выводим надпись  
   lcd.print(first_string);
-  fi_string = first_string;
-
+  
   delay(1000);
-
-  i = 0;
-  j = 15;
-  k = 0;
-  pict = " ";
-  flag = true;
-  last_time = millis();
 }
 
 
 void loop()
-{  
-  
+{
+
   if (millis() - last_time > 200) {
-    
+
     last_time = millis();
     digitalWrite(13, flag = !flag);
 
@@ -53,44 +50,38 @@ void loop()
     // рисуем первую строку
     // --------------------
 
-   if ( j == 15 ) {
-      lcd.setCursor(0, 0);  
+    if ( j == 15 ) {
+      lcd.setCursor(0, 0);
       lcd.print("                ");
-   }
+    }
 
     // переходим на позицию
     lcd.setCursor(j, 0);
     // выводим надпись
     lcd.print(fi_string);
 
-    Serial.println(fi_string);
+    Serial.println(fi_string); // 44 байта
 
-    if (k > 15){
+    if (k > 15) {
       k = 0;
       j--;
-      fi_string = first_string;
-    } 
+      fi_string = (char *)first_string;
+    }
 
     if (j == 0) {
       k++;
       m = 0;
-      fi_string = "";
-      for (int r = k; r < 16; r++) {
+      fi_string = (char *)"";
+      for (r = k; r < 16; r++) {
         fi_string[m] = first_string[r];
-        // lcd.setCursor(m, 0);
-        // lcd.print(first_string[r]);
         m++;
       }
-      for (int s = m; s < 16; s++) {
+      for (s = m; s < 16; s++) {
         fi_string[s] = ' ';
-        // lcd.setCursor(m, 0);
-        // lcd.print(" ");
       }
-      // lcd.setCursor(0, 0);
-      // lcd.print(fi_string);
-      // delay(50);
-    }else j--;
-    
+      fi_string[s] = '\0';
+    } else j--;
+
 
     if ( j < 0 ) j = 15;
 
@@ -107,14 +98,14 @@ void loop()
       i++;
     }
     if ( i == 0 ) {
-      pict = "O ";
+      pict = (char *)"O ";
     }
-    if ( i > 15 ){
+    if ( i > 15 ) {
       i = 0;
-      pict = " ";
+      pict = (char *)" ";
     }
 
-    delay(30);
+    delay(50);
 
   }
 
