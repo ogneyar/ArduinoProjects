@@ -6,7 +6,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2); // Устанавливаем какой д�
 bool flag;
 int i, j, k, m, r, s; 
 char * pict, * fi_string; 
-const char first_string[17] = "-=Hell o World=-";
+const char first_string[17] = "-=LoLiPOpsErin=-";
 word last_time;
 
 void setup()
