@@ -4,3 +4,8 @@
 синий А4 (SDA)
 чёрный GND (GND)
 белый 5v (VCC)
+
+
+узнать ip 
+
+ipconfig
