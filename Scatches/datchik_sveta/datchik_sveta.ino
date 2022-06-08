@@ -15,4 +15,11 @@ void loop() {
   else digitalWrite(ledPin, LOW);
   Serial.println(sensor, DEC);
   delay(500);
+  
+  //digitalWrite(ledPin, HIGH);
+  //delay(500);
+  //digitalWrite(ledPin, LOW);
+  //delay(500);
+  //digitalWrite(ledPin, HIGH);
+  //delay(500);
 }
