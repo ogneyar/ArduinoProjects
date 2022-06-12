@@ -1,0 +1,158 @@
+
+Atmega8_watchdog.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000a4  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000000f8  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000000f8  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000128  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  00000164  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000640  00000000  00000000  00000194  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000052f  00000000  00000000  000007d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002b6  00000000  00000000  00000d03  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000044  00000000  00000000  00000fbc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002fa  00000000  00000000  00001000  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000d8  00000000  00000000  000012fa  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  000013d2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	09 d0       	rcall	.+18     	; 0x46 <main>
+  34:	35 c0       	rjmp	.+106    	; 0xa0 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <WDT_on>:
+	/* сборос вачдога */
+	asm("wdr");
+	/* разрешить изменение вачдога */
+	WDTCR |= (1<<WDCE) | (1<<WDE);
+	/* отключить вачдог */
+	WDTCR = 0x00;
+  38:	a8 95       	wdr
+  3a:	81 b5       	in	r24, 0x21	; 33
+  3c:	88 61       	ori	r24, 0x18	; 24
+  3e:	81 bd       	out	0x21, r24	; 33
+  40:	8f e0       	ldi	r24, 0x0F	; 15
+  42:	81 bd       	out	0x21, r24	; 33
+  44:	08 95       	ret
+
+00000046 <main>:
+}
+	
+int main(void)
+{
+	DDRB|=(1<<PB0) | (1<<PB5);
+  46:	87 b3       	in	r24, 0x17	; 23
+  48:	81 62       	ori	r24, 0x21	; 33
+  4a:	87 bb       	out	0x17, r24	; 23
+	
+	// желтая мигалка
+	PORTB^=(1<<PB0);
+  4c:	98 b3       	in	r25, 0x18	; 24
+  4e:	81 e0       	ldi	r24, 0x01	; 1
+  50:	98 27       	eor	r25, r24
+  52:	98 bb       	out	0x18, r25	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  54:	2f e9       	ldi	r18, 0x9F	; 159
+  56:	36 e8       	ldi	r19, 0x86	; 134
+  58:	91 e0       	ldi	r25, 0x01	; 1
+  5a:	21 50       	subi	r18, 0x01	; 1
+  5c:	30 40       	sbci	r19, 0x00	; 0
+  5e:	90 40       	sbci	r25, 0x00	; 0
+  60:	e1 f7       	brne	.-8      	; 0x5a <main+0x14>
+  62:	00 c0       	rjmp	.+0      	; 0x64 <main+0x1e>
+  64:	00 00       	nop
+	_delay_ms(500);
+	PORTB^=(1<<PB0);
+  66:	98 b3       	in	r25, 0x18	; 24
+  68:	89 27       	eor	r24, r25
+  6a:	88 bb       	out	0x18, r24	; 24
+	WDT_on();
+  6c:	e5 df       	rcall	.-54     	; 0x38 <WDT_on>
+    while (1) 
+    {
+		// зеленая мигалка
+		PORTB^=(1<<PB5);
+  6e:	90 e2       	ldi	r25, 0x20	; 32
+  70:	88 b3       	in	r24, 0x18	; 24
+  72:	89 27       	eor	r24, r25
+  74:	88 bb       	out	0x18, r24	; 24
+  76:	2f e3       	ldi	r18, 0x3F	; 63
+  78:	3d e0       	ldi	r19, 0x0D	; 13
+  7a:	83 e0       	ldi	r24, 0x03	; 3
+  7c:	21 50       	subi	r18, 0x01	; 1
+  7e:	30 40       	sbci	r19, 0x00	; 0
+  80:	80 40       	sbci	r24, 0x00	; 0
+  82:	e1 f7       	brne	.-8      	; 0x7c <main+0x36>
+  84:	00 c0       	rjmp	.+0      	; 0x86 <main+0x40>
+  86:	00 00       	nop
+		_delay_ms(1000);
+		asm("wdr");// сброс вачдога
+  88:	a8 95       	wdr
+  8a:	2f ed       	ldi	r18, 0xDF	; 223
+  8c:	33 e9       	ldi	r19, 0x93	; 147
+  8e:	84 e0       	ldi	r24, 0x04	; 4
+  90:	21 50       	subi	r18, 0x01	; 1
+  92:	30 40       	sbci	r19, 0x00	; 0
+  94:	80 40       	sbci	r24, 0x00	; 0
+  96:	e1 f7       	brne	.-8      	; 0x90 <main+0x4a>
+  98:	00 c0       	rjmp	.+0      	; 0x9a <main+0x54>
+  9a:	00 00       	nop
+		_delay_ms(1500);
+		asm("wdr");// сброс вачдога
+  9c:	a8 95       	wdr
+  9e:	e8 cf       	rjmp	.-48     	; 0x70 <main+0x2a>
+
+000000a0 <_exit>:
+  a0:	f8 94       	cli
+
+000000a2 <__stop_program>:
+  a2:	ff cf       	rjmp	.-2      	; 0xa2 <__stop_program>

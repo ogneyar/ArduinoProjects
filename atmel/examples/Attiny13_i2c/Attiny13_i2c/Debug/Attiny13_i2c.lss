@@ -1,0 +1,329 @@
+
+Attiny13_i2c.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000012c  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000001a0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000003  00800060  00800060  000001a0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000001a0  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001d0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000058  00000000  00000000  0000020c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   0000089d  00000000  00000000  00000264  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000004fb  00000000  00000000  00000b01  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000004bf  00000000  00000000  00000ffc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000078  00000000  00000000  000014bc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000002c2  00000000  00000000  00001534  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000363  00000000  00000000  000017f6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000038  00000000  00000000  00001b59  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	16 c0       	rjmp	.+44     	; 0x30 <__bad_interrupt>
+   4:	15 c0       	rjmp	.+42     	; 0x30 <__bad_interrupt>
+   6:	14 c0       	rjmp	.+40     	; 0x30 <__bad_interrupt>
+   8:	13 c0       	rjmp	.+38     	; 0x30 <__bad_interrupt>
+   a:	12 c0       	rjmp	.+36     	; 0x30 <__bad_interrupt>
+   c:	11 c0       	rjmp	.+34     	; 0x30 <__bad_interrupt>
+   e:	10 c0       	rjmp	.+32     	; 0x30 <__bad_interrupt>
+  10:	0f c0       	rjmp	.+30     	; 0x30 <__bad_interrupt>
+  12:	0e c0       	rjmp	.+28     	; 0x30 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+
+0000001c <__do_clear_bss>:
+  1c:	20 e0       	ldi	r18, 0x00	; 0
+  1e:	a0 e6       	ldi	r26, 0x60	; 96
+  20:	b0 e0       	ldi	r27, 0x00	; 0
+  22:	01 c0       	rjmp	.+2      	; 0x26 <.do_clear_bss_start>
+
+00000024 <.do_clear_bss_loop>:
+  24:	1d 92       	st	X+, r1
+
+00000026 <.do_clear_bss_start>:
+  26:	a3 36       	cpi	r26, 0x63	; 99
+  28:	b2 07       	cpc	r27, r18
+  2a:	e1 f7       	brne	.-8      	; 0x24 <.do_clear_bss_loop>
+  2c:	5f d0       	rcall	.+190    	; 0xec <main>
+  2e:	7c c0       	rjmp	.+248    	; 0x128 <_exit>
+
+00000030 <__bad_interrupt>:
+  30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
+
+00000032 <i2c_start>:
+#include "i2c.h"
+
+// старт
+void i2c_start(void){
+	SDA_0;
+  32:	b9 9a       	sbi	0x17, 1	; 23
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  34:	84 e0       	ldi	r24, 0x04	; 4
+  36:	8a 95       	dec	r24
+  38:	f1 f7       	brne	.-4      	; 0x36 <i2c_start+0x4>
+	I2C_DELAY;
+	SCL_0;
+  3a:	b8 9a       	sbi	0x17, 0	; 23
+  3c:	08 95       	ret
+
+0000003e <i2c_stop>:
+}
+
+// стоп 
+void i2c_stop(void){
+	SDA_0;
+  3e:	b9 9a       	sbi	0x17, 1	; 23
+  40:	84 e0       	ldi	r24, 0x04	; 4
+  42:	8a 95       	dec	r24
+  44:	f1 f7       	brne	.-4      	; 0x42 <__SREG__+0x3>
+	I2C_DELAY;
+	SCL_1;
+  46:	b8 98       	cbi	0x17, 0	; 23
+  48:	84 e0       	ldi	r24, 0x04	; 4
+  4a:	8a 95       	dec	r24
+  4c:	f1 f7       	brne	.-4      	; 0x4a <__SREG__+0xb>
+	I2C_DELAY;
+	SDA_1;
+  4e:	b9 98       	cbi	0x17, 1	; 23
+  50:	08 95       	ret
+
+00000052 <i2c_send>:
+
+
+// отправка байта
+uint8_t i2c_send(uint8_t data){
+	uint8_t i=8, ask;
+	while (i--)
+  52:	97 e0       	ldi	r25, 0x07	; 7
+	{
+		if(data&(1<<i)) SDA_1;// если бит 1 ставим 1 на линию
+  54:	48 2f       	mov	r20, r24
+  56:	50 e0       	ldi	r21, 0x00	; 0
+  58:	9a 01       	movw	r18, r20
+  5a:	09 2e       	mov	r0, r25
+  5c:	02 c0       	rjmp	.+4      	; 0x62 <i2c_send+0x10>
+  5e:	35 95       	asr	r19
+  60:	27 95       	ror	r18
+  62:	0a 94       	dec	r0
+  64:	e2 f7       	brpl	.-8      	; 0x5e <i2c_send+0xc>
+  66:	20 ff       	sbrs	r18, 0
+  68:	02 c0       	rjmp	.+4      	; 0x6e <i2c_send+0x1c>
+  6a:	b9 98       	cbi	0x17, 1	; 23
+  6c:	01 c0       	rjmp	.+2      	; 0x70 <i2c_send+0x1e>
+		else SDA_0;// ставим 0 на линию
+  6e:	b9 9a       	sbi	0x17, 1	; 23
+  70:	84 e0       	ldi	r24, 0x04	; 4
+  72:	8a 95       	dec	r24
+  74:	f1 f7       	brne	.-4      	; 0x72 <i2c_send+0x20>
+		I2C_DELAY;
+		SCL_1;// фронт
+  76:	b8 98       	cbi	0x17, 0	; 23
+  78:	84 e0       	ldi	r24, 0x04	; 4
+  7a:	8a 95       	dec	r24
+  7c:	f1 f7       	brne	.-4      	; 0x7a <i2c_send+0x28>
+		I2C_DELAY;
+		SCL_0;// спад
+  7e:	b8 9a       	sbi	0x17, 0	; 23
+
+
+// отправка байта
+uint8_t i2c_send(uint8_t data){
+	uint8_t i=8, ask;
+	while (i--)
+  80:	91 50       	subi	r25, 0x01	; 1
+  82:	50 f7       	brcc	.-44     	; 0x58 <i2c_send+0x6>
+		I2C_DELAY;
+		SCL_1;// фронт
+		I2C_DELAY;
+		SCL_0;// спад
+	}
+	SDA_1;// отпустить дата
+  84:	b9 98       	cbi	0x17, 1	; 23
+  86:	84 e0       	ldi	r24, 0x04	; 4
+  88:	8a 95       	dec	r24
+  8a:	f1 f7       	brne	.-4      	; 0x88 <i2c_send+0x36>
+	I2C_DELAY;
+	SCL_1;// фронт такта
+  8c:	b8 98       	cbi	0x17, 0	; 23
+  8e:	84 e0       	ldi	r24, 0x04	; 4
+  90:	8a 95       	dec	r24
+  92:	f1 f7       	brne	.-4      	; 0x90 <i2c_send+0x3e>
+	I2C_DELAY;
+	ask=(SDA_PIN&(1<<SDA));// читаем линию сда
+  94:	86 b3       	in	r24, 0x16	; 22
+	SCL_0;// спад
+  96:	b8 9a       	sbi	0x17, 0	; 23
+	return ask;//  0 - ask, не 0 - nask
+}
+  98:	82 70       	andi	r24, 0x02	; 2
+  9a:	08 95       	ret
+
+0000009c <i2c_read>:
+
+
+// получение байта
+uint8_t i2c_read(uint8_t ack){
+  9c:	68 2f       	mov	r22, r24
+	uint8_t byte=0, i=8;
+	while(i--)
+  9e:	97 e0       	ldi	r25, 0x07	; 7
+}
+
+
+// получение байта
+uint8_t i2c_read(uint8_t ack){
+	uint8_t byte=0, i=8;
+  a0:	80 e0       	ldi	r24, 0x00	; 0
+	while(i--)
+	{
+		SCL_1;// фронт такта
+		I2C_DELAY;
+		if(SDA_PIN & (1 << SDA)) byte|=(1<<i);// если SDA 1 в и-тый бит пишем 1
+  a2:	41 e0       	ldi	r20, 0x01	; 1
+  a4:	50 e0       	ldi	r21, 0x00	; 0
+// получение байта
+uint8_t i2c_read(uint8_t ack){
+	uint8_t byte=0, i=8;
+	while(i--)
+	{
+		SCL_1;// фронт такта
+  a6:	b8 98       	cbi	0x17, 0	; 23
+  a8:	24 e0       	ldi	r18, 0x04	; 4
+  aa:	2a 95       	dec	r18
+  ac:	f1 f7       	brne	.-4      	; 0xaa <__stack+0xb>
+		I2C_DELAY;
+		if(SDA_PIN & (1 << SDA)) byte|=(1<<i);// если SDA 1 в и-тый бит пишем 1
+  ae:	b1 9b       	sbis	0x16, 1	; 22
+  b0:	08 c0       	rjmp	.+16     	; 0xc2 <__stack+0x23>
+  b2:	9a 01       	movw	r18, r20
+  b4:	09 2e       	mov	r0, r25
+  b6:	02 c0       	rjmp	.+4      	; 0xbc <__stack+0x1d>
+  b8:	22 0f       	add	r18, r18
+  ba:	33 1f       	adc	r19, r19
+  bc:	0a 94       	dec	r0
+  be:	e2 f7       	brpl	.-8      	; 0xb8 <__stack+0x19>
+  c0:	82 2b       	or	r24, r18
+		SCL_0;// спад такта
+  c2:	b8 9a       	sbi	0x17, 0	; 23
+  c4:	24 e0       	ldi	r18, 0x04	; 4
+  c6:	2a 95       	dec	r18
+  c8:	f1 f7       	brne	.-4      	; 0xc6 <__stack+0x27>
+
+
+// получение байта
+uint8_t i2c_read(uint8_t ack){
+	uint8_t byte=0, i=8;
+	while(i--)
+  ca:	91 50       	subi	r25, 0x01	; 1
+  cc:	60 f7       	brcc	.-40     	; 0xa6 <__stack+0x7>
+		I2C_DELAY;
+		if(SDA_PIN & (1 << SDA)) byte|=(1<<i);// если SDA 1 в и-тый бит пишем 1
+		SCL_0;// спад такта
+		I2C_DELAY;
+	}
+	if(ack) SDA_0;// ask или nask
+  ce:	66 23       	and	r22, r22
+  d0:	11 f0       	breq	.+4      	; 0xd6 <__stack+0x37>
+  d2:	b9 9a       	sbi	0x17, 1	; 23
+  d4:	01 c0       	rjmp	.+2      	; 0xd8 <__stack+0x39>
+	else SDA_1;
+  d6:	b9 98       	cbi	0x17, 1	; 23
+	
+	SCL_1;//
+  d8:	b8 98       	cbi	0x17, 0	; 23
+  da:	94 e0       	ldi	r25, 0x04	; 4
+  dc:	9a 95       	dec	r25
+  de:	f1 f7       	brne	.-4      	; 0xdc <__stack+0x3d>
+	I2C_DELAY;// такт на получения ответа или неответа
+	SCL_0;//
+  e0:	b8 9a       	sbi	0x17, 0	; 23
+  e2:	24 e0       	ldi	r18, 0x04	; 4
+  e4:	2a 95       	dec	r18
+  e6:	f1 f7       	brne	.-4      	; 0xe4 <__stack+0x45>
+	I2C_DELAY;
+	SDA_1;// отпустить сда если притянут
+  e8:	b9 98       	cbi	0x17, 1	; 23
+	return byte;
+}
+  ea:	08 95       	ret
+
+000000ec <main>:
+int main(void)
+{
+	while (1)
+	{
+		
+		i2c_start();
+  ec:	a2 df       	rcall	.-188    	; 0x32 <i2c_start>
+		i2c_send(LM75_1_R);
+  ee:	81 e9       	ldi	r24, 0x91	; 145
+  f0:	b0 df       	rcall	.-160    	; 0x52 <i2c_send>
+		test1=i2c_read(1);
+  f2:	81 e0       	ldi	r24, 0x01	; 1
+  f4:	d3 df       	rcall	.-90     	; 0x9c <i2c_read>
+  f6:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+		test11=i2c_read(0);
+  fa:	80 e0       	ldi	r24, 0x00	; 0
+  fc:	cf df       	rcall	.-98     	; 0x9c <i2c_read>
+  fe:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <test11>
+		i2c_stop();
+ 102:	9d df       	rcall	.-198    	; 0x3e <i2c_stop>
+		
+		
+		i2c_start();
+ 104:	96 df       	rcall	.-212    	; 0x32 <i2c_start>
+		i2c_send(LM75_2_R);
+ 106:	8f e9       	ldi	r24, 0x9F	; 159
+ 108:	a4 df       	rcall	.-184    	; 0x52 <i2c_send>
+		test2=i2c_read(0);
+ 10a:	80 e0       	ldi	r24, 0x00	; 0
+ 10c:	c7 df       	rcall	.-114    	; 0x9c <i2c_read>
+ 10e:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <test2>
+		i2c_stop();
+ 112:	95 df       	rcall	.-214    	; 0x3e <i2c_stop>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 114:	2f eb       	ldi	r18, 0xBF	; 191
+ 116:	84 ed       	ldi	r24, 0xD4	; 212
+ 118:	91 e0       	ldi	r25, 0x01	; 1
+ 11a:	21 50       	subi	r18, 0x01	; 1
+ 11c:	80 40       	sbci	r24, 0x00	; 0
+ 11e:	90 40       	sbci	r25, 0x00	; 0
+ 120:	e1 f7       	brne	.-8      	; 0x11a <main+0x2e>
+ 122:	00 c0       	rjmp	.+0      	; 0x124 <main+0x38>
+ 124:	00 00       	nop
+ 126:	e2 cf       	rjmp	.-60     	; 0xec <main>
+
+00000128 <_exit>:
+ 128:	f8 94       	cli
+
+0000012a <__stop_program>:
+ 12a:	ff cf       	rjmp	.-2      	; 0x12a <__stop_program>

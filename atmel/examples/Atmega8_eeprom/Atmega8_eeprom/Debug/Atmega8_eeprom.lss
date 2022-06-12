@@ -1,0 +1,146 @@
+
+Atmega8_eeprom.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000007e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000000f2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000001  00800060  00800060  000000f2  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000000f2  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000124  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000030  00000000  00000000  00000160  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000005d4  00000000  00000000  00000190  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000052f  00000000  00000000  00000764  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000212  00000000  00000000  00000c93  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000044  00000000  00000000  00000ea8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000002d0  00000000  00000000  00000eec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000024  00000000  00000000  000011bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000020  00000000  00000000  000011e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	20 e0       	ldi	r18, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a1 36       	cpi	r26, 0x61	; 97
+  3e:	b2 07       	cpc	r27, r18
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	11 d0       	rcall	.+34     	; 0x66 <main>
+  44:	1a c0       	rjmp	.+52     	; 0x7a <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <EEPROM_write>:
+uint8_t test;
+
+// запись байта в €чейку ≈≈ѕ–ќћ
+void EEPROM_write(uint16_t address, uint8_t data){
+	/* ќжидание готовности еепром*/
+	while(EECR & (1<<EEWE));
+  48:	e1 99       	sbic	0x1c, 1	; 28
+  4a:	fe cf       	rjmp	.-4      	; 0x48 <EEPROM_write>
+	/* установка адреса и данных в регистры */
+	EEAR=address;
+  4c:	9f bb       	out	0x1f, r25	; 31
+  4e:	8e bb       	out	0x1e, r24	; 30
+	EEDR=data;
+  50:	6d bb       	out	0x1d, r22	; 29
+	/* разрешение на запись */
+	EECR |= (1<<EEMWE);/* сначала 1 в бит EEMWE - мастер разрешение записи */
+  52:	e2 9a       	sbi	0x1c, 2	; 28
+	EECR |= (1<<EEWE);
+  54:	e1 9a       	sbi	0x1c, 1	; 28
+  56:	08 95       	ret
+
+00000058 <EEPROM_read>:
+}
+
+// чтение байта из €чейки ≈≈ѕ–ќћ
+uint8_t EEPROM_read(uint16_t address){
+	/* ќжидание готовности еепром*/
+	while(EECR & (1<<EEWE));
+  58:	e1 99       	sbic	0x1c, 1	; 28
+  5a:	fe cf       	rjmp	.-4      	; 0x58 <EEPROM_read>
+	/* установка адреса €чейки */
+	EEAR=address;
+  5c:	9f bb       	out	0x1f, r25	; 31
+  5e:	8e bb       	out	0x1e, r24	; 30
+	/* разрешение на чтение */
+	EECR |= (1<<EERE);
+  60:	e0 9a       	sbi	0x1c, 0	; 28
+	return EEDR;// вернуть данные из регистра 
+  62:	8d b3       	in	r24, 0x1d	; 29
+}
+  64:	08 95       	ret
+
+00000066 <main>:
+	
+int main(void)
+{
+	EEPROM_write(300,0xAA);
+  66:	6a ea       	ldi	r22, 0xAA	; 170
+  68:	8c e2       	ldi	r24, 0x2C	; 44
+  6a:	91 e0       	ldi	r25, 0x01	; 1
+  6c:	ed df       	rcall	.-38     	; 0x48 <EEPROM_write>
+	test=EEPROM_read(300);
+  6e:	8c e2       	ldi	r24, 0x2C	; 44
+  70:	91 e0       	ldi	r25, 0x01	; 1
+  72:	f2 df       	rcall	.-28     	; 0x58 <EEPROM_read>
+  74:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+  78:	ff cf       	rjmp	.-2      	; 0x78 <main+0x12>
+
+0000007a <_exit>:
+  7a:	f8 94       	cli
+
+0000007c <__stop_program>:
+  7c:	ff cf       	rjmp	.-2      	; 0x7c <__stop_program>
