@@ -8,3 +8,4 @@
  digital pin 4       (ADC2) PB4 3|    |6 PB1 (MISO)      digital pin 1 PWM
                             GND 4|    |5 PB0 (MOSI)      digital pin 0 PWM
                                  +----+
+

@@ -1,3 +1,4 @@
+// EEPROM ATtiny13
 #include <avr/io.h>
 uint8_t test;
 

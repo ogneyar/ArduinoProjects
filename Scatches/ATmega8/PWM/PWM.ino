@@ -1,19 +1,20 @@
+// ATmega8
 
 // настройки ШИМ
 void pwm_ini(void){
-  TCCR0A|=(1<<WGM01) | (1<<WGM00);// fast pwm
-  TCCR0A|=(1<<COM0A1); // пин OC0A не инверсно
-  TCCR0B|=(1<<CS00); // без делителя
-  DDRB|=(1<<PB0); // пин OC0A на выход (PB0)
-  OCR0A=50;// начальная скважность.
+  TCCR2|=(1<<WGM20) | (1<<WGM21); // fast pwm
+  TCCR2|=(1<<COM21); // пин OC2 не инверсно
+  TCCR2|=(1<<CS20); // без делителя
+  DDRB|=(1<<PB3); // пин OC2 на выход (PB3) 17-pin
+  OCR2=1;// начальная скважность.
 }
 
 // настройки ацп
 void adc_ini(void){
   ADMUX|=(1<<ADLAR);// удобнее забирать 8-битный результат преобразования
-//  ADMUX|=(1<<MUX0); // выбор канала ADC1 (PB2) // ADMUX|=MUX1;
-  ADMUX|=(1<<MUX0) | (1<<MUX1); // выбор канала ADC3 (PB3)
-  // DDRB&=~(1<<PB3); // пин ADC3 (PB3) на вход // по умолчанию
+  ADMUX|=(1<<MUX0) | (1<<MUX1); // выбор канала ADC3 (PC3) 26-pin
+  ADMUX|=(1<<REFS0); // AVCC with external capacitor at AREF pin
+  DDRC&=~(1<<PC3); // пин ADC3 (PC3) на вход // по умолчанию
   ADCSRA|=(1<<ADEN); // включить ацп
   ADCSRA|=(1<<ADPS2); // делитель 16
 }
@@ -22,8 +23,9 @@ void adc_ini(void){
 void lamp_control(void){
   ADCSRA|=(1<<ADSC); // запуск преобразования
   while((ADCSRA&(1<<ADSC)));// ожидание окончания преобразования
-  OCR0A=ADCH;// в регистр сравнения записать результат преобразования 
+  OCR2=ADCH;// в регистр сравнения записать результат преобразования 
 }
+
 
 int main(void) {
   
@@ -31,9 +33,7 @@ int main(void) {
   adc_ini();// настройка АЦП
     
   while (1) {
-    lamp_control();// работаем
-    // сюда можно паузу, чтобы слишком часто не опрашивать ацп
-    //delay(5);
+    lamp_control(); // работаем
   }
-  
+
 }
