@@ -1,0 +1,327 @@
+
+Attiny13_dht11.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000136  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000001aa  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  000001aa  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000001aa  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001dc  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000038  00000000  00000000  00000218  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000005f0  00000000  00000000  00000250  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000045d  00000000  00000000  00000840  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000002e7  00000000  00000000  00000c9d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000008c  00000000  00000000  00000f84  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000002b4  00000000  00000000  00001010  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000029b  00000000  00000000  000012c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000028  00000000  00000000  0000155f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	16 c0       	rjmp	.+44     	; 0x30 <__bad_interrupt>
+   4:	15 c0       	rjmp	.+42     	; 0x30 <__bad_interrupt>
+   6:	14 c0       	rjmp	.+40     	; 0x30 <__bad_interrupt>
+   8:	13 c0       	rjmp	.+38     	; 0x30 <__bad_interrupt>
+   a:	12 c0       	rjmp	.+36     	; 0x30 <__bad_interrupt>
+   c:	11 c0       	rjmp	.+34     	; 0x30 <__bad_interrupt>
+   e:	10 c0       	rjmp	.+32     	; 0x30 <__bad_interrupt>
+  10:	0f c0       	rjmp	.+30     	; 0x30 <__bad_interrupt>
+  12:	0e c0       	rjmp	.+28     	; 0x30 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+
+0000001c <__do_clear_bss>:
+  1c:	20 e0       	ldi	r18, 0x00	; 0
+  1e:	a0 e6       	ldi	r26, 0x60	; 96
+  20:	b0 e0       	ldi	r27, 0x00	; 0
+  22:	01 c0       	rjmp	.+2      	; 0x26 <.do_clear_bss_start>
+
+00000024 <.do_clear_bss_loop>:
+  24:	1d 92       	st	X+, r1
+
+00000026 <.do_clear_bss_start>:
+  26:	a2 36       	cpi	r26, 0x62	; 98
+  28:	b2 07       	cpc	r27, r18
+  2a:	e1 f7       	brne	.-8      	; 0x24 <.do_clear_bss_loop>
+  2c:	7c d0       	rcall	.+248    	; 0x126 <main>
+  2e:	81 c0       	rjmp	.+258    	; 0x132 <_exit>
+
+00000030 <__bad_interrupt>:
+  30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
+
+00000032 <dht_start>:
+#define DHT			PB1
+
+uint8_t _hum, _temp;
+
+uint8_t dht_start(void){
+	DHT_DDR|=(1<<DHT);// притянули линию к земле - 0
+  32:	b9 9a       	sbi	0x17, 1	; 23
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  34:	8f e6       	ldi	r24, 0x6F	; 111
+  36:	97 e1       	ldi	r25, 0x17	; 23
+  38:	01 97       	sbiw	r24, 0x01	; 1
+  3a:	f1 f7       	brne	.-4      	; 0x38 <dht_start+0x6>
+  3c:	00 c0       	rjmp	.+0      	; 0x3e <__SP_L__+0x1>
+  3e:	00 00       	nop
+	_delay_ms(20);// пауза 20 мс 
+	DHT_DDR&=~(1<<DHT);// отпустили линию - 1
+  40:	b9 98       	cbi	0x17, 1	; 23
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  42:	90 e1       	ldi	r25, 0x10	; 16
+  44:	9a 95       	dec	r25
+  46:	f1 f7       	brne	.-4      	; 0x44 <__SREG__+0x5>
+	_delay_us(40);// ждем 40 мкс чтобы попасть в середину низкого сигнала
+	if (DHT_PIN&(1<<DHT)) return 1; // если на линии 1 ошибка - "датчик не ответил"
+  48:	b1 99       	sbic	0x16, 1	; 22
+  4a:	0b c0       	rjmp	.+22     	; 0x62 <__SREG__+0x23>
+  4c:	80 e2       	ldi	r24, 0x20	; 32
+  4e:	8a 95       	dec	r24
+  50:	f1 f7       	brne	.-4      	; 0x4e <__SREG__+0xf>
+	_delay_us(80); // ждем 80 мкс чтобы попасть в середину высокого сигнала
+	if (!(DHT_PIN&(1<<DHT))) return 2; // если на линии 0 ошибка - "датчик не готов "
+  52:	b1 9b       	sbis	0x16, 1	; 22
+  54:	08 c0       	rjmp	.+16     	; 0x66 <__SREG__+0x27>
+	while(DHT_PIN&(1<<DHT));// ждем пока датчик не притянет линию к земле.
+  56:	96 b3       	in	r25, 0x16	; 22
+  58:	89 2f       	mov	r24, r25
+  5a:	82 70       	andi	r24, 0x02	; 2
+  5c:	91 fd       	sbrc	r25, 1
+  5e:	fb cf       	rjmp	.-10     	; 0x56 <__SREG__+0x17>
+  60:	08 95       	ret
+uint8_t dht_start(void){
+	DHT_DDR|=(1<<DHT);// притянули линию к земле - 0
+	_delay_ms(20);// пауза 20 мс 
+	DHT_DDR&=~(1<<DHT);// отпустили линию - 1
+	_delay_us(40);// ждем 40 мкс чтобы попасть в середину низкого сигнала
+	if (DHT_PIN&(1<<DHT)) return 1; // если на линии 1 ошибка - "датчик не ответил"
+  62:	81 e0       	ldi	r24, 0x01	; 1
+  64:	08 95       	ret
+	_delay_us(80); // ждем 80 мкс чтобы попасть в середину высокого сигнала
+	if (!(DHT_PIN&(1<<DHT))) return 2; // если на линии 0 ошибка - "датчик не готов "
+  66:	82 e0       	ldi	r24, 0x02	; 2
+	while(DHT_PIN&(1<<DHT));// ждем пока датчик не притянет линию к земле.
+	return 0;// ошибок нет
+}
+  68:	08 95       	ret
+
+0000006a <dht_byte>:
+
+uint8_t dht_byte(void){
+	uint8_t i=8, byte=0;
+	while(i--){
+  6a:	97 e0       	ldi	r25, 0x07	; 7
+	while(DHT_PIN&(1<<DHT));// ждем пока датчик не притянет линию к земле.
+	return 0;// ошибок нет
+}
+
+uint8_t dht_byte(void){
+	uint8_t i=8, byte=0;
+  6c:	80 e0       	ldi	r24, 0x00	; 0
+	while(i--){
+		while(!(DHT_PIN&(1<<DHT)));// ждем пока линия не поднимится в 1
+		_delay_us(40);// отступаем 40 мкс
+		if (DHT_PIN&(1<<DHT)) {// если на линии 1 = приняли 1
+			byte|=(1<<i);// поднимаем итый бит в 1
+  6e:	41 e0       	ldi	r20, 0x01	; 1
+  70:	50 e0       	ldi	r21, 0x00	; 0
+}
+
+uint8_t dht_byte(void){
+	uint8_t i=8, byte=0;
+	while(i--){
+		while(!(DHT_PIN&(1<<DHT)));// ждем пока линия не поднимится в 1
+  72:	b1 9b       	sbis	0x16, 1	; 22
+  74:	fe cf       	rjmp	.-4      	; 0x72 <dht_byte+0x8>
+  76:	20 e1       	ldi	r18, 0x10	; 16
+  78:	2a 95       	dec	r18
+  7a:	f1 f7       	brne	.-4      	; 0x78 <dht_byte+0xe>
+		_delay_us(40);// отступаем 40 мкс
+		if (DHT_PIN&(1<<DHT)) {// если на линии 1 = приняли 1
+  7c:	b1 9b       	sbis	0x16, 1	; 22
+  7e:	0a c0       	rjmp	.+20     	; 0x94 <dht_byte+0x2a>
+			byte|=(1<<i);// поднимаем итый бит в 1
+  80:	9a 01       	movw	r18, r20
+  82:	09 2e       	mov	r0, r25
+  84:	02 c0       	rjmp	.+4      	; 0x8a <dht_byte+0x20>
+  86:	22 0f       	add	r18, r18
+  88:	33 1f       	adc	r19, r19
+  8a:	0a 94       	dec	r0
+  8c:	e2 f7       	brpl	.-8      	; 0x86 <dht_byte+0x1c>
+  8e:	82 2b       	or	r24, r18
+			while(DHT_PIN&(1<<DHT));// ждем пока линия упадет в 0
+  90:	b1 99       	sbic	0x16, 1	; 22
+  92:	fe cf       	rjmp	.-4      	; 0x90 <dht_byte+0x26>
+	return 0;// ошибок нет
+}
+
+uint8_t dht_byte(void){
+	uint8_t i=8, byte=0;
+	while(i--){
+  94:	91 50       	subi	r25, 0x01	; 1
+  96:	68 f7       	brcc	.-38     	; 0x72 <dht_byte+0x8>
+			byte|=(1<<i);// поднимаем итый бит в 1
+			while(DHT_PIN&(1<<DHT));// ждем пока линия упадет в 0
+		}
+	}
+	return byte;
+}
+  98:	08 95       	ret
+
+0000009a <dht_read>:
+
+
+uint8_t dht_read(uint8_t *hum, uint8_t* temp) {
+  9a:	af 92       	push	r10
+  9c:	bf 92       	push	r11
+  9e:	cf 92       	push	r12
+  a0:	df 92       	push	r13
+  a2:	ef 92       	push	r14
+  a4:	ff 92       	push	r15
+  a6:	0f 93       	push	r16
+  a8:	1f 93       	push	r17
+  aa:	cf 93       	push	r28
+  ac:	df 93       	push	r29
+  ae:	cd b7       	in	r28, 0x3d	; 61
+  b0:	dd 27       	eor	r29, r29
+  b2:	c5 50       	subi	r28, 0x05	; 5
+  b4:	cd bf       	out	0x3d, r28	; 61
+  b6:	6c 01       	movw	r12, r24
+  b8:	7b 01       	movw	r14, r22
+	uint8_t data[5];// массив под данные датчика
+	uint8_t error=dht_start();// стартуем и получаем код ошибки в переменную
+  ba:	bb df       	rcall	.-138    	; 0x32 <dht_start>
+
+	if (error) return error; // если есть ошибки выходим с кодом ошибки
+  bc:	81 11       	cpse	r24, r1
+  be:	26 c0       	rjmp	.+76     	; 0x10c <__stack+0x6d>
+  c0:	8e 01       	movw	r16, r28
+  c2:	0f 5f       	subi	r16, 0xFF	; 255
+  c4:	1f 4f       	sbci	r17, 0xFF	; 255
+  c6:	5e 01       	movw	r10, r28
+  c8:	86 e0       	ldi	r24, 0x06	; 6
+  ca:	a8 0e       	add	r10, r24
+  cc:	b1 1c       	adc	r11, r1
+	
+	// получаем 5 байт от датчика
+	for (uint8_t i=0; i<5; i++)
+	{
+		data[i]=dht_byte();
+  ce:	cd df       	rcall	.-102    	; 0x6a <dht_byte>
+  d0:	f8 01       	movw	r30, r16
+  d2:	81 93       	st	Z+, r24
+  d4:	8f 01       	movw	r16, r30
+	uint8_t error=dht_start();// стартуем и получаем код ошибки в переменную
+
+	if (error) return error; // если есть ошибки выходим с кодом ошибки
+	
+	// получаем 5 байт от датчика
+	for (uint8_t i=0; i<5; i++)
+  d6:	ea 15       	cp	r30, r10
+  d8:	fb 05       	cpc	r31, r11
+  da:	c9 f7       	brne	.-14     	; 0xce <__stack+0x2f>
+	{
+		data[i]=dht_byte();
+	}
+	
+	if (data[0]+data[1]+data[2]+data[3]!=data[4]) return 3; // если контрольная сумма не сошлась вернем ошибку 3
+  dc:	59 81       	ldd	r21, Y+1	; 0x01
+  de:	4b 81       	ldd	r20, Y+3	; 0x03
+  e0:	2a 81       	ldd	r18, Y+2	; 0x02
+  e2:	85 2f       	mov	r24, r21
+  e4:	90 e0       	ldi	r25, 0x00	; 0
+  e6:	82 0f       	add	r24, r18
+  e8:	91 1d       	adc	r25, r1
+  ea:	84 0f       	add	r24, r20
+  ec:	91 1d       	adc	r25, r1
+  ee:	2c 81       	ldd	r18, Y+4	; 0x04
+  f0:	82 0f       	add	r24, r18
+  f2:	91 1d       	adc	r25, r1
+  f4:	2d 81       	ldd	r18, Y+5	; 0x05
+  f6:	30 e0       	ldi	r19, 0x00	; 0
+  f8:	82 17       	cp	r24, r18
+  fa:	93 07       	cpc	r25, r19
+  fc:	31 f4       	brne	.+12     	; 0x10a <__stack+0x6b>
+	
+	*hum=data[0];// пишем данные влажности 
+  fe:	f6 01       	movw	r30, r12
+ 100:	50 83       	st	Z, r21
+	*temp=data[2];// пишем данные температуры 
+ 102:	f7 01       	movw	r30, r14
+ 104:	40 83       	st	Z, r20
+	return 0;// вернем 0 - ошибок нет.
+ 106:	80 e0       	ldi	r24, 0x00	; 0
+ 108:	01 c0       	rjmp	.+2      	; 0x10c <__stack+0x6d>
+	for (uint8_t i=0; i<5; i++)
+	{
+		data[i]=dht_byte();
+	}
+	
+	if (data[0]+data[1]+data[2]+data[3]!=data[4]) return 3; // если контрольная сумма не сошлась вернем ошибку 3
+ 10a:	83 e0       	ldi	r24, 0x03	; 3
+	
+	*hum=data[0];// пишем данные влажности 
+	*temp=data[2];// пишем данные температуры 
+	return 0;// вернем 0 - ошибок нет.
+}
+ 10c:	cb 5f       	subi	r28, 0xFB	; 251
+ 10e:	cd bf       	out	0x3d, r28	; 61
+ 110:	df 91       	pop	r29
+ 112:	cf 91       	pop	r28
+ 114:	1f 91       	pop	r17
+ 116:	0f 91       	pop	r16
+ 118:	ff 90       	pop	r15
+ 11a:	ef 90       	pop	r14
+ 11c:	df 90       	pop	r13
+ 11e:	cf 90       	pop	r12
+ 120:	bf 90       	pop	r11
+ 122:	af 90       	pop	r10
+ 124:	08 95       	ret
+
+00000126 <main>:
+
+int main(void)
+{
+	dht_read(&_hum, &_temp);
+ 126:	60 e6       	ldi	r22, 0x60	; 96
+ 128:	70 e0       	ldi	r23, 0x00	; 0
+ 12a:	81 e6       	ldi	r24, 0x61	; 97
+ 12c:	90 e0       	ldi	r25, 0x00	; 0
+ 12e:	b5 df       	rcall	.-150    	; 0x9a <dht_read>
+ 130:	ff cf       	rjmp	.-2      	; 0x130 <main+0xa>
+
+00000132 <_exit>:
+ 132:	f8 94       	cli
+
+00000134 <__stop_program>:
+ 134:	ff cf       	rjmp	.-2      	; 0x134 <__stop_program>
