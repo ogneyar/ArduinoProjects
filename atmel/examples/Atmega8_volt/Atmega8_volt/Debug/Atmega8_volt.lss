@@ -1,0 +1,593 @@
+
+Atmega8_volt.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000330  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  00000330  000003c4  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000005  0080006a  0080006a  000003ce  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000003ce  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000400  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000a8  00000000  00000000  0000043c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000c64  00000000  00000000  000004e4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000746  00000000  00000000  00001148  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000065d  00000000  00000000  0000188e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000178  00000000  00000000  00001eec  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003d5  00000000  00000000  00002064  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000606  00000000  00000000  00002439  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000078  00000000  00000000  00002a3f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	20 c0       	rjmp	.+64     	; 0x5e <__vector_14>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e0 e3       	ldi	r30, 0x30	; 48
+  3a:	f3 e0       	ldi	r31, 0x03	; 3
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	aa 36       	cpi	r26, 0x6A	; 106
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	aa e6       	ldi	r26, 0x6A	; 106
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	af 36       	cpi	r26, 0x6F	; 111
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	5a d0       	rcall	.+180    	; 0x10e <main>
+  5a:	68 c1       	rjmp	.+720    	; 0x32c <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <__vector_14>:
+#include "adc.h"
+volatile uint8_t adc_col;// счетчик преобразований
+volatile uint32_t adc_summ;// переменная для суммы преобразований 
+
+// обработчик прерывания АЦП
+ISR(ADC_vect) {
+  5e:	1f 92       	push	r1
+  60:	0f 92       	push	r0
+  62:	0f b6       	in	r0, 0x3f	; 63
+  64:	0f 92       	push	r0
+  66:	11 24       	eor	r1, r1
+  68:	2f 93       	push	r18
+  6a:	3f 93       	push	r19
+  6c:	8f 93       	push	r24
+  6e:	9f 93       	push	r25
+  70:	af 93       	push	r26
+  72:	bf 93       	push	r27
+	if (adc_col)// если счетчик не ноль
+  74:	80 91 6e 00 	lds	r24, 0x006E	; 0x80006e <adc_col>
+  78:	88 23       	and	r24, r24
+  7a:	e1 f0       	breq	.+56     	; 0xb4 <__vector_14+0x56>
+	{
+		adc_col--;// декремент
+  7c:	80 91 6e 00 	lds	r24, 0x006E	; 0x80006e <adc_col>
+  80:	81 50       	subi	r24, 0x01	; 1
+  82:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <adc_col>
+		adc_summ+=ADC;// добавить в сумму очередное значение
+  86:	24 b1       	in	r18, 0x04	; 4
+  88:	35 b1       	in	r19, 0x05	; 5
+  8a:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <__data_end>
+  8e:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <__data_end+0x1>
+  92:	a0 91 6c 00 	lds	r26, 0x006C	; 0x80006c <__data_end+0x2>
+  96:	b0 91 6d 00 	lds	r27, 0x006D	; 0x80006d <__data_end+0x3>
+  9a:	82 0f       	add	r24, r18
+  9c:	93 1f       	adc	r25, r19
+  9e:	a1 1d       	adc	r26, r1
+  a0:	b1 1d       	adc	r27, r1
+  a2:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__data_end>
+  a6:	90 93 6b 00 	sts	0x006B, r25	; 0x80006b <__data_end+0x1>
+  aa:	a0 93 6c 00 	sts	0x006C, r26	; 0x80006c <__data_end+0x2>
+  ae:	b0 93 6d 00 	sts	0x006D, r27	; 0x80006d <__data_end+0x3>
+		ADCSRA|=(1<<ADSC);// запуск преобразования
+  b2:	36 9a       	sbi	0x06, 6	; 6
+	}
+}
+  b4:	bf 91       	pop	r27
+  b6:	af 91       	pop	r26
+  b8:	9f 91       	pop	r25
+  ba:	8f 91       	pop	r24
+  bc:	3f 91       	pop	r19
+  be:	2f 91       	pop	r18
+  c0:	0f 90       	pop	r0
+  c2:	0f be       	out	0x3f, r0	; 63
+  c4:	0f 90       	pop	r0
+  c6:	1f 90       	pop	r1
+  c8:	18 95       	reti
+
+000000ca <adc_ini>:
+
+// настройки АЦП
+void adc_ini(void){
+	ADMUX|=(1<<REFS0);// выбор источником опорного напряжения - AVCC
+  ca:	3e 9a       	sbi	0x07, 6	; 7
+	ADMUX|=2; // выбор канала 2
+  cc:	39 9a       	sbi	0x07, 1	; 7
+	//ADMUX|=(1<<ADLAR);// формирование 8 старших бит результата в ADCH
+	ADCSRA|=(1<<ADPS2);// делитель 16
+  ce:	32 9a       	sbi	0x06, 2	; 6
+	ADCSRA|=(1<<ADEN); // включение АЦП
+  d0:	37 9a       	sbi	0x06, 7	; 6
+	ADCSRA|=(1<<ADIE);// разрешить прерывание АЦП
+  d2:	33 9a       	sbi	0x06, 3	; 6
+  d4:	08 95       	ret
+
+000000d6 <adc_start>:
+}
+
+// старт блока преобразований
+void adc_start(void){
+	adc_col=200;
+  d6:	88 ec       	ldi	r24, 0xC8	; 200
+  d8:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <adc_col>
+	ADCSRA|=(1<<ADSC);// запуск преобразования
+  dc:	36 9a       	sbi	0x06, 6	; 6
+  de:	08 95       	ret
+
+000000e0 <adc_chek>:
+}
+
+// проверка окончания блока преобразований, 1 - если конец, 0 - если еще нет
+uint8_t adc_chek(void){
+	if(adc_col) return 0;
+  e0:	90 91 6e 00 	lds	r25, 0x006E	; 0x80006e <adc_col>
+  e4:	81 e0       	ldi	r24, 0x01	; 1
+  e6:	91 11       	cpse	r25, r1
+  e8:	80 e0       	ldi	r24, 0x00	; 0
+	return 1;
+}
+  ea:	08 95       	ret
+
+000000ec <adc_get_summ>:
+
+// забрать и обнулить сумму преобразований
+uint32_t adc_get_summ(void){
+	uint32_t val=adc_summ;
+  ec:	60 91 6a 00 	lds	r22, 0x006A	; 0x80006a <__data_end>
+  f0:	70 91 6b 00 	lds	r23, 0x006B	; 0x80006b <__data_end+0x1>
+  f4:	80 91 6c 00 	lds	r24, 0x006C	; 0x80006c <__data_end+0x2>
+  f8:	90 91 6d 00 	lds	r25, 0x006D	; 0x80006d <__data_end+0x3>
+	adc_summ=0;
+  fc:	10 92 6a 00 	sts	0x006A, r1	; 0x80006a <__data_end>
+ 100:	10 92 6b 00 	sts	0x006B, r1	; 0x80006b <__data_end+0x1>
+ 104:	10 92 6c 00 	sts	0x006C, r1	; 0x80006c <__data_end+0x2>
+ 108:	10 92 6d 00 	sts	0x006D, r1	; 0x80006d <__data_end+0x3>
+	return val;
+ 10c:	08 95       	ret
+
+0000010e <main>:
+#include "main.h"
+
+int main(void)
+{
+	adc_ini();// настройки ацп
+ 10e:	dd df       	rcall	.-70     	; 0xca <adc_ini>
+	uint8_t status=0;// переменная статуса
+	uint16_t adc_sred;// среднее значение АЦП
+	uint16_t volt;// вольты
+	sei();// глобально разрешить прерывания
+ 110:	78 94       	sei
+#include "main.h"
+
+int main(void)
+{
+	adc_ini();// настройки ацп
+	uint8_t status=0;// переменная статуса
+ 112:	c0 e0       	ldi	r28, 0x00	; 0
+			adc_start();// просто стартуем 
+			status=1;//и переходим в следующий статус -1.
+			break;
+			
+			case 1:// проверка окончания блока преобразований
+			if(adc_chek()) status=2;// если блок всё, переходим к статусу 3
+ 114:	d2 e0       	ldi	r29, 0x02	; 2
+	while (1)
+    {
+		switch(status){
+			case 0:// старт блока преобразований
+			adc_start();// просто стартуем 
+			status=1;//и переходим в следующий статус -1.
+ 116:	01 e0       	ldi	r16, 0x01	; 1
+			break;
+
+			case 2://рассчеты и вывод на индикацию
+			adc_sred=adc_get_summ()/200;// забираем сумму преобразований и вычисляем среднее арифметическое
+			volt=3*adc_sred;// рассчитываем напряжение
+			tm1637_indication_dot(volt, 2);// выводим на индикацию
+ 118:	0f 2e       	mov	r0, r31
+ 11a:	f8 ec       	ldi	r31, 0xC8	; 200
+ 11c:	cf 2e       	mov	r12, r31
+ 11e:	d1 2c       	mov	r13, r1
+ 120:	e1 2c       	mov	r14, r1
+ 122:	f1 2c       	mov	r15, r1
+ 124:	f0 2d       	mov	r31, r0
+			status=0;// переходим в статус 0
+ 126:	10 e0       	ldi	r17, 0x00	; 0
+	uint16_t adc_sred;// среднее значение АЦП
+	uint16_t volt;// вольты
+	sei();// глобально разрешить прерывания
+	while (1)
+    {
+		switch(status){
+ 128:	c1 30       	cpi	r28, 0x01	; 1
+ 12a:	39 f0       	breq	.+14     	; 0x13a <main+0x2c>
+ 12c:	18 f0       	brcs	.+6      	; 0x134 <main+0x26>
+ 12e:	c2 30       	cpi	r28, 0x02	; 2
+ 130:	49 f0       	breq	.+18     	; 0x144 <main+0x36>
+ 132:	fa cf       	rjmp	.-12     	; 0x128 <main+0x1a>
+			case 0:// старт блока преобразований
+			adc_start();// просто стартуем 
+ 134:	d0 df       	rcall	.-96     	; 0xd6 <adc_start>
+			status=1;//и переходим в следующий статус -1.
+ 136:	c0 2f       	mov	r28, r16
+			break;
+ 138:	f7 cf       	rjmp	.-18     	; 0x128 <main+0x1a>
+			
+			case 1:// проверка окончания блока преобразований
+			if(adc_chek()) status=2;// если блок всё, переходим к статусу 3
+ 13a:	d2 df       	rcall	.-92     	; 0xe0 <adc_chek>
+ 13c:	88 23       	and	r24, r24
+ 13e:	a1 f3       	breq	.-24     	; 0x128 <main+0x1a>
+ 140:	cd 2f       	mov	r28, r29
+ 142:	f2 cf       	rjmp	.-28     	; 0x128 <main+0x1a>
+			break;
+
+			case 2://рассчеты и вывод на индикацию
+			adc_sred=adc_get_summ()/200;// забираем сумму преобразований и вычисляем среднее арифметическое
+ 144:	d3 df       	rcall	.-90     	; 0xec <adc_get_summ>
+			volt=3*adc_sred;// рассчитываем напряжение
+			tm1637_indication_dot(volt, 2);// выводим на индикацию
+ 146:	a7 01       	movw	r20, r14
+ 148:	96 01       	movw	r18, r12
+ 14a:	c2 d0       	rcall	.+388    	; 0x2d0 <__udivmodsi4>
+ 14c:	c9 01       	movw	r24, r18
+ 14e:	88 0f       	add	r24, r24
+ 150:	99 1f       	adc	r25, r25
+ 152:	82 0f       	add	r24, r18
+ 154:	93 1f       	adc	r25, r19
+ 156:	6d 2f       	mov	r22, r29
+ 158:	6e d0       	rcall	.+220    	; 0x236 <tm1637_indication_dot>
+			status=0;// переходим в статус 0
+ 15a:	c1 2f       	mov	r28, r17
+			break;
+ 15c:	e5 cf       	rjmp	.-54     	; 0x128 <main+0x1a>
+
+0000015e <start>:
+	{
+		temp[i] = digits[n%10];
+		n/=10;
+	}
+	indication(temp[3], temp[2], temp[1], temp[0]);
+}
+ 15e:	bb 9a       	sbi	0x17, 3	; 23
+ 160:	bc 9a       	sbi	0x17, 4	; 23
+ 162:	c3 9a       	sbi	0x18, 3	; 24
+ 164:	c4 9a       	sbi	0x18, 4	; 24
+ 166:	00 c0       	rjmp	.+0      	; 0x168 <start+0xa>
+ 168:	00 c0       	rjmp	.+0      	; 0x16a <start+0xc>
+ 16a:	00 00       	nop
+ 16c:	c4 98       	cbi	0x18, 4	; 24
+ 16e:	c3 98       	cbi	0x18, 3	; 24
+ 170:	00 c0       	rjmp	.+0      	; 0x172 <start+0x14>
+ 172:	00 c0       	rjmp	.+0      	; 0x174 <start+0x16>
+ 174:	00 00       	nop
+ 176:	08 95       	ret
+
+00000178 <stop>:
+ 178:	bb 9a       	sbi	0x17, 3	; 23
+ 17a:	bc 9a       	sbi	0x17, 4	; 23
+ 17c:	c3 98       	cbi	0x18, 3	; 24
+ 17e:	c4 98       	cbi	0x18, 4	; 24
+ 180:	00 c0       	rjmp	.+0      	; 0x182 <stop+0xa>
+ 182:	00 c0       	rjmp	.+0      	; 0x184 <stop+0xc>
+ 184:	00 00       	nop
+ 186:	c3 9a       	sbi	0x18, 3	; 24
+ 188:	c4 9a       	sbi	0x18, 4	; 24
+ 18a:	00 c0       	rjmp	.+0      	; 0x18c <stop+0x14>
+ 18c:	00 c0       	rjmp	.+0      	; 0x18e <stop+0x16>
+ 18e:	00 00       	nop
+ 190:	08 95       	ret
+
+00000192 <write_byte>:
+ 192:	40 e0       	ldi	r20, 0x00	; 0
+ 194:	50 e0       	ldi	r21, 0x00	; 0
+ 196:	61 e0       	ldi	r22, 0x01	; 1
+ 198:	70 e0       	ldi	r23, 0x00	; 0
+ 19a:	90 e0       	ldi	r25, 0x00	; 0
+ 19c:	c3 98       	cbi	0x18, 3	; 24
+ 19e:	00 c0       	rjmp	.+0      	; 0x1a0 <write_byte+0xe>
+ 1a0:	00 c0       	rjmp	.+0      	; 0x1a2 <write_byte+0x10>
+ 1a2:	00 00       	nop
+ 1a4:	9b 01       	movw	r18, r22
+ 1a6:	04 2e       	mov	r0, r20
+ 1a8:	02 c0       	rjmp	.+4      	; 0x1ae <write_byte+0x1c>
+ 1aa:	22 0f       	add	r18, r18
+ 1ac:	33 1f       	adc	r19, r19
+ 1ae:	0a 94       	dec	r0
+ 1b0:	e2 f7       	brpl	.-8      	; 0x1aa <write_byte+0x18>
+ 1b2:	28 23       	and	r18, r24
+ 1b4:	39 23       	and	r19, r25
+ 1b6:	04 2e       	mov	r0, r20
+ 1b8:	02 c0       	rjmp	.+4      	; 0x1be <write_byte+0x2c>
+ 1ba:	35 95       	asr	r19
+ 1bc:	27 95       	ror	r18
+ 1be:	0a 94       	dec	r0
+ 1c0:	e2 f7       	brpl	.-8      	; 0x1ba <write_byte+0x28>
+ 1c2:	22 23       	and	r18, r18
+ 1c4:	11 f0       	breq	.+4      	; 0x1ca <write_byte+0x38>
+ 1c6:	c4 9a       	sbi	0x18, 4	; 24
+ 1c8:	01 c0       	rjmp	.+2      	; 0x1cc <write_byte+0x3a>
+ 1ca:	c4 98       	cbi	0x18, 4	; 24
+ 1cc:	00 c0       	rjmp	.+0      	; 0x1ce <write_byte+0x3c>
+ 1ce:	00 c0       	rjmp	.+0      	; 0x1d0 <write_byte+0x3e>
+ 1d0:	00 00       	nop
+ 1d2:	c3 9a       	sbi	0x18, 3	; 24
+ 1d4:	00 c0       	rjmp	.+0      	; 0x1d6 <write_byte+0x44>
+ 1d6:	00 c0       	rjmp	.+0      	; 0x1d8 <write_byte+0x46>
+ 1d8:	00 00       	nop
+ 1da:	4f 5f       	subi	r20, 0xFF	; 255
+ 1dc:	5f 4f       	sbci	r21, 0xFF	; 255
+ 1de:	48 30       	cpi	r20, 0x08	; 8
+ 1e0:	51 05       	cpc	r21, r1
+ 1e2:	e1 f6       	brne	.-72     	; 0x19c <write_byte+0xa>
+ 1e4:	c3 98       	cbi	0x18, 3	; 24
+ 1e6:	00 c0       	rjmp	.+0      	; 0x1e8 <write_byte+0x56>
+ 1e8:	00 c0       	rjmp	.+0      	; 0x1ea <write_byte+0x58>
+ 1ea:	00 00       	nop
+ 1ec:	c3 9a       	sbi	0x18, 3	; 24
+ 1ee:	00 c0       	rjmp	.+0      	; 0x1f0 <write_byte+0x5e>
+ 1f0:	00 c0       	rjmp	.+0      	; 0x1f2 <write_byte+0x60>
+ 1f2:	00 00       	nop
+ 1f4:	08 95       	ret
+
+000001f6 <indication>:
+ 1f6:	0f 93       	push	r16
+ 1f8:	1f 93       	push	r17
+ 1fa:	cf 93       	push	r28
+ 1fc:	df 93       	push	r29
+ 1fe:	08 2f       	mov	r16, r24
+ 200:	16 2f       	mov	r17, r22
+ 202:	d4 2f       	mov	r29, r20
+ 204:	c2 2f       	mov	r28, r18
+ 206:	ab df       	rcall	.-170    	; 0x15e <start>
+ 208:	8f e8       	ldi	r24, 0x8F	; 143
+ 20a:	c3 df       	rcall	.-122    	; 0x192 <write_byte>
+ 20c:	a8 df       	rcall	.-176    	; 0x15e <start>
+ 20e:	80 e4       	ldi	r24, 0x40	; 64
+ 210:	c0 df       	rcall	.-128    	; 0x192 <write_byte>
+ 212:	b2 df       	rcall	.-156    	; 0x178 <stop>
+ 214:	a4 df       	rcall	.-184    	; 0x15e <start>
+ 216:	80 ec       	ldi	r24, 0xC0	; 192
+ 218:	bc df       	rcall	.-136    	; 0x192 <write_byte>
+ 21a:	80 2f       	mov	r24, r16
+ 21c:	ba df       	rcall	.-140    	; 0x192 <write_byte>
+ 21e:	81 2f       	mov	r24, r17
+ 220:	b8 df       	rcall	.-144    	; 0x192 <write_byte>
+ 222:	8d 2f       	mov	r24, r29
+ 224:	b6 df       	rcall	.-148    	; 0x192 <write_byte>
+ 226:	8c 2f       	mov	r24, r28
+ 228:	b4 df       	rcall	.-152    	; 0x192 <write_byte>
+ 22a:	a6 df       	rcall	.-180    	; 0x178 <stop>
+ 22c:	df 91       	pop	r29
+ 22e:	cf 91       	pop	r28
+ 230:	1f 91       	pop	r17
+ 232:	0f 91       	pop	r16
+ 234:	08 95       	ret
+
+00000236 <tm1637_indication_dot>:
+
+//индикация 16 битного значения с точкой
+void tm1637_indication_dot(uint16_t n, uint8_t dot)
+{
+ 236:	0f 93       	push	r16
+ 238:	1f 93       	push	r17
+ 23a:	cf 93       	push	r28
+ 23c:	df 93       	push	r29
+ 23e:	00 d0       	rcall	.+0      	; 0x240 <tm1637_indication_dot+0xa>
+ 240:	00 d0       	rcall	.+0      	; 0x242 <tm1637_indication_dot+0xc>
+ 242:	cd b7       	in	r28, 0x3d	; 61
+ 244:	de b7       	in	r29, 0x3e	; 62
+ 246:	fc 01       	movw	r30, r24
+ 248:	56 2f       	mov	r21, r22
+ 24a:	8e 01       	movw	r16, r28
+ 24c:	0f 5f       	subi	r16, 0xFF	; 255
+ 24e:	1f 4f       	sbci	r17, 0xFF	; 255
+	uint8_t temp[4];
+	for(uint8_t i=0; i<4; i++)
+ 250:	40 e0       	ldi	r20, 0x00	; 0
+	{
+		temp[i] = digits[n%10];
+ 252:	9f 01       	movw	r18, r30
+ 254:	ad ec       	ldi	r26, 0xCD	; 205
+ 256:	bc ec       	ldi	r27, 0xCC	; 204
+ 258:	5d d0       	rcall	.+186    	; 0x314 <__umulhisi3>
+ 25a:	96 95       	lsr	r25
+ 25c:	87 95       	ror	r24
+ 25e:	96 95       	lsr	r25
+ 260:	87 95       	ror	r24
+ 262:	96 95       	lsr	r25
+ 264:	87 95       	ror	r24
+ 266:	9c 01       	movw	r18, r24
+ 268:	22 0f       	add	r18, r18
+ 26a:	33 1f       	adc	r19, r19
+ 26c:	88 0f       	add	r24, r24
+ 26e:	99 1f       	adc	r25, r25
+ 270:	88 0f       	add	r24, r24
+ 272:	99 1f       	adc	r25, r25
+ 274:	88 0f       	add	r24, r24
+ 276:	99 1f       	adc	r25, r25
+ 278:	82 0f       	add	r24, r18
+ 27a:	93 1f       	adc	r25, r19
+ 27c:	df 01       	movw	r26, r30
+ 27e:	a8 1b       	sub	r26, r24
+ 280:	b9 0b       	sbc	r27, r25
+ 282:	a0 5a       	subi	r26, 0xA0	; 160
+ 284:	bf 4f       	sbci	r27, 0xFF	; 255
+ 286:	8c 91       	ld	r24, X
+ 288:	d8 01       	movw	r26, r16
+ 28a:	8c 93       	st	X, r24
+		if (i==dot) temp[i]+=128;
+ 28c:	54 13       	cpse	r21, r20
+ 28e:	02 c0       	rjmp	.+4      	; 0x294 <tm1637_indication_dot+0x5e>
+ 290:	80 58       	subi	r24, 0x80	; 128
+ 292:	8c 93       	st	X, r24
+		n/=10;
+ 294:	9f 01       	movw	r18, r30
+ 296:	ad ec       	ldi	r26, 0xCD	; 205
+ 298:	bc ec       	ldi	r27, 0xCC	; 204
+ 29a:	3c d0       	rcall	.+120    	; 0x314 <__umulhisi3>
+ 29c:	fc 01       	movw	r30, r24
+ 29e:	f6 95       	lsr	r31
+ 2a0:	e7 95       	ror	r30
+ 2a2:	f6 95       	lsr	r31
+ 2a4:	e7 95       	ror	r30
+ 2a6:	f6 95       	lsr	r31
+ 2a8:	e7 95       	ror	r30
+
+//индикация 16 битного значения с точкой
+void tm1637_indication_dot(uint16_t n, uint8_t dot)
+{
+	uint8_t temp[4];
+	for(uint8_t i=0; i<4; i++)
+ 2aa:	4f 5f       	subi	r20, 0xFF	; 255
+ 2ac:	0f 5f       	subi	r16, 0xFF	; 255
+ 2ae:	1f 4f       	sbci	r17, 0xFF	; 255
+ 2b0:	44 30       	cpi	r20, 0x04	; 4
+ 2b2:	79 f6       	brne	.-98     	; 0x252 <tm1637_indication_dot+0x1c>
+	{
+		temp[i] = digits[n%10];
+		if (i==dot) temp[i]+=128;
+		n/=10;
+	}
+	indication(temp[3], temp[2], temp[1], temp[0]);
+ 2b4:	29 81       	ldd	r18, Y+1	; 0x01
+ 2b6:	4a 81       	ldd	r20, Y+2	; 0x02
+ 2b8:	6b 81       	ldd	r22, Y+3	; 0x03
+ 2ba:	8c 81       	ldd	r24, Y+4	; 0x04
+ 2bc:	9c df       	rcall	.-200    	; 0x1f6 <indication>
+}
+ 2be:	0f 90       	pop	r0
+ 2c0:	0f 90       	pop	r0
+ 2c2:	0f 90       	pop	r0
+ 2c4:	0f 90       	pop	r0
+ 2c6:	df 91       	pop	r29
+ 2c8:	cf 91       	pop	r28
+ 2ca:	1f 91       	pop	r17
+ 2cc:	0f 91       	pop	r16
+ 2ce:	08 95       	ret
+
+000002d0 <__udivmodsi4>:
+ 2d0:	a1 e2       	ldi	r26, 0x21	; 33
+ 2d2:	1a 2e       	mov	r1, r26
+ 2d4:	aa 1b       	sub	r26, r26
+ 2d6:	bb 1b       	sub	r27, r27
+ 2d8:	fd 01       	movw	r30, r26
+ 2da:	0d c0       	rjmp	.+26     	; 0x2f6 <__udivmodsi4_ep>
+
+000002dc <__udivmodsi4_loop>:
+ 2dc:	aa 1f       	adc	r26, r26
+ 2de:	bb 1f       	adc	r27, r27
+ 2e0:	ee 1f       	adc	r30, r30
+ 2e2:	ff 1f       	adc	r31, r31
+ 2e4:	a2 17       	cp	r26, r18
+ 2e6:	b3 07       	cpc	r27, r19
+ 2e8:	e4 07       	cpc	r30, r20
+ 2ea:	f5 07       	cpc	r31, r21
+ 2ec:	20 f0       	brcs	.+8      	; 0x2f6 <__udivmodsi4_ep>
+ 2ee:	a2 1b       	sub	r26, r18
+ 2f0:	b3 0b       	sbc	r27, r19
+ 2f2:	e4 0b       	sbc	r30, r20
+ 2f4:	f5 0b       	sbc	r31, r21
+
+000002f6 <__udivmodsi4_ep>:
+ 2f6:	66 1f       	adc	r22, r22
+ 2f8:	77 1f       	adc	r23, r23
+ 2fa:	88 1f       	adc	r24, r24
+ 2fc:	99 1f       	adc	r25, r25
+ 2fe:	1a 94       	dec	r1
+ 300:	69 f7       	brne	.-38     	; 0x2dc <__udivmodsi4_loop>
+ 302:	60 95       	com	r22
+ 304:	70 95       	com	r23
+ 306:	80 95       	com	r24
+ 308:	90 95       	com	r25
+ 30a:	9b 01       	movw	r18, r22
+ 30c:	ac 01       	movw	r20, r24
+ 30e:	bd 01       	movw	r22, r26
+ 310:	cf 01       	movw	r24, r30
+ 312:	08 95       	ret
+
+00000314 <__umulhisi3>:
+ 314:	a2 9f       	mul	r26, r18
+ 316:	b0 01       	movw	r22, r0
+ 318:	b3 9f       	mul	r27, r19
+ 31a:	c0 01       	movw	r24, r0
+ 31c:	a3 9f       	mul	r26, r19
+ 31e:	01 d0       	rcall	.+2      	; 0x322 <__umulhisi3+0xe>
+ 320:	b2 9f       	mul	r27, r18
+ 322:	70 0d       	add	r23, r0
+ 324:	81 1d       	adc	r24, r1
+ 326:	11 24       	eor	r1, r1
+ 328:	91 1d       	adc	r25, r1
+ 32a:	08 95       	ret
+
+0000032c <_exit>:
+ 32c:	f8 94       	cli
+
+0000032e <__stop_program>:
+ 32e:	ff cf       	rjmp	.-2      	; 0x32e <__stop_program>

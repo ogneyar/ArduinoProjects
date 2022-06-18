@@ -1,0 +1,179 @@
+
+Attiny13_reg595.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000b6  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000010a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000010a  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000013c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000070  00000000  00000000  00000178  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000056b  00000000  00000000  000001e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000434  00000000  00000000  00000753  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000306  00000000  00000000  00000b87  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000d8  00000000  00000000  00000e90  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000029a  00000000  00000000  00000f68  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000001be  00000000  00000000  00001202  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000050  00000000  00000000  000013c0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	0e c0       	rjmp	.+28     	; 0x20 <__bad_interrupt>
+   4:	0d c0       	rjmp	.+26     	; 0x20 <__bad_interrupt>
+   6:	0c c0       	rjmp	.+24     	; 0x20 <__bad_interrupt>
+   8:	0b c0       	rjmp	.+22     	; 0x20 <__bad_interrupt>
+   a:	0a c0       	rjmp	.+20     	; 0x20 <__bad_interrupt>
+   c:	09 c0       	rjmp	.+18     	; 0x20 <__bad_interrupt>
+   e:	08 c0       	rjmp	.+16     	; 0x20 <__bad_interrupt>
+  10:	07 c0       	rjmp	.+14     	; 0x20 <__bad_interrupt>
+  12:	06 c0       	rjmp	.+12     	; 0x20 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+  1c:	02 d0       	rcall	.+4      	; 0x22 <main>
+  1e:	49 c0       	rjmp	.+146    	; 0xb2 <_exit>
+
+00000020 <__bad_interrupt>:
+  20:	ef cf       	rjmp	.-34     	; 0x0 <__vectors>
+
+00000022 <main>:
+#include "main.h"
+
+int main(void)
+{
+  22:	cf 93       	push	r28
+  24:	df 93       	push	r29
+  26:	00 d0       	rcall	.+0      	; 0x28 <main+0x6>
+  28:	cd b7       	in	r28, 0x3d	; 61
+  2a:	dd 27       	eor	r29, r29
+	reg595_ini();
+  2c:	08 d0       	rcall	.+16     	; 0x3e <reg595_ini>
+	uint8_t buf[2]={0b11110000, 0b00001111};
+  2e:	80 ef       	ldi	r24, 0xF0	; 240
+  30:	89 83       	std	Y+1, r24	; 0x01
+  32:	8f e0       	ldi	r24, 0x0F	; 15
+  34:	8a 83       	std	Y+2, r24	; 0x02
+	reg595_send(buf);
+  36:	ce 01       	movw	r24, r28
+  38:	01 96       	adiw	r24, 0x01	; 1
+  3a:	38 d0       	rcall	.+112    	; 0xac <reg595_send>
+  3c:	ff cf       	rjmp	.-2      	; 0x3c <main+0x1a>
+
+0000003e <reg595_ini>:
+}
+
+// заполнение одного регистра
+void reg595_send_byte(uint8_t byte){
+	reg595_byte(byte);
+	reg595_enter();
+  3e:	b8 9a       	sbi	0x17, 0	; 23
+  40:	b9 9a       	sbi	0x17, 1	; 23
+  42:	ba 9a       	sbi	0x17, 2	; 23
+  44:	08 95       	ret
+
+00000046 <reg595_takt>:
+  46:	c0 9a       	sbi	0x18, 0	; 24
+  48:	c0 98       	cbi	0x18, 0	; 24
+  4a:	08 95       	ret
+
+0000004c <reg595_enter>:
+  4c:	c2 9a       	sbi	0x18, 2	; 24
+  4e:	c2 98       	cbi	0x18, 2	; 24
+  50:	08 95       	ret
+
+00000052 <reg595_byte>:
+  52:	0f 93       	push	r16
+  54:	1f 93       	push	r17
+  56:	cf 93       	push	r28
+  58:	c7 e0       	ldi	r28, 0x07	; 7
+  5a:	08 2f       	mov	r16, r24
+  5c:	10 e0       	ldi	r17, 0x00	; 0
+  5e:	98 01       	movw	r18, r16
+  60:	0c 2e       	mov	r0, r28
+  62:	02 c0       	rjmp	.+4      	; 0x68 <reg595_byte+0x16>
+  64:	35 95       	asr	r19
+  66:	27 95       	ror	r18
+  68:	0a 94       	dec	r0
+  6a:	e2 f7       	brpl	.-8      	; 0x64 <reg595_byte+0x12>
+  6c:	20 fd       	sbrc	r18, 0
+  6e:	c1 9a       	sbi	0x18, 1	; 24
+  70:	ea df       	rcall	.-44     	; 0x46 <reg595_takt>
+  72:	c1 98       	cbi	0x18, 1	; 24
+  74:	c1 50       	subi	r28, 0x01	; 1
+  76:	98 f7       	brcc	.-26     	; 0x5e <reg595_byte+0xc>
+  78:	cf 91       	pop	r28
+  7a:	1f 91       	pop	r17
+  7c:	0f 91       	pop	r16
+  7e:	08 95       	ret
+
+00000080 <reg595_array>:
+}
+
+
+void reg595_array(uint8_t* array, uint8_t num_reg){
+  80:	0f 93       	push	r16
+  82:	1f 93       	push	r17
+  84:	cf 93       	push	r28
+  86:	8c 01       	movw	r16, r24
+	while(num_reg--){
+  88:	cf ef       	ldi	r28, 0xFF	; 255
+  8a:	c6 0f       	add	r28, r22
+  8c:	66 23       	and	r22, r22
+  8e:	49 f0       	breq	.+18     	; 0xa2 <__stack+0x3>
+		reg595_byte(array[num_reg]);
+  90:	f8 01       	movw	r30, r16
+  92:	ec 0f       	add	r30, r28
+  94:	f1 1d       	adc	r31, r1
+  96:	80 81       	ld	r24, Z
+  98:	dc df       	rcall	.-72     	; 0x52 <reg595_byte>
+  9a:	8c 2f       	mov	r24, r28
+	reg595_enter();
+}
+
+
+void reg595_array(uint8_t* array, uint8_t num_reg){
+	while(num_reg--){
+  9c:	c1 50       	subi	r28, 0x01	; 1
+  9e:	81 11       	cpse	r24, r1
+  a0:	f7 cf       	rjmp	.-18     	; 0x90 <reg595_array+0x10>
+		reg595_byte(array[num_reg]);
+	}
+	reg595_enter();
+  a2:	d4 df       	rcall	.-88     	; 0x4c <reg595_enter>
+}
+  a4:	cf 91       	pop	r28
+  a6:	1f 91       	pop	r17
+  a8:	0f 91       	pop	r16
+  aa:	08 95       	ret
+
+000000ac <reg595_send>:
+
+
+void reg595_send(uint8_t* array){
+	reg595_array(array, REG_NUM);
+  ac:	63 e0       	ldi	r22, 0x03	; 3
+  ae:	e8 df       	rcall	.-48     	; 0x80 <reg595_array>
+  b0:	08 95       	ret
+
+000000b2 <_exit>:
+  b2:	f8 94       	cli
+
+000000b4 <__stop_program>:
+  b4:	ff cf       	rjmp	.-2      	; 0xb4 <__stop_program>

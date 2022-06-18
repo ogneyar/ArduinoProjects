@@ -1,0 +1,302 @@
+
+Atmega8_adcbutton.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000013e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000001b2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000003  00800060  00800060  000001b2  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000001b2  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001e4  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000030  00000000  00000000  00000220  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000005b0  00000000  00000000  00000250  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000051b  00000000  00000000  00000800  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000002a4  00000000  00000000  00000d1b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000008c  00000000  00000000  00000fc0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000002e4  00000000  00000000  0000104c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000172  00000000  00000000  00001330  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000020  00000000  00000000  000014a2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	27 c0       	rjmp	.+78     	; 0x6c <__vector_14>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	20 e0       	ldi	r18, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a3 36       	cpi	r26, 0x63	; 99
+  3e:	b2 07       	cpc	r27, r18
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	4c d0       	rcall	.+152    	; 0xdc <main>
+  44:	7a c0       	rjmp	.+244    	; 0x13a <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <button_code>:
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+// преобразование АЦП в код нажатой кнопки
+uint8_t button_code(uint8_t adc){
+	if (adc>200) return 0;
+  48:	89 3c       	cpi	r24, 0xC9	; 201
+  4a:	40 f4       	brcc	.+16     	; 0x5c <button_code+0x14>
+	if (adc>160) return 4;
+  4c:	81 3a       	cpi	r24, 0xA1	; 161
+  4e:	40 f4       	brcc	.+16     	; 0x60 <button_code+0x18>
+	if (adc>110) return 3;
+  50:	8f 36       	cpi	r24, 0x6F	; 111
+  52:	40 f4       	brcc	.+16     	; 0x64 <button_code+0x1c>
+	if (adc>30) return 2;
+  54:	8f 31       	cpi	r24, 0x1F	; 31
+  56:	40 f4       	brcc	.+16     	; 0x68 <button_code+0x20>
+	if (adc>=0) return 1;
+  58:	81 e0       	ldi	r24, 0x01	; 1
+  5a:	08 95       	ret
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+// преобразование АЦП в код нажатой кнопки
+uint8_t button_code(uint8_t adc){
+	if (adc>200) return 0;
+  5c:	80 e0       	ldi	r24, 0x00	; 0
+  5e:	08 95       	ret
+	if (adc>160) return 4;
+  60:	84 e0       	ldi	r24, 0x04	; 4
+  62:	08 95       	ret
+	if (adc>110) return 3;
+  64:	83 e0       	ldi	r24, 0x03	; 3
+  66:	08 95       	ret
+	if (adc>30) return 2;
+  68:	82 e0       	ldi	r24, 0x02	; 2
+	if (adc>=0) return 1;
+}
+  6a:	08 95       	ret
+
+0000006c <__vector_14>:
+
+uint8_t button_old;
+uint8_t button_count;
+volatile uint8_t button_clk;
+// обработчик прерывания по окончанию преобразования АЦП
+ISR(ADC_vect){
+  6c:	1f 92       	push	r1
+  6e:	0f 92       	push	r0
+  70:	0f b6       	in	r0, 0x3f	; 63
+  72:	0f 92       	push	r0
+  74:	11 24       	eor	r1, r1
+  76:	2f 93       	push	r18
+  78:	3f 93       	push	r19
+  7a:	4f 93       	push	r20
+  7c:	5f 93       	push	r21
+  7e:	6f 93       	push	r22
+  80:	7f 93       	push	r23
+  82:	8f 93       	push	r24
+  84:	9f 93       	push	r25
+  86:	af 93       	push	r26
+  88:	bf 93       	push	r27
+  8a:	ef 93       	push	r30
+  8c:	ff 93       	push	r31
+	uint8_t button=button_code(ADCH);
+  8e:	85 b1       	in	r24, 0x05	; 5
+  90:	db df       	rcall	.-74     	; 0x48 <button_code>
+	if (button!=button_old)
+  92:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <button_old>
+  96:	89 17       	cp	r24, r25
+  98:	19 f0       	breq	.+6      	; 0xa0 <__vector_14+0x34>
+	{
+		button_count=0;
+  9a:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <_edata>
+  9e:	0b c0       	rjmp	.+22     	; 0xb6 <__vector_14+0x4a>
+	} 
+	else
+	{
+		if (button_count<255) button_count++;
+  a0:	90 91 60 00 	lds	r25, 0x0060	; 0x800060 <_edata>
+  a4:	9f 3f       	cpi	r25, 0xFF	; 255
+  a6:	39 f0       	breq	.+14     	; 0xb6 <__vector_14+0x4a>
+  a8:	9f 5f       	subi	r25, 0xFF	; 255
+  aa:	90 93 60 00 	sts	0x0060, r25	; 0x800060 <_edata>
+		if (button_count==30) button_clk=button;
+  ae:	9e 31       	cpi	r25, 0x1E	; 30
+  b0:	11 f4       	brne	.+4      	; 0xb6 <__vector_14+0x4a>
+  b2:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <button_clk>
+	}
+	
+	button_old=button;
+  b6:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <button_old>
+}
+  ba:	ff 91       	pop	r31
+  bc:	ef 91       	pop	r30
+  be:	bf 91       	pop	r27
+  c0:	af 91       	pop	r26
+  c2:	9f 91       	pop	r25
+  c4:	8f 91       	pop	r24
+  c6:	7f 91       	pop	r23
+  c8:	6f 91       	pop	r22
+  ca:	5f 91       	pop	r21
+  cc:	4f 91       	pop	r20
+  ce:	3f 91       	pop	r19
+  d0:	2f 91       	pop	r18
+  d2:	0f 90       	pop	r0
+  d4:	0f be       	out	0x3f, r0	; 63
+  d6:	0f 90       	pop	r0
+  d8:	1f 90       	pop	r1
+  da:	18 95       	reti
+
+000000dc <main>:
+
+int main(void)
+{
+	// настройка АЦП
+	ADMUX|=(1<<ADLAR); // результат преобразования - 8 старших бит в ADCH
+  dc:	3d 9a       	sbi	0x07, 5	; 7
+	// разрешить работу АЦП, старт преобразования, free running mode, разрешить прерывание АЦП, максимальный делитель 128
+	ADCSRA|=(1<<ADEN) | (1<<ADSC) | (1<<ADFR) | (1<<ADIE) | (1<<ADPS0) | (1<<ADPS1) | (1<<ADPS2);
+  de:	86 b1       	in	r24, 0x06	; 6
+  e0:	8f 6e       	ori	r24, 0xEF	; 239
+  e2:	86 b9       	out	0x06, r24	; 6
+	//-----------------------------------------------------------------------
+	
+	DDRD|=(1<<PD0) | (1<<PD1) | (1<<PD2) | (1<<PD3);// пины светодиодов на выход
+  e4:	81 b3       	in	r24, 0x11	; 17
+  e6:	8f 60       	ori	r24, 0x0F	; 15
+  e8:	81 bb       	out	0x11, r24	; 17
+	sei();// глобально разрешить прерывания
+  ea:	78 94       	sei
+				case 1:
+				PORTD^=(1<<PD0);
+				break;
+				
+				case 2:
+				PORTD^=(1<<PD1);
+  ec:	42 e0       	ldi	r20, 0x02	; 2
+				break;
+				
+				case 3:
+				PORTD^=(1<<PD2);
+  ee:	34 e0       	ldi	r19, 0x04	; 4
+				break;
+				
+				case 4:
+				PORTD^=(1<<PD3);
+  f0:	28 e0       	ldi	r18, 0x08	; 8
+		if (button_clk)
+		{
+			switch (button_clk)
+			{
+				case 1:
+				PORTD^=(1<<PD0);
+  f2:	91 e0       	ldi	r25, 0x01	; 1
+	
+	DDRD|=(1<<PD0) | (1<<PD1) | (1<<PD2) | (1<<PD3);// пины светодиодов на выход
+	sei();// глобально разрешить прерывания
+    while (1) 
+    {
+		if (button_clk)
+  f4:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <button_clk>
+  f8:	88 23       	and	r24, r24
+  fa:	e1 f3       	breq	.-8      	; 0xf4 <main+0x18>
+		{
+			switch (button_clk)
+  fc:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <button_clk>
+ 100:	82 30       	cpi	r24, 0x02	; 2
+ 102:	69 f0       	breq	.+26     	; 0x11e <main+0x42>
+ 104:	18 f4       	brcc	.+6      	; 0x10c <main+0x30>
+ 106:	81 30       	cpi	r24, 0x01	; 1
+ 108:	31 f0       	breq	.+12     	; 0x116 <main+0x3a>
+ 10a:	14 c0       	rjmp	.+40     	; 0x134 <main+0x58>
+ 10c:	83 30       	cpi	r24, 0x03	; 3
+ 10e:	59 f0       	breq	.+22     	; 0x126 <main+0x4a>
+ 110:	84 30       	cpi	r24, 0x04	; 4
+ 112:	69 f0       	breq	.+26     	; 0x12e <main+0x52>
+ 114:	0f c0       	rjmp	.+30     	; 0x134 <main+0x58>
+			{
+				case 1:
+				PORTD^=(1<<PD0);
+ 116:	82 b3       	in	r24, 0x12	; 18
+ 118:	89 27       	eor	r24, r25
+ 11a:	82 bb       	out	0x12, r24	; 18
+				break;
+ 11c:	0b c0       	rjmp	.+22     	; 0x134 <main+0x58>
+				
+				case 2:
+				PORTD^=(1<<PD1);
+ 11e:	82 b3       	in	r24, 0x12	; 18
+ 120:	84 27       	eor	r24, r20
+ 122:	82 bb       	out	0x12, r24	; 18
+				break;
+ 124:	07 c0       	rjmp	.+14     	; 0x134 <main+0x58>
+				
+				case 3:
+				PORTD^=(1<<PD2);
+ 126:	82 b3       	in	r24, 0x12	; 18
+ 128:	83 27       	eor	r24, r19
+ 12a:	82 bb       	out	0x12, r24	; 18
+				break;
+ 12c:	03 c0       	rjmp	.+6      	; 0x134 <main+0x58>
+				
+				case 4:
+				PORTD^=(1<<PD3);
+ 12e:	82 b3       	in	r24, 0x12	; 18
+ 130:	82 27       	eor	r24, r18
+ 132:	82 bb       	out	0x12, r24	; 18
+				break;
+			}
+			button_clk=0;
+ 134:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <button_clk>
+ 138:	dd cf       	rjmp	.-70     	; 0xf4 <main+0x18>
+
+0000013a <_exit>:
+ 13a:	f8 94       	cli
+
+0000013c <__stop_program>:
+ 13c:	ff cf       	rjmp	.-2      	; 0x13c <__stop_program>

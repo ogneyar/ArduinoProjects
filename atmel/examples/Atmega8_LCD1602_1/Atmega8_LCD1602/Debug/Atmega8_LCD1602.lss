@@ -1,0 +1,244 @@
+
+Atmega8_LCD1602.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000fa  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000014e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000014e  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000180  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000050  00000000  00000000  000001bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000978  00000000  00000000  0000020c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000060c  00000000  00000000  00000b84  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000035a  00000000  00000000  00001190  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000070  00000000  00000000  000014ec  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000031b  00000000  00000000  0000155c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000281  00000000  00000000  00001877  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000030  00000000  00000000  00001af8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	5f d0       	rcall	.+190    	; 0xf2 <main>
+  34:	60 c0       	rjmp	.+192    	; 0xf6 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <write>:
+#include "lcd.h"
+
+void write(uint8_t n){
+	n<<=4;// сдвигаем на 5 вправо чтобы значение попало в старшие 4 бита
+	E1;// линию Е в 1
+  38:	91 9a       	sbi	0x12, 1	; 18
+	LCD_PORT&=~DATA;// удалить предыдущую отправку
+  3a:	92 b3       	in	r25, 0x12	; 18
+  3c:	9f 70       	andi	r25, 0x0F	; 15
+  3e:	92 bb       	out	0x12, r25	; 18
+	LCD_PORT|=n;// выставить значение на пины управления дата битами
+  40:	92 b3       	in	r25, 0x12	; 18
+  42:	82 95       	swap	r24
+  44:	80 7f       	andi	r24, 0xF0	; 240
+  46:	98 2b       	or	r25, r24
+  48:	92 bb       	out	0x12, r25	; 18
+	asm("nop");// пропуск такта
+  4a:	00 00       	nop
+	E0;// линию Е в 0
+  4c:	91 98       	cbi	0x12, 1	; 18
+  4e:	08 95       	ret
+
+00000050 <send_byte>:
+}
+
+void send_byte(uint8_t byte, uint8_t tip){
+  50:	cf 93       	push	r28
+  52:	c8 2f       	mov	r28, r24
+	if(tip) RS1; // если тип данные - на линии RS 1
+  54:	66 23       	and	r22, r22
+  56:	11 f0       	breq	.+4      	; 0x5c <send_byte+0xc>
+  58:	90 9a       	sbi	0x12, 0	; 18
+  5a:	01 c0       	rjmp	.+2      	; 0x5e <send_byte+0xe>
+	else RS0;// иначе тип команда и налинии RS 0
+  5c:	90 98       	cbi	0x12, 0	; 18
+	write(byte>>4);// передача старшего полубайта
+  5e:	8c 2f       	mov	r24, r28
+  60:	82 95       	swap	r24
+  62:	8f 70       	andi	r24, 0x0F	; 15
+  64:	e9 df       	rcall	.-46     	; 0x38 <write>
+	write(byte);// передача младшего полубайта
+  66:	8c 2f       	mov	r24, r28
+  68:	e7 df       	rcall	.-50     	; 0x38 <write>
+}
+  6a:	cf 91       	pop	r28
+  6c:	08 95       	ret
+
+0000006e <lcd_ini>:
+
+void lcd_ini(void){
+	LCD_DDR|=DATA | (1<<RS) | (1<<E);
+  6e:	81 b3       	in	r24, 0x11	; 17
+  70:	83 6f       	ori	r24, 0xF3	; 243
+  72:	81 bb       	out	0x11, r24	; 17
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  74:	8f e0       	ldi	r24, 0x0F	; 15
+  76:	97 e2       	ldi	r25, 0x27	; 39
+  78:	01 97       	sbiw	r24, 0x01	; 1
+  7a:	f1 f7       	brne	.-4      	; 0x78 <lcd_ini+0xa>
+  7c:	00 c0       	rjmp	.+0      	; 0x7e <lcd_ini+0x10>
+  7e:	00 00       	nop
+	_delay_ms(40);// ждем 40 мс стабилизации питания
+	RS0;// линию RS в 0
+  80:	90 98       	cbi	0x12, 0	; 18
+	write(3);
+  82:	83 e0       	ldi	r24, 0x03	; 3
+  84:	d9 df       	rcall	.-78     	; 0x38 <write>
+  86:	81 ee       	ldi	r24, 0xE1	; 225
+  88:	94 e0       	ldi	r25, 0x04	; 4
+  8a:	01 97       	sbiw	r24, 0x01	; 1
+  8c:	f1 f7       	brne	.-4      	; 0x8a <lcd_ini+0x1c>
+  8e:	00 c0       	rjmp	.+0      	; 0x90 <lcd_ini+0x22>
+  90:	00 00       	nop
+	_delay_ms(5);
+	write(3);
+  92:	83 e0       	ldi	r24, 0x03	; 3
+  94:	d1 df       	rcall	.-94     	; 0x38 <write>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  96:	92 e3       	ldi	r25, 0x32	; 50
+  98:	9a 95       	dec	r25
+  9a:	f1 f7       	brne	.-4      	; 0x98 <lcd_ini+0x2a>
+	_delay_us(150);
+	write(3);
+  9c:	83 e0       	ldi	r24, 0x03	; 3
+  9e:	cc df       	rcall	.-104    	; 0x38 <write>
+  a0:	80 e1       	ldi	r24, 0x10	; 16
+  a2:	8a 95       	dec	r24
+  a4:	f1 f7       	brne	.-4      	; 0xa2 <lcd_ini+0x34>
+  a6:	00 c0       	rjmp	.+0      	; 0xa8 <lcd_ini+0x3a>
+	_delay_us(50);// минимальное время выполнения команды
+	write(2);
+  a8:	82 e0       	ldi	r24, 0x02	; 2
+  aa:	c6 df       	rcall	.-116    	; 0x38 <write>
+  ac:	90 e1       	ldi	r25, 0x10	; 16
+  ae:	9a 95       	dec	r25
+  b0:	f1 f7       	brne	.-4      	; 0xae <lcd_ini+0x40>
+  b2:	00 c0       	rjmp	.+0      	; 0xb4 <lcd_ini+0x46>
+	_delay_us(50);// минимальное время выполнения команды
+	
+	send_byte(40,0);// команда Function Set 001_DL_N_F_X_X
+  b4:	60 e0       	ldi	r22, 0x00	; 0
+  b6:	88 e2       	ldi	r24, 0x28	; 40
+  b8:	cb df       	rcall	.-106    	; 0x50 <send_byte>
+  ba:	80 e1       	ldi	r24, 0x10	; 16
+  bc:	8a 95       	dec	r24
+  be:	f1 f7       	brne	.-4      	; 0xbc <lcd_ini+0x4e>
+  c0:	00 c0       	rjmp	.+0      	; 0xc2 <lcd_ini+0x54>
+	_delay_us(50);
+
+	send_byte(15,0);// команда DISPLAY SWITCH 00001_D_C_B
+  c2:	60 e0       	ldi	r22, 0x00	; 0
+  c4:	8f e0       	ldi	r24, 0x0F	; 15
+  c6:	c4 df       	rcall	.-120    	; 0x50 <send_byte>
+  c8:	90 e1       	ldi	r25, 0x10	; 16
+  ca:	9a 95       	dec	r25
+  cc:	f1 f7       	brne	.-4      	; 0xca <lcd_ini+0x5c>
+  ce:	00 c0       	rjmp	.+0      	; 0xd0 <lcd_ini+0x62>
+	_delay_us(50);
+	
+	send_byte(1,0);// команда очистка дисплея (без параметров)
+  d0:	60 e0       	ldi	r22, 0x00	; 0
+  d2:	81 e0       	ldi	r24, 0x01	; 1
+  d4:	bd df       	rcall	.-134    	; 0x50 <send_byte>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d6:	83 ef       	ldi	r24, 0xF3	; 243
+  d8:	91 e0       	ldi	r25, 0x01	; 1
+  da:	01 97       	sbiw	r24, 0x01	; 1
+  dc:	f1 f7       	brne	.-4      	; 0xda <lcd_ini+0x6c>
+  de:	00 c0       	rjmp	.+0      	; 0xe0 <lcd_ini+0x72>
+  e0:	00 00       	nop
+	_delay_ms(2);
+	
+	send_byte(6,0);// команда INPUT SET 000001_ID_S
+  e2:	60 e0       	ldi	r22, 0x00	; 0
+  e4:	86 e0       	ldi	r24, 0x06	; 6
+  e6:	b4 df       	rcall	.-152    	; 0x50 <send_byte>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  e8:	90 e1       	ldi	r25, 0x10	; 16
+  ea:	9a 95       	dec	r25
+  ec:	f1 f7       	brne	.-4      	; 0xea <lcd_ini+0x7c>
+  ee:	00 c0       	rjmp	.+0      	; 0xf0 <lcd_ini+0x82>
+  f0:	08 95       	ret
+
+000000f2 <main>:
+#include "main.h"
+
+int main(void)
+{
+	lcd_ini();
+  f2:	bd df       	rcall	.-134    	; 0x6e <lcd_ini>
+  f4:	ff cf       	rjmp	.-2      	; 0xf4 <main+0x2>
+
+000000f6 <_exit>:
+  f6:	f8 94       	cli
+
+000000f8 <__stop_program>:
+  f8:	ff cf       	rjmp	.-2      	; 0xf8 <__stop_program>
