@@ -1,3 +1,5 @@
+// Arduino Nano
+
 // Видеообзоры и уроки работы с ARDUINO на YouTube-канале IOMOIO: https://www.youtube.com/channel/UCmNXABaTjX_iKH28TTJpiqA
 
 /*
