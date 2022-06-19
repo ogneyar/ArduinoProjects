@@ -1,0 +1,173 @@
+
+Atmega8_BUTTON1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000b4  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000128  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  00000128  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000128  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000158  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000028  00000000  00000000  00000194  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000553  00000000  00000000  000001bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000004d4  00000000  00000000  0000070f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000218  00000000  00000000  00000be3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000044  00000000  00000000  00000dfc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000002c1  00000000  00000000  00000e40  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000003c  00000000  00000000  00001101  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000018  00000000  00000000  0000113d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	1a c0       	rjmp	.+52     	; 0x48 <__vector_9>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	20 e0       	ldi	r18, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a2 36       	cpi	r26, 0x62	; 98
+  3e:	b2 07       	cpc	r27, r18
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	23 d0       	rcall	.+70     	; 0x8a <main>
+  44:	35 c0       	rjmp	.+106    	; 0xb0 <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <__vector_9>:
+
+volatile uint8_t button_count;// счетчик кнопки
+volatile uint8_t button_clk; // флаг клика
+
+// обработчик прерывания по переполнению таймера 0
+ISR(TIMER0_OVF_vect){
+  48:	1f 92       	push	r1
+  4a:	0f 92       	push	r0
+  4c:	0f b6       	in	r0, 0x3f	; 63
+  4e:	0f 92       	push	r0
+  50:	11 24       	eor	r1, r1
+  52:	8f 93       	push	r24
+	if (PINC&(1<<PC0)) // если на ПИНе 1
+  54:	98 9b       	sbis	0x13, 0	; 19
+  56:	03 c0       	rjmp	.+6      	; 0x5e <__vector_9+0x16>
+	{
+		button_count=0;// обнулить счетчик
+  58:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <_edata>
+  5c:	10 c0       	rjmp	.+32     	; 0x7e <__vector_9+0x36>
+	}
+	else  // ИНАЧЕ на ПИНе 0
+	{
+		if (button_count<6) button_count++; // инкермент счетчика с ограничением 6
+  5e:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
+  62:	86 30       	cpi	r24, 0x06	; 6
+  64:	28 f4       	brcc	.+10     	; 0x70 <__vector_9+0x28>
+  66:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
+  6a:	8f 5f       	subi	r24, 0xFF	; 255
+  6c:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+		if (button_count==5) button_clk=1; // поднять флаг клика при значении счетчика = 5
+  70:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
+  74:	85 30       	cpi	r24, 0x05	; 5
+  76:	19 f4       	brne	.+6      	; 0x7e <__vector_9+0x36>
+  78:	81 e0       	ldi	r24, 0x01	; 1
+  7a:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <button_clk>
+	}
+}
+  7e:	8f 91       	pop	r24
+  80:	0f 90       	pop	r0
+  82:	0f be       	out	0x3f, r0	; 63
+  84:	0f 90       	pop	r0
+  86:	1f 90       	pop	r1
+  88:	18 95       	reti
+
+0000008a <main>:
+
+int main(void)
+{
+	TCCR0|=(1<<CS01) | (1<<CS00);// запуск таймера 0 с делителем 64
+  8a:	83 b7       	in	r24, 0x33	; 51
+  8c:	83 60       	ori	r24, 0x03	; 3
+  8e:	83 bf       	out	0x33, r24	; 51
+	TIMSK|=(1<<TOIE0); // разрешить прерывание по переполнению таймера 0
+  90:	89 b7       	in	r24, 0x39	; 57
+  92:	81 60       	ori	r24, 0x01	; 1
+  94:	89 bf       	out	0x39, r24	; 57
+	
+	DDRB|=(1<<PB0);// пин светодиода на выход
+  96:	b8 9a       	sbi	0x17, 0	; 23
+	sei();//глобально разрешить перерывания
+  98:	78 94       	sei
+	while (1)
+	{
+		if (button_clk) // проверка флажка клика
+		{
+			PORTB^=(1<<PB0); // отработка клика
+  9a:	91 e0       	ldi	r25, 0x01	; 1
+	
+	DDRB|=(1<<PB0);// пин светодиода на выход
+	sei();//глобально разрешить перерывания
+	while (1)
+	{
+		if (button_clk) // проверка флажка клика
+  9c:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <button_clk>
+  a0:	88 23       	and	r24, r24
+  a2:	e1 f3       	breq	.-8      	; 0x9c <main+0x12>
+		{
+			PORTB^=(1<<PB0); // отработка клика
+  a4:	88 b3       	in	r24, 0x18	; 24
+  a6:	89 27       	eor	r24, r25
+  a8:	88 bb       	out	0x18, r24	; 24
+			button_clk=0;// сбросить флаг клика в 0
+  aa:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <button_clk>
+  ae:	f6 cf       	rjmp	.-20     	; 0x9c <main+0x12>
+
+000000b0 <_exit>:
+  b0:	f8 94       	cli
+
+000000b2 <__stop_program>:
+  b2:	ff cf       	rjmp	.-2      	; 0xb2 <__stop_program>
