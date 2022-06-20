@@ -1,4 +1,5 @@
-// демо возможностей библиотеки
+// Arduino NANO
+
 #include <microDS3231.h>
 MicroDS3231 rtc;
 
