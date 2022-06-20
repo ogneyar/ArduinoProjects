@@ -1,0 +1,963 @@
+
+Attiny13_termostat.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000040c  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  0000040c  00000480  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000048a  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000004bc  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000f0  00000000  00000000  000004f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00001275  00000000  00000000  000005e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000080a  00000000  00000000  0000185d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000009c8  00000000  00000000  00002067  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000001ec  00000000  00000000  00002a30  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000004cb  00000000  00000000  00002c1c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000f58  00000000  00000000  000030e7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000000b0  00000000  00000000  0000403f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+
+0000001c <__do_copy_data>:
+  1c:	10 e0       	ldi	r17, 0x00	; 0
+  1e:	a0 e6       	ldi	r26, 0x60	; 96
+  20:	b0 e0       	ldi	r27, 0x00	; 0
+  22:	ec e0       	ldi	r30, 0x0C	; 12
+  24:	f4 e0       	ldi	r31, 0x04	; 4
+  26:	02 c0       	rjmp	.+4      	; 0x2c <__do_copy_data+0x10>
+  28:	05 90       	lpm	r0, Z+
+  2a:	0d 92       	st	X+, r0
+  2c:	aa 36       	cpi	r26, 0x6A	; 106
+  2e:	b1 07       	cpc	r27, r17
+  30:	d9 f7       	brne	.-10     	; 0x28 <__do_copy_data+0xc>
+  32:	9d d1       	rcall	.+826    	; 0x36e <main>
+  34:	e9 c1       	rjmp	.+978    	; 0x408 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <_Z5startv>:
+
+
+// 
+void start(void)
+{
+	DDRB|=(1<<_CLK);
+  38:	b8 9a       	sbi	0x17, 0	; 23
+	DDRB|=(1<<_DIO);
+  3a:	b9 9a       	sbi	0x17, 1	; 23
+	PORTB |= (1<<_CLK);
+  3c:	c0 9a       	sbi	0x18, 0	; 24
+	PORTB |= (1<<_DIO);
+  3e:	c1 9a       	sbi	0x18, 1	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  40:	82 e0       	ldi	r24, 0x02	; 2
+  42:	8a 95       	dec	r24
+  44:	f1 f7       	brne	.-4      	; 0x42 <__SREG__+0x3>
+	_delay_us(5);
+	PORTB &=~ (1<<_DIO);
+  46:	c1 98       	cbi	0x18, 1	; 24
+	PORTB &=~ (1<<_CLK);
+  48:	c0 98       	cbi	0x18, 0	; 24
+  4a:	82 e0       	ldi	r24, 0x02	; 2
+  4c:	8a 95       	dec	r24
+  4e:	f1 f7       	brne	.-4      	; 0x4c <__SREG__+0xd>
+  50:	08 95       	ret
+
+00000052 <_Z4stopv>:
+}
+
+//
+void stop(void)
+{
+	DDRB|=(1<<_CLK);
+  52:	b8 9a       	sbi	0x17, 0	; 23
+	DDRB|=(1<<_DIO);
+  54:	b9 9a       	sbi	0x17, 1	; 23
+	PORTB &=~ (1<<_CLK);
+  56:	c0 98       	cbi	0x18, 0	; 24
+	PORTB &=~ (1<<_DIO);
+  58:	c1 98       	cbi	0x18, 1	; 24
+  5a:	82 e0       	ldi	r24, 0x02	; 2
+  5c:	8a 95       	dec	r24
+  5e:	f1 f7       	brne	.-4      	; 0x5c <_Z4stopv+0xa>
+	_delay_us(5);
+	PORTB |= (1<<_CLK);
+  60:	c0 9a       	sbi	0x18, 0	; 24
+	PORTB |= (1<<_DIO);
+  62:	c1 9a       	sbi	0x18, 1	; 24
+  64:	82 e0       	ldi	r24, 0x02	; 2
+  66:	8a 95       	dec	r24
+  68:	f1 f7       	brne	.-4      	; 0x66 <_Z4stopv+0x14>
+  6a:	08 95       	ret
+
+0000006c <_Z10writeValueh>:
+	_delay_us(5);
+}
+
+//
+void writeValue(uint8_t value)
+{
+  6c:	20 e0       	ldi	r18, 0x00	; 0
+  6e:	30 e0       	ldi	r19, 0x00	; 0
+	for(uint8_t i = 0; i < 8; i++)
+	{
+		PORTB &=~ (1<<_CLK);
+		_delay_us(5);
+		if((value & (1 << i)))
+  70:	90 e0       	ldi	r25, 0x00	; 0
+//
+void writeValue(uint8_t value)
+{
+	for(uint8_t i = 0; i < 8; i++)
+	{
+		PORTB &=~ (1<<_CLK);
+  72:	c0 98       	cbi	0x18, 0	; 24
+  74:	42 e0       	ldi	r20, 0x02	; 2
+  76:	4a 95       	dec	r20
+  78:	f1 f7       	brne	.-4      	; 0x76 <_Z10writeValueh+0xa>
+		_delay_us(5);
+		if((value & (1 << i)))
+  7a:	ac 01       	movw	r20, r24
+  7c:	02 2e       	mov	r0, r18
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <_Z10writeValueh+0x18>
+  80:	55 95       	asr	r21
+  82:	47 95       	ror	r20
+  84:	0a 94       	dec	r0
+  86:	e2 f7       	brpl	.-8      	; 0x80 <_Z10writeValueh+0x14>
+  88:	40 ff       	sbrs	r20, 0
+  8a:	02 c0       	rjmp	.+4      	; 0x90 <_Z10writeValueh+0x24>
+		PORTB |= (1<<_DIO);
+  8c:	c1 9a       	sbi	0x18, 1	; 24
+  8e:	01 c0       	rjmp	.+2      	; 0x92 <_Z10writeValueh+0x26>
+		else
+		PORTB &=~ (1<<_DIO);
+  90:	c1 98       	cbi	0x18, 1	; 24
+  92:	42 e0       	ldi	r20, 0x02	; 2
+  94:	4a 95       	dec	r20
+  96:	f1 f7       	brne	.-4      	; 0x94 <_Z10writeValueh+0x28>
+		_delay_us(5);
+		PORTB |= (1<<_CLK);
+  98:	c0 9a       	sbi	0x18, 0	; 24
+  9a:	42 e0       	ldi	r20, 0x02	; 2
+  9c:	4a 95       	dec	r20
+  9e:	f1 f7       	brne	.-4      	; 0x9c <_Z10writeValueh+0x30>
+  a0:	2f 5f       	subi	r18, 0xFF	; 255
+  a2:	3f 4f       	sbci	r19, 0xFF	; 255
+}
+
+//
+void writeValue(uint8_t value)
+{
+	for(uint8_t i = 0; i < 8; i++)
+  a4:	28 30       	cpi	r18, 0x08	; 8
+  a6:	31 05       	cpc	r19, r1
+  a8:	21 f7       	brne	.-56     	; 0x72 <_Z10writeValueh+0x6>
+		PORTB &=~ (1<<_DIO);
+		_delay_us(5);
+		PORTB |= (1<<_CLK);
+		_delay_us(5);
+	}
+	PORTB &=~ (1<<_CLK);
+  aa:	c0 98       	cbi	0x18, 0	; 24
+  ac:	82 e0       	ldi	r24, 0x02	; 2
+  ae:	8a 95       	dec	r24
+  b0:	f1 f7       	brne	.-4      	; 0xae <__stack+0xf>
+	_delay_us(5);
+	PORTB |= (1<<_CLK);
+  b2:	c0 9a       	sbi	0x18, 0	; 24
+  b4:	42 e0       	ldi	r20, 0x02	; 2
+  b6:	4a 95       	dec	r20
+  b8:	f1 f7       	brne	.-4      	; 0xb6 <__stack+0x17>
+  ba:	08 95       	ret
+
+000000bc <_Z5writehhhh>:
+}
+
+
+//
+void write(uint8_t n3, uint8_t n2, uint8_t n1, uint8_t n0)
+{
+  bc:	0f 93       	push	r16
+  be:	1f 93       	push	r17
+  c0:	cf 93       	push	r28
+  c2:	df 93       	push	r29
+  c4:	08 2f       	mov	r16, r24
+  c6:	16 2f       	mov	r17, r22
+  c8:	d4 2f       	mov	r29, r20
+  ca:	c2 2f       	mov	r28, r18
+	start();
+  cc:	b5 df       	rcall	.-150    	; 0x38 <_Z5startv>
+	writeValue(SetBright); // яркость
+  ce:	8d e8       	ldi	r24, 0x8D	; 141
+  d0:	cd df       	rcall	.-102    	; 0x6c <_Z10writeValueh>
+	start();
+  d2:	b2 df       	rcall	.-156    	; 0x38 <_Z5startv>
+	writeValue(0x40); // писать в регистры дисплея
+  d4:	80 e4       	ldi	r24, 0x40	; 64
+  d6:	ca df       	rcall	.-108    	; 0x6c <_Z10writeValueh>
+	stop();
+  d8:	bc df       	rcall	.-136    	; 0x52 <_Z4stopv>
+	start();
+  da:	ae df       	rcall	.-164    	; 0x38 <_Z5startv>
+	writeValue(0xc0); // вывод с 1-го разряда.
+  dc:	80 ec       	ldi	r24, 0xC0	; 192
+  de:	c6 df       	rcall	.-116    	; 0x6c <_Z10writeValueh>
+	writeValue(n3);
+  e0:	80 2f       	mov	r24, r16
+  e2:	c4 df       	rcall	.-120    	; 0x6c <_Z10writeValueh>
+	writeValue(n2);
+  e4:	81 2f       	mov	r24, r17
+  e6:	c2 df       	rcall	.-124    	; 0x6c <_Z10writeValueh>
+	writeValue(n1);
+  e8:	8d 2f       	mov	r24, r29
+  ea:	c0 df       	rcall	.-128    	; 0x6c <_Z10writeValueh>
+	writeValue(n0);
+  ec:	8c 2f       	mov	r24, r28
+  ee:	be df       	rcall	.-132    	; 0x6c <_Z10writeValueh>
+	stop();
+  f0:	b0 df       	rcall	.-160    	; 0x52 <_Z4stopv>
+}
+  f2:	df 91       	pop	r29
+  f4:	cf 91       	pop	r28
+  f6:	1f 91       	pop	r17
+  f8:	0f 91       	pop	r16
+  fa:	08 95       	ret
+
+000000fc <_Z10indicationjh>:
+
+
+
+//
+void indication(uint16_t n, uint8_t znak)
+{
+  fc:	cf 92       	push	r12
+  fe:	df 92       	push	r13
+ 100:	ef 92       	push	r14
+ 102:	ff 92       	push	r15
+ 104:	0f 93       	push	r16
+ 106:	1f 93       	push	r17
+ 108:	cf 93       	push	r28
+ 10a:	df 93       	push	r29
+ 10c:	6c 01       	movw	r12, r24
+ 10e:	26 2f       	mov	r18, r22
+ 110:	ca e0       	ldi	r28, 0x0A	; 10
+ 112:	d0 e0       	ldi	r29, 0x00	; 0
+ 114:	be 01       	movw	r22, r28
+ 116:	65 d1       	rcall	.+714    	; 0x3e2 <__divmodhi4>
+ 118:	fc 01       	movw	r30, r24
+ 11a:	ff 27       	eor	r31, r31
+ 11c:	0f 2e       	mov	r0, r31
+ 11e:	f4 e6       	ldi	r31, 0x64	; 100
+ 120:	ef 2e       	mov	r14, r31
+ 122:	f1 2c       	mov	r15, r1
+ 124:	f0 2d       	mov	r31, r0
+ 126:	c6 01       	movw	r24, r12
+ 128:	b7 01       	movw	r22, r14
+ 12a:	47 d1       	rcall	.+654    	; 0x3ba <__udivmodhi4>
+ 12c:	8e 1b       	sub	r24, r30
+ 12e:	9f 0b       	sbc	r25, r31
+ 130:	be 01       	movw	r22, r28
+ 132:	57 d1       	rcall	.+686    	; 0x3e2 <__divmodhi4>
+ 134:	8b 01       	movw	r16, r22
+ 136:	11 27       	eor	r17, r17
+	uint8_t n1, n2, n3;
+	n1 = (int) n % 10;
+	n2 = (int) ((n % 100)-n1)/10;
+	n3 = (int) ((n % 1000) - n2 - n1) / 100;
+	write(digits[n3], digits[n2]+128, digits[n1], znak);
+ 138:	ef 01       	movw	r28, r30
+ 13a:	c0 5a       	subi	r28, 0xA0	; 160
+ 13c:	df 4f       	sbci	r29, 0xFF	; 255
+ 13e:	d8 01       	movw	r26, r16
+ 140:	a0 5a       	subi	r26, 0xA0	; 160
+ 142:	bf 4f       	sbci	r27, 0xFF	; 255
+ 144:	3c 91       	ld	r19, X
+ 146:	30 58       	subi	r19, 0x80	; 128
+ 148:	c6 01       	movw	r24, r12
+ 14a:	68 ee       	ldi	r22, 0xE8	; 232
+ 14c:	73 e0       	ldi	r23, 0x03	; 3
+ 14e:	35 d1       	rcall	.+618    	; 0x3ba <__udivmodhi4>
+ 150:	80 1b       	sub	r24, r16
+ 152:	91 0b       	sbc	r25, r17
+ 154:	8e 1b       	sub	r24, r30
+ 156:	9f 0b       	sbc	r25, r31
+ 158:	b7 01       	movw	r22, r14
+ 15a:	43 d1       	rcall	.+646    	; 0x3e2 <__divmodhi4>
+ 15c:	fb 01       	movw	r30, r22
+ 15e:	ff 27       	eor	r31, r31
+ 160:	e0 5a       	subi	r30, 0xA0	; 160
+ 162:	ff 4f       	sbci	r31, 0xFF	; 255
+ 164:	48 81       	ld	r20, Y
+ 166:	63 2f       	mov	r22, r19
+ 168:	80 81       	ld	r24, Z
+ 16a:	a8 df       	rcall	.-176    	; 0xbc <_Z5writehhhh>
+}
+ 16c:	df 91       	pop	r29
+ 16e:	cf 91       	pop	r28
+ 170:	1f 91       	pop	r17
+ 172:	0f 91       	pop	r16
+ 174:	ff 90       	pop	r15
+ 176:	ef 90       	pop	r14
+ 178:	df 90       	pop	r13
+ 17a:	cf 90       	pop	r12
+ 17c:	08 95       	ret
+
+0000017e <_Z9adc_setupv>:
+
+void adc_setup (void)
+{
+// 	ADMUX |= (1 << MUX1); // устанавливаем как вход АЦП ножку PB4 ака ADC2
+// 	ADMUX |= (1 << ADLAR);//
+	ADMUX=34;
+ 17e:	82 e2       	ldi	r24, 0x22	; 34
+ 180:	87 b9       	out	0x07, r24	; 7
+	
+	
+// 	// Установка предделителя на 64 и разрешение АЦП
+// 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADEN);
+	ADCSRA=134;
+ 182:	86 e8       	ldi	r24, 0x86	; 134
+ 184:	86 b9       	out	0x06, r24	; 6
+ 186:	08 95       	ret
+
+00000188 <_Z8adc_readv>:
+}
+
+uint8_t adc_read (void)
+{
+	ADCSRA |= (1 << ADSC);// Запуск измерений
+ 188:	36 9a       	sbi	0x06, 6	; 6
+	while (ADCSRA & (1 << ADSC));// Ожидание окончания измерений т.е. пока ADCS не станет=0 ждем.
+ 18a:	36 99       	sbic	0x06, 6	; 6
+ 18c:	fe cf       	rjmp	.-4      	; 0x18a <_Z8adc_readv+0x2>
+	return ADCH; // функция возвращает данные из ADCH
+ 18e:	85 b1       	in	r24, 0x05	; 5
+}
+ 190:	08 95       	ret
+
+00000192 <_Z6adc_btv>:
+
+uint8_t adc_bt(void){
+	uint8_t dump;
+	dump=adc_read();
+ 192:	fa df       	rcall	.-12     	; 0x188 <_Z8adc_readv>
+	if (dump>206) { return 3;}
+ 194:	8f 3c       	cpi	r24, 0xCF	; 207
+ 196:	40 f4       	brcc	.+16     	; 0x1a8 <_Z6adc_btv+0x16>
+	if (dump>156) { return 1;}
+ 198:	8d 39       	cpi	r24, 0x9D	; 157
+ 19a:	40 f4       	brcc	.+16     	; 0x1ac <_Z6adc_btv+0x1a>
+	if (dump>100) {	return 0;}
+ 19c:	85 36       	cpi	r24, 0x65	; 101
+ 19e:	40 f4       	brcc	.+16     	; 0x1b0 <_Z6adc_btv+0x1e>
+	if (dump>50) { return 2;}
+ 1a0:	83 33       	cpi	r24, 0x33	; 51
+ 1a2:	40 f4       	brcc	.+16     	; 0x1b4 <_Z6adc_btv+0x22>
+	if (dump>=0) { return 4;}
+ 1a4:	84 e0       	ldi	r24, 0x04	; 4
+ 1a6:	08 95       	ret
+}
+
+uint8_t adc_bt(void){
+	uint8_t dump;
+	dump=adc_read();
+	if (dump>206) { return 3;}
+ 1a8:	83 e0       	ldi	r24, 0x03	; 3
+ 1aa:	08 95       	ret
+	if (dump>156) { return 1;}
+ 1ac:	81 e0       	ldi	r24, 0x01	; 1
+ 1ae:	08 95       	ret
+	if (dump>100) {	return 0;}
+ 1b0:	80 e0       	ldi	r24, 0x00	; 0
+ 1b2:	08 95       	ret
+	if (dump>50) { return 2;}
+ 1b4:	82 e0       	ldi	r24, 0x02	; 2
+	if (dump>=0) { return 4;}
+}
+ 1b6:	08 95       	ret
+
+000001b8 <_Z6changejh>:
+
+uint16_t change(uint16_t n, uint8_t znak) {
+ 1b8:	0f 93       	push	r16
+ 1ba:	1f 93       	push	r17
+ 1bc:	cf 93       	push	r28
+ 1be:	df 93       	push	r29
+ 1c0:	ec 01       	movw	r28, r24
+ 1c2:	06 2f       	mov	r16, r22
+	uint8_t m=1;
+ 1c4:	11 e0       	ldi	r17, 0x01	; 1
+	uint8_t adc;
+	while (m)
+	{
+		adc=adc_bt();
+ 1c6:	e5 df       	rcall	.-54     	; 0x192 <_Z6adc_btv>
+		if (adc==0)
+ 1c8:	81 11       	cpse	r24, r1
+ 1ca:	08 c0       	rjmp	.+16     	; 0x1dc <_Z6changejh+0x24>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1cc:	e7 eb       	ldi	r30, 0xB7	; 183
+ 1ce:	fb e0       	ldi	r31, 0x0B	; 11
+ 1d0:	31 97       	sbiw	r30, 0x01	; 1
+ 1d2:	f1 f7       	brne	.-4      	; 0x1d0 <_Z6changejh+0x18>
+ 1d4:	00 c0       	rjmp	.+0      	; 0x1d6 <_Z6changejh+0x1e>
+ 1d6:	00 00       	nop
+		{
+			_delay_ms(10);
+			m++;
+ 1d8:	1f 5f       	subi	r17, 0xFF	; 255
+ 1da:	17 c0       	rjmp	.+46     	; 0x20a <_Z6changejh+0x52>
+		}
+		if (adc==1)
+ 1dc:	81 30       	cpi	r24, 0x01	; 1
+ 1de:	59 f4       	brne	.+22     	; 0x1f6 <_Z6changejh+0x3e>
+		{
+			n++;
+ 1e0:	21 96       	adiw	r28, 0x01	; 1
+ 1e2:	ff eb       	ldi	r31, 0xBF	; 191
+ 1e4:	24 ed       	ldi	r18, 0xD4	; 212
+ 1e6:	31 e0       	ldi	r19, 0x01	; 1
+ 1e8:	f1 50       	subi	r31, 0x01	; 1
+ 1ea:	20 40       	sbci	r18, 0x00	; 0
+ 1ec:	30 40       	sbci	r19, 0x00	; 0
+ 1ee:	e1 f7       	brne	.-8      	; 0x1e8 <_Z6changejh+0x30>
+ 1f0:	00 c0       	rjmp	.+0      	; 0x1f2 <_Z6changejh+0x3a>
+ 1f2:	00 00       	nop
+ 1f4:	17 c0       	rjmp	.+46     	; 0x224 <_Z6changejh+0x6c>
+			_delay_ms(500);
+		}
+		
+		if (adc==3)
+ 1f6:	83 30       	cpi	r24, 0x03	; 3
+ 1f8:	41 f4       	brne	.+16     	; 0x20a <_Z6changejh+0x52>
+		{
+			n++;
+ 1fa:	21 96       	adiw	r28, 0x01	; 1
+ 1fc:	8f e2       	ldi	r24, 0x2F	; 47
+ 1fe:	95 e7       	ldi	r25, 0x75	; 117
+ 200:	01 97       	sbiw	r24, 0x01	; 1
+ 202:	f1 f7       	brne	.-4      	; 0x200 <_Z6changejh+0x48>
+ 204:	00 c0       	rjmp	.+0      	; 0x206 <_Z6changejh+0x4e>
+ 206:	00 00       	nop
+ 208:	16 c0       	rjmp	.+44     	; 0x236 <_Z6changejh+0x7e>
+			_delay_ms(100);
+		}
+		if (adc==2)
+ 20a:	82 30       	cpi	r24, 0x02	; 2
+ 20c:	59 f4       	brne	.+22     	; 0x224 <_Z6changejh+0x6c>
+		{
+			n--;
+ 20e:	21 97       	sbiw	r28, 0x01	; 1
+ 210:	9f eb       	ldi	r25, 0xBF	; 191
+ 212:	e4 ed       	ldi	r30, 0xD4	; 212
+ 214:	f1 e0       	ldi	r31, 0x01	; 1
+ 216:	91 50       	subi	r25, 0x01	; 1
+ 218:	e0 40       	sbci	r30, 0x00	; 0
+ 21a:	f0 40       	sbci	r31, 0x00	; 0
+ 21c:	e1 f7       	brne	.-8      	; 0x216 <_Z6changejh+0x5e>
+ 21e:	00 c0       	rjmp	.+0      	; 0x220 <_Z6changejh+0x68>
+ 220:	00 00       	nop
+ 222:	09 c0       	rjmp	.+18     	; 0x236 <_Z6changejh+0x7e>
+			_delay_ms(500);
+		}
+		if (adc==4)
+ 224:	84 30       	cpi	r24, 0x04	; 4
+ 226:	39 f4       	brne	.+14     	; 0x236 <_Z6changejh+0x7e>
+		{
+			n--;
+ 228:	21 97       	sbiw	r28, 0x01	; 1
+ 22a:	8f e2       	ldi	r24, 0x2F	; 47
+ 22c:	95 e7       	ldi	r25, 0x75	; 117
+ 22e:	01 97       	sbiw	r24, 0x01	; 1
+ 230:	f1 f7       	brne	.-4      	; 0x22e <_Z6changejh+0x76>
+ 232:	00 c0       	rjmp	.+0      	; 0x234 <_Z6changejh+0x7c>
+ 234:	00 00       	nop
+			_delay_ms(100);
+		}
+		if (n>999 || n<1)
+ 236:	ce 01       	movw	r24, r28
+ 238:	01 97       	sbiw	r24, 0x01	; 1
+ 23a:	87 3e       	cpi	r24, 0xE7	; 231
+ 23c:	93 40       	sbci	r25, 0x03	; 3
+ 23e:	10 f0       	brcs	.+4      	; 0x244 <_Z6changejh+0x8c>
+		{
+			n=1;
+ 240:	c1 e0       	ldi	r28, 0x01	; 1
+ 242:	d0 e0       	ldi	r29, 0x00	; 0
+		}
+		indication(n, znak);
+ 244:	60 2f       	mov	r22, r16
+ 246:	ce 01       	movw	r24, r28
+ 248:	59 df       	rcall	.-334    	; 0xfc <_Z10indicationjh>
+}
+
+uint16_t change(uint16_t n, uint8_t znak) {
+	uint8_t m=1;
+	uint8_t adc;
+	while (m)
+ 24a:	11 11       	cpse	r17, r1
+ 24c:	bc cf       	rjmp	.-136    	; 0x1c6 <_Z6changejh+0xe>
+			n=1;
+		}
+		indication(n, znak);
+	}
+	return n;
+ 24e:	ce 01       	movw	r24, r28
+ 250:	df 91       	pop	r29
+ 252:	cf 91       	pop	r28
+ 254:	1f 91       	pop	r17
+ 256:	0f 91       	pop	r16
+ 258:	08 95       	ret
+
+0000025a <_Z13dt_testdevicev>:
+
+
+//функция определения датчика на шине
+void dt_testdevice(void) //определим, есть ли устройство на шине
+{
+	DDRTEMP |= 1<<BITTEMP; //притягиваем шину
+ 25a:	bb 9a       	sbi	0x17, 3	; 23
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 25c:	82 ec       	ldi	r24, 0xC2	; 194
+ 25e:	8a 95       	dec	r24
+ 260:	f1 f7       	brne	.-4      	; 0x25e <_Z13dt_testdevicev+0x4>
+	_delay_us(485); //задержка как минимум на 480 микросекунд
+	DDRTEMP &= ~(1<<BITTEMP); //отпускаем шину
+ 262:	bb 98       	cbi	0x17, 3	; 23
+ 264:	8a e1       	ldi	r24, 0x1A	; 26
+ 266:	8a 95       	dec	r24
+ 268:	f1 f7       	brne	.-4      	; 0x266 <_Z13dt_testdevicev+0xc>
+ 26a:	88 ea       	ldi	r24, 0xA8	; 168
+ 26c:	8a 95       	dec	r24
+ 26e:	f1 f7       	brne	.-4      	; 0x26c <_Z13dt_testdevicev+0x12>
+ 270:	00 00       	nop
+ 272:	08 95       	ret
+
+00000274 <_Z10dt_sendbitc>:
+
+
+//функция записи бита в датчик
+void dt_sendbit(char bt)
+{
+	DDRTEMP |= 1<<BITTEMP; //притягиваем шину
+ 274:	bb 9a       	sbi	0x17, 3	; 23
+ 276:	00 c0       	rjmp	.+0      	; 0x278 <_Z10dt_sendbitc+0x4>
+ 278:	00 00       	nop
+	_delay_us(2); //задержка как минимум на 2 микросекунды
+	if(bt) DDRTEMP &= ~(1<<BITTEMP); //отпускаем шину
+ 27a:	81 11       	cpse	r24, r1
+ 27c:	bb 98       	cbi	0x17, 3	; 23
+ 27e:	8a e1       	ldi	r24, 0x1A	; 26
+ 280:	8a 95       	dec	r24
+ 282:	f1 f7       	brne	.-4      	; 0x280 <_Z10dt_sendbitc+0xc>
+	_delay_us(65); //задержка как минимум на 60 микросекунд
+	DDRTEMP &= ~(1<<BITTEMP); //отпускаем шину
+ 284:	bb 98       	cbi	0x17, 3	; 23
+ 286:	08 95       	ret
+
+00000288 <_Z11dt_sendbyteh>:
+}
+
+
+//функция записи байта в датчик
+void dt_sendbyte(unsigned char bt)
+{
+ 288:	0f 93       	push	r16
+ 28a:	1f 93       	push	r17
+ 28c:	cf 93       	push	r28
+ 28e:	df 93       	push	r29
+ 290:	c0 e0       	ldi	r28, 0x00	; 0
+ 292:	d0 e0       	ldi	r29, 0x00	; 0
+	char i;
+	for(i=0;i<8;i++)//посылаем отдельно каждый бит на устройство
+	{
+		if((bt & (1<<i)))//посылаем 1
+ 294:	08 2f       	mov	r16, r24
+ 296:	10 e0       	ldi	r17, 0x00	; 0
+ 298:	98 01       	movw	r18, r16
+ 29a:	0c 2e       	mov	r0, r28
+ 29c:	02 c0       	rjmp	.+4      	; 0x2a2 <_Z11dt_sendbyteh+0x1a>
+ 29e:	35 95       	asr	r19
+ 2a0:	27 95       	ror	r18
+ 2a2:	0a 94       	dec	r0
+ 2a4:	e2 f7       	brpl	.-8      	; 0x29e <_Z11dt_sendbyteh+0x16>
+ 2a6:	20 ff       	sbrs	r18, 0
+ 2a8:	03 c0       	rjmp	.+6      	; 0x2b0 <_Z11dt_sendbyteh+0x28>
+		dt_sendbit(1);
+ 2aa:	81 e0       	ldi	r24, 0x01	; 1
+ 2ac:	e3 df       	rcall	.-58     	; 0x274 <_Z10dt_sendbitc>
+ 2ae:	02 c0       	rjmp	.+4      	; 0x2b4 <_Z11dt_sendbyteh+0x2c>
+		else //посылаем 0
+		dt_sendbit(0);
+ 2b0:	80 e0       	ldi	r24, 0x00	; 0
+ 2b2:	e0 df       	rcall	.-64     	; 0x274 <_Z10dt_sendbitc>
+ 2b4:	21 96       	adiw	r28, 0x01	; 1
+
+//функция записи байта в датчик
+void dt_sendbyte(unsigned char bt)
+{
+	char i;
+	for(i=0;i<8;i++)//посылаем отдельно каждый бит на устройство
+ 2b6:	c8 30       	cpi	r28, 0x08	; 8
+ 2b8:	d1 05       	cpc	r29, r1
+ 2ba:	71 f7       	brne	.-36     	; 0x298 <_Z11dt_sendbyteh+0x10>
+		if((bt & (1<<i)))//посылаем 1
+		dt_sendbit(1);
+		else //посылаем 0
+		dt_sendbit(0);
+	}
+}
+ 2bc:	df 91       	pop	r29
+ 2be:	cf 91       	pop	r28
+ 2c0:	1f 91       	pop	r17
+ 2c2:	0f 91       	pop	r16
+ 2c4:	08 95       	ret
+
+000002c6 <_Z10dt_readbitv>:
+
+//функция чтения бита с датчика
+char dt_readbit(void)
+{
+	char bt; //переменная хранения бита
+	DDRTEMP |= 1<<BITTEMP; //притягиваем шину
+ 2c6:	bb 9a       	sbi	0x17, 3	; 23
+ 2c8:	00 c0       	rjmp	.+0      	; 0x2ca <_Z10dt_readbitv+0x4>
+ 2ca:	00 00       	nop
+	_delay_us(2); //задержка как минимум на 2 микросекунды
+	DDRTEMP &= ~(1<<BITTEMP); //отпускаем шину
+ 2cc:	bb 98       	cbi	0x17, 3	; 23
+ 2ce:	85 e0       	ldi	r24, 0x05	; 5
+ 2d0:	8a 95       	dec	r24
+ 2d2:	f1 f7       	brne	.-4      	; 0x2d0 <_Z10dt_readbitv+0xa>
+ 2d4:	00 00       	nop
+	_delay_us(13);
+	bt = (PINTEMP & (1<<BITTEMP))>>BITTEMP; //читаем бит
+ 2d6:	86 b3       	in	r24, 0x16	; 22
+ 2d8:	92 e1       	ldi	r25, 0x12	; 18
+ 2da:	9a 95       	dec	r25
+ 2dc:	f1 f7       	brne	.-4      	; 0x2da <_Z10dt_readbitv+0x14>
+ 2de:	00 00       	nop
+	_delay_us(45);
+	return bt; //вернем результат
+}
+ 2e0:	83 fb       	bst	r24, 3
+ 2e2:	88 27       	eor	r24, r24
+ 2e4:	80 f9       	bld	r24, 0
+ 2e6:	08 95       	ret
+
+000002e8 <_Z11dt_readbytev>:
+
+//функция чтения байта с датчика
+unsigned char dt_readbyte(void)
+{
+ 2e8:	1f 93       	push	r17
+ 2ea:	cf 93       	push	r28
+ 2ec:	df 93       	push	r29
+ 2ee:	c0 e0       	ldi	r28, 0x00	; 0
+ 2f0:	d0 e0       	ldi	r29, 0x00	; 0
+	char c=0;
+ 2f2:	10 e0       	ldi	r17, 0x00	; 0
+	char i;
+	for(i=0;i<8;i++)
+	c|=dt_readbit()<<i; //читаем бит
+ 2f4:	e8 df       	rcall	.-48     	; 0x2c6 <_Z10dt_readbitv>
+ 2f6:	90 e0       	ldi	r25, 0x00	; 0
+ 2f8:	0c 2e       	mov	r0, r28
+ 2fa:	02 c0       	rjmp	.+4      	; 0x300 <_Z11dt_readbytev+0x18>
+ 2fc:	88 0f       	add	r24, r24
+ 2fe:	99 1f       	adc	r25, r25
+ 300:	0a 94       	dec	r0
+ 302:	e2 f7       	brpl	.-8      	; 0x2fc <_Z11dt_readbytev+0x14>
+ 304:	18 2b       	or	r17, r24
+ 306:	21 96       	adiw	r28, 0x01	; 1
+//функция чтения байта с датчика
+unsigned char dt_readbyte(void)
+{
+	char c=0;
+	char i;
+	for(i=0;i<8;i++)
+ 308:	c8 30       	cpi	r28, 0x08	; 8
+ 30a:	d1 05       	cpc	r29, r1
+ 30c:	99 f7       	brne	.-26     	; 0x2f4 <_Z11dt_readbytev+0xc>
+	c|=dt_readbit()<<i; //читаем бит
+	return c;
+}
+ 30e:	81 2f       	mov	r24, r17
+ 310:	df 91       	pop	r29
+ 312:	cf 91       	pop	r28
+ 314:	1f 91       	pop	r17
+ 316:	08 95       	ret
+
+00000318 <_Z8dt_checkv>:
+
+//функция чтения данных датчика
+unsigned int dt_check(void)
+{
+ 318:	cf 93       	push	r28
+	unsigned char bt;//переменная для считывания байта
+	unsigned int tt=0;
+	dt_testdevice(); //если устройство нашлось
+ 31a:	9f df       	rcall	.-194    	; 0x25a <_Z13dt_testdevicev>
+	
+		dt_sendbyte(NOID); //пропустить идентификацию, тк у нас только одно устройство на шине
+ 31c:	8c ec       	ldi	r24, 0xCC	; 204
+ 31e:	b4 df       	rcall	.-152    	; 0x288 <_Z11dt_sendbyteh>
+		dt_sendbyte(T_CONVERT); //измеряем температуру
+ 320:	84 e4       	ldi	r24, 0x44	; 68
+ 322:	b2 df       	rcall	.-156    	; 0x288 <_Z11dt_sendbyteh>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 324:	2f e1       	ldi	r18, 0x1F	; 31
+ 326:	4f eb       	ldi	r20, 0xBF	; 191
+ 328:	52 e0       	ldi	r21, 0x02	; 2
+ 32a:	21 50       	subi	r18, 0x01	; 1
+ 32c:	40 40       	sbci	r20, 0x00	; 0
+ 32e:	50 40       	sbci	r21, 0x00	; 0
+ 330:	e1 f7       	brne	.-8      	; 0x32a <_Z8dt_checkv+0x12>
+ 332:	00 c0       	rjmp	.+0      	; 0x334 <_Z8dt_checkv+0x1c>
+ 334:	00 00       	nop
+		_delay_ms(750); //в 12 битном режиме преобразования - 750 милисекунд
+		dt_testdevice(); //снова используем  те же манипуляции с шиной что и при проверке ее присутствия
+ 336:	91 df       	rcall	.-222    	; 0x25a <_Z13dt_testdevicev>
+		dt_sendbyte(NOID); //пропустить идентификацию, тк у нас только одно устройство на шине
+ 338:	8c ec       	ldi	r24, 0xCC	; 204
+ 33a:	a6 df       	rcall	.-180    	; 0x288 <_Z11dt_sendbyteh>
+		dt_sendbyte(READ_DATA); //даем команду на чтение данных с устройства
+ 33c:	8e eb       	ldi	r24, 0xBE	; 190
+ 33e:	a4 df       	rcall	.-184    	; 0x288 <_Z11dt_sendbyteh>
+		bt = dt_readbyte(); //читаем младший бит
+ 340:	d3 df       	rcall	.-90     	; 0x2e8 <_Z11dt_readbytev>
+ 342:	c8 2f       	mov	r28, r24
+		tt = dt_readbyte(); //читаем старший бит MS
+ 344:	d1 df       	rcall	.-94     	; 0x2e8 <_Z11dt_readbytev>
+		tt = (tt<<8)|bt;//сдвигаем старший влево, младший пишем на его место, тем самым получаем общий результат
+ 346:	2c 2f       	mov	r18, r28
+ 348:	30 e0       	ldi	r19, 0x00	; 0
+	
+	return tt;
+}
+ 34a:	a9 01       	movw	r20, r18
+ 34c:	58 2b       	or	r21, r24
+ 34e:	ca 01       	movw	r24, r20
+ 350:	cf 91       	pop	r28
+ 352:	08 95       	ret
+
+00000354 <_Z9DT_init12v>:
+
+
+void DT_init12(void) {
+
+	dt_testdevice(); //если устройство нашлось
+ 354:	82 df       	rcall	.-252    	; 0x25a <_Z13dt_testdevicev>
+		dt_sendbyte(NOID); //пропустить идентификацию, тк у нас только одно устройство на шине
+ 356:	8c ec       	ldi	r24, 0xCC	; 204
+ 358:	97 df       	rcall	.-210    	; 0x288 <_Z11dt_sendbyteh>
+		dt_sendbyte(SEND_DATA); // готовим принимать данные
+ 35a:	8e e4       	ldi	r24, 0x4E	; 78
+ 35c:	95 df       	rcall	.-214    	; 0x288 <_Z11dt_sendbyteh>
+		dt_testdevice(); //снова используем  те же манипуляции с шиной что и при проверке ее присутствия
+ 35e:	7d df       	rcall	.-262    	; 0x25a <_Z13dt_testdevicev>
+		dt_sendbyte(96); // 12 битный режим
+ 360:	80 e6       	ldi	r24, 0x60	; 96
+ 362:	92 df       	rcall	.-220    	; 0x288 <_Z11dt_sendbyteh>
+		dt_sendbyte(0); //
+ 364:	80 e0       	ldi	r24, 0x00	; 0
+ 366:	90 df       	rcall	.-224    	; 0x288 <_Z11dt_sendbyteh>
+		dt_sendbyte(0); //
+ 368:	80 e0       	ldi	r24, 0x00	; 0
+ 36a:	8e df       	rcall	.-228    	; 0x288 <_Z11dt_sendbyteh>
+ 36c:	08 95       	ret
+
+0000036e <main>:
+	uint16_t temp=0;
+	uint16_t n1=0;
+	uint16_t n2;
+	//------------------------------
+		
+	DDRB|=(1<<PB2); // ПИН реле
+ 36e:	ba 9a       	sbi	0x17, 2	; 23
+
+	
+	uint16_t t_max=400;
+	uint16_t t_min=5;
+		
+	adc_setup();// настройка ацп
+ 370:	06 df       	rcall	.-500    	; 0x17e <_Z9adc_setupv>
+	
+
+	t_max=change(t_max,0x76);
+ 372:	66 e7       	ldi	r22, 0x76	; 118
+ 374:	80 e9       	ldi	r24, 0x90	; 144
+ 376:	91 e0       	ldi	r25, 0x01	; 1
+ 378:	1f df       	rcall	.-450    	; 0x1b8 <_Z6changejh>
+ 37a:	ec 01       	movw	r28, r24
+	t_min=change(t_min,0x38);
+ 37c:	68 e3       	ldi	r22, 0x38	; 56
+ 37e:	85 e0       	ldi	r24, 0x05	; 5
+ 380:	90 e0       	ldi	r25, 0x00	; 0
+ 382:	1a df       	rcall	.-460    	; 0x1b8 <_Z6changejh>
+	t_min=t_max-t_min;
+ 384:	8e 01       	movw	r16, r28
+ 386:	08 1b       	sub	r16, r24
+ 388:	19 0b       	sbc	r17, r25
+	
+
+// 		
+
+	
+	DT_init12();
+ 38a:	e4 df       	rcall	.-56     	; 0x354 <_Z9DT_init12v>
+		
+    while (1) 
+    {
+		temp=dt_check();
+ 38c:	c5 df       	rcall	.-118    	; 0x318 <_Z8dt_checkv>
+		n1=temp>>1;
+ 38e:	9c 01       	movw	r18, r24
+ 390:	36 95       	lsr	r19
+ 392:	27 95       	ror	r18
+		n2=temp>>3;
+ 394:	96 95       	lsr	r25
+ 396:	87 95       	ror	r24
+ 398:	96 95       	lsr	r25
+ 39a:	87 95       	ror	r24
+ 39c:	96 95       	lsr	r25
+ 39e:	87 95       	ror	r24
+		temp=n1+n2;
+ 3a0:	82 0f       	add	r24, r18
+ 3a2:	93 1f       	adc	r25, r19
+		if (temp>=t_max)
+ 3a4:	8c 17       	cp	r24, r28
+ 3a6:	9d 07       	cpc	r25, r29
+ 3a8:	08 f0       	brcs	.+2      	; 0x3ac <main+0x3e>
+		{
+			PORTB&=~(1<<PB2);
+ 3aa:	c2 98       	cbi	0x18, 2	; 24
+		}
+		if (temp<=t_min)
+ 3ac:	08 17       	cp	r16, r24
+ 3ae:	19 07       	cpc	r17, r25
+ 3b0:	08 f0       	brcs	.+2      	; 0x3b4 <main+0x46>
+		{
+			PORTB|=(1<<PB2);
+ 3b2:	c2 9a       	sbi	0x18, 2	; 24
+		}
+		indication(temp, 0x63);
+ 3b4:	63 e6       	ldi	r22, 0x63	; 99
+ 3b6:	a2 de       	rcall	.-700    	; 0xfc <_Z10indicationjh>
+// 		
+
+	
+	DT_init12();
+		
+    while (1) 
+ 3b8:	e9 cf       	rjmp	.-46     	; 0x38c <main+0x1e>
+
+000003ba <__udivmodhi4>:
+ 3ba:	aa 1b       	sub	r26, r26
+ 3bc:	bb 1b       	sub	r27, r27
+ 3be:	51 e1       	ldi	r21, 0x11	; 17
+ 3c0:	07 c0       	rjmp	.+14     	; 0x3d0 <__udivmodhi4_ep>
+
+000003c2 <__udivmodhi4_loop>:
+ 3c2:	aa 1f       	adc	r26, r26
+ 3c4:	bb 1f       	adc	r27, r27
+ 3c6:	a6 17       	cp	r26, r22
+ 3c8:	b7 07       	cpc	r27, r23
+ 3ca:	10 f0       	brcs	.+4      	; 0x3d0 <__udivmodhi4_ep>
+ 3cc:	a6 1b       	sub	r26, r22
+ 3ce:	b7 0b       	sbc	r27, r23
+
+000003d0 <__udivmodhi4_ep>:
+ 3d0:	88 1f       	adc	r24, r24
+ 3d2:	99 1f       	adc	r25, r25
+ 3d4:	5a 95       	dec	r21
+ 3d6:	a9 f7       	brne	.-22     	; 0x3c2 <__udivmodhi4_loop>
+ 3d8:	80 95       	com	r24
+ 3da:	90 95       	com	r25
+ 3dc:	bc 01       	movw	r22, r24
+ 3de:	cd 01       	movw	r24, r26
+ 3e0:	08 95       	ret
+
+000003e2 <__divmodhi4>:
+ 3e2:	97 fb       	bst	r25, 7
+ 3e4:	07 2e       	mov	r0, r23
+ 3e6:	16 f4       	brtc	.+4      	; 0x3ec <__divmodhi4+0xa>
+ 3e8:	00 94       	com	r0
+ 3ea:	06 d0       	rcall	.+12     	; 0x3f8 <__divmodhi4_neg1>
+ 3ec:	77 fd       	sbrc	r23, 7
+ 3ee:	08 d0       	rcall	.+16     	; 0x400 <__divmodhi4_neg2>
+ 3f0:	e4 df       	rcall	.-56     	; 0x3ba <__udivmodhi4>
+ 3f2:	07 fc       	sbrc	r0, 7
+ 3f4:	05 d0       	rcall	.+10     	; 0x400 <__divmodhi4_neg2>
+ 3f6:	3e f4       	brtc	.+14     	; 0x406 <__divmodhi4_exit>
+
+000003f8 <__divmodhi4_neg1>:
+ 3f8:	90 95       	com	r25
+ 3fa:	81 95       	neg	r24
+ 3fc:	9f 4f       	sbci	r25, 0xFF	; 255
+ 3fe:	08 95       	ret
+
+00000400 <__divmodhi4_neg2>:
+ 400:	70 95       	com	r23
+ 402:	61 95       	neg	r22
+ 404:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000406 <__divmodhi4_exit>:
+ 406:	08 95       	ret
+
+00000408 <_exit>:
+ 408:	f8 94       	cli
+
+0000040a <__stop_program>:
+ 40a:	ff cf       	rjmp	.-2      	; 0x40a <__stop_program>

@@ -1,0 +1,399 @@
+
+attiny13-IR-send.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001b2  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000206  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000206  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000238  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  00000274  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000078a  00000000  00000000  000002a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000044e  00000000  00000000  00000a2e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000314  00000000  00000000  00000e7c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000078  00000000  00000000  00001190  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000030b  00000000  00000000  00001208  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000034b  00000000  00000000  00001513  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  0000185e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	0e c0       	rjmp	.+28     	; 0x20 <__bad_interrupt>
+   4:	0d c0       	rjmp	.+26     	; 0x20 <__bad_interrupt>
+   6:	0c c0       	rjmp	.+24     	; 0x20 <__bad_interrupt>
+   8:	0b c0       	rjmp	.+22     	; 0x20 <__bad_interrupt>
+   a:	0a c0       	rjmp	.+20     	; 0x20 <__bad_interrupt>
+   c:	09 c0       	rjmp	.+18     	; 0x20 <__bad_interrupt>
+   e:	08 c0       	rjmp	.+16     	; 0x20 <__bad_interrupt>
+  10:	07 c0       	rjmp	.+14     	; 0x20 <__bad_interrupt>
+  12:	06 c0       	rjmp	.+12     	; 0x20 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+  1c:	b0 d0       	rcall	.+352    	; 0x17e <main>
+  1e:	c7 c0       	rjmp	.+398    	; 0x1ae <_exit>
+
+00000020 <__bad_interrupt>:
+  20:	ef cf       	rjmp	.-34     	; 0x0 <__vectors>
+
+00000022 <_Z10IR_sendbitc>:
+
+// фунция отправки бита
+void IR_sendbit(char bit)
+{
+
+	PORTB &= ~(1<<PB0); // ставим на шине 0
+  22:	c0 98       	cbi	0x18, 0	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  24:	90 e8       	ldi	r25, 0x80	; 128
+  26:	9a 95       	dec	r25
+  28:	f1 f7       	brne	.-4      	; 0x26 <_Z10IR_sendbitc+0x4>
+	_delay_us(320); // ждем 320 мкс
+	PORTB |=(1<<PB0); // ставим на шине 1
+  2a:	c0 9a       	sbi	0x18, 0	; 24
+	if(bit) { _delay_us(1680); } // если бит=1 то ждем 1680 мкс
+  2c:	88 23       	and	r24, r24
+  2e:	29 f0       	breq	.+10     	; 0x3a <_Z10IR_sendbitc+0x18>
+  30:	88 ef       	ldi	r24, 0xF8	; 248
+  32:	91 e0       	ldi	r25, 0x01	; 1
+  34:	01 97       	sbiw	r24, 0x01	; 1
+  36:	f1 f7       	brne	.-4      	; 0x34 <_Z10IR_sendbitc+0x12>
+  38:	08 95       	ret
+  3a:	8c ec       	ldi	r24, 0xCC	; 204
+  3c:	90 e0       	ldi	r25, 0x00	; 0
+  3e:	01 97       	sbiw	r24, 0x01	; 1
+  40:	f1 f7       	brne	.-4      	; 0x3e <__SP_L__+0x1>
+  42:	08 95       	ret
+
+00000044 <_Z7IR_sendcc>:
+		else { _delay_us(680); } // если 0 то ждем 680 мкс
+
+}
+
+// функция отправки полного пакета.
+void IR_send(char adress, char command) {
+  44:	af 92       	push	r10
+  46:	bf 92       	push	r11
+  48:	cf 92       	push	r12
+  4a:	df 92       	push	r13
+  4c:	ef 92       	push	r14
+  4e:	ff 92       	push	r15
+  50:	0f 93       	push	r16
+  52:	1f 93       	push	r17
+  54:	cf 93       	push	r28
+  56:	df 93       	push	r29
+  58:	b6 2e       	mov	r11, r22
+  5a:	c0 e0       	ldi	r28, 0x00	; 0
+  5c:	d0 e0       	ldi	r29, 0x00	; 0
+
+// отправка адреса
+	for(char i=0; i<5; i++)//посылаем отдельно каждый бит 
+	{
+		if((adress & (1<<i)) == 1<<i)//посылаем 1
+  5e:	e8 2e       	mov	r14, r24
+  60:	f1 2c       	mov	r15, r1
+  62:	01 e0       	ldi	r16, 0x01	; 1
+  64:	10 e0       	ldi	r17, 0x00	; 0
+  66:	67 01       	movw	r12, r14
+  68:	98 01       	movw	r18, r16
+  6a:	0c 2e       	mov	r0, r28
+  6c:	02 c0       	rjmp	.+4      	; 0x72 <_Z7IR_sendcc+0x2e>
+  6e:	22 0f       	add	r18, r18
+  70:	33 1f       	adc	r19, r19
+  72:	0a 94       	dec	r0
+  74:	e2 f7       	brpl	.-8      	; 0x6e <_Z7IR_sendcc+0x2a>
+  76:	c7 01       	movw	r24, r14
+  78:	82 23       	and	r24, r18
+  7a:	93 23       	and	r25, r19
+  7c:	28 17       	cp	r18, r24
+  7e:	39 07       	cpc	r19, r25
+  80:	19 f4       	brne	.+6      	; 0x88 <_Z7IR_sendcc+0x44>
+		IR_sendbit(1);
+  82:	81 e0       	ldi	r24, 0x01	; 1
+  84:	ce df       	rcall	.-100    	; 0x22 <_Z10IR_sendbitc>
+  86:	02 c0       	rjmp	.+4      	; 0x8c <_Z7IR_sendcc+0x48>
+		else //посылаем 0
+		IR_sendbit(0);
+  88:	80 e0       	ldi	r24, 0x00	; 0
+  8a:	cb df       	rcall	.-106    	; 0x22 <_Z10IR_sendbitc>
+  8c:	21 96       	adiw	r28, 0x01	; 1
+
+// функция отправки полного пакета.
+void IR_send(char adress, char command) {
+
+// отправка адреса
+	for(char i=0; i<5; i++)//посылаем отдельно каждый бит 
+  8e:	c5 30       	cpi	r28, 0x05	; 5
+  90:	d1 05       	cpc	r29, r1
+  92:	49 f7       	brne	.-46     	; 0x66 <_Z7IR_sendcc+0x22>
+  94:	c0 e0       	ldi	r28, 0x00	; 0
+  96:	d0 e0       	ldi	r29, 0x00	; 0
+	
+// отправка команды
+	
+		for(char i=0; i<8; i++)//посылаем отдельно каждый бит 
+		{
+			if((command & (1<<i)) == 1<<i)//посылаем 1
+  98:	0b 2d       	mov	r16, r11
+  9a:	10 e0       	ldi	r17, 0x00	; 0
+  9c:	aa 24       	eor	r10, r10
+  9e:	a3 94       	inc	r10
+  a0:	b1 2c       	mov	r11, r1
+  a2:	78 01       	movw	r14, r16
+  a4:	c5 01       	movw	r24, r10
+  a6:	0c 2e       	mov	r0, r28
+  a8:	02 c0       	rjmp	.+4      	; 0xae <__stack+0xf>
+  aa:	88 0f       	add	r24, r24
+  ac:	99 1f       	adc	r25, r25
+  ae:	0a 94       	dec	r0
+  b0:	e2 f7       	brpl	.-8      	; 0xaa <__stack+0xb>
+  b2:	98 01       	movw	r18, r16
+  b4:	28 23       	and	r18, r24
+  b6:	39 23       	and	r19, r25
+  b8:	82 17       	cp	r24, r18
+  ba:	93 07       	cpc	r25, r19
+  bc:	19 f4       	brne	.+6      	; 0xc4 <__stack+0x25>
+			IR_sendbit(1);
+  be:	81 e0       	ldi	r24, 0x01	; 1
+  c0:	b0 df       	rcall	.-160    	; 0x22 <_Z10IR_sendbitc>
+  c2:	02 c0       	rjmp	.+4      	; 0xc8 <__stack+0x29>
+			else //посылаем 0
+			IR_sendbit(0);
+  c4:	80 e0       	ldi	r24, 0x00	; 0
+  c6:	ad df       	rcall	.-166    	; 0x22 <_Z10IR_sendbitc>
+  c8:	21 96       	adiw	r28, 0x01	; 1
+		IR_sendbit(0);
+	}
+	
+// отправка команды
+	
+		for(char i=0; i<8; i++)//посылаем отдельно каждый бит 
+  ca:	c8 30       	cpi	r28, 0x08	; 8
+  cc:	d1 05       	cpc	r29, r1
+  ce:	49 f7       	brne	.-46     	; 0xa2 <__stack+0x3>
+			else //посылаем 0
+			IR_sendbit(0);
+		}
+		
+// отправка бит расширения =1
+		IR_sendbit(1);
+  d0:	81 e0       	ldi	r24, 0x01	; 1
+  d2:	a7 df       	rcall	.-178    	; 0x22 <_Z10IR_sendbitc>
+//отправка бит контроля =0
+		IR_sendbit(0);
+  d4:	80 e0       	ldi	r24, 0x00	; 0
+  d6:	a5 df       	rcall	.-182    	; 0x22 <_Z10IR_sendbitc>
+			PORTB &= ~(1<<PB0); // ставим на шине 0
+  d8:	c0 98       	cbi	0x18, 0	; 24
+  da:	80 e8       	ldi	r24, 0x80	; 128
+  dc:	8a 95       	dec	r24
+  de:	f1 f7       	brne	.-4      	; 0xdc <__stack+0x3d>
+			_delay_us(320); // ждем 320 мкс
+		PORTB |= (1<<PB0);
+  e0:	c0 9a       	sbi	0x18, 0	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  e2:	8f ed       	ldi	r24, 0xDF	; 223
+  e4:	9e e2       	ldi	r25, 0x2E	; 46
+  e6:	01 97       	sbiw	r24, 0x01	; 1
+  e8:	f1 f7       	brne	.-4      	; 0xe6 <__stack+0x47>
+  ea:	00 c0       	rjmp	.+0      	; 0xec <__stack+0x4d>
+  ec:	00 00       	nop
+  ee:	c0 e0       	ldi	r28, 0x00	; 0
+  f0:	d0 e0       	ldi	r29, 0x00	; 0
+_delay_ms(40);
+
+	// отправка адреса
+	for(char i=0; i<5; i++)//посылаем отдельно каждый бит
+	{
+		if((adress & (1<<i)) == 1<<i)//посылаем 1
+  f2:	01 e0       	ldi	r16, 0x01	; 1
+  f4:	10 e0       	ldi	r17, 0x00	; 0
+  f6:	c8 01       	movw	r24, r16
+  f8:	0c 2e       	mov	r0, r28
+  fa:	02 c0       	rjmp	.+4      	; 0x100 <__stack+0x61>
+  fc:	88 0f       	add	r24, r24
+  fe:	99 1f       	adc	r25, r25
+ 100:	0a 94       	dec	r0
+ 102:	e2 f7       	brpl	.-8      	; 0xfc <__stack+0x5d>
+ 104:	96 01       	movw	r18, r12
+ 106:	28 23       	and	r18, r24
+ 108:	39 23       	and	r19, r25
+ 10a:	82 17       	cp	r24, r18
+ 10c:	93 07       	cpc	r25, r19
+ 10e:	19 f4       	brne	.+6      	; 0x116 <__stack+0x77>
+		IR_sendbit(1);
+ 110:	81 e0       	ldi	r24, 0x01	; 1
+ 112:	87 df       	rcall	.-242    	; 0x22 <_Z10IR_sendbitc>
+ 114:	02 c0       	rjmp	.+4      	; 0x11a <__stack+0x7b>
+		else //посылаем 0
+		IR_sendbit(0);
+ 116:	80 e0       	ldi	r24, 0x00	; 0
+ 118:	84 df       	rcall	.-248    	; 0x22 <_Z10IR_sendbitc>
+ 11a:	21 96       	adiw	r28, 0x01	; 1
+		PORTB |= (1<<PB0);
+		
+_delay_ms(40);
+
+	// отправка адреса
+	for(char i=0; i<5; i++)//посылаем отдельно каждый бит
+ 11c:	c5 30       	cpi	r28, 0x05	; 5
+ 11e:	d1 05       	cpc	r29, r1
+ 120:	51 f7       	brne	.-44     	; 0xf6 <__stack+0x57>
+ 122:	c0 e0       	ldi	r28, 0x00	; 0
+ 124:	d0 e0       	ldi	r29, 0x00	; 0
+	}
+	// отправка команды
+	
+	for(char i=0; i<8; i++)//посылаем отдельно каждый бит
+	{
+		if((command & (1<<i)) == 1<<i)//посылаем 0
+ 126:	01 e0       	ldi	r16, 0x01	; 1
+ 128:	10 e0       	ldi	r17, 0x00	; 0
+ 12a:	c8 01       	movw	r24, r16
+ 12c:	0c 2e       	mov	r0, r28
+ 12e:	02 c0       	rjmp	.+4      	; 0x134 <__stack+0x95>
+ 130:	88 0f       	add	r24, r24
+ 132:	99 1f       	adc	r25, r25
+ 134:	0a 94       	dec	r0
+ 136:	e2 f7       	brpl	.-8      	; 0x130 <__stack+0x91>
+ 138:	97 01       	movw	r18, r14
+ 13a:	28 23       	and	r18, r24
+ 13c:	39 23       	and	r19, r25
+ 13e:	82 17       	cp	r24, r18
+ 140:	93 07       	cpc	r25, r19
+ 142:	19 f4       	brne	.+6      	; 0x14a <__stack+0xab>
+		IR_sendbit(0);
+ 144:	80 e0       	ldi	r24, 0x00	; 0
+ 146:	6d df       	rcall	.-294    	; 0x22 <_Z10IR_sendbitc>
+ 148:	02 c0       	rjmp	.+4      	; 0x14e <__stack+0xaf>
+		else //посылаем 1
+		IR_sendbit(1);
+ 14a:	81 e0       	ldi	r24, 0x01	; 1
+ 14c:	6a df       	rcall	.-300    	; 0x22 <_Z10IR_sendbitc>
+ 14e:	21 96       	adiw	r28, 0x01	; 1
+		else //посылаем 0
+		IR_sendbit(0);
+	}
+	// отправка команды
+	
+	for(char i=0; i<8; i++)//посылаем отдельно каждый бит
+ 150:	c8 30       	cpi	r28, 0x08	; 8
+ 152:	d1 05       	cpc	r29, r1
+ 154:	51 f7       	brne	.-44     	; 0x12a <__stack+0x8b>
+		else //посылаем 1
+		IR_sendbit(1);
+	}
+		
+		// отправка бит расширения =0
+		IR_sendbit(0);
+ 156:	80 e0       	ldi	r24, 0x00	; 0
+ 158:	64 df       	rcall	.-312    	; 0x22 <_Z10IR_sendbitc>
+		//отправка бит контроля =1
+		IR_sendbit(1);
+ 15a:	81 e0       	ldi	r24, 0x01	; 1
+ 15c:	62 df       	rcall	.-316    	; 0x22 <_Z10IR_sendbitc>
+		PORTB &= ~(1<<PB0); // ставим на шине 0
+ 15e:	c0 98       	cbi	0x18, 0	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 160:	80 e8       	ldi	r24, 0x80	; 128
+ 162:	8a 95       	dec	r24
+ 164:	f1 f7       	brne	.-4      	; 0x162 <__stack+0xc3>
+		_delay_us(320); // ждем 320 мкс
+		PORTB |= (1<<PB0);
+ 166:	c0 9a       	sbi	0x18, 0	; 24
+
+}
+ 168:	df 91       	pop	r29
+ 16a:	cf 91       	pop	r28
+ 16c:	1f 91       	pop	r17
+ 16e:	0f 91       	pop	r16
+ 170:	ff 90       	pop	r15
+ 172:	ef 90       	pop	r14
+ 174:	df 90       	pop	r13
+ 176:	cf 90       	pop	r12
+ 178:	bf 90       	pop	r11
+ 17a:	af 90       	pop	r10
+ 17c:	08 95       	ret
+
+0000017e <main>:
+
+
+int main(void)
+{
+	
+			DDRB|= (1<<PB0);
+ 17e:	b8 9a       	sbi	0x17, 0	; 23
+			PORTB |= (1<<PB0);
+ 180:	c0 9a       	sbi	0x18, 0	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 182:	2f ef       	ldi	r18, 0xFF	; 255
+ 184:	82 e5       	ldi	r24, 0x52	; 82
+ 186:	97 e0       	ldi	r25, 0x07	; 7
+ 188:	21 50       	subi	r18, 0x01	; 1
+ 18a:	80 40       	sbci	r24, 0x00	; 0
+ 18c:	90 40       	sbci	r25, 0x00	; 0
+ 18e:	e1 f7       	brne	.-8      	; 0x188 <main+0xa>
+ 190:	00 c0       	rjmp	.+0      	; 0x192 <main+0x14>
+ 192:	00 00       	nop
+			char command=0x11;
+_delay_ms(2000);
+    /* Replace with your application code */
+    while (1) 
+    {
+		IR_send( adress,  command);
+ 194:	61 e1       	ldi	r22, 0x11	; 17
+ 196:	83 e0       	ldi	r24, 0x03	; 3
+ 198:	55 df       	rcall	.-342    	; 0x44 <_Z7IR_sendcc>
+ 19a:	2f e7       	ldi	r18, 0x7F	; 127
+ 19c:	8f e4       	ldi	r24, 0x4F	; 79
+ 19e:	92 e1       	ldi	r25, 0x12	; 18
+ 1a0:	21 50       	subi	r18, 0x01	; 1
+ 1a2:	80 40       	sbci	r24, 0x00	; 0
+ 1a4:	90 40       	sbci	r25, 0x00	; 0
+ 1a6:	e1 f7       	brne	.-8      	; 0x1a0 <main+0x22>
+ 1a8:	00 c0       	rjmp	.+0      	; 0x1aa <main+0x2c>
+ 1aa:	00 00       	nop
+ 1ac:	f3 cf       	rjmp	.-26     	; 0x194 <main+0x16>
+
+000001ae <_exit>:
+ 1ae:	f8 94       	cli
+
+000001b0 <__stop_program>:
+ 1b0:	ff cf       	rjmp	.-2      	; 0x1b0 <__stop_program>

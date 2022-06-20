@@ -1,0 +1,294 @@
+
+Attiny13-IR-sharp-transmitter.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001b4  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000208  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000208  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000238  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000058  00000000  00000000  00000274  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000852  00000000  00000000  000002cc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000422  00000000  00000000  00000b1e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000003d1  00000000  00000000  00000f40  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000ec  00000000  00000000  00001314  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003aa  00000000  00000000  00001400  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000588  00000000  00000000  000017aa  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000048  00000000  00000000  00001d32  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	0e c0       	rjmp	.+28     	; 0x20 <__bad_interrupt>
+   4:	0d c0       	rjmp	.+26     	; 0x20 <__bad_interrupt>
+   6:	0c c0       	rjmp	.+24     	; 0x20 <__bad_interrupt>
+   8:	0b c0       	rjmp	.+22     	; 0x20 <__bad_interrupt>
+   a:	0a c0       	rjmp	.+20     	; 0x20 <__bad_interrupt>
+   c:	09 c0       	rjmp	.+18     	; 0x20 <__bad_interrupt>
+   e:	08 c0       	rjmp	.+16     	; 0x20 <__bad_interrupt>
+  10:	07 c0       	rjmp	.+14     	; 0x20 <__bad_interrupt>
+  12:	06 c0       	rjmp	.+12     	; 0x20 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+  1c:	ae d0       	rcall	.+348    	; 0x17a <main>
+  1e:	c8 c0       	rjmp	.+400    	; 0x1b0 <_exit>
+
+00000020 <__bad_interrupt>:
+  20:	ef cf       	rjmp	.-34     	; 0x0 <__vectors>
+
+00000022 <_Z12sharp_signalv>:
+	for (char i=0; i<13; i++) {
+	 IR38_signal();		
+	}
+	_delay_us(1680);
+	
+}
+  22:	8d e0       	ldi	r24, 0x0D	; 13
+  24:	c0 9a       	sbi	0x18, 0	; 24
+  26:	90 e1       	ldi	r25, 0x10	; 16
+  28:	9a 95       	dec	r25
+  2a:	f1 f7       	brne	.-4      	; 0x28 <_Z12sharp_signalv+0x6>
+  2c:	c0 98       	cbi	0x18, 0	; 24
+  2e:	90 e4       	ldi	r25, 0x40	; 64
+  30:	9a 95       	dec	r25
+  32:	f1 f7       	brne	.-4      	; 0x30 <_Z12sharp_signalv+0xe>
+  34:	81 50       	subi	r24, 0x01	; 1
+  36:	b1 f7       	brne	.-20     	; 0x24 <_Z12sharp_signalv+0x2>
+  38:	08 95       	ret
+
+0000003a <_Z7sharp_1v>:
+  3a:	f3 df       	rcall	.-26     	; 0x22 <_Z12sharp_signalv>
+  3c:	80 ec       	ldi	r24, 0xC0	; 192
+  3e:	9f e0       	ldi	r25, 0x0F	; 15
+  40:	01 97       	sbiw	r24, 0x01	; 1
+  42:	f1 f7       	brne	.-4      	; 0x40 <__SREG__+0x1>
+  44:	08 95       	ret
+
+00000046 <_Z7sharp_0v>:
+  46:	ed df       	rcall	.-38     	; 0x22 <_Z12sharp_signalv>
+  48:	80 e6       	ldi	r24, 0x60	; 96
+  4a:	96 e0       	ldi	r25, 0x06	; 6
+  4c:	01 97       	sbiw	r24, 0x01	; 1
+  4e:	f1 f7       	brne	.-4      	; 0x4c <_Z7sharp_0v+0x6>
+  50:	08 95       	ret
+
+00000052 <_Z8IR_sharpcc>:
+  52:	cf 92       	push	r12
+  54:	df 92       	push	r13
+  56:	ef 92       	push	r14
+  58:	ff 92       	push	r15
+  5a:	0f 93       	push	r16
+  5c:	1f 93       	push	r17
+  5e:	cf 93       	push	r28
+  60:	df 93       	push	r29
+  62:	06 2f       	mov	r16, r22
+  64:	c0 e0       	ldi	r28, 0x00	; 0
+  66:	d0 e0       	ldi	r29, 0x00	; 0
+  68:	cc 24       	eor	r12, r12
+  6a:	c3 94       	inc	r12
+  6c:	d1 2c       	mov	r13, r1
+  6e:	e8 2e       	mov	r14, r24
+  70:	f1 2c       	mov	r15, r1
+  72:	96 01       	movw	r18, r12
+  74:	0c 2e       	mov	r0, r28
+  76:	02 c0       	rjmp	.+4      	; 0x7c <_Z8IR_sharpcc+0x2a>
+  78:	22 0f       	add	r18, r18
+  7a:	33 1f       	adc	r19, r19
+  7c:	0a 94       	dec	r0
+  7e:	e2 f7       	brpl	.-8      	; 0x78 <_Z8IR_sharpcc+0x26>
+  80:	a7 01       	movw	r20, r14
+  82:	42 23       	and	r20, r18
+  84:	53 23       	and	r21, r19
+  86:	24 17       	cp	r18, r20
+  88:	35 07       	cpc	r19, r21
+  8a:	11 f4       	brne	.+4      	; 0x90 <_Z8IR_sharpcc+0x3e>
+  8c:	d6 df       	rcall	.-84     	; 0x3a <_Z7sharp_1v>
+  8e:	01 c0       	rjmp	.+2      	; 0x92 <_Z8IR_sharpcc+0x40>
+  90:	da df       	rcall	.-76     	; 0x46 <_Z7sharp_0v>
+  92:	21 96       	adiw	r28, 0x01	; 1
+  94:	c5 30       	cpi	r28, 0x05	; 5
+  96:	d1 05       	cpc	r29, r1
+  98:	61 f7       	brne	.-40     	; 0x72 <_Z8IR_sharpcc+0x20>
+  9a:	c0 e0       	ldi	r28, 0x00	; 0
+  9c:	d0 e0       	ldi	r29, 0x00	; 0
+  9e:	ee 24       	eor	r14, r14
+  a0:	e3 94       	inc	r14
+  a2:	f1 2c       	mov	r15, r1
+  a4:	10 e0       	ldi	r17, 0x00	; 0
+  a6:	c7 01       	movw	r24, r14
+  a8:	0c 2e       	mov	r0, r28
+  aa:	02 c0       	rjmp	.+4      	; 0xb0 <__stack+0x11>
+  ac:	88 0f       	add	r24, r24
+  ae:	99 1f       	adc	r25, r25
+  b0:	0a 94       	dec	r0
+  b2:	e2 f7       	brpl	.-8      	; 0xac <__stack+0xd>
+  b4:	98 01       	movw	r18, r16
+  b6:	28 23       	and	r18, r24
+  b8:	39 23       	and	r19, r25
+  ba:	82 17       	cp	r24, r18
+  bc:	93 07       	cpc	r25, r19
+  be:	11 f4       	brne	.+4      	; 0xc4 <__stack+0x25>
+  c0:	bc df       	rcall	.-136    	; 0x3a <_Z7sharp_1v>
+  c2:	01 c0       	rjmp	.+2      	; 0xc6 <__stack+0x27>
+  c4:	c0 df       	rcall	.-128    	; 0x46 <_Z7sharp_0v>
+  c6:	21 96       	adiw	r28, 0x01	; 1
+  c8:	c8 30       	cpi	r28, 0x08	; 8
+  ca:	d1 05       	cpc	r29, r1
+  cc:	61 f7       	brne	.-40     	; 0xa6 <__stack+0x7>
+  ce:	b5 df       	rcall	.-150    	; 0x3a <_Z7sharp_1v>
+  d0:	ba df       	rcall	.-140    	; 0x46 <_Z7sharp_0v>
+  d2:	a7 df       	rcall	.-178    	; 0x22 <_Z12sharp_signalv>
+  d4:	df 91       	pop	r29
+  d6:	cf 91       	pop	r28
+  d8:	1f 91       	pop	r17
+  da:	0f 91       	pop	r16
+  dc:	ff 90       	pop	r15
+  de:	ef 90       	pop	r14
+  e0:	df 90       	pop	r13
+  e2:	cf 90       	pop	r12
+  e4:	08 95       	ret
+
+000000e6 <_Z15IR_sharp_INVERScc>:
+  e6:	cf 92       	push	r12
+  e8:	df 92       	push	r13
+  ea:	ef 92       	push	r14
+  ec:	ff 92       	push	r15
+  ee:	0f 93       	push	r16
+  f0:	1f 93       	push	r17
+  f2:	cf 93       	push	r28
+  f4:	df 93       	push	r29
+  f6:	06 2f       	mov	r16, r22
+  f8:	c0 e0       	ldi	r28, 0x00	; 0
+  fa:	d0 e0       	ldi	r29, 0x00	; 0
+  fc:	cc 24       	eor	r12, r12
+  fe:	c3 94       	inc	r12
+ 100:	d1 2c       	mov	r13, r1
+ 102:	e8 2e       	mov	r14, r24
+ 104:	f1 2c       	mov	r15, r1
+ 106:	96 01       	movw	r18, r12
+ 108:	0c 2e       	mov	r0, r28
+ 10a:	02 c0       	rjmp	.+4      	; 0x110 <_Z15IR_sharp_INVERScc+0x2a>
+ 10c:	22 0f       	add	r18, r18
+ 10e:	33 1f       	adc	r19, r19
+ 110:	0a 94       	dec	r0
+ 112:	e2 f7       	brpl	.-8      	; 0x10c <_Z15IR_sharp_INVERScc+0x26>
+ 114:	a7 01       	movw	r20, r14
+ 116:	42 23       	and	r20, r18
+ 118:	53 23       	and	r21, r19
+ 11a:	24 17       	cp	r18, r20
+ 11c:	35 07       	cpc	r19, r21
+ 11e:	11 f4       	brne	.+4      	; 0x124 <_Z15IR_sharp_INVERScc+0x3e>
+ 120:	8c df       	rcall	.-232    	; 0x3a <_Z7sharp_1v>
+ 122:	01 c0       	rjmp	.+2      	; 0x126 <_Z15IR_sharp_INVERScc+0x40>
+ 124:	90 df       	rcall	.-224    	; 0x46 <_Z7sharp_0v>
+ 126:	21 96       	adiw	r28, 0x01	; 1
+ 128:	c5 30       	cpi	r28, 0x05	; 5
+ 12a:	d1 05       	cpc	r29, r1
+ 12c:	61 f7       	brne	.-40     	; 0x106 <_Z15IR_sharp_INVERScc+0x20>
+ 12e:	c0 e0       	ldi	r28, 0x00	; 0
+ 130:	d0 e0       	ldi	r29, 0x00	; 0
+ 132:	ee 24       	eor	r14, r14
+ 134:	e3 94       	inc	r14
+ 136:	f1 2c       	mov	r15, r1
+ 138:	10 e0       	ldi	r17, 0x00	; 0
+ 13a:	c7 01       	movw	r24, r14
+ 13c:	0c 2e       	mov	r0, r28
+ 13e:	02 c0       	rjmp	.+4      	; 0x144 <_Z15IR_sharp_INVERScc+0x5e>
+ 140:	88 0f       	add	r24, r24
+ 142:	99 1f       	adc	r25, r25
+ 144:	0a 94       	dec	r0
+ 146:	e2 f7       	brpl	.-8      	; 0x140 <_Z15IR_sharp_INVERScc+0x5a>
+ 148:	98 01       	movw	r18, r16
+ 14a:	28 23       	and	r18, r24
+ 14c:	39 23       	and	r19, r25
+ 14e:	82 17       	cp	r24, r18
+ 150:	93 07       	cpc	r25, r19
+ 152:	11 f4       	brne	.+4      	; 0x158 <_Z15IR_sharp_INVERScc+0x72>
+ 154:	72 df       	rcall	.-284    	; 0x3a <_Z7sharp_1v>
+ 156:	01 c0       	rjmp	.+2      	; 0x15a <_Z15IR_sharp_INVERScc+0x74>
+ 158:	76 df       	rcall	.-276    	; 0x46 <_Z7sharp_0v>
+ 15a:	21 96       	adiw	r28, 0x01	; 1
+ 15c:	c8 30       	cpi	r28, 0x08	; 8
+ 15e:	d1 05       	cpc	r29, r1
+ 160:	61 f7       	brne	.-40     	; 0x13a <_Z15IR_sharp_INVERScc+0x54>
+ 162:	71 df       	rcall	.-286    	; 0x46 <_Z7sharp_0v>
+ 164:	6a df       	rcall	.-300    	; 0x3a <_Z7sharp_1v>
+ 166:	5d df       	rcall	.-326    	; 0x22 <_Z12sharp_signalv>
+ 168:	df 91       	pop	r29
+ 16a:	cf 91       	pop	r28
+ 16c:	1f 91       	pop	r17
+ 16e:	0f 91       	pop	r16
+ 170:	ff 90       	pop	r15
+ 172:	ef 90       	pop	r14
+ 174:	df 90       	pop	r13
+ 176:	cf 90       	pop	r12
+ 178:	08 95       	ret
+
+0000017a <main>:
+int main(void)
+{
+	// Светидиоды:
+	DDRB |= (1 << IR_LED);
+ 17a:	b8 9a       	sbi	0x17, 0	; 23
+	PORTB &= ~(1 << IR_LED);
+ 17c:	c0 98       	cbi	0x18, 0	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 17e:	2f ef       	ldi	r18, 0xFF	; 255
+ 180:	8d ee       	ldi	r24, 0xED	; 237
+ 182:	92 e0       	ldi	r25, 0x02	; 2
+ 184:	21 50       	subi	r18, 0x01	; 1
+ 186:	80 40       	sbci	r24, 0x00	; 0
+ 188:	90 40       	sbci	r25, 0x00	; 0
+ 18a:	e1 f7       	brne	.-8      	; 0x184 <main+0xa>
+ 18c:	00 c0       	rjmp	.+0      	; 0x18e <main+0x14>
+ 18e:	00 00       	nop
+
+_delay_ms(100);
+
+	IR_sharp(0x01,0x16);
+ 190:	66 e1       	ldi	r22, 0x16	; 22
+ 192:	81 e0       	ldi	r24, 0x01	; 1
+ 194:	5e df       	rcall	.-324    	; 0x52 <_Z8IR_sharpcc>
+ 196:	2f ef       	ldi	r18, 0xFF	; 255
+ 198:	8b e2       	ldi	r24, 0x2B	; 43
+ 19a:	91 e0       	ldi	r25, 0x01	; 1
+ 19c:	21 50       	subi	r18, 0x01	; 1
+ 19e:	80 40       	sbci	r24, 0x00	; 0
+ 1a0:	90 40       	sbci	r25, 0x00	; 0
+ 1a2:	e1 f7       	brne	.-8      	; 0x19c <main+0x22>
+ 1a4:	00 c0       	rjmp	.+0      	; 0x1a6 <main+0x2c>
+ 1a6:	00 00       	nop
+	_delay_ms(40);
+	IR_sharp_INVERS(0x01,0xE9);
+ 1a8:	69 ee       	ldi	r22, 0xE9	; 233
+ 1aa:	81 e0       	ldi	r24, 0x01	; 1
+ 1ac:	9c df       	rcall	.-200    	; 0xe6 <_Z15IR_sharp_INVERScc>
+ 1ae:	ff cf       	rjmp	.-2      	; 0x1ae <main+0x34>
+
+000001b0 <_exit>:
+ 1b0:	f8 94       	cli
+
+000001b2 <__stop_program>:
+ 1b2:	ff cf       	rjmp	.-2      	; 0x1b2 <__stop_program>
