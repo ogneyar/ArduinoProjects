@@ -1,0 +1,650 @@
+
+Attiny13-iksens4.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002dc  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000350  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000000a  00800060  00800060  00000350  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000350  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000380  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000088  00000000  00000000  000003bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000990  00000000  00000000  00000444  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000057a  00000000  00000000  00000dd4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000064c  00000000  00000000  0000134e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000134  00000000  00000000  0000199c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003cd  00000000  00000000  00001ad0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000061f  00000000  00000000  00001e9d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000068  00000000  00000000  000024bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	16 c0       	rjmp	.+44     	; 0x30 <__bad_interrupt>
+   4:	ae c0       	rjmp	.+348    	; 0x162 <__vector_2>
+   6:	14 c0       	rjmp	.+40     	; 0x30 <__bad_interrupt>
+   8:	13 c0       	rjmp	.+38     	; 0x30 <__bad_interrupt>
+   a:	12 c0       	rjmp	.+36     	; 0x30 <__bad_interrupt>
+   c:	86 c0       	rjmp	.+268    	; 0x11a <__vector_6>
+   e:	10 c0       	rjmp	.+32     	; 0x30 <__bad_interrupt>
+  10:	0f c0       	rjmp	.+30     	; 0x30 <__bad_interrupt>
+  12:	0e c0       	rjmp	.+28     	; 0x30 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+
+0000001c <__do_clear_bss>:
+  1c:	20 e0       	ldi	r18, 0x00	; 0
+  1e:	a0 e6       	ldi	r26, 0x60	; 96
+  20:	b0 e0       	ldi	r27, 0x00	; 0
+  22:	01 c0       	rjmp	.+2      	; 0x26 <.do_clear_bss_start>
+
+00000024 <.do_clear_bss_loop>:
+  24:	1d 92       	st	X+, r1
+
+00000026 <.do_clear_bss_start>:
+  26:	aa 36       	cpi	r26, 0x6A	; 106
+  28:	b2 07       	cpc	r27, r18
+  2a:	e1 f7       	brne	.-8      	; 0x24 <.do_clear_bss_loop>
+  2c:	de d0       	rcall	.+444    	; 0x1ea <main>
+  2e:	54 c1       	rjmp	.+680    	; 0x2d8 <_exit>
+
+00000030 <__bad_interrupt>:
+  30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
+
+00000032 <_Z6IR_iniv>:
+void IR_ini(void) {
+	// Режим СТС  38 кГц для 9.6Мгц
+	//частота сигнала=F_CPU / 2*делитель*(1+OCR0A)
+
+	
+	GIMSK|=(1<<PCIE); // пинчандже вкл.
+  32:	8b b7       	in	r24, 0x3b	; 59
+  34:	80 62       	ori	r24, 0x20	; 32
+  36:	8b bf       	out	0x3b, r24	; 59
+	PCMSK|=(1<<PCINT1); // PCINT0 ака PB1 вкл.
+  38:	a9 9a       	sbi	0x15, 1	; 21
+	
+	TCCR0A |=(1<<WGM01); // Режим CTC, сброс при совпадении
+  3a:	8f b5       	in	r24, 0x2f	; 47
+  3c:	82 60       	ori	r24, 0x02	; 2
+  3e:	8f bd       	out	0x2f, r24	; 47
+	//TCCR0A |= (1<<COM0A0); // Состояние вывода OC0A меняется на противоположное при равенстве регистров TCNT0 и OCR0A.
+	TCCR0B |= (1<<CS00);  // без делителя
+  40:	83 b7       	in	r24, 0x33	; 51
+  42:	81 60       	ori	r24, 0x01	; 1
+  44:	83 bf       	out	0x33, r24	; 51
+	OCR0A = 126; // регистр сравнения
+  46:	8e e7       	ldi	r24, 0x7E	; 126
+  48:	86 bf       	out	0x36, r24	; 54
+	
+	TIMSK0 |= (1<< OCIE0A);// прерывание по совпадению оцра
+  4a:	89 b7       	in	r24, 0x39	; 57
+  4c:	84 60       	ori	r24, 0x04	; 4
+  4e:	89 bf       	out	0x39, r24	; 57
+	
+	DDRB|=(1<<TX); // пин передатчика
+  50:	b8 9a       	sbi	0x17, 0	; 23
+	DDRB&=~(1<<RX); // пин приемника
+  52:	b9 98       	cbi	0x17, 1	; 23
+  54:	08 95       	ret
+
+00000056 <_Z5IRR_0v>:
+
+}
+
+//--------- отправка ИК ----------------------
+void IRR_0 (void) {
+	TCCR0A |= (1<<COM0A0);
+  56:	8f b5       	in	r24, 0x2f	; 47
+  58:	80 64       	ori	r24, 0x40	; 64
+  5a:	8f bd       	out	0x2f, r24	; 47
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  5c:	80 ef       	ldi	r24, 0xF0	; 240
+  5e:	90 e0       	ldi	r25, 0x00	; 0
+  60:	01 97       	sbiw	r24, 0x01	; 1
+  62:	f1 f7       	brne	.-4      	; 0x60 <_Z5IRR_0v+0xa>
+	_delay_us(100);
+	TCCR0A &=~(1<<COM0A0);
+  64:	8f b5       	in	r24, 0x2f	; 47
+  66:	8f 7b       	andi	r24, 0xBF	; 191
+  68:	8f bd       	out	0x2f, r24	; 47
+  6a:	8f ea       	ldi	r24, 0xAF	; 175
+  6c:	94 e0       	ldi	r25, 0x04	; 4
+  6e:	01 97       	sbiw	r24, 0x01	; 1
+  70:	f1 f7       	brne	.-4      	; 0x6e <_Z5IRR_0v+0x18>
+  72:	00 c0       	rjmp	.+0      	; 0x74 <_Z5IRR_0v+0x1e>
+  74:	00 00       	nop
+  76:	08 95       	ret
+
+00000078 <_Z5IRR_1v>:
+	_delay_us(500);
+}
+
+void IRR_1(void) {
+	TCCR0A |= (1<<COM0A0);
+  78:	8f b5       	in	r24, 0x2f	; 47
+  7a:	80 64       	ori	r24, 0x40	; 64
+  7c:	8f bd       	out	0x2f, r24	; 47
+  7e:	8f ea       	ldi	r24, 0xAF	; 175
+  80:	94 e0       	ldi	r25, 0x04	; 4
+  82:	01 97       	sbiw	r24, 0x01	; 1
+  84:	f1 f7       	brne	.-4      	; 0x82 <_Z5IRR_1v+0xa>
+  86:	00 c0       	rjmp	.+0      	; 0x88 <_Z5IRR_1v+0x10>
+  88:	00 00       	nop
+	_delay_us(500);
+	TCCR0A &=~(1<<COM0A0);
+  8a:	8f b5       	in	r24, 0x2f	; 47
+  8c:	8f 7b       	andi	r24, 0xBF	; 191
+  8e:	8f bd       	out	0x2f, r24	; 47
+  90:	8f ea       	ldi	r24, 0xAF	; 175
+  92:	94 e0       	ldi	r25, 0x04	; 4
+  94:	01 97       	sbiw	r24, 0x01	; 1
+  96:	f1 f7       	brne	.-4      	; 0x94 <_Z5IRR_1v+0x1c>
+  98:	00 c0       	rjmp	.+0      	; 0x9a <_Z5IRR_1v+0x22>
+  9a:	00 00       	nop
+  9c:	08 95       	ret
+
+0000009e <_Z8IRR_codeh>:
+	_delay_us(500);
+}
+
+
+void IRR_code(uint8_t code) {
+  9e:	1f 93       	push	r17
+  a0:	cf 93       	push	r28
+  a2:	df 93       	push	r29
+  a4:	18 2f       	mov	r17, r24
+  a6:	c8 e0       	ldi	r28, 0x08	; 8
+	uint8_t a,i;
+	a=1; // 0b0000001
+  a8:	d1 e0       	ldi	r29, 0x01	; 1
+	for (i=0; i<8; i++)
+	{
+		if ((code&a)==0) {
+  aa:	81 2f       	mov	r24, r17
+  ac:	8d 23       	and	r24, r29
+  ae:	11 f4       	brne	.+4      	; 0xb4 <__stack+0x15>
+			IRR_0();	//ноль
+  b0:	d2 df       	rcall	.-92     	; 0x56 <_Z5IRR_0v>
+  b2:	01 c0       	rjmp	.+2      	; 0xb6 <__stack+0x17>
+			}  else {
+			IRR_1(); //единица
+  b4:	e1 df       	rcall	.-62     	; 0x78 <_Z5IRR_1v>
+		}
+		a=a<<1;
+  b6:	dd 0f       	add	r29, r29
+  b8:	c1 50       	subi	r28, 0x01	; 1
+
+
+void IRR_code(uint8_t code) {
+	uint8_t a,i;
+	a=1; // 0b0000001
+	for (i=0; i<8; i++)
+  ba:	b9 f7       	brne	.-18     	; 0xaa <__stack+0xb>
+			}  else {
+			IRR_1(); //единица
+		}
+		a=a<<1;
+	}
+}
+  bc:	df 91       	pop	r29
+  be:	cf 91       	pop	r28
+  c0:	1f 91       	pop	r17
+  c2:	08 95       	ret
+
+000000c4 <_Z6statushh>:
+// статус сенсора
+uint8_t status(uint8_t cod, uint8_t null)
+{
+	static uint8_t COUNT_ok; // счетчик отражений
+	static uint8_t COUNT_er; // счетчик не отражений
+	if (null) // обнуляшка статиков
+  c4:	66 23       	and	r22, r22
+  c6:	31 f0       	breq	.+12     	; 0xd4 <_Z6statushh+0x10>
+	{
+		COUNT_er=0;
+  c8:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <_ZZ6statushhE8COUNT_er>
+		COUNT_ok=0;
+  cc:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <_edata>
+		return 0;
+  d0:	80 e0       	ldi	r24, 0x00	; 0
+  d2:	08 95       	ret
+	}
+	
+	if (cod!=IR_CODE)
+  d4:	8a 3a       	cpi	r24, 0xAA	; 170
+  d6:	41 f0       	breq	.+16     	; 0xe8 <_Z6statushh+0x24>
+	{
+		if (COUNT_er<OTR_OFF) { COUNT_er++;}
+  d8:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <_ZZ6statushhE8COUNT_er>
+  dc:	83 30       	cpi	r24, 0x03	; 3
+  de:	70 f4       	brcc	.+28     	; 0xfc <_Z6statushh+0x38>
+  e0:	8f 5f       	subi	r24, 0xFF	; 255
+  e2:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <_ZZ6statushhE8COUNT_er>
+  e6:	0a c0       	rjmp	.+20     	; 0xfc <_Z6statushh+0x38>
+		} else {
+		if (COUNT_ok<OTR_ON) {COUNT_ok++; COUNT_er=0;}
+  e8:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
+  ec:	83 30       	cpi	r24, 0x03	; 3
+  ee:	30 f4       	brcc	.+12     	; 0xfc <_Z6statushh+0x38>
+  f0:	8f 5f       	subi	r24, 0xFF	; 255
+  f2:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+  f6:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <_ZZ6statushhE8COUNT_er>
+  fa:	08 c0       	rjmp	.+16     	; 0x10c <_Z6statushh+0x48>
+	}
+	
+	if (COUNT_er==OTR_OFF)
+  fc:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <_ZZ6statushhE8COUNT_er>
+ 100:	83 30       	cpi	r24, 0x03	; 3
+ 102:	21 f4       	brne	.+8      	; 0x10c <_Z6statushh+0x48>
+	{
+		COUNT_ok=0;
+ 104:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <_edata>
+		COUNT_er=0;
+ 108:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <_ZZ6statushhE8COUNT_er>
+	static uint8_t COUNT_er; // счетчик не отражений
+	if (null) // обнуляшка статиков
+	{
+		COUNT_er=0;
+		COUNT_ok=0;
+		return 0;
+ 10c:	81 e0       	ldi	r24, 0x01	; 1
+ 10e:	90 91 60 00 	lds	r25, 0x0060	; 0x800060 <_edata>
+ 112:	93 30       	cpi	r25, 0x03	; 3
+ 114:	09 f0       	breq	.+2      	; 0x118 <_Z6statushh+0x54>
+ 116:	80 e0       	ldi	r24, 0x00	; 0
+	{
+		return 1;
+	}
+	
+	return 0;
+}
+ 118:	08 95       	ret
+
+0000011a <__vector_6>:
+volatile uint16_t dlinna; // длинна сигнала в тиках count
+volatile uint8_t code; // код
+
+
+// перерывание по таймеру
+ISR (TIM0_COMPA_vect) {
+ 11a:	1f 92       	push	r1
+ 11c:	0f 92       	push	r0
+ 11e:	0f b6       	in	r0, 0x3f	; 63
+ 120:	0f 92       	push	r0
+ 122:	11 24       	eor	r1, r1
+ 124:	2f 93       	push	r18
+ 126:	8f 93       	push	r24
+ 128:	9f 93       	push	r25
+	count++; // тик так
+ 12a:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <count>
+ 12e:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <count+0x1>
+ 132:	01 96       	adiw	r24, 0x01	; 1
+ 134:	90 93 69 00 	sts	0x0069, r25	; 0x800069 <count+0x1>
+ 138:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <count>
+	if (count>=10000) // максимум для обнуления, при 5000 приемник не воспринимает сигнал
+ 13c:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <count>
+ 140:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <count+0x1>
+ 144:	80 31       	cpi	r24, 0x10	; 16
+ 146:	97 42       	sbci	r25, 0x27	; 39
+ 148:	20 f0       	brcs	.+8      	; 0x152 <__vector_6+0x38>
+	{
+		count=0;
+ 14a:	10 92 69 00 	sts	0x0069, r1	; 0x800069 <count+0x1>
+ 14e:	10 92 68 00 	sts	0x0068, r1	; 0x800068 <count>
+	}
+}
+ 152:	9f 91       	pop	r25
+ 154:	8f 91       	pop	r24
+ 156:	2f 91       	pop	r18
+ 158:	0f 90       	pop	r0
+ 15a:	0f be       	out	0x3f, r0	; 63
+ 15c:	0f 90       	pop	r0
+ 15e:	1f 90       	pop	r1
+ 160:	18 95       	reti
+
+00000162 <__vector_2>:
+
+
+// прерывание по сигналу от приемника
+ISR (PCINT0_vect) {
+ 162:	1f 92       	push	r1
+ 164:	0f 92       	push	r0
+ 166:	0f b6       	in	r0, 0x3f	; 63
+ 168:	0f 92       	push	r0
+ 16a:	11 24       	eor	r1, r1
+ 16c:	2f 93       	push	r18
+ 16e:	3f 93       	push	r19
+ 170:	8f 93       	push	r24
+ 172:	9f 93       	push	r25
+	if (!(PINB&(1<<RX)))
+ 174:	b1 99       	sbic	0x16, 1	; 22
+ 176:	09 c0       	rjmp	.+18     	; 0x18a <__vector_2+0x28>
+	{
+		start=count; // начало сигнала
+ 178:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <count>
+ 17c:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <count+0x1>
+ 180:	90 93 66 00 	sts	0x0066, r25	; 0x800066 <start+0x1>
+ 184:	80 93 65 00 	sts	0x0065, r24	; 0x800065 <start>
+ 188:	27 c0       	rjmp	.+78     	; 0x1d8 <__vector_2+0x76>
+	} else {
+		dlinna=count-start; // конец сигнала
+ 18a:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <count>
+ 18e:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <count+0x1>
+ 192:	20 91 65 00 	lds	r18, 0x0065	; 0x800065 <start>
+ 196:	30 91 66 00 	lds	r19, 0x0066	; 0x800066 <start+0x1>
+ 19a:	82 1b       	sub	r24, r18
+ 19c:	93 0b       	sbc	r25, r19
+ 19e:	90 93 64 00 	sts	0x0064, r25	; 0x800064 <dlinna+0x1>
+ 1a2:	80 93 63 00 	sts	0x0063, r24	; 0x800063 <dlinna>
+		if (dlinna>=50) // если длинна в диапазоне
+ 1a6:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <dlinna>
+ 1aa:	90 91 64 00 	lds	r25, 0x0064	; 0x800064 <dlinna+0x1>
+ 1ae:	c2 97       	sbiw	r24, 0x32	; 50
+ 1b0:	70 f0       	brcs	.+28     	; 0x1ce <__vector_2+0x6c>
+		{
+			code|=(1<<signal);
+ 1b2:	30 91 67 00 	lds	r19, 0x0067	; 0x800067 <signal>
+ 1b6:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <code>
+ 1ba:	81 e0       	ldi	r24, 0x01	; 1
+ 1bc:	90 e0       	ldi	r25, 0x00	; 0
+ 1be:	02 c0       	rjmp	.+4      	; 0x1c4 <__vector_2+0x62>
+ 1c0:	88 0f       	add	r24, r24
+ 1c2:	99 1f       	adc	r25, r25
+ 1c4:	3a 95       	dec	r19
+ 1c6:	e2 f7       	brpl	.-8      	; 0x1c0 <__vector_2+0x5e>
+ 1c8:	82 2b       	or	r24, r18
+ 1ca:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <code>
+		}
+		signal++;
+ 1ce:	80 91 67 00 	lds	r24, 0x0067	; 0x800067 <signal>
+ 1d2:	8f 5f       	subi	r24, 0xFF	; 255
+ 1d4:	80 93 67 00 	sts	0x0067, r24	; 0x800067 <signal>
+	}
+}
+ 1d8:	9f 91       	pop	r25
+ 1da:	8f 91       	pop	r24
+ 1dc:	3f 91       	pop	r19
+ 1de:	2f 91       	pop	r18
+ 1e0:	0f 90       	pop	r0
+ 1e2:	0f be       	out	0x3f, r0	; 63
+ 1e4:	0f 90       	pop	r0
+ 1e6:	1f 90       	pop	r1
+ 1e8:	18 95       	reti
+
+000001ea <main>:
+
+
+	
+int main(void)
+{
+	DDRB|=(1<<OUT); // выход 
+ 1ea:	ba 9a       	sbi	0x17, 2	; 23
+	
+	uint8_t stat=0; // статус датчика
+	uint8_t trigger=0; // триггер флаг
+	uint8_t mode=0; // режим работы
+	IR_ini(); // настройки приема и предачи инфракрасного сигнала, все в куче
+ 1ec:	22 df       	rcall	.-444    	; 0x32 <_Z6IR_iniv>
+	sei();// разрешаем прерывания
+ 1ee:	78 94       	sei
+	
+//-----------читаем режим----------
+	if (!(PINB&(1<<PB3)))
+ 1f0:	c6 b3       	in	r28, 0x16	; 22
+{
+	DDRB|=(1<<OUT); // выход 
+	
+	uint8_t stat=0; // статус датчика
+	uint8_t trigger=0; // триггер флаг
+	uint8_t mode=0; // режим работы
+ 1f2:	c3 fb       	bst	r28, 3
+ 1f4:	cc 27       	eor	r28, r28
+ 1f6:	c0 f9       	bld	r28, 0
+ 1f8:	81 e0       	ldi	r24, 0x01	; 1
+ 1fa:	c8 27       	eor	r28, r24
+//-----------читаем режим----------
+	if (!(PINB&(1<<PB3)))
+	{
+		mode|=(1<<0);
+	}
+	if (!(PINB&(1<<PB4)))
+ 1fc:	b4 9b       	sbis	0x16, 4	; 22
+	{
+		mode|=(1<<1);
+ 1fe:	c2 60       	ori	r28, 0x02	; 2
+				PORTB|=(1<<OUT); // врубление
+				_delay_ms(60000); // пауза
+				PORTB&=~(1<<OUT); // вырубление
+				status(1, 1); // сброс статиков внутри функции
+				code=0; // обнуление
+				stat=0; // сброс статуса
+ 200:	d0 e0       	ldi	r29, 0x00	; 0
+ 202:	80 e0       	ldi	r24, 0x00	; 0
+		{
+			if (stat)
+			{
+				if (trigger!=stat) 
+				{
+					PORTB^=(1<<OUT);// переключаемся
+ 204:	14 e0       	ldi	r17, 0x04	; 4
+	}
+//----------------------------------
+
+    while (1) 
+    {
+		if (!count) // когда нуль - шлем и принимаем сигнал
+ 206:	20 91 68 00 	lds	r18, 0x0068	; 0x800068 <count>
+ 20a:	30 91 69 00 	lds	r19, 0x0069	; 0x800069 <count+0x1>
+ 20e:	23 2b       	or	r18, r19
+ 210:	51 f4       	brne	.+20     	; 0x226 <main+0x3c>
+		{
+			signal=0; // 
+ 212:	10 92 67 00 	sts	0x0067, r1	; 0x800067 <signal>
+			code=0;	//
+ 216:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <code>
+			//IR_code(IR_CODE);// для протеуса
+			IRR_code(IR_CODE); // для прошивки
+ 21a:	8a ea       	ldi	r24, 0xAA	; 170
+ 21c:	40 df       	rcall	.-384    	; 0x9e <_Z8IRR_codeh>
+			stat=status(code, 0);
+ 21e:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <code>
+ 222:	60 e0       	ldi	r22, 0x00	; 0
+ 224:	4f df       	rcall	.-354    	; 0xc4 <_Z6statushh>
+		}
+
+//-------- индикация припятствия--------------
+		if (mode==0)
+ 226:	c1 11       	cpse	r28, r1
+ 228:	06 c0       	rjmp	.+12     	; 0x236 <main+0x4c>
+		{
+			if (stat)
+ 22a:	88 23       	and	r24, r24
+ 22c:	11 f0       	breq	.+4      	; 0x232 <main+0x48>
+			{
+				PORTB|=(1<<OUT); // врубаем
+ 22e:	c2 9a       	sbi	0x18, 2	; 24
+ 230:	2d c0       	rjmp	.+90     	; 0x28c <main+0xa2>
+			} else
+			{
+				PORTB&=~(1<<OUT); // вырубаем
+ 232:	c2 98       	cbi	0x18, 2	; 24
+ 234:	2b c0       	rjmp	.+86     	; 0x28c <main+0xa2>
+		}
+//------------------------------		
+		
+		
+// -------------триггер	-------------
+		if (mode==1)
+ 236:	c1 30       	cpi	r28, 0x01	; 1
+ 238:	59 f4       	brne	.+22     	; 0x250 <main+0x66>
+		{
+			if (stat)
+ 23a:	88 23       	and	r24, r24
+ 23c:	09 f4       	brne	.+2      	; 0x240 <main+0x56>
+ 23e:	46 c0       	rjmp	.+140    	; 0x2cc <main+0xe2>
+			{
+				if (trigger!=stat) 
+ 240:	8d 17       	cp	r24, r29
+ 242:	09 f4       	brne	.+2      	; 0x246 <main+0x5c>
+ 244:	45 c0       	rjmp	.+138    	; 0x2d0 <main+0xe6>
+				{
+					PORTB^=(1<<OUT);// переключаемся
+ 246:	98 b3       	in	r25, 0x18	; 24
+ 248:	91 27       	eor	r25, r17
+ 24a:	98 bb       	out	0x18, r25	; 24
+				}
+			}
+		trigger=stat;
+ 24c:	d8 2f       	mov	r29, r24
+ 24e:	db cf       	rjmp	.-74     	; 0x206 <main+0x1c>
+		}
+//--------------------------------
+
+// ---------одновибратор 10 сек------------------
+		if (mode==2)
+ 250:	c2 30       	cpi	r28, 0x02	; 2
+ 252:	e1 f4       	brne	.+56     	; 0x28c <main+0xa2>
+		{
+			if (stat)
+ 254:	88 23       	and	r24, r24
+ 256:	09 f4       	brne	.+2      	; 0x25a <main+0x70>
+ 258:	3d c0       	rjmp	.+122    	; 0x2d4 <main+0xea>
+			{
+				cli();// прерывания ВЫКЛ.
+ 25a:	f8 94       	cli
+				PORTB|=(1<<OUT); // врубление 
+ 25c:	c2 9a       	sbi	0x18, 2	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 25e:	2f ef       	ldi	r18, 0xFF	; 255
+ 260:	33 e2       	ldi	r19, 0x23	; 35
+ 262:	84 ef       	ldi	r24, 0xF4	; 244
+ 264:	90 e0       	ldi	r25, 0x00	; 0
+ 266:	21 50       	subi	r18, 0x01	; 1
+ 268:	30 40       	sbci	r19, 0x00	; 0
+ 26a:	80 40       	sbci	r24, 0x00	; 0
+ 26c:	90 40       	sbci	r25, 0x00	; 0
+ 26e:	d9 f7       	brne	.-10     	; 0x266 <main+0x7c>
+ 270:	00 c0       	rjmp	.+0      	; 0x272 <main+0x88>
+ 272:	00 00       	nop
+				_delay_ms(10000); // пауза
+				PORTB&=~(1<<OUT); // вырубление
+ 274:	c2 98       	cbi	0x18, 2	; 24
+				status(1, 1); // сброс статиков внутри функции
+ 276:	61 e0       	ldi	r22, 0x01	; 1
+ 278:	81 e0       	ldi	r24, 0x01	; 1
+ 27a:	24 df       	rcall	.-440    	; 0xc4 <_Z6statushh>
+				code=0; // обнуление 
+ 27c:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <code>
+				stat=0; // сброс статуса
+				count=0; // обнул счетчика
+ 280:	10 92 69 00 	sts	0x0069, r1	; 0x800069 <count+0x1>
+ 284:	10 92 68 00 	sts	0x0068, r1	; 0x800068 <count>
+				sei(); // прерывания ВКЛ.
+ 288:	78 94       	sei
+ 28a:	24 c0       	rjmp	.+72     	; 0x2d4 <main+0xea>
+			}
+		}
+//---------------------------------
+		
+// ---------одновибратор 60 сек------------------
+		if (mode==3)
+ 28c:	c3 30       	cpi	r28, 0x03	; 3
+ 28e:	09 f0       	breq	.+2      	; 0x292 <main+0xa8>
+ 290:	ba cf       	rjmp	.-140    	; 0x206 <main+0x1c>
+		{
+			if (stat)
+ 292:	88 23       	and	r24, r24
+ 294:	09 f4       	brne	.+2      	; 0x298 <main+0xae>
+ 296:	b7 cf       	rjmp	.-146    	; 0x206 <main+0x1c>
+			{
+				cli();// прерывания ВЫКЛ.
+ 298:	f8 94       	cli
+				PORTB|=(1<<OUT); // врубление
+ 29a:	c2 9a       	sbi	0x18, 2	; 24
+ 29c:	2f ef       	ldi	r18, 0xFF	; 255
+ 29e:	37 ed       	ldi	r19, 0xD7	; 215
+ 2a0:	88 eb       	ldi	r24, 0xB8	; 184
+ 2a2:	95 e0       	ldi	r25, 0x05	; 5
+ 2a4:	21 50       	subi	r18, 0x01	; 1
+ 2a6:	30 40       	sbci	r19, 0x00	; 0
+ 2a8:	80 40       	sbci	r24, 0x00	; 0
+ 2aa:	90 40       	sbci	r25, 0x00	; 0
+ 2ac:	d9 f7       	brne	.-10     	; 0x2a4 <main+0xba>
+ 2ae:	00 c0       	rjmp	.+0      	; 0x2b0 <main+0xc6>
+ 2b0:	00 00       	nop
+				_delay_ms(60000); // пауза
+				PORTB&=~(1<<OUT); // вырубление
+ 2b2:	c2 98       	cbi	0x18, 2	; 24
+				status(1, 1); // сброс статиков внутри функции
+ 2b4:	61 e0       	ldi	r22, 0x01	; 1
+ 2b6:	81 e0       	ldi	r24, 0x01	; 1
+ 2b8:	05 df       	rcall	.-502    	; 0xc4 <_Z6statushh>
+				code=0; // обнуление
+ 2ba:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <code>
+				stat=0; // сброс статуса
+				count=0; // обнул счетчика
+ 2be:	10 92 69 00 	sts	0x0069, r1	; 0x800069 <count+0x1>
+ 2c2:	10 92 68 00 	sts	0x0068, r1	; 0x800068 <count>
+				sei(); // прерывания ВКЛ.
+ 2c6:	78 94       	sei
+				PORTB|=(1<<OUT); // врубление
+				_delay_ms(60000); // пауза
+				PORTB&=~(1<<OUT); // вырубление
+				status(1, 1); // сброс статиков внутри функции
+				code=0; // обнуление
+				stat=0; // сброс статуса
+ 2c8:	80 e0       	ldi	r24, 0x00	; 0
+ 2ca:	9d cf       	rjmp	.-198    	; 0x206 <main+0x1c>
+				if (trigger!=stat) 
+				{
+					PORTB^=(1<<OUT);// переключаемся
+				}
+			}
+		trigger=stat;
+ 2cc:	d8 2f       	mov	r29, r24
+ 2ce:	9b cf       	rjmp	.-202    	; 0x206 <main+0x1c>
+ 2d0:	d8 2f       	mov	r29, r24
+ 2d2:	99 cf       	rjmp	.-206    	; 0x206 <main+0x1c>
+				PORTB|=(1<<OUT); // врубление
+				_delay_ms(60000); // пауза
+				PORTB&=~(1<<OUT); // вырубление
+				status(1, 1); // сброс статиков внутри функции
+				code=0; // обнуление
+				stat=0; // сброс статуса
+ 2d4:	80 e0       	ldi	r24, 0x00	; 0
+ 2d6:	97 cf       	rjmp	.-210    	; 0x206 <main+0x1c>
+
+000002d8 <_exit>:
+ 2d8:	f8 94       	cli
+
+000002da <__stop_program>:
+ 2da:	ff cf       	rjmp	.-2      	; 0x2da <__stop_program>
