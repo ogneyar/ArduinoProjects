@@ -33,79 +33,13 @@ void setup()
   // выводим надпись  
   lcd.print(first_string);
   
-  delay(3000);
+//  delay(3000);
 }
 
 
 void loop()
 {
 
-  if (millis() - last_time > 200) {
-
-    last_time = millis();
-    digitalWrite(13, flag = !flag);
-
-
-    // --------------------
-    // рисуем первую строку
-    // --------------------
-
-    if ( j == 15 ) {
-      lcd.setCursor(0, 0);
-      lcd.print("                ");
-    }
-
-    // переходим на позицию
-    lcd.setCursor(j, 0);
-    // выводим надпись
-    lcd.print(fi_string);
-
-    Serial.println(fi_string); // 44 байта
-
-    if (k > 15) {
-      k = 0;
-      j--;
-      fi_string = (char *)first_string;
-    }
-
-    if (j == 0) {
-      k++;
-      m = 0;
-      fi_string = (char *)"";
-      for (r = k; r < 16; r++) {
-        fi_string[m] = first_string[r];
-        m++;
-      }
-      for (s = m; s < 16; s++) {
-        fi_string[s] = ' ';
-      }
-      fi_string[s] = '\0';
-    } else j--;
-
-
-    if ( j < 0 ) j = 15;
-
-
-    // --------------------
-    // рисуем вторую строку
-    // --------------------
-
-    // переходим на позицию
-    lcd.setCursor(i, 1);
-    // выводим надпись
-    lcd.print(pict);
-    if ( i != 0 || pict != " " ) {
-      i++;
-    }
-    if ( i == 0 ) {
-      pict = (char *)"O ";
-    }
-    if ( i > 15 ) {
-      i = 0;
-      pict = (char *)" ";
-    }
-
-    delay(500);
 
   }
 
