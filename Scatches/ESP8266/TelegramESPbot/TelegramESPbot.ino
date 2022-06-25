@@ -1,18 +1,25 @@
 
 #include <ESP8266WiFi.h>
-#include <WiFiClientSecure.h>
+#include <WiFiClient.h>
 #include <UniversalTelegramBot.h>
+#include <ESP8266WebServer.h>
 
 #define BOTtoken "5328519984:AAGa4HzzxvoOZF2cGdW3G6VR0eR07ieRrW0" 
 
-char ssid[] = "MyWiFi)";                    // SSID (имя) вашей WiFi сети
-char password[] = "11111111";               // пароль wifi сети
-String buttons[] = {"light"};//{"light", "Socket"};     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
-int pin[] = {2};//{2, 3};                         // номер вывода, к которому подключено исполняющее устройство (реле, транзистор и т.д.)
+ESP8266WebServer server(80); // сервер на порту 80, как положенно
 
-bool protection = 0;                        // права доступа: 0 - доступно всем пользователям, 1 - доступ по Chat ID, если оно внесено в chatID_acces.
-int chatID_acces[] = {};          // Chat ID, которым разрешен доступ, игнорируется, если protection = 0.
-                                            // Примечание: по команде /start в Telegram, если у пользователя нет прав доступа на управление устройством, бот выдаст Chat ID
+// если необходимо выводить данные в консоль
+bool debag = false;
+
+char ssid[] = "WiFiSH"; // "MyWiFi)"; //                // SSID (имя) вашей WiFi сети
+char password[] = "11111111";                           // пароль wifi сети
+String buttons[] = {"light"};//{"light", "Socket"};     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
+byte led1 = 2;
+int pin[] = {led1};//{2, 3};                               // номер вывода, к которому подключено исполняющее устройство (реле, транзистор и т.д.)
+
+bool protection = 0;                                    // права доступа: 0 - доступно всем пользователям, 1 - доступ по Chat ID, если оно внесено в chatID_acces.
+int chatID_acces[] = {};                                // Chat ID, которым разрешен доступ, игнорируется, если protection = 0.
+                                                        // Примечание: по команде /start в Telegram, если у пользователя нет прав доступа на управление устройством, бот выдаст Chat ID
 
 String on_symbol="❌ off "; // Индикатор выключенного состояния.
 String off_symbol="✅ on ";  // Индикатор включенного состояния.
@@ -29,27 +36,36 @@ const int ledPin = 2;
 int ledStatus = 0;
 String keyboardJson = "";
 
+IPAddress myIP;
+
 
 void setup() {
-    Serial.begin(9600);
+    if (debag) Serial.begin(9600);
 
-    WiFi.mode(WIFI_STA);
-    WiFi.disconnect();
+//    WiFi.mode(WIFI_STA);
+//    WiFi.disconnect();
     delay(100);
 
-    Serial.print("Connecting Wifi: ");
-    Serial.println(ssid);
-    WiFi.begin(ssid, password);
-
-    while (WiFi.status() != WL_CONNECTED) {
-        Serial.print(".");
-        delay(500);
+    if (debag) {
+      Serial.print("Connecting Wifi: ");
+      Serial.println(ssid);
     }
-
-    Serial.println("");
-    Serial.println("WiFi connected");
-    Serial.print("IP address: ");
-    Serial.println(WiFi.localIP());
+    
+    WiFi.begin(ssid, password);
+    
+    while (WiFi.status() != WL_CONNECTED) {
+      if (debag) Serial.print(".");
+      delay(500);
+    }
+	
+	  myIP = WiFi.localIP();
+    
+    if (debag) {
+      Serial.println("");
+      Serial.println("WiFi connected");  
+      Serial.print("IP address: ");
+      Serial.println(myIP);
+    }    
     
     quantity=sizeof(pin)/sizeof(int);
     for (int i=0; i<quantity; i++) {
@@ -72,6 +88,22 @@ void setup() {
     }
     delay(10);
     client.setInsecure();
+
+
+    server.begin();
+    
+    if (debag) Serial.println("HTTP server started");
+    
+    server.on("/", [](){
+      server.send(200, "text/html", webPage("/"));
+    });
+    
+    //------------block 1-----------------------------------
+    server.on("/led1", [](){
+      digitalWrite(led1, !digitalRead(led1));
+      server.send(200, "text/html", webPage("/led1"));
+      delay(100);
+    });
 }
 
 void loop() {
@@ -84,12 +116,16 @@ void loop() {
         }
         Bot_lasttime = millis();
     }
+
+    server.handleClient();
 }
 
-// function handleNewMessages
+// ---------------- функция формирования ответа бота --------------------------------
 void handleNewMessages(int numNewMessages) {
-    Serial.println("New message");
-    Serial.println("His number: " + String(numNewMessages));
+    if (debag) {
+      Serial.println("New message");
+      Serial.println("His number: " + String(numNewMessages));
+    }
 
     for (int i=0; i<numNewMessages; i++) {
         String chat_id = String(bot.messages[i].chat_id);
@@ -125,11 +161,17 @@ void handleNewMessages(int numNewMessages) {
                         bot.sendMessageWithInlineKeyboard(chat_id, statusMessage, "", keyboardJson);
                     }
 
+                    if (text == "/myip") {
+                        String message = "ESP8266 IP: " + String(myIP[0]) + "." + String(myIP[1]) + "." + String(myIP[2]) + "." + String(myIP[3]) + "\n\n";
+                        bot.sendMessage(chat_id, message);
+                    }
+            
                     if (text == "/start") {
                         String welcome = "Приветствую " + from_name + ".\n";
                         welcome += "Это умный выключатель на микроконтроллере ESP8266, управляемый через Telegram.\n\n";
-                        welcome += "/control : перейти к управлению.\n";
-                        String keyboardStart = "[[{ \"text\" : \"Ссыль на сайт\", \"url\" : \"https://hutoryanin.ru\" }]]";
+                        welcome += "/control : перейти к управлению.\n\n";
+                        welcome += "/myip : узнать локальный IP модуля ESP8266.\n\n";
+                        String keyboardStart = "[[{ \"text\" : \"Ссыль на сайт Хуторянина.\", \"url\" : \"https://hutoryanin.ru\" }]]";
                         bot.sendMessageWithInlineKeyboard(chat_id, welcome, "", keyboardStart);
                     }
                     break;
@@ -144,3 +186,41 @@ void handleNewMessages(int numNewMessages) {
         }
     }
 }
+//------------------------------------------------------------------------------------------
+
+
+// ---------------- функция формирования локальной страницы --------------------------------------
+String webPage(String route)
+{
+  String web; 
+  web += "<head><meta name='viewport' content='width=device-width, initial-scale=1'> <meta charset='utf-8'><title>титл</title><style>button{color:black;padding: 10px 27px;}</style></head>";
+  
+  // -----------заголовок-----------------
+  web += "<div style='text-align: center;width: 100%;'><h1 style'text-align: center;font-family: Open sans;font-weight: 100;font-size: 20px;margin: 0 auto;'>лед онлайн</h1></div>";
+  //-------------------------------------
+
+  web += "<div>";
+  //-------------------------------------
+  web += "<br>";
+  
+  //--------------block 1------------------
+  if (digitalRead(led1) == 0) {
+    web += "<div style='text-align: center;width: 98px;color:white ;padding: 10px 30px;background-color: #ec1212;margin: 0 auto;'><div style='text-align: center;margin: 5px 0px;cursor:pointer;'><a href='led1'><button>LED1</button></a></div></div>";
+  }else  {
+    web += "<div style='text-align: center;width: 98px;color:white ;padding: 10px 30px;background-color: grey;margin: 0 auto;'><div style='text-align: center;margin: 5px 0px;cursor:pointer;'><a href='led1'><button>LED1</button></a></div></div>";
+  }
+  web += "<br>";
+  //----------------------------------------
+  
+  // ----------reload---------------------------
+  web += "<div style='text-align:center;margin-top: 20px;'><a href='/'><button style='width:158px;'>REFRESH</button></a></div>";
+  // -----------------------------------------
+    
+  web += "</div>";
+
+//  if (route != "/") web += "<script>window.location.href = '/'</script>";
+  if (route != "/") web += "<script>window.history.pushState({}, null, '/')</script>";
+  
+  return(web);
+}
+//------------------------------------------------------------------------------------------
