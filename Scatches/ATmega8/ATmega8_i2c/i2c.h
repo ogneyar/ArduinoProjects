@@ -1,0 +1,32 @@
+#ifndef I2C_H_
+#define I2C_H_
+
+#include "main.h"
+
+// пины
+#define SDA			PC4
+#define SDA_DDR		DDRC
+#define SDA_PIN		PINC
+
+#define SCL			PC5
+#define SCL_DDR		DDRC
+#define SCL_PIN		PINC
+
+// пауза
+#define I2C_DELAY	_delay_us(10)
+
+// управление линиями
+#define SDA_1		SDA_DDR&=~(1<<SDA)
+#define SDA_0		SDA_DDR|=(1<<SDA)
+#define SCL_1		SCL_DDR&=~(1<<SCL)
+#define SCL_0		SCL_DDR|=(1<<SCL)
+
+
+
+void i2c_start();
+void i2c_stop();
+uint8_t i2c_read(uint8_t ack);
+uint8_t i2c_send(uint8_t data);
+
+
+#endif 
