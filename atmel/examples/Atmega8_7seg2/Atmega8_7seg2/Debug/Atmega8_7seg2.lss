@@ -1,0 +1,355 @@
+
+Atmega8_7seg2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001b2  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  000001b2  00000246  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000005  0080006a  0080006a  00000250  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000250  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000280  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000030  00000000  00000000  000002bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000006ae  00000000  00000000  000002ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000005b6  00000000  00000000  0000099a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000032c  00000000  00000000  00000f50  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000070  00000000  00000000  0000127c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000316  00000000  00000000  000012ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000001c0  00000000  00000000  00001602  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000020  00000000  00000000  000017c2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	67 c0       	rjmp	.+206    	; 0xe2 <__vector_9>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e2 eb       	ldi	r30, 0xB2	; 178
+  3a:	f1 e0       	ldi	r31, 0x01	; 1
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	aa 36       	cpi	r26, 0x6A	; 106
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	aa e6       	ldi	r26, 0x6A	; 106
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	af 36       	cpi	r26, 0x6F	; 111
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	7c d0       	rcall	.+248    	; 0x152 <main>
+  5a:	a9 c0       	rjmp	.+338    	; 0x1ae <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <disp16>:
+uint8_t status;// статус индикации
+
+
+//индикация 16 битного значения c точкой
+void disp16(uint16_t n, uint8_t dot)
+{
+  5e:	ff 92       	push	r15
+  60:	0f 93       	push	r16
+  62:	1f 93       	push	r17
+  64:	cf 93       	push	r28
+  66:	df 93       	push	r29
+  68:	ac 01       	movw	r20, r24
+  6a:	f6 2e       	mov	r15, r22
+  6c:	ca e6       	ldi	r28, 0x6A	; 106
+  6e:	d0 e0       	ldi	r29, 0x00	; 0
+  70:	0e e6       	ldi	r16, 0x6E	; 110
+  72:	10 e0       	ldi	r17, 0x00	; 0
+	// вычисление единиц, десятков... и заполнение буфера
+	for(uint8_t i=0; i<4; i++)
+	{
+		buf[i] = digit[n%10];
+  74:	9a 01       	movw	r18, r20
+  76:	ad ec       	ldi	r26, 0xCD	; 205
+  78:	bc ec       	ldi	r27, 0xCC	; 204
+  7a:	8d d0       	rcall	.+282    	; 0x196 <__umulhisi3>
+  7c:	96 95       	lsr	r25
+  7e:	87 95       	ror	r24
+  80:	96 95       	lsr	r25
+  82:	87 95       	ror	r24
+  84:	96 95       	lsr	r25
+  86:	87 95       	ror	r24
+  88:	9c 01       	movw	r18, r24
+  8a:	22 0f       	add	r18, r18
+  8c:	33 1f       	adc	r19, r19
+  8e:	88 0f       	add	r24, r24
+  90:	99 1f       	adc	r25, r25
+  92:	88 0f       	add	r24, r24
+  94:	99 1f       	adc	r25, r25
+  96:	88 0f       	add	r24, r24
+  98:	99 1f       	adc	r25, r25
+  9a:	82 0f       	add	r24, r18
+  9c:	93 1f       	adc	r25, r19
+  9e:	fa 01       	movw	r30, r20
+  a0:	e8 1b       	sub	r30, r24
+  a2:	f9 0b       	sbc	r31, r25
+  a4:	e0 5a       	subi	r30, 0xA0	; 160
+  a6:	ff 4f       	sbci	r31, 0xFF	; 255
+  a8:	80 81       	ld	r24, Z
+  aa:	89 93       	st	Y+, r24
+		n/=10;
+  ac:	9a 01       	movw	r18, r20
+  ae:	73 d0       	rcall	.+230    	; 0x196 <__umulhisi3>
+  b0:	ac 01       	movw	r20, r24
+  b2:	56 95       	lsr	r21
+  b4:	47 95       	ror	r20
+  b6:	56 95       	lsr	r21
+  b8:	47 95       	ror	r20
+  ba:	56 95       	lsr	r21
+  bc:	47 95       	ror	r20
+
+//индикация 16 битного значения c точкой
+void disp16(uint16_t n, uint8_t dot)
+{
+	// вычисление единиц, десятков... и заполнение буфера
+	for(uint8_t i=0; i<4; i++)
+  be:	c0 17       	cp	r28, r16
+  c0:	d1 07       	cpc	r29, r17
+  c2:	c1 f6       	brne	.-80     	; 0x74 <disp16+0x16>
+	{
+		buf[i] = digit[n%10];
+		n/=10;
+	}
+	// отработка точки
+	if (dot)
+  c4:	ff 20       	and	r15, r15
+  c6:	39 f0       	breq	.+14     	; 0xd6 <disp16+0x78>
+	{
+		buf[dot-1]|=(1<<7);// включение точки в нужном разряде
+  c8:	ef 2d       	mov	r30, r15
+  ca:	f0 e0       	ldi	r31, 0x00	; 0
+  cc:	e7 59       	subi	r30, 0x97	; 151
+  ce:	ff 4f       	sbci	r31, 0xFF	; 255
+  d0:	80 81       	ld	r24, Z
+  d2:	80 68       	ori	r24, 0x80	; 128
+  d4:	80 83       	st	Z, r24
+	}
+}
+  d6:	df 91       	pop	r29
+  d8:	cf 91       	pop	r28
+  da:	1f 91       	pop	r17
+  dc:	0f 91       	pop	r16
+  de:	ff 90       	pop	r15
+  e0:	08 95       	ret
+
+000000e2 <__vector_9>:
+
+
+// обработчик прерывания по переполнению таймера 0. частота 488 Гц
+ISR(TIMER0_OVF_vect){
+  e2:	1f 92       	push	r1
+  e4:	0f 92       	push	r0
+  e6:	0f b6       	in	r0, 0x3f	; 63
+  e8:	0f 92       	push	r0
+  ea:	11 24       	eor	r1, r1
+  ec:	8f 93       	push	r24
+	switch (status)
+  ee:	80 91 6e 00 	lds	r24, 0x006E	; 0x80006e <status>
+  f2:	81 30       	cpi	r24, 0x01	; 1
+  f4:	79 f0       	breq	.+30     	; 0x114 <__vector_9+0x32>
+  f6:	28 f0       	brcs	.+10     	; 0x102 <__vector_9+0x20>
+  f8:	82 30       	cpi	r24, 0x02	; 2
+  fa:	a9 f0       	breq	.+42     	; 0x126 <__vector_9+0x44>
+  fc:	83 30       	cpi	r24, 0x03	; 3
+  fe:	e1 f0       	breq	.+56     	; 0x138 <__vector_9+0x56>
+ 100:	22 c0       	rjmp	.+68     	; 0x146 <__vector_9+0x64>
+	{
+		case 0:// нулевой разряд
+		PORTB&=~(1<<PB7);// отключить предыдущий разряд
+ 102:	c7 98       	cbi	0x18, 7	; 24
+		PORTD=buf[0]; // загрузить символ из буфера в порт
+ 104:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <__data_end>
+ 108:	82 bb       	out	0x12, r24	; 18
+		PORTB|=(1<<PB4);// включить разряд
+ 10a:	c4 9a       	sbi	0x18, 4	; 24
+		status=1;// переход в следующий статус
+ 10c:	81 e0       	ldi	r24, 0x01	; 1
+ 10e:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <status>
+		break;
+ 112:	19 c0       	rjmp	.+50     	; 0x146 <__vector_9+0x64>
+		
+		case 1:// первый разряд
+		PORTB&=~(1<<PB4);
+ 114:	c4 98       	cbi	0x18, 4	; 24
+		PORTD=buf[1];
+ 116:	80 91 6b 00 	lds	r24, 0x006B	; 0x80006b <__data_end+0x1>
+ 11a:	82 bb       	out	0x12, r24	; 18
+		PORTB|=(1<<PB5);
+ 11c:	c5 9a       	sbi	0x18, 5	; 24
+		status=2;
+ 11e:	82 e0       	ldi	r24, 0x02	; 2
+ 120:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <status>
+		break;
+ 124:	10 c0       	rjmp	.+32     	; 0x146 <__vector_9+0x64>
+		
+		case 2:// второй разряд
+		PORTB&=~(1<<PB5);
+ 126:	c5 98       	cbi	0x18, 5	; 24
+		PORTD=buf[2];
+ 128:	80 91 6c 00 	lds	r24, 0x006C	; 0x80006c <__data_end+0x2>
+ 12c:	82 bb       	out	0x12, r24	; 18
+		PORTB|=(1<<PB6);
+ 12e:	c6 9a       	sbi	0x18, 6	; 24
+		status=3;
+ 130:	83 e0       	ldi	r24, 0x03	; 3
+ 132:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <status>
+		break;
+ 136:	07 c0       	rjmp	.+14     	; 0x146 <__vector_9+0x64>
+		
+		case 3:// третий разряд
+		PORTB&=~(1<<PB6);
+ 138:	c6 98       	cbi	0x18, 6	; 24
+		PORTD=buf[3];
+ 13a:	80 91 6d 00 	lds	r24, 0x006D	; 0x80006d <__data_end+0x3>
+ 13e:	82 bb       	out	0x12, r24	; 18
+		PORTB|=(1<<PB7);
+ 140:	c7 9a       	sbi	0x18, 7	; 24
+		status=0;
+ 142:	10 92 6e 00 	sts	0x006E, r1	; 0x80006e <status>
+		break;
+	}
+}
+ 146:	8f 91       	pop	r24
+ 148:	0f 90       	pop	r0
+ 14a:	0f be       	out	0x3f, r0	; 63
+ 14c:	0f 90       	pop	r0
+ 14e:	1f 90       	pop	r1
+ 150:	18 95       	reti
+
+00000152 <main>:
+
+int main(void)
+{
+	// ---------------таймер 0------------------------------------
+	TCCR0|=(1<<CS01);// делитель 8
+ 152:	83 b7       	in	r24, 0x33	; 51
+ 154:	82 60       	ori	r24, 0x02	; 2
+ 156:	83 bf       	out	0x33, r24	; 51
+	TIMSK|=(1<<TOIE0); // разрешить прерывание по переполнению
+ 158:	89 b7       	in	r24, 0x39	; 57
+ 15a:	81 60       	ori	r24, 0x01	; 1
+ 15c:	89 bf       	out	0x39, r24	; 57
+	//------------------------------------------------------------
+	//--- пины для управления индикатором на выход----------------
+	DDRD=255;
+ 15e:	8f ef       	ldi	r24, 0xFF	; 255
+ 160:	81 bb       	out	0x11, r24	; 17
+	DDRB|=(1<<PB4) | (1<<PB5) | (1<<PB6) | (1<<PB7);
+ 162:	87 b3       	in	r24, 0x17	; 23
+ 164:	80 6f       	ori	r24, 0xF0	; 240
+ 166:	87 bb       	out	0x17, r24	; 23
+	//------------------------------------------------------------
+	sei();// глобально разрешить прерывания
+ 168:	78 94       	sei
+	uint16_t i=0;
+ 16a:	c0 e0       	ldi	r28, 0x00	; 0
+ 16c:	d0 e0       	ldi	r29, 0x00	; 0
+    while (1) 
+    {
+		if (i%2) disp16(i,1); // если i нечетное индикация с точкой
+ 16e:	c0 ff       	sbrs	r28, 0
+ 170:	04 c0       	rjmp	.+8      	; 0x17a <main+0x28>
+ 172:	61 e0       	ldi	r22, 0x01	; 1
+ 174:	ce 01       	movw	r24, r28
+ 176:	73 df       	rcall	.-282    	; 0x5e <disp16>
+ 178:	03 c0       	rjmp	.+6      	; 0x180 <main+0x2e>
+		else disp16(i,0);// иначе без точки
+ 17a:	60 e0       	ldi	r22, 0x00	; 0
+ 17c:	ce 01       	movw	r24, r28
+ 17e:	6f df       	rcall	.-290    	; 0x5e <disp16>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 180:	8f e9       	ldi	r24, 0x9F	; 159
+ 182:	96 e8       	ldi	r25, 0x86	; 134
+ 184:	21 e0       	ldi	r18, 0x01	; 1
+ 186:	81 50       	subi	r24, 0x01	; 1
+ 188:	90 40       	sbci	r25, 0x00	; 0
+ 18a:	20 40       	sbci	r18, 0x00	; 0
+ 18c:	e1 f7       	brne	.-8      	; 0x186 <main+0x34>
+ 18e:	00 c0       	rjmp	.+0      	; 0x190 <main+0x3e>
+ 190:	00 00       	nop
+		_delay_ms(500);
+		i++;
+ 192:	21 96       	adiw	r28, 0x01	; 1
+    }
+ 194:	ec cf       	rjmp	.-40     	; 0x16e <main+0x1c>
+
+00000196 <__umulhisi3>:
+ 196:	a2 9f       	mul	r26, r18
+ 198:	b0 01       	movw	r22, r0
+ 19a:	b3 9f       	mul	r27, r19
+ 19c:	c0 01       	movw	r24, r0
+ 19e:	a3 9f       	mul	r26, r19
+ 1a0:	01 d0       	rcall	.+2      	; 0x1a4 <__umulhisi3+0xe>
+ 1a2:	b2 9f       	mul	r27, r18
+ 1a4:	70 0d       	add	r23, r0
+ 1a6:	81 1d       	adc	r24, r1
+ 1a8:	11 24       	eor	r1, r1
+ 1aa:	91 1d       	adc	r25, r1
+ 1ac:	08 95       	ret
+
+000001ae <_exit>:
+ 1ae:	f8 94       	cli
+
+000001b0 <__stop_program>:
+ 1b0:	ff cf       	rjmp	.-2      	; 0x1b0 <__stop_program>
