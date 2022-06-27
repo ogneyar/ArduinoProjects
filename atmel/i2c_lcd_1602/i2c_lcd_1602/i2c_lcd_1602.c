@@ -177,7 +177,7 @@ uint8_t i2c_send(uint8_t data){
 	I2C_DELAY;
 	ask=(SDA_PIN&(1<<SDA));//
 	SCL_0;//
-	return ask;//  1 - ask, or 0 - no_ask
+	return ask;//  0 - ask, not 0 - no_ask
 }
 // 
 uint8_t i2c_read(uint8_t ask){
