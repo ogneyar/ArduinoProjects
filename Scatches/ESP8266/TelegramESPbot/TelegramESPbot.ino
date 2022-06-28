@@ -8,10 +8,12 @@
 
 ESP8266WebServer server(80); // сервер на порту 80, как положенно
 
+//byte testPin = 20;
+
 // если необходимо выводить данные в консоль
 bool debag = false;
 
-char ssid[] = "WiFiSH"; // "MyWiFi)"; //                // SSID (имя) вашей WiFi сети
+char ssid[] = "MyWiFi)"; // "WiFiSH"; //                // SSID (имя) вашей WiFi сети
 char password[] = "11111111";                           // пароль wifi сети
 String buttons[] = {"light"};//{"light", "Socket"};     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
 byte led1 = 2;
@@ -104,6 +106,8 @@ void setup() {
       server.send(200, "text/html", webPage("/led1"));
       delay(100);
     });
+    
+//    pinMode(testPin, OUTPUT);
 }
 
 void loop() {
@@ -118,6 +122,11 @@ void loop() {
     }
 
     server.handleClient();
+
+//    digitalWrite(testPin, 1);
+//    delay(500);
+//    digitalWrite(testPin, 0);
+//    delay(500);
 }
 
 // ---------------- функция формирования ответа бота --------------------------------
