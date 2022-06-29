@@ -1,5 +1,6 @@
-//ATmega8
-//byte LED1 = 9; // 15-pin (PB1)
+ //ATmega8
+
+//byte LED1 = 5; // 9 - 15pin (PB1) // 5 - 28pin (PC5)
 //byte period = 30;
 //
 //void setup() {
@@ -13,18 +14,21 @@
 //  delay(period);
 //}
 
+#define LED   PC5   // PB1
+#define PORT  PORTC // PORTB
+#define DDR   DDRC  // DDRB
 
 byte flag = 1;
 // функция мигания диода
 void led_blink(void){
-  if (flag) PORTB|=(1<<PB1);
-  else PORTB&=~(1<<PB1);        
+  if (flag) PORT|=(1<<LED);
+  else PORT&=~(1<<LED);        
   flag = !flag;    
   _delay_ms(20);   
 }
 
 int main(void) {
-  DDRB|=(1<<PB1);
+  DDR|=(1<<LED);
     
   while (1) {
     led_blink();
