@@ -8,25 +8,23 @@
 
 ESP8266WebServer server(80); // сервер на порту 80, как положенно
 
-//byte testPin = 20;
-
 // если необходимо выводить данные в консоль
 bool debag = false;
 
-char ssid[] = "MyWiFi)"; // "WiFiSH"; //                // SSID (имя) вашей WiFi сети
-char password[] = "11111111";                           // пароль wifi сети
-String buttons[] = {"light"};//{"light", "Socket"};     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
-byte led1 = 2;
-int pin[] = {led1};//{2, 3};                               // номер вывода, к которому подключено исполняющее устройство (реле, транзистор и т.д.)
+char ssid1[] = "MyWiFi)"; // SSID (имя) вашей WiFi сети
+char ssid2[] = "WiFiSH";
+char password[] = "11111111"; // пароль wifi сети
+String buttons[] = { "light" };//{ "light", "Socket" };     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
+byte led1 = 4; // 4 - D2 (GPIO4) // 2 - D4 (GPIO2) 
+int pin[] = { led1 };//{2, 3};                               // номер вывода, к которому подключено исполняющее устройство (реле, транзистор и т.д.)
 
 bool protection = 0;                                    // права доступа: 0 - доступно всем пользователям, 1 - доступ по Chat ID, если оно внесено в chatID_acces.
 int chatID_acces[] = {};                                // Chat ID, которым разрешен доступ, игнорируется, если protection = 0.
                                                         // Примечание: по команде /start в Telegram, если у пользователя нет прав доступа на управление устройством, бот выдаст Chat ID
 
-String on_symbol="❌ off "; // Индикатор выключенного состояния.
-String off_symbol="✅ on ";  // Индикатор включенного состояния.
+String off_symbol = "❌ off "; // Индикатор выключенного состояния.
+String on_symbol = "✅ on ";  // Индикатор включенного состояния.
 
-//Дальше ничего интересного, но если хотите, можете посмотреть.
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
@@ -50,14 +48,19 @@ void setup() {
 
     if (debag) {
       Serial.print("Connecting Wifi: ");
-      Serial.println(ssid);
+      Serial.println(ssid1);
     }
     
-    WiFi.begin(ssid, password);
-    
+    WiFi.begin(ssid1, password);
+    int flag = 0;
     while (WiFi.status() != WL_CONNECTED) {
+      if (flag == 11) {
+        //WiFi.disconnect();
+        WiFi.begin(ssid2, password);
+      }
       if (debag) Serial.print(".");
       delay(500);
+      flag++;
     }
 	
 	  myIP = WiFi.localIP();
@@ -72,7 +75,7 @@ void setup() {
     quantity=sizeof(pin)/sizeof(int);
     for (int i=0; i<quantity; i++) {
         pinMode(pin[i], OUTPUT);
-        digitalWrite(pin[i], HIGH);
+        digitalWrite(pin[i], LOW);
     }
 
     for (int i=0; i<quantity; i++) {
@@ -107,7 +110,6 @@ void setup() {
       delay(100);
     });
     
-//    pinMode(testPin, OUTPUT);
 }
 
 void loop() {
@@ -122,11 +124,6 @@ void loop() {
     }
 
     server.handleClient();
-
-//    digitalWrite(testPin, 1);
-//    delay(500);
-//    digitalWrite(testPin, 0);
-//    delay(500);
 }
 
 // ---------------- функция формирования ответа бота --------------------------------
@@ -213,7 +210,7 @@ String webPage(String route)
   web += "<br>";
   
   //--------------block 1------------------
-  if (digitalRead(led1) == 0) {
+  if (digitalRead(led1) == 1) {
     web += "<div style='text-align: center;width: 98px;color:white ;padding: 10px 30px;background-color: #ec1212;margin: 0 auto;'><div style='text-align: center;margin: 5px 0px;cursor:pointer;'><a href='led1'><button>LED1</button></a></div></div>";
   }else  {
     web += "<div style='text-align: center;width: 98px;color:white ;padding: 10px 30px;background-color: grey;margin: 0 auto;'><div style='text-align: center;margin: 5px 0px;cursor:pointer;'><a href='led1'><button>LED1</button></a></div></div>";
