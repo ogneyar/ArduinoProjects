@@ -15,7 +15,7 @@ char ssid1[] = "MyWiFi)"; // SSID (имя) вашей WiFi сети
 char ssid2[] = "WiFiSH";
 char password[] = "11111111"; // пароль wifi сети
 String buttons[] = { "light" };//{ "light", "Socket" };     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
-byte led1 = 2; // 4 - D2 (GPIO4) // 2 - D4 (GPIO2) 
+byte led1 = 4; // 4 - D2 (GPIO4) // 2 - D4 (GPIO2) 
 int pin[] = { led1 };//{2, 3};                               // номер вывода, к которому подключено исполняющее устройство (реле, транзистор и т.д.)
 
 bool protection = 0;                                    // права доступа: 0 - доступно всем пользователям, 1 - доступ по Chat ID, если оно внесено в chatID_acces.
