@@ -1,14 +1,14 @@
 // Arduino Nano
 
-byte LED = 2;
+byte LED1 = 13;
   
 void setup() {
-  pinMode(LED, OUTPUT);
+  pinMode(LED1, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(LED, HIGH);
+  digitalWrite(LED1, HIGH);
   delay(500);
-  digitalWrite(LED, LOW);
+  digitalWrite(LED1, LOW);
   delay(500);
 }
