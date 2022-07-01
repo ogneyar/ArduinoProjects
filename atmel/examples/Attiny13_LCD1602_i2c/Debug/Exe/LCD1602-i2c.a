@@ -1,0 +1,125 @@
+;/*******************************************************
+;This program was created by the
+;CodeWizardAVR V3.12 Advanced
+;Automatic Program Generator
+;© Copyright 1998-2014 Pavel Haiduc, HP InfoTech s.r.l.
+;http://www.hpinfotech.com
+;
+;Project :
+;Version :
+;Date    : 03.12.2016
+;Author  :
+;Company :
+;Comments:
+;
+;
+;Chip type               : ATtiny13A
+;AVR Core Clock frequency: 1,200000 MHz
+;Memory model            : Tiny
+;External RAM size       : 0
+;Data Stack size         : 16
+;*******************************************************/
+;
+;#include <tiny13a.h>
+;PCODE: $00000000 VOL: 0
+	#ifndef __SLEEP_DEFINED__
+;PCODE: $00000001 VOL: 0
+	#define __SLEEP_DEFINED__
+;PCODE: $00000002 VOL: 0
+	.EQU __se_bit=0x20
+;PCODE: $00000003 VOL: 0
+	.EQU __sm_mask=0x18
+;PCODE: $00000004 VOL: 0
+	.EQU __sm_adc_noise_red=0x08
+;PCODE: $00000005 VOL: 0
+	.EQU __sm_powerdown=0x10
+;PCODE: $00000006 VOL: 0
+	.SET power_ctrl_reg=mcucr
+;PCODE: $00000007 VOL: 0
+	#endif
+;PCODE: $00000008 VOL: 0
+;PCODE: $00000009 VOL: 0
+;
+;
+;// I2C Bus functions
+;#include <i2c.h>
+;#include <lcd_i2c.h>
+;
+;// Declare your global variables here
+;
+;void main(void)
+; 0000 0021 {
+
+	.CSEG
+;PCODE: $0000000A VOL: 0
+; 0000 0022 // Declare your local variables here
+; 0000 0023 
+; 0000 0024 // Crystal Oscillator division factor: 1
+; 0000 0025 #pragma optsize-
+; 0000 0026 CLKPR=(1<<CLKPCE);
+;PCODE: $0000000B VOL: 0
+;PCODE: $0000000C VOL: 0
+; 0000 0027 CLKPR=(0<<CLKPCE) | (0<<CLKPS3) | (0<<CLKPS2) | (0<<CLKPS1) | (0<<CLKPS0);
+;PCODE: $0000000D VOL: 0
+;PCODE: $0000000E VOL: 0
+; 0000 0028 #ifdef _OPTIMIZE_SIZE_
+; 0000 0029 #pragma optsize+
+; 0000 002A #endif
+; 0000 002B 
+; 0000 002C // Input/Output Ports initialization
+; 0000 002D // Port B initialization
+; 0000 002E // Function: Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
+; 0000 002F DDRB=(0<<DDB5) | (0<<DDB4) | (0<<DDB3) | (0<<DDB2) | (0<<DDB1) | (0<<DDB0);
+;PCODE: $0000000F VOL: 0
+;PCODE: $00000010 VOL: 0
+; 0000 0030 // State: Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
+; 0000 0031 PORTB=(0<<PORTB5) | (0<<PORTB4) | (0<<PORTB3) | (0<<PORTB2) | (0<<PORTB1) | (0<<PORTB0);
+;PCODE: $00000011 VOL: 0
+;PCODE: $00000012 VOL: 0
+; 0000 0032 
+; 0000 0033 // Bit-Banged I2C Bus initialization
+; 0000 0034 // I2C Port: PORTB
+; 0000 0035 // I2C SDA bit: 0
+; 0000 0036 // I2C SCL bit: 1
+; 0000 0037 // Bit Rate: 100 kHz
+; 0000 0038 // Note: I2C settings are specified in the
+; 0000 0039 // Project|Configure|C Compiler|Libraries|I2C menu.
+; 0000 003A i2c_init();
+;PCODE: $00000013 VOL: 0
+; 0000 003B 
+; 0000 003C while (1)
+;PCODE: $00000014 VOL: 0
+; 0000 003D       {
+; 0000 003E       // Place your code here
+; 0000 003F            lcd_init(16);
+;PCODE: $00000015 VOL: 0
+;PCODE: $00000016 VOL: 0
+; 0000 0040 
+; 0000 0041     lcd_backlight(1);
+;PCODE: $00000017 VOL: 0
+;PCODE: $00000018 VOL: 0
+; 0000 0042 
+; 0000 0043     lcd_gotoxy(0,2);
+;PCODE: $00000019 VOL: 0
+;PCODE: $0000001A VOL: 0
+;PCODE: $0000001B VOL: 0
+;PCODE: $0000001C VOL: 0
+; 0000 0044     lcd_putsf("123");
+;PCODE: $0000001D VOL: 0
+;PCODE: $0000001E VOL: 0
+;PCODE: $0000001F VOL: 0
+; 0000 0045     //lcd_gotoxy(0,1);
+; 0000 0046     //lcd_putsf("Caller-ID display");
+; 0000 0047     //lcd_gotoxy(5,2);
+; 0000 0048     //lcd_putsf("Version 2");
+; 0000 0049     while(1);
+;PCODE: $00000020 VOL: 0
+;PCODE: $00000021 VOL: 0
+;PCODE: $00000022 VOL: 0
+; 0000 004A       }
+;PCODE: $00000023 VOL: 0
+;PCODE: $00000024 VOL: 0
+; 0000 004B }
+;PCODE: $00000025 VOL: 0
+;PCODE: $00000026 VOL: 0
+;PCODE: $00000027 VOL: 0

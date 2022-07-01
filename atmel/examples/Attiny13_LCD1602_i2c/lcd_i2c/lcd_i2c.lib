@@ -1,0 +1,139 @@
+/*********************************************
+Project : I2C to LCD Interface-Routine
+Version :
+Date    : 2011
+Author  : David Prentice         
+
+Port PCF8574 :  7  6  5  4  3  2  1  0
+               D7 D6 D5 D4 BL EN RW RS
+**********************************************/
+
+//#define USE_TWI             // for lcd_twi.lib
+//#undef USE_TWI              // for lcd_i2c.lib
+#define PCF8574A            0x27      //0x38 for PCF8574A on dev board
+
+#include <stdint.h>
+#include <delay.h>
+
+#if defined(USE_TWI)
+#include <TWI.h>
+#include <lcd_twi.h>
+#define I2C_INIT()          twi_master_init(100)
+#define I2C_WRITESEQ(slave, buf, n)  twi_master_trans(slave, buf, n, 0, 0)
+#else
+#include <i2c.h>
+#include <lcd_i2c.h>
+#define I2C_INIT()          i2c_init()
+uint8_t I2C_WRITESEQ(uint8_t slave, uint8_t *seq, uint8_t n)
+{
+    uint8_t ret = 1;
+    if (i2c_start() && i2c_write(slave << 1)) {
+        uint8_t i;
+        for (i = 0; i < n; i++)
+            i2c_write(seq[i]);
+        ret = 0;
+    }
+    i2c_stop();
+    return ret;
+}
+#endif
+
+#pragma used+
+static unsigned char _base_y[4]={0x80,0xc0};
+unsigned char _lcd_x,_lcd_y,_lcd_maxx;
+#pragma used-
+
+static unsigned char wr_lcd_mode(char c, char mode)
+{
+    char ret = 1;
+    char seq[5];
+    static char backlight = 8;
+    if (mode == 8) {
+        backlight = (c != 0) ? 8 : 0;
+        return I2C_WRITESEQ(PCF8574A, &backlight, 1);
+    }
+    mode |= backlight;
+    seq[0] = mode;                      // EN=0, RW=0, RS=mode
+    seq[1] = (c & 0xF0) | mode | 4;     // EN=1, RW=0, RS=mode
+    seq[2] = seq[1] & ~4;               // EN=0, RW=0, RS=mode
+    seq[3] = (c << 4) | mode | 4;       // EN=1, RW=0, RS=mode
+    seq[4] = seq[3] & ~4;               // EN=0, RW=0, RS=mode
+    ret = I2C_WRITESEQ(PCF8574A, seq, 5);
+    if (!(mode & 1) && c <= 2)
+        delay_ms(2);                    // CLS and HOME
+    return ret;
+}
+
+void _lcd_write_data(unsigned char data)
+{
+    wr_lcd_mode(data, 1);
+}
+/* read a byte from the LCD character generator or display RAM */
+//unsigned char lcd_read_byte(unsigned char addr);
+/* write a byte to the LCD character generator or display RAM */
+void lcd_write_byte(unsigned char addr, unsigned char data)
+{
+    wr_lcd_mode(addr, 0);
+    wr_lcd_mode(data, 1);
+}
+// set the LCD display position  x=0..39 y=0..3
+void lcd_gotoxy(unsigned char x, unsigned char y)
+{
+    wr_lcd_mode(0x80 | (_base_y[y] + x), 0);   //.kbv now use +
+    _lcd_x=x;
+    _lcd_y=y;
+}
+// clear the LCD
+void lcd_clear(void)
+{
+    wr_lcd_mode(0x01, 0);
+    _lcd_x = _lcd_y = 0;
+}
+void lcd_putchar(char c)
+{
+    if (_lcd_x>=_lcd_maxx || c == '\n')
+    {
+        lcd_gotoxy(0,++_lcd_y);
+    }
+    if (c != '\n') {
+        ++_lcd_x;
+        wr_lcd_mode(c, 1);
+    }
+}
+// write the string str located in SRAM to the LCD
+void lcd_puts(char *str)
+{
+    while (*str) lcd_putchar(*str++);
+}
+// write the string str located in FLASH to the LCD
+void lcd_putsf(char flash *str)
+{
+    while (*str) lcd_putchar(*str++);
+}
+// write the string str located in EEPROM to the LCD
+void lcd_putse(char eeprom *str)
+{
+    while (*str) lcd_putchar(*str++);
+}
+// initialize the LCD controller
+void lcd_init(unsigned char lcd_columns)
+{
+    char i;
+    // High-Nibble von Byte 8 = Display Control:
+    // 1DCB****  D: Disp on/off; C: Cursor on/off  B: blink on/off
+    char init_sequenz[] = { 0x33, 0x32, 0x28, 0x0C, 0x06, 0x01 };
+    _lcd_maxx = lcd_columns;
+    _base_y[2] = _base_y[0] + _lcd_maxx;
+    _base_y[3] = _base_y[1] + _lcd_maxx;
+    I2C_INIT();
+    delay_ms(30);               // 30 ms Delay nach power-up
+    for (i = 0; i < sizeof(init_sequenz); i++) {
+        wr_lcd_mode(init_sequenz[i], 0);
+        delay_ms(5);
+    }
+}
+
+void lcd_backlight(char on)
+{
+    wr_lcd_mode(on, 8);
+}
