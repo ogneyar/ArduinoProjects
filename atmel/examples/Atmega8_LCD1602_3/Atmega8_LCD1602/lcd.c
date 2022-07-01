@@ -79,7 +79,7 @@ void lcd_ini(void){
 	// F 0/1 -5x7/5x11 �����
 	_delay_us(50);
 
-	send_byte(12,0);// ������� DISPLAY SWITCH 00001_D_C_B
+	send_byte(12,0);// ������� DISPLAY SWITCH 00001_D_C_B 
 	// D 0/1 - off/on display
 	// C 0/1 - off/on cursor
 	// B 0/1 - off/on blink
