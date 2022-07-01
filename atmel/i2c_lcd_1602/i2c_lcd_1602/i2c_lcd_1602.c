@@ -4,7 +4,7 @@
 #include <util/delay.h>
 
 //
-#define SDA        PC4
+#define SDA	      PC4
 #define SDA_DDR   DDRC
 #define SDA_PIN   PINC
 
