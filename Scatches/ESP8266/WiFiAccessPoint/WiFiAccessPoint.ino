@@ -19,7 +19,18 @@ ESP8266WebServer server(80);
 
 /* http://192.168.4.1 */
 void handleRoot() {
-  server.send(200, "text/html", "<head><meta charset='UTF-8'><title>ESP WiFi Server</title></head><body><h1>Привет Мир!</h1></body>");
+  char body[] = 
+    "<html>"
+      "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>ESP WiFi Server</title>"
+      "</head>"
+      "<body>"
+        "<h1>Привет Мир!</h1>"
+      "</body>"
+    "</html>";
+  server.send(200, "text/html", body);
+  //server.send(200, "text/html", "<head><meta charset='UTF-8'><title>ESP WiFi Server</title></head><body><h1>Привет Мир!</h1></body>");
 }
 
 void setup() {
