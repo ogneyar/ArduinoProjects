@@ -19,23 +19,27 @@ ESP8266WebServer server(80);
 
 /* http://192.168.4.1 */
 void handleRoot() {
-  server.send(200, "text/html", "<h1>Привет Мир!</h1>");
+  server.send(200, "text/html", "<head><meta charset='UTF-8'><title>ESP WiFi Server</title></head><body><h1>Привет Мир!</h1></body>");
 }
 
 void setup() {
   delay(1000);
   Serial.begin(115200);
-  Serial.println();
-  Serial.println("Configuring access point...");
+  Serial.println(" ");
+  Serial.println("Создаём точку доступа...");
   /* Можно удалить пароль, если нужно сделать доступ открытым. */
   WiFi.softAP(ssid, password);
 
-  IPAddress myIP = WiFi.softAPIP();
-  Serial.print("AP IP address: ");
-  Serial.println(myIP);
+  Serial.print("Точка доступа '");
+  Serial.print(ssid);
+  Serial.println("' создана.");
+  
   server.on("/", handleRoot);
   server.begin();
-  Serial.println("HTTP server started on http://192.168.4.1");
+  
+  IPAddress myIP = WiFi.softAPIP();
+  Serial.print("HTTP сервер запущен и доступен по адресу http://");
+  Serial.println(myIP);
 }
 
 void loop() {
