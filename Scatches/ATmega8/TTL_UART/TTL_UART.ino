@@ -4,11 +4,16 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+#define FOSC 1000000 // Clock Speed
+#define BAUD 9600
+#define DELIMETER 8 // 16 // если U2X = 0 то делим на 16, иначе на 8
+#define MYUBRR FOSC/DELIMETER/BAUD-1 
 
 // 8 бит в пакете, бит четности - нет, 1 стоп бит. битрейт 9600
 void uart_ini(void){
-    UBRRL=12; // 12 - для 9600 при 1MHz
-    UCSRA|=(1<<U2X);// бит в 1
+    UBRRH = (MYUBRR>>8);
+    UBRRL = MYUBRR; // UBRRL = 12; // 12 (или 0x0c) - для 9600 при 1MHz и U2X = 1
+    UCSRA|=(1<<U2X);// бит в 1 (двухскоростная работа)
     UCSRB|=(1<<RXEN) | (1<<TXEN); // разрешить работу передатчика и приемника
 }
 
@@ -16,15 +21,21 @@ void uart_ini(void){
 void uart_send(char* str){
     uint8_t i=0;
     
-    PORTB|=(1<<PB0);
-    _delay_ms(100);    
-    PORTB&=~(1<<PB0);    
-    _delay_ms(100);  
-    
+//    PORTB|=(1<<PB0);
+//    _delay_ms(100);    
+//    PORTB&=~(1<<PB0);    
+//    _delay_ms(100);  
+        
     while (str[i])
     {    
         while ( !( UCSRA & (1<<UDRE)) ); // ждем пока не освободится регистр передатчика
         UDR = str[i];// пишем данные в регистр передатчика для отправки 
+        
+        PORTB|=(1<<PB0);
+        _delay_ms(100);    
+        PORTB&=~(1<<PB0);    
+        _delay_ms(100);  
+        
         i++;
     }
 }
@@ -37,17 +48,13 @@ void uart_read_com(void){
     val=UDR;
     if (val==48)
     {
-//      uart_send("\n\r");
-      uart_send("LED OFF");
-//      uart_send("\n\r");
+      uart_send("\nLED OFF\n");
       PORTB&=~(1<<PB0);
     }
     
     if (val==49)
     {
-//      uart_send("\n\r");
-      uart_send("LED ON");
-//      uart_send("\n\r");
+      uart_send("\nLED ON\n");
       PORTB|=(1<<PB0);
     }
   }
@@ -58,18 +65,9 @@ int main(void)
     DDRB|=(1<<PB0);// пин на выход
     uart_ini(); // инициализация УАРТ
   
-//    uart_send("\n\r");
-    uart_send("LED ON");
-//    uart_send("\n\r");
     PORTB|=(1<<PB0);
-
-    _delay_ms(100);
-    
-    PORTB&=~(1<<PB0);
-//    uart_send("\n\r");
-    uart_send("LED OFF");
-//    uart_send("\n\r");
-    
+    _delay_ms(100);    
+    PORTB&=~(1<<PB0);    
     _delay_ms(100);    
 
     while (1) 
