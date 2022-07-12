@@ -1,0 +1,370 @@
+
+Atmega8-UART.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001b0  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000002a  00800060  000001b0  00000224  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000024e  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000280  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000078  00000000  00000000  000002bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000afd  00000000  00000000  00000334  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000074e  00000000  00000000  00000e31  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000460  00000000  00000000  0000157f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000110  00000000  00000000  000019e0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000004c9  00000000  00000000  00001af0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000460  00000000  00000000  00001fb9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000070  00000000  00000000  00002419  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	24 c0       	rjmp	.+72     	; 0x4c <__bad_interrupt>
+   4:	23 c0       	rjmp	.+70     	; 0x4c <__bad_interrupt>
+   6:	22 c0       	rjmp	.+68     	; 0x4c <__bad_interrupt>
+   8:	21 c0       	rjmp	.+66     	; 0x4c <__bad_interrupt>
+   a:	20 c0       	rjmp	.+64     	; 0x4c <__bad_interrupt>
+   c:	1f c0       	rjmp	.+62     	; 0x4c <__bad_interrupt>
+   e:	1e c0       	rjmp	.+60     	; 0x4c <__bad_interrupt>
+  10:	1d c0       	rjmp	.+58     	; 0x4c <__bad_interrupt>
+  12:	1c c0       	rjmp	.+56     	; 0x4c <__bad_interrupt>
+  14:	1b c0       	rjmp	.+54     	; 0x4c <__bad_interrupt>
+  16:	1a c0       	rjmp	.+52     	; 0x4c <__bad_interrupt>
+  18:	19 c0       	rjmp	.+50     	; 0x4c <__bad_interrupt>
+  1a:	18 c0       	rjmp	.+48     	; 0x4c <__bad_interrupt>
+  1c:	17 c0       	rjmp	.+46     	; 0x4c <__bad_interrupt>
+  1e:	16 c0       	rjmp	.+44     	; 0x4c <__bad_interrupt>
+  20:	15 c0       	rjmp	.+42     	; 0x4c <__bad_interrupt>
+  22:	14 c0       	rjmp	.+40     	; 0x4c <__bad_interrupt>
+  24:	13 c0       	rjmp	.+38     	; 0x4c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e0 eb       	ldi	r30, 0xB0	; 176
+  3a:	f1 e0       	ldi	r31, 0x01	; 1
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	aa 38       	cpi	r26, 0x8A	; 138
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+  48:	02 d0       	rcall	.+4      	; 0x4e <main>
+  4a:	b0 c0       	rjmp	.+352    	; 0x1ac <_exit>
+
+0000004c <__bad_interrupt>:
+  4c:	d9 cf       	rjmp	.-78     	; 0x0 <__vectors>
+
+0000004e <main>:
+#include "UART.h"
+
+const char err[] PROGMEM = "errorko";
+
+int main(void)
+{
+  4e:	cf 93       	push	r28
+  50:	df 93       	push	r29
+  52:	cd b7       	in	r28, 0x3d	; 61
+  54:	de b7       	in	r29, 0x3e	; 62
+  56:	66 97       	sbiw	r28, 0x16	; 22
+  58:	0f b6       	in	r0, 0x3f	; 63
+  5a:	f8 94       	cli
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	0f be       	out	0x3f, r0	; 63
+  60:	cd bf       	out	0x3d, r28	; 61
+	DDRC |= (1<<0);
+  62:	a0 9a       	sbi	0x14, 0	; 20
+	uint16_t n=0;
+	uint8_t error[]="error";
+  64:	86 e0       	ldi	r24, 0x06	; 6
+  66:	e3 e7       	ldi	r30, 0x73	; 115
+  68:	f0 e0       	ldi	r31, 0x00	; 0
+  6a:	de 01       	movw	r26, r28
+  6c:	11 96       	adiw	r26, 0x01	; 1
+  6e:	01 90       	ld	r0, Z+
+  70:	0d 92       	st	X+, r0
+  72:	8a 95       	dec	r24
+  74:	e1 f7       	brne	.-8      	; 0x6e <main+0x20>
+	uint8_t press[]="press number - ";
+  76:	80 e1       	ldi	r24, 0x10	; 16
+  78:	e9 e7       	ldi	r30, 0x79	; 121
+  7a:	f0 e0       	ldi	r31, 0x00	; 0
+  7c:	de 01       	movw	r26, r28
+  7e:	17 96       	adiw	r26, 0x07	; 7
+  80:	01 90       	ld	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	8a 95       	dec	r24
+  86:	e1 f7       	brne	.-8      	; 0x80 <main+0x32>
+	uart_init(MYUBRR);
+  88:	83 e3       	ldi	r24, 0x33	; 51
+  8a:	90 e0       	ldi	r25, 0x00	; 0
+  8c:	2a d0       	rcall	.+84     	; 0xe2 <_Z9uart_initj>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  8e:	2f ef       	ldi	r18, 0xFF	; 255
+  90:	89 e6       	ldi	r24, 0x69	; 105
+  92:	98 e1       	ldi	r25, 0x18	; 24
+  94:	21 50       	subi	r18, 0x01	; 1
+  96:	80 40       	sbci	r24, 0x00	; 0
+  98:	90 40       	sbci	r25, 0x00	; 0
+  9a:	e1 f7       	brne	.-8      	; 0x94 <main+0x46>
+  9c:	00 c0       	rjmp	.+0      	; 0x9e <main+0x50>
+  9e:	00 00       	nop
+
+	_delay_ms(1000);
+	uart_send_str((uint8_t*)"UART led control. ");
+  a0:	80 e6       	ldi	r24, 0x60	; 96
+  a2:	90 e0       	ldi	r25, 0x00	; 0
+  a4:	2a d0       	rcall	.+84     	; 0xfa <_Z13uart_send_strPh>
+	
+	uart_send_entr();
+  a6:	52 d0       	rcall	.+164    	; 0x14c <_Z14uart_send_entrv>
+const char err[] PROGMEM = "errorko";
+
+int main(void)
+{
+	DDRC |= (1<<0);
+	uint16_t n=0;
+  a8:	00 e0       	ldi	r16, 0x00	; 0
+  aa:	10 e0       	ldi	r17, 0x00	; 0
+    {
+		if(UCSRA&(1<<RXC))			//	если пришёл байт по UART
+		{
+			if ('y'==uart_read_byte()) 
+			{
+				PORTC^=(1<<0);
+  ac:	dd 24       	eor	r13, r13
+  ae:	d3 94       	inc	r13
+	uart_send_str((uint8_t*)"UART led control. ");
+	
+	uart_send_entr();
+    while (1) 
+    {
+		if(UCSRA&(1<<RXC))			//	если пришёл байт по UART
+  b0:	5f 9b       	sbis	0x0b, 7	; 11
+  b2:	fe cf       	rjmp	.-4      	; 0xb0 <main+0x62>
+		{
+			if ('y'==uart_read_byte()) 
+  b4:	4e d0       	rcall	.+156    	; 0x152 <_Z14uart_read_bytev>
+  b6:	89 37       	cpi	r24, 0x79	; 121
+  b8:	79 f4       	brne	.+30     	; 0xd8 <main+0x8a>
+			{
+				PORTC^=(1<<0);
+  ba:	85 b3       	in	r24, 0x15	; 21
+  bc:	8d 25       	eor	r24, r13
+  be:	85 bb       	out	0x15, r24	; 21
+				uart_send_str(press);
+  c0:	ce 01       	movw	r24, r28
+  c2:	07 96       	adiw	r24, 0x07	; 7
+  c4:	1a d0       	rcall	.+52     	; 0xfa <_Z13uart_send_strPh>
+				uart_send_numstr(n++);
+  c6:	78 01       	movw	r14, r16
+  c8:	2f ef       	ldi	r18, 0xFF	; 255
+  ca:	e2 1a       	sub	r14, r18
+  cc:	f2 0a       	sbc	r15, r18
+  ce:	c8 01       	movw	r24, r16
+  d0:	22 d0       	rcall	.+68     	; 0x116 <_Z16uart_send_numstrj>
+				uart_send_entr();
+  d2:	3c d0       	rcall	.+120    	; 0x14c <_Z14uart_send_entrv>
+		{
+			if ('y'==uart_read_byte()) 
+			{
+				PORTC^=(1<<0);
+				uart_send_str(press);
+				uart_send_numstr(n++);
+  d4:	87 01       	movw	r16, r14
+  d6:	ec cf       	rjmp	.-40     	; 0xb0 <main+0x62>
+				uart_send_entr();
+			}
+			else {
+				uart_send_str(error);
+  d8:	ce 01       	movw	r24, r28
+  da:	01 96       	adiw	r24, 0x01	; 1
+  dc:	0e d0       	rcall	.+28     	; 0xfa <_Z13uart_send_strPh>
+				//uart_send_flashstr(err);
+				uart_send_entr();
+  de:	36 d0       	rcall	.+108    	; 0x14c <_Z14uart_send_entrv>
+  e0:	e7 cf       	rjmp	.-50     	; 0xb0 <main+0x62>
+
+000000e2 <_Z9uart_initj>:
+	uart_send_byte(temp/10+'0');
+	uart_send_byte(temp%10+'0');
+	temp=c%100;
+	uart_send_byte(temp/10+'0');
+	uart_send_byte(temp%10+'0');
+}
+  e2:	90 bd       	out	0x20, r25	; 32
+  e4:	89 b9       	out	0x09, r24	; 9
+  e6:	53 9a       	sbi	0x0a, 3	; 10
+  e8:	54 9a       	sbi	0x0a, 4	; 10
+  ea:	80 b5       	in	r24, 0x20	; 32
+  ec:	86 68       	ori	r24, 0x86	; 134
+  ee:	80 bd       	out	0x20, r24	; 32
+  f0:	08 95       	ret
+
+000000f2 <_Z14uart_send_byteh>:
+  f2:	5d 9b       	sbis	0x0b, 5	; 11
+  f4:	fe cf       	rjmp	.-4      	; 0xf2 <_Z14uart_send_byteh>
+  f6:	8c b9       	out	0x0c, r24	; 12
+  f8:	08 95       	ret
+
+000000fa <_Z13uart_send_strPh>:
+  fa:	cf 93       	push	r28
+  fc:	df 93       	push	r29
+  fe:	ec 01       	movw	r28, r24
+ 100:	88 81       	ld	r24, Y
+ 102:	88 23       	and	r24, r24
+ 104:	29 f0       	breq	.+10     	; 0x110 <_Z13uart_send_strPh+0x16>
+ 106:	21 96       	adiw	r28, 0x01	; 1
+ 108:	f4 df       	rcall	.-24     	; 0xf2 <_Z14uart_send_byteh>
+ 10a:	89 91       	ld	r24, Y+
+ 10c:	81 11       	cpse	r24, r1
+ 10e:	fc cf       	rjmp	.-8      	; 0x108 <_Z13uart_send_strPh+0xe>
+ 110:	df 91       	pop	r29
+ 112:	cf 91       	pop	r28
+ 114:	08 95       	ret
+
+00000116 <_Z16uart_send_numstrj>:
+
+// отправка числа int от 0 до 65535
+void uart_send_numstr(uint16_t num) {
+ 116:	cf 93       	push	r28
+ 118:	df 93       	push	r29
+ 11a:	cd b7       	in	r28, 0x3d	; 61
+ 11c:	de b7       	in	r29, 0x3e	; 62
+ 11e:	2a 97       	sbiw	r28, 0x0a	; 10
+ 120:	0f b6       	in	r0, 0x3f	; 63
+ 122:	f8 94       	cli
+ 124:	de bf       	out	0x3e, r29	; 62
+ 126:	0f be       	out	0x3f, r0	; 63
+ 128:	cd bf       	out	0x3d, r28	; 61
+    } else if (__radix < 2 || __radix > 36) {
+	*__s = 0;
+	return __s;
+    } else {
+	extern char *__utoa_ncheck (unsigned int, char *, unsigned char);
+	return __utoa_ncheck (__val, __s, __radix);
+ 12a:	4a e0       	ldi	r20, 0x0A	; 10
+ 12c:	be 01       	movw	r22, r28
+ 12e:	6f 5f       	subi	r22, 0xFF	; 255
+ 130:	7f 4f       	sbci	r23, 0xFF	; 255
+ 132:	13 d0       	rcall	.+38     	; 0x15a <__utoa_ncheck>
+	char str[10];
+	utoa(num, str, 10);
+	uart_send_str((uint8_t*)str);
+ 134:	ce 01       	movw	r24, r28
+ 136:	01 96       	adiw	r24, 0x01	; 1
+ 138:	e0 df       	rcall	.-64     	; 0xfa <_Z13uart_send_strPh>
+}
+ 13a:	2a 96       	adiw	r28, 0x0a	; 10
+ 13c:	0f b6       	in	r0, 0x3f	; 63
+ 13e:	f8 94       	cli
+ 140:	de bf       	out	0x3e, r29	; 62
+ 142:	0f be       	out	0x3f, r0	; 63
+ 144:	cd bf       	out	0x3d, r28	; 61
+ 146:	df 91       	pop	r29
+ 148:	cf 91       	pop	r28
+ 14a:	08 95       	ret
+
+0000014c <_Z14uart_send_entrv>:
+
+
+// перевод каретки на новую строку
+void uart_send_entr() {
+	uart_send_byte(0x0d);
+ 14c:	8d e0       	ldi	r24, 0x0D	; 13
+ 14e:	d1 df       	rcall	.-94     	; 0xf2 <_Z14uart_send_byteh>
+ 150:	08 95       	ret
+
+00000152 <_Z14uart_read_bytev>:
+}
+
+//	Получение байта
+uint8_t uart_read_byte(void) {
+	while(!(UCSRA&(1<<RXC)))	//	Устанавливается, когда регистр свободен
+ 152:	5f 9b       	sbis	0x0b, 7	; 11
+ 154:	fe cf       	rjmp	.-4      	; 0x152 <_Z14uart_read_bytev>
+	{}
+	return UDR;
+ 156:	8c b1       	in	r24, 0x0c	; 12
+}
+ 158:	08 95       	ret
+
+0000015a <__utoa_ncheck>:
+ 15a:	bb 27       	eor	r27, r27
+
+0000015c <__utoa_common>:
+ 15c:	fb 01       	movw	r30, r22
+ 15e:	55 27       	eor	r21, r21
+ 160:	aa 27       	eor	r26, r26
+ 162:	88 0f       	add	r24, r24
+ 164:	99 1f       	adc	r25, r25
+ 166:	aa 1f       	adc	r26, r26
+ 168:	a4 17       	cp	r26, r20
+ 16a:	10 f0       	brcs	.+4      	; 0x170 <__utoa_common+0x14>
+ 16c:	a4 1b       	sub	r26, r20
+ 16e:	83 95       	inc	r24
+ 170:	50 51       	subi	r21, 0x10	; 16
+ 172:	b9 f7       	brne	.-18     	; 0x162 <__utoa_common+0x6>
+ 174:	a0 5d       	subi	r26, 0xD0	; 208
+ 176:	aa 33       	cpi	r26, 0x3A	; 58
+ 178:	08 f0       	brcs	.+2      	; 0x17c <__utoa_common+0x20>
+ 17a:	a9 5d       	subi	r26, 0xD9	; 217
+ 17c:	a1 93       	st	Z+, r26
+ 17e:	00 97       	sbiw	r24, 0x00	; 0
+ 180:	79 f7       	brne	.-34     	; 0x160 <__utoa_common+0x4>
+ 182:	b1 11       	cpse	r27, r1
+ 184:	b1 93       	st	Z+, r27
+ 186:	11 92       	st	Z+, r1
+ 188:	cb 01       	movw	r24, r22
+ 18a:	00 c0       	rjmp	.+0      	; 0x18c <strrev>
+
+0000018c <strrev>:
+ 18c:	dc 01       	movw	r26, r24
+ 18e:	fc 01       	movw	r30, r24
+ 190:	67 2f       	mov	r22, r23
+ 192:	71 91       	ld	r23, Z+
+ 194:	77 23       	and	r23, r23
+ 196:	e1 f7       	brne	.-8      	; 0x190 <strrev+0x4>
+ 198:	32 97       	sbiw	r30, 0x02	; 2
+ 19a:	04 c0       	rjmp	.+8      	; 0x1a4 <strrev+0x18>
+ 19c:	7c 91       	ld	r23, X
+ 19e:	6d 93       	st	X+, r22
+ 1a0:	70 83       	st	Z, r23
+ 1a2:	62 91       	ld	r22, -Z
+ 1a4:	ae 17       	cp	r26, r30
+ 1a6:	bf 07       	cpc	r27, r31
+ 1a8:	c8 f3       	brcs	.-14     	; 0x19c <strrev+0x10>
+ 1aa:	08 95       	ret
+
+000001ac <_exit>:
+ 1ac:	f8 94       	cli
+
+000001ae <__stop_program>:
+ 1ae:	ff cf       	rjmp	.-2      	; 0x1ae <__stop_program>

@@ -1,4 +1,4 @@
-// ATmega8
+// ATmega8 (уррааа, работает!!!)
 
 //#define F_CPU 1000000UL
 #include <avr/io.h>
@@ -13,29 +13,18 @@
 void uart_ini(void){
     UBRRH = (MYUBRR>>8);
     UBRRL = MYUBRR; // UBRRL = 12; // 12 (или 0x0c) - для 9600 при 1MHz и U2X = 1
-    UCSRA|=(1<<U2X);// бит в 1 (двухскоростная работа)
-    UCSRB|=(1<<RXEN) | (1<<TXEN); // разрешить работу передатчика и приемника
+    UCSRA |= (1<<U2X);// бит в 1 (двухскоростная работа)
+    UCSRB |= (1<<RXEN) | (1<<TXEN); // разрешить работу передатчика и приемника
+    // UCSRC |= (1<<URSEL) | (1<<UCSZ1) | (1<<UCSZ0); // 8 бит данных в посылке (по умолчанию)
 }
 
 // отправка строки в порт
 void uart_send(char* str){
-    uint8_t i=0;
-    
-//    PORTB|=(1<<PB0);
-//    _delay_ms(100);    
-//    PORTB&=~(1<<PB0);    
-//    _delay_ms(100);  
-        
+    uint8_t i=0;        
     while (str[i])
     {    
         while ( !( UCSRA & (1<<UDRE)) ); // ждем пока не освободится регистр передатчика
         UDR = str[i];// пишем данные в регистр передатчика для отправки 
-        
-        PORTB|=(1<<PB0);
-        _delay_ms(100);    
-        PORTB&=~(1<<PB0);    
-        _delay_ms(100);  
-        
         i++;
     }
 }
@@ -68,7 +57,9 @@ int main(void)
     PORTB|=(1<<PB0);
     _delay_ms(100);    
     PORTB&=~(1<<PB0);    
-    _delay_ms(100);    
+    _delay_ms(100);
+
+    uart_send("\nSTART: press 1 or 0.\n");
 
     while (1) 
     {
