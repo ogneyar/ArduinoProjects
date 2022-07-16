@@ -1,0 +1,354 @@
+
+Attiny13_4024.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000016c  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000001e0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000001  00800060  00800060  000001e0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000001e0  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000210  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000028  00000000  00000000  0000024c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000006af  00000000  00000000  00000274  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000003d7  00000000  00000000  00000923  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000031b  00000000  00000000  00000cfa  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000034  00000000  00000000  00001018  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000276  00000000  00000000  0000104c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000373  00000000  00000000  000012c2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000018  00000000  00000000  00001635  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	16 c0       	rjmp	.+44     	; 0x30 <__bad_interrupt>
+   4:	15 c0       	rjmp	.+42     	; 0x30 <__bad_interrupt>
+   6:	14 c0       	rjmp	.+40     	; 0x30 <__bad_interrupt>
+   8:	13 c0       	rjmp	.+38     	; 0x30 <__bad_interrupt>
+   a:	12 c0       	rjmp	.+36     	; 0x30 <__bad_interrupt>
+   c:	11 c0       	rjmp	.+34     	; 0x30 <__bad_interrupt>
+   e:	10 c0       	rjmp	.+32     	; 0x30 <__bad_interrupt>
+  10:	0f c0       	rjmp	.+30     	; 0x30 <__bad_interrupt>
+  12:	0e c0       	rjmp	.+28     	; 0x30 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+
+0000001c <__do_clear_bss>:
+  1c:	20 e0       	ldi	r18, 0x00	; 0
+  1e:	a0 e6       	ldi	r26, 0x60	; 96
+  20:	b0 e0       	ldi	r27, 0x00	; 0
+  22:	01 c0       	rjmp	.+2      	; 0x26 <.do_clear_bss_start>
+
+00000024 <.do_clear_bss_loop>:
+  24:	1d 92       	st	X+, r1
+
+00000026 <.do_clear_bss_start>:
+  26:	a1 36       	cpi	r26, 0x61	; 97
+  28:	b2 07       	cpc	r27, r18
+  2a:	e1 f7       	brne	.-8      	; 0x24 <.do_clear_bss_loop>
+  2c:	13 d0       	rcall	.+38     	; 0x54 <main>
+  2e:	9c c0       	rjmp	.+312    	; 0x168 <_exit>
+
+00000030 <__bad_interrupt>:
+  30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
+
+00000032 <set>:
+#define LED_CONTROL		PB4// определ€ем пин управл€ющий счетчиком
+
+//установка значени€
+void set(uint8_t num){
+	static uint8_t position;// переменна€ дл€ хранени€текущей позиции
+	uint8_t clk=(num-position)&127;// расчет количетва импульсов дл€ установки новой позиции
+  32:	90 91 60 00 	lds	r25, 0x0060	; 0x800060 <_edata>
+  36:	28 2f       	mov	r18, r24
+  38:	29 1b       	sub	r18, r25
+  3a:	92 2f       	mov	r25, r18
+  3c:	9f 77       	andi	r25, 0x7F	; 127
+	position=num;//запоминаем новую позицию
+  3e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+	// отправка импульсов в счетчик
+	while (clk--)
+  42:	8f ef       	ldi	r24, 0xFF	; 255
+  44:	89 0f       	add	r24, r25
+  46:	99 23       	and	r25, r25
+  48:	21 f0       	breq	.+8      	; 0x52 <__SREG__+0x13>
+	{
+		DDRB|=(1<<LED_CONTROL);
+  4a:	bc 9a       	sbi	0x17, 4	; 23
+		DDRB&=~(1<<LED_CONTROL);
+  4c:	bc 98       	cbi	0x17, 4	; 23
+void set(uint8_t num){
+	static uint8_t position;// переменна€ дл€ хранени€текущей позиции
+	uint8_t clk=(num-position)&127;// расчет количетва импульсов дл€ установки новой позиции
+	position=num;//запоминаем новую позицию
+	// отправка импульсов в счетчик
+	while (clk--)
+  4e:	81 50       	subi	r24, 0x01	; 1
+  50:	e0 f7       	brcc	.-8      	; 0x4a <__SREG__+0xb>
+  52:	08 95       	ret
+
+00000054 <main>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  54:	2f e7       	ldi	r18, 0x7F	; 127
+  56:	89 ea       	ldi	r24, 0xA9	; 169
+  58:	93 e0       	ldi	r25, 0x03	; 3
+  5a:	21 50       	subi	r18, 0x01	; 1
+  5c:	80 40       	sbci	r24, 0x00	; 0
+  5e:	90 40       	sbci	r25, 0x00	; 0
+  60:	e1 f7       	brne	.-8      	; 0x5a <main+0x6>
+  62:	00 c0       	rjmp	.+0      	; 0x64 <main+0x10>
+  64:	00 00       	nop
+}
+
+int main(void)
+{
+	_delay_ms(1000);
+	uint8_t leds=1;
+  66:	c1 e0       	ldi	r28, 0x01	; 1
+  68:	0c c0       	rjmp	.+24     	; 0x82 <main+0x2e>
+    while (1) 
+    {
+		while (leds<64)
+		{
+			set(leds);
+  6a:	8c 2f       	mov	r24, r28
+  6c:	e2 df       	rcall	.-60     	; 0x32 <set>
+			leds<<=1;
+  6e:	cc 0f       	add	r28, r28
+  70:	2f eb       	ldi	r18, 0xBF	; 191
+  72:	84 ed       	ldi	r24, 0xD4	; 212
+  74:	91 e0       	ldi	r25, 0x01	; 1
+  76:	21 50       	subi	r18, 0x01	; 1
+  78:	80 40       	sbci	r24, 0x00	; 0
+  7a:	90 40       	sbci	r25, 0x00	; 0
+  7c:	e1 f7       	brne	.-8      	; 0x76 <main+0x22>
+  7e:	00 c0       	rjmp	.+0      	; 0x80 <main+0x2c>
+  80:	00 00       	nop
+{
+	_delay_ms(1000);
+	uint8_t leds=1;
+    while (1) 
+    {
+		while (leds<64)
+  82:	c0 34       	cpi	r28, 0x40	; 64
+  84:	90 f3       	brcs	.-28     	; 0x6a <main+0x16>
+			set(leds);
+			leds<<=1;
+			_delay_ms(500);
+		}
+		
+		while (leds>1)
+  86:	c2 30       	cpi	r28, 0x02	; 2
+  88:	08 f4       	brcc	.+2      	; 0x8c <main+0x38>
+  8a:	6c c0       	rjmp	.+216    	; 0x164 <__stack+0xc5>
+		{
+			set(leds);
+  8c:	8c 2f       	mov	r24, r28
+  8e:	d1 df       	rcall	.-94     	; 0x32 <set>
+			leds>>=1;
+  90:	c6 95       	lsr	r28
+  92:	2f eb       	ldi	r18, 0xBF	; 191
+  94:	84 ed       	ldi	r24, 0xD4	; 212
+  96:	91 e0       	ldi	r25, 0x01	; 1
+  98:	21 50       	subi	r18, 0x01	; 1
+  9a:	80 40       	sbci	r24, 0x00	; 0
+  9c:	90 40       	sbci	r25, 0x00	; 0
+  9e:	e1 f7       	brne	.-8      	; 0x98 <main+0x44>
+  a0:	00 c0       	rjmp	.+0      	; 0xa2 <__stack+0x3>
+  a2:	00 00       	nop
+			set(leds);
+			leds<<=1;
+			_delay_ms(500);
+		}
+		
+		while (leds>1)
+  a4:	c2 30       	cpi	r28, 0x02	; 2
+  a6:	90 f7       	brcc	.-28     	; 0x8c <main+0x38>
+  a8:	5d c0       	rjmp	.+186    	; 0x164 <__stack+0xc5>
+			_delay_ms(500);
+		}
+		
+		for (uint8_t i=0; i<4; i++)
+		{
+			set(0b01110111);
+  aa:	87 e7       	ldi	r24, 0x77	; 119
+  ac:	c2 df       	rcall	.-124    	; 0x32 <set>
+  ae:	2f eb       	ldi	r18, 0xBF	; 191
+  b0:	84 ed       	ldi	r24, 0xD4	; 212
+  b2:	91 e0       	ldi	r25, 0x01	; 1
+  b4:	21 50       	subi	r18, 0x01	; 1
+  b6:	80 40       	sbci	r24, 0x00	; 0
+  b8:	90 40       	sbci	r25, 0x00	; 0
+  ba:	e1 f7       	brne	.-8      	; 0xb4 <__stack+0x15>
+  bc:	00 c0       	rjmp	.+0      	; 0xbe <__stack+0x1f>
+  be:	00 00       	nop
+			_delay_ms(500);
+			set(0b00001000);
+  c0:	88 e0       	ldi	r24, 0x08	; 8
+  c2:	b7 df       	rcall	.-146    	; 0x32 <set>
+  c4:	2f eb       	ldi	r18, 0xBF	; 191
+  c6:	84 ed       	ldi	r24, 0xD4	; 212
+  c8:	91 e0       	ldi	r25, 0x01	; 1
+  ca:	21 50       	subi	r18, 0x01	; 1
+  cc:	80 40       	sbci	r24, 0x00	; 0
+  ce:	90 40       	sbci	r25, 0x00	; 0
+  d0:	e1 f7       	brne	.-8      	; 0xca <__stack+0x2b>
+  d2:	00 c0       	rjmp	.+0      	; 0xd4 <__stack+0x35>
+  d4:	00 00       	nop
+  d6:	d1 50       	subi	r29, 0x01	; 1
+			set(leds);
+			leds>>=1;
+			_delay_ms(500);
+		}
+		
+		for (uint8_t i=0; i<4; i++)
+  d8:	41 f7       	brne	.-48     	; 0xaa <__stack+0xb>
+  da:	d4 e0       	ldi	r29, 0x04	; 4
+			_delay_ms(500);
+		}
+		
+		for (uint8_t i=0; i<4; i++)
+		{
+			set(0b01010101);
+  dc:	85 e5       	ldi	r24, 0x55	; 85
+  de:	a9 df       	rcall	.-174    	; 0x32 <set>
+  e0:	2f eb       	ldi	r18, 0xBF	; 191
+  e2:	84 ed       	ldi	r24, 0xD4	; 212
+  e4:	91 e0       	ldi	r25, 0x01	; 1
+  e6:	21 50       	subi	r18, 0x01	; 1
+  e8:	80 40       	sbci	r24, 0x00	; 0
+  ea:	90 40       	sbci	r25, 0x00	; 0
+  ec:	e1 f7       	brne	.-8      	; 0xe6 <__stack+0x47>
+  ee:	00 c0       	rjmp	.+0      	; 0xf0 <__stack+0x51>
+  f0:	00 00       	nop
+			_delay_ms(500);
+			set(0b00101010);
+  f2:	8a e2       	ldi	r24, 0x2A	; 42
+  f4:	9e df       	rcall	.-196    	; 0x32 <set>
+  f6:	2f eb       	ldi	r18, 0xBF	; 191
+  f8:	84 ed       	ldi	r24, 0xD4	; 212
+  fa:	91 e0       	ldi	r25, 0x01	; 1
+  fc:	21 50       	subi	r18, 0x01	; 1
+  fe:	80 40       	sbci	r24, 0x00	; 0
+ 100:	90 40       	sbci	r25, 0x00	; 0
+ 102:	e1 f7       	brne	.-8      	; 0xfc <__stack+0x5d>
+ 104:	00 c0       	rjmp	.+0      	; 0x106 <__stack+0x67>
+ 106:	00 00       	nop
+ 108:	d1 50       	subi	r29, 0x01	; 1
+			_delay_ms(500);
+			set(0b00001000);
+			_delay_ms(500);
+		}
+		
+		for (uint8_t i=0; i<4; i++)
+ 10a:	41 f7       	brne	.-48     	; 0xdc <__stack+0x3d>
+			_delay_ms(500);
+			set(0b00101010);
+			_delay_ms(500);
+		}
+		
+		while (leds<64)
+ 10c:	c0 34       	cpi	r28, 0x40	; 64
+ 10e:	88 f4       	brcc	.+34     	; 0x132 <__stack+0x93>
+		{
+			set(leds);
+ 110:	8c 2f       	mov	r24, r28
+ 112:	8f df       	rcall	.-226    	; 0x32 <set>
+			leds=(leds*2)+1;
+ 114:	8c 2f       	mov	r24, r28
+ 116:	88 0f       	add	r24, r24
+ 118:	c1 e0       	ldi	r28, 0x01	; 1
+ 11a:	c8 0f       	add	r28, r24
+ 11c:	2f eb       	ldi	r18, 0xBF	; 191
+ 11e:	84 ed       	ldi	r24, 0xD4	; 212
+ 120:	91 e0       	ldi	r25, 0x01	; 1
+ 122:	21 50       	subi	r18, 0x01	; 1
+ 124:	80 40       	sbci	r24, 0x00	; 0
+ 126:	90 40       	sbci	r25, 0x00	; 0
+ 128:	e1 f7       	brne	.-8      	; 0x122 <__stack+0x83>
+ 12a:	00 c0       	rjmp	.+0      	; 0x12c <__stack+0x8d>
+ 12c:	00 00       	nop
+			_delay_ms(500);
+			set(0b00101010);
+			_delay_ms(500);
+		}
+		
+		while (leds<64)
+ 12e:	c0 34       	cpi	r28, 0x40	; 64
+ 130:	78 f3       	brcs	.-34     	; 0x110 <__stack+0x71>
+			set(leds);
+			leds=(leds*2)+1;
+			_delay_ms(500);
+		}
+		
+		while (leds>1)
+ 132:	c2 30       	cpi	r28, 0x02	; 2
+ 134:	08 f4       	brcc	.+2      	; 0x138 <__stack+0x99>
+ 136:	a5 cf       	rjmp	.-182    	; 0x82 <main+0x2e>
+		{
+			set(leds);
+ 138:	8c 2f       	mov	r24, r28
+ 13a:	7b df       	rcall	.-266    	; 0x32 <set>
+			leds=(leds-1)/2;
+ 13c:	d0 e0       	ldi	r29, 0x00	; 0
+ 13e:	21 97       	sbiw	r28, 0x01	; 1
+ 140:	ce 01       	movw	r24, r28
+ 142:	0a f4       	brpl	.+2      	; 0x146 <__stack+0xa7>
+ 144:	01 96       	adiw	r24, 0x01	; 1
+ 146:	95 95       	asr	r25
+ 148:	87 95       	ror	r24
+ 14a:	c8 2f       	mov	r28, r24
+ 14c:	2f eb       	ldi	r18, 0xBF	; 191
+ 14e:	84 ed       	ldi	r24, 0xD4	; 212
+ 150:	91 e0       	ldi	r25, 0x01	; 1
+ 152:	21 50       	subi	r18, 0x01	; 1
+ 154:	80 40       	sbci	r24, 0x00	; 0
+ 156:	90 40       	sbci	r25, 0x00	; 0
+ 158:	e1 f7       	brne	.-8      	; 0x152 <__stack+0xb3>
+ 15a:	00 c0       	rjmp	.+0      	; 0x15c <__stack+0xbd>
+ 15c:	00 00       	nop
+			set(leds);
+			leds=(leds*2)+1;
+			_delay_ms(500);
+		}
+		
+		while (leds>1)
+ 15e:	c2 30       	cpi	r28, 0x02	; 2
+ 160:	58 f7       	brcc	.-42     	; 0x138 <__stack+0x99>
+ 162:	8f cf       	rjmp	.-226    	; 0x82 <main+0x2e>
+}
+
+int main(void)
+{
+	_delay_ms(1000);
+	uint8_t leds=1;
+ 164:	d4 e0       	ldi	r29, 0x04	; 4
+ 166:	a1 cf       	rjmp	.-190    	; 0xaa <__stack+0xb>
+
+00000168 <_exit>:
+ 168:	f8 94       	cli
+
+0000016a <__stop_program>:
+ 16a:	ff cf       	rjmp	.-2      	; 0x16a <__stop_program>

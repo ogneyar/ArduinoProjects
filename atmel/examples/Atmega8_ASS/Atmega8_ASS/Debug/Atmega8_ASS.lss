@@ -1,0 +1,200 @@
+
+Atmega8_ASS.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000be  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000112  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000112  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000144  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  00000180  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000005e6  00000000  00000000  000001a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000054e  00000000  00000000  0000078e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002a7  00000000  00000000  00000cdc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000040  00000000  00000000  00000f84  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002ec  00000000  00000000  00000fc4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000077  00000000  00000000  000012b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  00001327  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	17 c0       	rjmp	.+46     	; 0x38 <__vector_4>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	0c d0       	rcall	.+24     	; 0x4c <main>
+  34:	42 c0       	rjmp	.+132    	; 0xba <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <__vector_4>:
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include <avr/sleep.h>
+
+ISR(TIMER2_OVF_vect){
+  38:	1f 92       	push	r1
+  3a:	0f 92       	push	r0
+  3c:	0f b6       	in	r0, 0x3f	; 63
+  3e:	0f 92       	push	r0
+  40:	11 24       	eor	r1, r1
+
+}
+  42:	0f 90       	pop	r0
+  44:	0f be       	out	0x3f, r0	; 63
+  46:	0f 90       	pop	r0
+  48:	1f 90       	pop	r1
+  4a:	18 95       	reti
+
+0000004c <main>:
+
+int main(void)
+{
+	DDRB|=(1<<PB0); // пин на выход
+  4c:	b8 9a       	sbi	0x17, 0	; 23
+	//------- асинхронный режим таймера 2----------------
+	//TIMSK&=~((1<<OCIE2)|(1<<TOIE2));//1. Запретить прерывания, в TIMSK сбросить биты OCIE2 and TOIE2
+	ASSR|=(1<<AS2);//2. включить асинхронный режим, в ASSR поднять бит AS2 
+  4e:	82 b5       	in	r24, 0x22	; 34
+  50:	88 60       	ori	r24, 0x08	; 8
+  52:	82 bd       	out	0x22, r24	; 34
+	
+	//3. изменить регистры TCNT2, OCR2, and TCCR2, настроить таймер
+	TCNT2=0;
+  54:	14 bc       	out	0x24, r1	; 36
+	OCR2=0;
+  56:	13 bc       	out	0x23, r1	; 35
+	//TCCR2=(1<<CS22) | (1<<CS20);// делитель 128
+	//TCCR2=(1<<CS22);// делитель 64
+	TCCR2= (1 << CS22)|(1 << CS21)|(1<<CS20);// Предделитель на 1024
+  58:	87 e0       	ldi	r24, 0x07	; 7
+  5a:	85 bd       	out	0x25, r24	; 37
+	TCCR2 после перехода в асинхронный режим может содержать рандомное значение.
+	посему конструкция типа "TCCR2|=(1<<бит1) | (1<<бит2);" неверна 
+	нужно применить простое присваивание "TCCR2=(1<<бит1) | (1<<бит2);"
+	*/
+	
+	while(ASSR!=8);//4. ждать сброса флагов TCN2UB, OCR2UB, and TCR2UB в регистре ASSR
+  5c:	82 b5       	in	r24, 0x22	; 34
+  5e:	88 30       	cpi	r24, 0x08	; 8
+  60:	e9 f7       	brne	.-6      	; 0x5c <main+0x10>
+	TIFR|=(1<<OCF2)|(1<<TOV2);//5. сбросить флаги прерываний в TIFR биты OCF2, TOV2
+  62:	88 b7       	in	r24, 0x38	; 56
+  64:	80 6c       	ori	r24, 0xC0	; 192
+  66:	88 bf       	out	0x38, r24	; 56
+	TIMSK|=(1<<TOIE2); //6. разрешить прерывания если нужно, в TIMSK
+  68:	89 b7       	in	r24, 0x39	; 57
+  6a:	80 64       	ori	r24, 0x40	; 64
+  6c:	89 bf       	out	0x39, r24	; 57
+	//---------------------------------
+	sei();// глобально разрешить прерывания
+  6e:	78 94       	sei
+	set_sleep_mode(SLEEP_MODE_PWR_SAVE); // режим сна power save
+  70:	85 b7       	in	r24, 0x35	; 53
+  72:	8f 78       	andi	r24, 0x8F	; 143
+  74:	80 63       	ori	r24, 0x30	; 48
+  76:	85 bf       	out	0x35, r24	; 53
+		_delay_ms(300);
+		PORTB&=~(1<<PB0);
+		
+		if (!(PINB&(1<<PB1)))
+		{
+			OCR2=1;//1. записать что-то в регистры TCCR2, TCNT2, или OCR2
+  78:	91 e0       	ldi	r25, 0x01	; 1
+	//---------------------------------
+	sei();// глобально разрешить прерывания
+	set_sleep_mode(SLEEP_MODE_PWR_SAVE); // режим сна power save
+    while (1) 
+    {
+		PORTB|=(1<<PB0);
+  7a:	c0 9a       	sbi	0x18, 0	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  7c:	2f e5       	ldi	r18, 0x5F	; 95
+  7e:	3a ee       	ldi	r19, 0xEA	; 234
+  80:	80 e0       	ldi	r24, 0x00	; 0
+  82:	21 50       	subi	r18, 0x01	; 1
+  84:	30 40       	sbci	r19, 0x00	; 0
+  86:	80 40       	sbci	r24, 0x00	; 0
+  88:	e1 f7       	brne	.-8      	; 0x82 <main+0x36>
+  8a:	00 c0       	rjmp	.+0      	; 0x8c <main+0x40>
+  8c:	00 00       	nop
+		_delay_ms(300);
+		PORTB&=~(1<<PB0);
+  8e:	c0 98       	cbi	0x18, 0	; 24
+		
+		if (!(PINB&(1<<PB1)))
+  90:	b1 99       	sbic	0x16, 1	; 22
+  92:	09 c0       	rjmp	.+18     	; 0xa6 <main+0x5a>
+		{
+			OCR2=1;//1. записать что-то в регистры TCCR2, TCNT2, или OCR2
+  94:	93 bd       	out	0x23, r25	; 35
+			while (ASSR != 8);//2.ждать сброса флагов TCN2UB, OCR2UB, and TCR2UB в регистре ASSR
+  96:	82 b5       	in	r24, 0x22	; 34
+  98:	88 30       	cpi	r24, 0x08	; 8
+  9a:	e9 f7       	brne	.-6      	; 0x96 <main+0x4a>
+			sleep_enable();//3. уход 
+  9c:	85 b7       	in	r24, 0x35	; 53
+  9e:	80 68       	ori	r24, 0x80	; 128
+  a0:	85 bf       	out	0x35, r24	; 53
+			sleep_cpu(); //	в сон
+  a2:	88 95       	sleep
+  a4:	ea cf       	rjmp	.-44     	; 0x7a <main+0x2e>
+  a6:	2f e5       	ldi	r18, 0x5F	; 95
+  a8:	3a ee       	ldi	r19, 0xEA	; 234
+  aa:	80 e0       	ldi	r24, 0x00	; 0
+  ac:	21 50       	subi	r18, 0x01	; 1
+  ae:	30 40       	sbci	r19, 0x00	; 0
+  b0:	80 40       	sbci	r24, 0x00	; 0
+  b2:	e1 f7       	brne	.-8      	; 0xac <main+0x60>
+  b4:	00 c0       	rjmp	.+0      	; 0xb6 <main+0x6a>
+  b6:	00 00       	nop
+  b8:	e0 cf       	rjmp	.-64     	; 0x7a <main+0x2e>
+
+000000ba <_exit>:
+  ba:	f8 94       	cli
+
+000000bc <__stop_program>:
+  bc:	ff cf       	rjmp	.-2      	; 0xbc <__stop_program>
