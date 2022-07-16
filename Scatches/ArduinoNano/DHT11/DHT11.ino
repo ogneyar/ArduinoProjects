@@ -7,20 +7,26 @@
 #define DHT_DDR		DDRB
 #define DHT_PIN		PINB
 #define DHT_PORT	PORTB
-#define DHT			  9
+#define DHT			  7
 
 uint8_t _hum, _temp;// переменные для влажности и температуры
 
 // функция передачи условия "старт" на линию и проверка ответов от датчика.
 uint8_t dht_start(void){
-	DHT_DDR|=(1<<DHT);// притянули линию к земле - 0
+//	DHT_DDR|=(1<<DHT);// DDR на выход, а линию притянули к земле - 0
+pinMode(DHT, HIGH);
+digitalWrite(DHT, LOW);
 	_delay_ms(20);// пауза 20 мс 
-	DHT_DDR&=~(1<<DHT);// отпустили линию - 1
+//	DHT_DDR&=~(1<<DHT);// DDR на вход, отпустили линию - 1 // подтягивающий резистор притянул питание
+pinMode(DHT, LOW);
 	_delay_us(40);// ждем 40 мкс чтобы попасть в середину низкого сигнала
-	if (DHT_PIN&(1<<DHT)) return 1; // если на линии 1 ошибка - "датчик не ответил"
-	_delay_us(80); // ждем 80 мкс чтобы попасть в середину высокого сигнала
-	if (!(DHT_PIN&(1<<DHT))) return 2; // если на линии 0 ошибка - "датчик не готов "
-	while(DHT_PIN&(1<<DHT));// ждем пока датчик не притянет линию к земле.
+//	if (DHT_PIN&(1<<DHT)) return 1; // если на линии 1 ошибка - "датчик не ответил"
+if (digitalRead(DHT)) return 1;
+	_delay_us(110); // ждем 80 мкс чтобы попасть в середину высокого сигнала
+//	if (!(DHT_PIN&(1<<DHT))) return 2; // если на линии 0 ошибка - "датчик не готов "
+if ( ! digitalRead(DHT)) return 2;
+//	while(DHT_PIN&(1<<DHT));// ждем пока датчик не притянет линию к земле.
+while(digitalRead(DHT));
 	return 0;// ошибок нет
 }
 
@@ -66,14 +72,19 @@ int main(void)
 
     Serial.println(response);
     
-//    Serial.print("hum: ");
-//    Serial.println(_hum);
-
- 
-//    Serial.print("temp: ");
-//    Serial.println(_temp);
+//    DDRD |= (1<<PD5);
  
     while (1) 
     {
+//        Serial.print("hum: ");
+//        Serial.println(_hum);
+//        Serial.print("temp: ");
+//        Serial.println(_temp);
+//        _delay_us(3000000);
+
+//      PORTD |= (1<<PD5);      
+//      _delay_us(500000);      
+//      PORTD &= ~(1<<PD5);
+//      _delay_ms(500);
     }
 }
