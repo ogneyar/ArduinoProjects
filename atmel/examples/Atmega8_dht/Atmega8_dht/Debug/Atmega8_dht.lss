@@ -1,0 +1,493 @@
+
+Atmega8_dht.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000027e  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000002  00800060  0000027e  00000312  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000000a  00800062  00800062  00000314  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000314  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000344  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000050  00000000  00000000  00000380  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000006f9  00000000  00000000  000003d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000005d1  00000000  00000000  00000ac9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000477  00000000  00000000  0000109a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000b0  00000000  00000000  00001514  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000032f  00000000  00000000  000015c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000000e0  00000000  00000000  000018f3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000030  00000000  00000000  000019d3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	94 c0       	rjmp	.+296    	; 0x12e <__vector_2>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	2c c0       	rjmp	.+88     	; 0x6c <__vector_9>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	ee e7       	ldi	r30, 0x7E	; 126
+  3a:	f2 e0       	ldi	r31, 0x02	; 2
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	a2 36       	cpi	r26, 0x62	; 98
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	a2 e6       	ldi	r26, 0x62	; 98
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	ac 36       	cpi	r26, 0x6C	; 108
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	ff d0       	rcall	.+510    	; 0x258 <main>
+  5a:	0f c1       	rjmp	.+542    	; 0x27a <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <dht_ini>:
+uint8_t hum, temp;// переменные для хранения текущих температуры и влажности
+uint8_t pause;// для отсчета паузы
+
+
+void dht_ini(void){
+	TCCR0|=(1<<CS02)|(1<<CS00);// запуск таймера 0 с делителем 1024
+  5e:	83 b7       	in	r24, 0x33	; 51
+  60:	85 60       	ori	r24, 0x05	; 5
+  62:	83 bf       	out	0x33, r24	; 51
+	TIMSK|=(1<<TOIE0);// разрешить прерывания по переполнению таймера 0
+  64:	89 b7       	in	r24, 0x39	; 57
+  66:	81 60       	ori	r24, 0x01	; 1
+  68:	89 bf       	out	0x39, r24	; 57
+  6a:	08 95       	ret
+
+0000006c <__vector_9>:
+}
+
+// обработчик прерывания по переполнению таймера 0
+ISR(TIMER0_OVF_vect) {
+  6c:	1f 92       	push	r1
+  6e:	0f 92       	push	r0
+  70:	0f b6       	in	r0, 0x3f	; 63
+  72:	0f 92       	push	r0
+  74:	11 24       	eor	r1, r1
+  76:	8f 93       	push	r24
+  78:	9f 93       	push	r25
+	switch (status)
+  7a:	80 91 6b 00 	lds	r24, 0x006B	; 0x80006b <status>
+  7e:	83 30       	cpi	r24, 0x03	; 3
+  80:	69 f1       	breq	.+90     	; 0xdc <__vector_9+0x70>
+  82:	20 f4       	brcc	.+8      	; 0x8c <__vector_9+0x20>
+  84:	81 30       	cpi	r24, 0x01	; 1
+  86:	89 f0       	breq	.+34     	; 0xaa <__vector_9+0x3e>
+  88:	48 f0       	brcs	.+18     	; 0x9c <__vector_9+0x30>
+  8a:	17 c0       	rjmp	.+46     	; 0xba <__vector_9+0x4e>
+  8c:	84 36       	cpi	r24, 0x64	; 100
+  8e:	08 f4       	brcc	.+2      	; 0x92 <__vector_9+0x26>
+  90:	47 c0       	rjmp	.+142    	; 0x120 <__vector_9+0xb4>
+  92:	86 36       	cpi	r24, 0x66	; 102
+  94:	d8 f1       	brcs	.+118    	; 0x10c <__vector_9+0xa0>
+  96:	8e 3f       	cpi	r24, 0xFE	; 254
+  98:	c8 f5       	brcc	.+114    	; 0x10c <__vector_9+0xa0>
+  9a:	42 c0       	rjmp	.+132    	; 0x120 <__vector_9+0xb4>
+	{
+		case 0:
+		DHT_DDR|=(1<<DHT);// притянуть линию к земле
+  9c:	8b 9a       	sbi	0x11, 3	; 17
+		TCNT0=100;// пауза 20 мс
+  9e:	84 e6       	ldi	r24, 0x64	; 100
+  a0:	82 bf       	out	0x32, r24	; 50
+		status=1;
+  a2:	81 e0       	ldi	r24, 0x01	; 1
+  a4:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+		break;
+  a8:	3b c0       	rjmp	.+118    	; 0x120 <__vector_9+0xb4>
+		
+		case 1:
+		DHT_DDR&=~(1<<DHT);// отпустить линию
+  aa:	8b 98       	cbi	0x11, 3	; 17
+		TCCR0=(1<<CS01);// делитель на 8
+  ac:	82 e0       	ldi	r24, 0x02	; 2
+  ae:	83 bf       	out	0x33, r24	; 51
+		TCNT0=216;// пауза 40 мкс
+  b0:	98 ed       	ldi	r25, 0xD8	; 216
+  b2:	92 bf       	out	0x32, r25	; 50
+		status=2;
+  b4:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+		break;
+  b8:	33 c0       	rjmp	.+102    	; 0x120 <__vector_9+0xb4>
+		
+		case 2:
+		if (DHT_PIN&(1<<DHT))// проверка линии
+  ba:	83 9b       	sbis	0x10, 3	; 16
+  bc:	09 c0       	rjmp	.+18     	; 0xd0 <__vector_9+0x64>
+		{
+			TCCR0=(1<<CS02)|(1<<CS00);// делитель 1024
+  be:	85 e0       	ldi	r24, 0x05	; 5
+  c0:	83 bf       	out	0x33, r24	; 51
+			pause=153;
+  c2:	89 e9       	ldi	r24, 0x99	; 153
+  c4:	80 93 63 00 	sts	0x0063, r24	; 0x800063 <pause>
+			status=100;// если налинии 1 ошибка - датчик не отвечает
+  c8:	84 e6       	ldi	r24, 0x64	; 100
+  ca:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+  ce:	28 c0       	rjmp	.+80     	; 0x120 <__vector_9+0xb4>
+		} else {
+			status=3;
+  d0:	83 e0       	ldi	r24, 0x03	; 3
+  d2:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+			TCNT0=176;// пауза 80 мкс
+  d6:	80 eb       	ldi	r24, 0xB0	; 176
+  d8:	82 bf       	out	0x32, r24	; 50
+  da:	22 c0       	rjmp	.+68     	; 0x120 <__vector_9+0xb4>
+		}
+		break;
+		
+		case 3:
+		if (!(DHT_PIN&(1<<DHT))) {// проверка линии
+  dc:	83 99       	sbic	0x10, 3	; 16
+  de:	09 c0       	rjmp	.+18     	; 0xf2 <__vector_9+0x86>
+			TCCR0=(1<<CS02)|(1<<CS00);// делитель 1024
+  e0:	85 e0       	ldi	r24, 0x05	; 5
+  e2:	83 bf       	out	0x33, r24	; 51
+			pause=153;
+  e4:	89 e9       	ldi	r24, 0x99	; 153
+  e6:	80 93 63 00 	sts	0x0063, r24	; 0x800063 <pause>
+			status=101;// если на линии 0 ошибка - датчик не начинает передачу
+  ea:	85 e6       	ldi	r24, 0x65	; 101
+  ec:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+  f0:	17 c0       	rjmp	.+46     	; 0x120 <__vector_9+0xb4>
+		} else {
+			status=4;
+  f2:	84 e0       	ldi	r24, 0x04	; 4
+  f4:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+			MCUCR|=(1<<ISC11); // прерывание ИНТ1 по спаду
+  f8:	85 b7       	in	r24, 0x35	; 53
+  fa:	88 60       	ori	r24, 0x08	; 8
+  fc:	85 bf       	out	0x35, r24	; 53
+			GICR|=(1<<INT1);// разрешить прерывание ИНТ1
+  fe:	8b b7       	in	r24, 0x3b	; 59
+ 100:	80 68       	ori	r24, 0x80	; 128
+ 102:	8b bf       	out	0x3b, r24	; 59
+			TIMSK&=~(1<<TOIE0);// запрет прерывания таймера 0
+ 104:	89 b7       	in	r24, 0x39	; 57
+ 106:	8e 7f       	andi	r24, 0xFE	; 254
+ 108:	89 bf       	out	0x39, r24	; 57
+ 10a:	0a c0       	rjmp	.+20     	; 0x120 <__vector_9+0xb4>
+		}
+		break;
+		
+		case 255: case 254:case 100: case 101:
+		if (pause)// отсчет 5 секунд между опросами датчика
+ 10c:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <pause>
+ 110:	88 23       	and	r24, r24
+ 112:	21 f0       	breq	.+8      	; 0x11c <__vector_9+0xb0>
+		{
+			pause--;
+ 114:	81 50       	subi	r24, 0x01	; 1
+ 116:	80 93 63 00 	sts	0x0063, r24	; 0x800063 <pause>
+ 11a:	02 c0       	rjmp	.+4      	; 0x120 <__vector_9+0xb4>
+		} else {
+			status=0;
+ 11c:	10 92 6b 00 	sts	0x006B, r1	; 0x80006b <status>
+		}
+		break;
+		
+	}
+}
+ 120:	9f 91       	pop	r25
+ 122:	8f 91       	pop	r24
+ 124:	0f 90       	pop	r0
+ 126:	0f be       	out	0x3f, r0	; 63
+ 128:	0f 90       	pop	r0
+ 12a:	1f 90       	pop	r1
+ 12c:	18 95       	reti
+
+0000012e <__vector_2>:
+
+ISR(INT1_vect){
+ 12e:	1f 92       	push	r1
+ 130:	0f 92       	push	r0
+ 132:	0f b6       	in	r0, 0x3f	; 63
+ 134:	0f 92       	push	r0
+ 136:	11 24       	eor	r1, r1
+ 138:	2f 93       	push	r18
+ 13a:	3f 93       	push	r19
+ 13c:	4f 93       	push	r20
+ 13e:	5f 93       	push	r21
+ 140:	8f 93       	push	r24
+ 142:	9f 93       	push	r25
+ 144:	ef 93       	push	r30
+ 146:	ff 93       	push	r31
+	switch (status)
+ 148:	80 91 6b 00 	lds	r24, 0x006B	; 0x80006b <status>
+ 14c:	85 30       	cpi	r24, 0x05	; 5
+ 14e:	61 f0       	breq	.+24     	; 0x168 <__vector_2+0x3a>
+ 150:	86 30       	cpi	r24, 0x06	; 6
+ 152:	91 f0       	breq	.+36     	; 0x178 <__vector_2+0x4a>
+ 154:	84 30       	cpi	r24, 0x04	; 4
+ 156:	09 f0       	breq	.+2      	; 0x15a <__vector_2+0x2c>
+ 158:	72 c0       	rjmp	.+228    	; 0x23e <__vector_2+0x110>
+	{
+		case 4:
+		MCUCR|=(1<<ISC10);// прерывание ИНТ1 по фронту
+ 15a:	85 b7       	in	r24, 0x35	; 53
+ 15c:	84 60       	ori	r24, 0x04	; 4
+ 15e:	85 bf       	out	0x35, r24	; 53
+		status=5;
+ 160:	85 e0       	ldi	r24, 0x05	; 5
+ 162:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+		break;
+ 166:	6b c0       	rjmp	.+214    	; 0x23e <__vector_2+0x110>
+		
+		case 5:
+		TCNT0=0;// збросить счетчик в 0
+ 168:	12 be       	out	0x32, r1	; 50
+		MCUCR&=~(1<<ISC10);// ИНТ1 по спаду
+ 16a:	85 b7       	in	r24, 0x35	; 53
+ 16c:	8b 7f       	andi	r24, 0xFB	; 251
+ 16e:	85 bf       	out	0x35, r24	; 53
+		status=6;
+ 170:	86 e0       	ldi	r24, 0x06	; 6
+ 172:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+		break;
+ 176:	63 c0       	rjmp	.+198    	; 0x23e <__vector_2+0x110>
+		
+		case 6:
+		if (TCNT0>=60)// если натикало 60 и больше приняли 1
+ 178:	82 b7       	in	r24, 0x32	; 50
+ 17a:	8c 33       	cpi	r24, 0x3C	; 60
+ 17c:	88 f0       	brcs	.+34     	; 0x1a0 <__vector_2+0x72>
+		{
+			data[byte]|=(1<<bit);// поднимаем текущий бит текущего байта в 1.
+ 17e:	e0 91 65 00 	lds	r30, 0x0065	; 0x800065 <byte>
+ 182:	f0 e0       	ldi	r31, 0x00	; 0
+ 184:	ea 59       	subi	r30, 0x9A	; 154
+ 186:	ff 4f       	sbci	r31, 0xFF	; 255
+ 188:	81 e0       	ldi	r24, 0x01	; 1
+ 18a:	90 e0       	ldi	r25, 0x00	; 0
+ 18c:	00 90 60 00 	lds	r0, 0x0060	; 0x800060 <__data_start>
+ 190:	02 c0       	rjmp	.+4      	; 0x196 <__vector_2+0x68>
+ 192:	88 0f       	add	r24, r24
+ 194:	99 1f       	adc	r25, r25
+ 196:	0a 94       	dec	r0
+ 198:	e2 f7       	brpl	.-8      	; 0x192 <__vector_2+0x64>
+ 19a:	90 81       	ld	r25, Z
+ 19c:	89 2b       	or	r24, r25
+ 19e:	80 83       	st	Z, r24
+		}
+		if (bit)// если бит не последний
+ 1a0:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_start>
+ 1a4:	88 23       	and	r24, r24
+ 1a6:	21 f0       	breq	.+8      	; 0x1b0 <__vector_2+0x82>
+		{
+			bit--;// тикаем битом
+ 1a8:	81 50       	subi	r24, 0x01	; 1
+ 1aa:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_start>
+ 1ae:	41 c0       	rjmp	.+130    	; 0x232 <__vector_2+0x104>
+		} else {// если приняли последний бит байта
+			bit=7;// начинаем со старшего бита
+ 1b0:	87 e0       	ldi	r24, 0x07	; 7
+ 1b2:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_start>
+			byte++;// тикаем байтом
+ 1b6:	80 91 65 00 	lds	r24, 0x0065	; 0x800065 <byte>
+ 1ba:	8f 5f       	subi	r24, 0xFF	; 255
+			if (byte>4)// если приняли последний байт
+ 1bc:	85 30       	cpi	r24, 0x05	; 5
+ 1be:	b8 f1       	brcs	.+110    	; 0x22e <__vector_2+0x100>
+			{
+				byte=0; // сбросить счетчик байт в 0
+ 1c0:	10 92 65 00 	sts	0x0065, r1	; 0x800065 <byte>
+				
+				if (data[0]+data[1]+data[2]+data[3]==data[4])// проверка контрольной суммы
+ 1c4:	e6 e6       	ldi	r30, 0x66	; 102
+ 1c6:	f0 e0       	ldi	r31, 0x00	; 0
+ 1c8:	50 81       	ld	r21, Z
+ 1ca:	42 81       	ldd	r20, Z+2	; 0x02
+ 1cc:	21 81       	ldd	r18, Z+1	; 0x01
+ 1ce:	85 2f       	mov	r24, r21
+ 1d0:	90 e0       	ldi	r25, 0x00	; 0
+ 1d2:	82 0f       	add	r24, r18
+ 1d4:	91 1d       	adc	r25, r1
+ 1d6:	84 0f       	add	r24, r20
+ 1d8:	91 1d       	adc	r25, r1
+ 1da:	23 81       	ldd	r18, Z+3	; 0x03
+ 1dc:	82 0f       	add	r24, r18
+ 1de:	91 1d       	adc	r25, r1
+ 1e0:	24 81       	ldd	r18, Z+4	; 0x04
+ 1e2:	30 e0       	ldi	r19, 0x00	; 0
+ 1e4:	82 17       	cp	r24, r18
+ 1e6:	93 07       	cpc	r25, r19
+ 1e8:	41 f4       	brne	.+16     	; 0x1fa <__vector_2+0xcc>
+				{
+					hum=data[0];// влажность
+ 1ea:	50 93 62 00 	sts	0x0062, r21	; 0x800062 <__data_end>
+					temp=data[2];// темепература
+ 1ee:	40 93 64 00 	sts	0x0064, r20	; 0x800064 <temp>
+					status=255;// уходим в "прием успешно закончен"
+ 1f2:	8f ef       	ldi	r24, 0xFF	; 255
+ 1f4:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+ 1f8:	03 c0       	rjmp	.+6      	; 0x200 <__vector_2+0xd2>
+				} else {
+					status=254;// уходим в "прием закончен с ошибкой"
+ 1fa:	8e ef       	ldi	r24, 0xFE	; 254
+ 1fc:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+				}
+				
+				data[0]=data[1]=data[2]=data[3]=data[4]=0;// обнулить массив
+ 200:	e6 e6       	ldi	r30, 0x66	; 102
+ 202:	f0 e0       	ldi	r31, 0x00	; 0
+ 204:	14 82       	std	Z+4, r1	; 0x04
+ 206:	13 82       	std	Z+3, r1	; 0x03
+ 208:	12 82       	std	Z+2, r1	; 0x02
+ 20a:	11 82       	std	Z+1, r1	; 0x01
+ 20c:	10 82       	st	Z, r1
+								
+				TCCR0=(1<<CS02)|(1<<CS00);// делитель 1024
+ 20e:	85 e0       	ldi	r24, 0x05	; 5
+ 210:	83 bf       	out	0x33, r24	; 51
+				TCNT0=0;
+ 212:	12 be       	out	0x32, r1	; 50
+				TIMSK|=(1<<TOIE0);// разрешить прерывания по переполнению таймера 0
+ 214:	89 b7       	in	r24, 0x39	; 57
+ 216:	81 60       	ori	r24, 0x01	; 1
+ 218:	89 bf       	out	0x39, r24	; 57
+				
+				MCUCR&=~(1<<ISC11); // сбросить бит
+ 21a:	85 b7       	in	r24, 0x35	; 53
+ 21c:	87 7f       	andi	r24, 0xF7	; 247
+ 21e:	85 bf       	out	0x35, r24	; 53
+				GICR&=~(1<<INT1);// запрет прерывания ИНТ1
+ 220:	8b b7       	in	r24, 0x3b	; 59
+ 222:	8f 77       	andi	r24, 0x7F	; 127
+ 224:	8b bf       	out	0x3b, r24	; 59
+				
+				pause=153;// заводим таймер на 5 секунд
+ 226:	89 e9       	ldi	r24, 0x99	; 153
+ 228:	80 93 63 00 	sts	0x0063, r24	; 0x800063 <pause>
+				
+				break;				
+ 22c:	08 c0       	rjmp	.+16     	; 0x23e <__vector_2+0x110>
+		if (bit)// если бит не последний
+		{
+			bit--;// тикаем битом
+		} else {// если приняли последний бит байта
+			bit=7;// начинаем со старшего бита
+			byte++;// тикаем байтом
+ 22e:	80 93 65 00 	sts	0x0065, r24	; 0x800065 <byte>
+				pause=153;// заводим таймер на 5 секунд
+				
+				break;				
+			}
+		}
+		MCUCR|=(1<<ISC10);// прерывание ИНТ1 по фронту
+ 232:	85 b7       	in	r24, 0x35	; 53
+ 234:	84 60       	ori	r24, 0x04	; 4
+ 236:	85 bf       	out	0x35, r24	; 53
+		status=5;
+ 238:	85 e0       	ldi	r24, 0x05	; 5
+ 23a:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <status>
+		break;
+	}
+ 23e:	ff 91       	pop	r31
+ 240:	ef 91       	pop	r30
+ 242:	9f 91       	pop	r25
+ 244:	8f 91       	pop	r24
+ 246:	5f 91       	pop	r21
+ 248:	4f 91       	pop	r20
+ 24a:	3f 91       	pop	r19
+ 24c:	2f 91       	pop	r18
+ 24e:	0f 90       	pop	r0
+ 250:	0f be       	out	0x3f, r0	; 63
+ 252:	0f 90       	pop	r0
+ 254:	1f 90       	pop	r1
+ 256:	18 95       	reti
+
+00000258 <main>:
+#include "main.h"
+
+int main(void)
+{
+	DDRB|=(1<<PB0);
+ 258:	b8 9a       	sbi	0x17, 0	; 23
+	sei();
+ 25a:	78 94       	sei
+	dht_ini();
+ 25c:	00 df       	rcall	.-512    	; 0x5e <dht_ini>
+    while (1) 
+    {
+		PORTB^=(1<<PB0);
+ 25e:	91 e0       	ldi	r25, 0x01	; 1
+ 260:	88 b3       	in	r24, 0x18	; 24
+ 262:	89 27       	eor	r24, r25
+ 264:	88 bb       	out	0x18, r24	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 266:	2f ef       	ldi	r18, 0xFF	; 255
+ 268:	32 e5       	ldi	r19, 0x52	; 82
+ 26a:	87 e0       	ldi	r24, 0x07	; 7
+ 26c:	21 50       	subi	r18, 0x01	; 1
+ 26e:	30 40       	sbci	r19, 0x00	; 0
+ 270:	80 40       	sbci	r24, 0x00	; 0
+ 272:	e1 f7       	brne	.-8      	; 0x26c <main+0x14>
+ 274:	00 c0       	rjmp	.+0      	; 0x276 <main+0x1e>
+ 276:	00 00       	nop
+ 278:	f3 cf       	rjmp	.-26     	; 0x260 <main+0x8>
+
+0000027a <_exit>:
+ 27a:	f8 94       	cli
+
+0000027c <__stop_program>:
+ 27c:	ff cf       	rjmp	.-2      	; 0x27c <__stop_program>
