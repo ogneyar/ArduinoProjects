@@ -19,3 +19,4 @@
     digital pin 8   (ICP1) PB0 14|    |15 PB1 (OC1A)      digital pin 9  PWM
                                  +----+
 
+7,5Кб памяти устройства

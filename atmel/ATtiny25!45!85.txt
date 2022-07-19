@@ -1,0 +1,13 @@
+
+
+									ATMEL ATTINY24/45/85
+
+											+-\/-+
+				(PCINT5/RESET/ADC0/dW) PB5 1|    |8 Vcc
+   pin 3 (PCINT3/XTAL1/CLKI/OC1B/ADC3) PB3 2|    |7 PB2 (SCK/USCK/SCL/ADC1/T0/INT0/PCINT2) pin 2 
+   pin 4 (PCINT4/XTAL2/CLKO/OC1B/ADC2) PB4 3|    |6 PB1 (MISO/DO/AIN1/OC0B/OC1A/PCINT1) pin 1 //PWM
+									   GND 4|    |5 PB0 (MOSI/DI/SDA/AINO/OC0A/OC1A/AREF/PCINT0) pin 0 //PWM
+											+----+
+
+
+ATtiny85 - 8Кб памяти устройства
