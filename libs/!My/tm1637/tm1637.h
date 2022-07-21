@@ -1,4 +1,6 @@
 
+// библиотека 4х разрядного семисегментного индикатрора (циферблата)
+
 //*****definitions for TM1637*****
 #define ADDR_AUTO  0x40
 #define ADDR_FIXED 0x44
@@ -108,7 +110,7 @@ void sendAll(uint8_t data[]) {
 // очистка экрана
 void clear(void)
 {
-	  sendOne(1, 0x00);
+	sendOne(1, 0x00);
     sendOne(2, 0x00);
     sendOne(3, 0x00);
     sendOne(4, 0x00);
@@ -122,6 +124,7 @@ void clear(void)
 #define _F 0x71
 #define _G 0x3d
 #define _H 0x76
+#define _I 0x06
 #define _J 0x1e
 #define _L 0x38
 #define _N 0x37
