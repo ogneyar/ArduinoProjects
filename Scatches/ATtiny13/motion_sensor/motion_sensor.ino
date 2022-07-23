@@ -2,15 +2,14 @@
 
 // ДАТЧИК ДВИЖЕНИЯ
 
-#define motion_sensor 3
-#define led_pin 4
+#define motion_sensor 4
+#define led_pin 3
 #define photoresistor A1
 
 word last_time;
 int wait = 100;
 int pr;
 boolean flagON = false;
-boolean debug = true;
 
 void delay_millis(int del) {      
   if (millis() - last_time > del) {
@@ -22,7 +21,7 @@ void delay_millis(int del) {
 void sensor_polling() {
   if ( ! flagON) pr = analogRead(photoresistor);
   if(digitalRead(motion_sensor)==HIGH) {
-    if (pr > 600) {
+    if (pr > 430) {
       digitalWrite(led_pin, HIGH);
       flagON = true;
     }else {
