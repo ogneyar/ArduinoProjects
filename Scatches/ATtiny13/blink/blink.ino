@@ -1,6 +1,6 @@
 // ATtiny13
 
-#define LED_BUILTIN 3
+#define LED_BUILTIN 4
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
