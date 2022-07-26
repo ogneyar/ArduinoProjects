@@ -14,7 +14,7 @@
 //  delay(period);
 //}
 
-#define LED   PC5   // PB1
+#define LED   PC4   // PB1
 #define PORT  PORTC // PORTB
 #define DDR   DDRC  // DDRB
 
@@ -24,7 +24,7 @@ void led_blink(void){
   if (flag) PORT|=(1<<LED);
   else PORT&=~(1<<LED);        
   flag = !flag;    
-  _delay_ms(20);   
+  _delay_ms(200);   
 }
 
 int main(void) {
