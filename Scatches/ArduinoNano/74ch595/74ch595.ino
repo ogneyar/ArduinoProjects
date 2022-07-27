@@ -1,4 +1,4 @@
- //ATmega8 
+ //Arduino Nano 
 
 byte takt = 3;
 byte ds = 4;
