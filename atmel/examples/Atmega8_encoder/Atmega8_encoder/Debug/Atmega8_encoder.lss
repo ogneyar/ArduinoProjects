@@ -1,0 +1,492 @@
+
+Atmega8_encoder.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000248  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  00000248  000002dc  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000001  0080006a  0080006a  000002e6  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000002e6  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000318  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000070  00000000  00000000  00000354  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000add  00000000  00000000  000003c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000006b2  00000000  00000000  00000ea1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000514  00000000  00000000  00001553  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000010c  00000000  00000000  00001a68  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000038d  00000000  00000000  00001b74  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000558  00000000  00000000  00001f01  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000050  00000000  00000000  00002459  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2c c0       	rjmp	.+88     	; 0x5e <__vector_2>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e8 e4       	ldi	r30, 0x48	; 72
+  3a:	f2 e0       	ldi	r31, 0x02	; 2
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	aa 36       	cpi	r26, 0x6A	; 106
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	aa e6       	ldi	r26, 0x6A	; 106
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	ab 36       	cpi	r26, 0x6B	; 107
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	1b d0       	rcall	.+54     	; 0x90 <main>
+  5a:	f4 c0       	rjmp	.+488    	; 0x244 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <__vector_2>:
+
+volatile uint8_t count;
+
+
+
+ISR(INT1_vect){
+  5e:	1f 92       	push	r1
+  60:	0f 92       	push	r0
+  62:	0f b6       	in	r0, 0x3f	; 63
+  64:	0f 92       	push	r0
+  66:	11 24       	eor	r1, r1
+  68:	8f 93       	push	r24
+	if (PIND&(1<<PD4)) count++;
+  6a:	84 9b       	sbis	0x10, 4	; 16
+  6c:	06 c0       	rjmp	.+12     	; 0x7a <__vector_2+0x1c>
+  6e:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <__data_end>
+  72:	8f 5f       	subi	r24, 0xFF	; 255
+  74:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__data_end>
+  78:	05 c0       	rjmp	.+10     	; 0x84 <__vector_2+0x26>
+	else count--;
+  7a:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <__data_end>
+  7e:	81 50       	subi	r24, 0x01	; 1
+  80:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__data_end>
+}
+  84:	8f 91       	pop	r24
+  86:	0f 90       	pop	r0
+  88:	0f be       	out	0x3f, r0	; 63
+  8a:	0f 90       	pop	r0
+  8c:	1f 90       	pop	r1
+  8e:	18 95       	reti
+
+00000090 <main>:
+
+int main(void)
+{
+	MCUCR|=(1<<ISC11); // прерываха по спаду
+  90:	85 b7       	in	r24, 0x35	; 53
+  92:	88 60       	ori	r24, 0x08	; 8
+  94:	85 bf       	out	0x35, r24	; 53
+	GICR|=(1<<INT1);
+  96:	8b b7       	in	r24, 0x3b	; 59
+  98:	80 68       	ori	r24, 0x80	; 128
+  9a:	8b bf       	out	0x3b, r24	; 59
+	
+	uint8_t val=0;
+	tm1637_indication(val);
+  9c:	80 e0       	ldi	r24, 0x00	; 0
+  9e:	90 e0       	ldi	r25, 0x00	; 0
+  a0:	79 d0       	rcall	.+242    	; 0x194 <tm1637_indication>
+	sei();
+  a2:	78 94       	sei
+int main(void)
+{
+	MCUCR|=(1<<ISC11); // прерываха по спаду
+	GICR|=(1<<INT1);
+	
+	uint8_t val=0;
+  a4:	90 e0       	ldi	r25, 0x00	; 0
+	tm1637_indication(val);
+	sei();
+    while (1) 
+    {
+		if (val!=count)
+  a6:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <__data_end>
+  aa:	98 17       	cp	r25, r24
+  ac:	e1 f3       	breq	.-8      	; 0xa6 <main+0x16>
+		{
+			tm1637_indication(count);
+  ae:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <__data_end>
+  b2:	90 e0       	ldi	r25, 0x00	; 0
+  b4:	6f d0       	rcall	.+222    	; 0x194 <tm1637_indication>
+			val=count;
+  b6:	90 91 6a 00 	lds	r25, 0x006A	; 0x80006a <__data_end>
+  ba:	f5 cf       	rjmp	.-22     	; 0xa6 <main+0x16>
+
+000000bc <start>:
+};
+
+// условие старт
+void start(void)
+{
+	DDR_CLK|=(1<<CLK);
+  bc:	bb 9a       	sbi	0x17, 3	; 23
+	DDR_DIO|=(1<<DIO);
+  be:	bc 9a       	sbi	0x17, 4	; 23
+	PORT_CLK |= (1<<CLK);
+  c0:	c3 9a       	sbi	0x18, 3	; 24
+	PORT_DIO |= (1<<DIO);
+  c2:	c4 9a       	sbi	0x18, 4	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  c4:	00 c0       	rjmp	.+0      	; 0xc6 <start+0xa>
+  c6:	00 c0       	rjmp	.+0      	; 0xc8 <start+0xc>
+  c8:	00 00       	nop
+	_delay_us(5);
+	PORT_DIO &=~ (1<<DIO);
+  ca:	c4 98       	cbi	0x18, 4	; 24
+	PORT_CLK &=~ (1<<CLK);
+  cc:	c3 98       	cbi	0x18, 3	; 24
+  ce:	00 c0       	rjmp	.+0      	; 0xd0 <start+0x14>
+  d0:	00 c0       	rjmp	.+0      	; 0xd2 <start+0x16>
+  d2:	00 00       	nop
+  d4:	08 95       	ret
+
+000000d6 <stop>:
+}
+
+// условие стоп
+void stop(void)
+{
+	DDR_CLK|=(1<<CLK);
+  d6:	bb 9a       	sbi	0x17, 3	; 23
+	DDR_DIO|=(1<<DIO);
+  d8:	bc 9a       	sbi	0x17, 4	; 23
+	PORT_CLK &=~ (1<<CLK);
+  da:	c3 98       	cbi	0x18, 3	; 24
+	PORT_DIO &=~ (1<<DIO);
+  dc:	c4 98       	cbi	0x18, 4	; 24
+  de:	00 c0       	rjmp	.+0      	; 0xe0 <stop+0xa>
+  e0:	00 c0       	rjmp	.+0      	; 0xe2 <stop+0xc>
+  e2:	00 00       	nop
+	_delay_us(5);
+	PORT_CLK |= (1<<CLK);
+  e4:	c3 9a       	sbi	0x18, 3	; 24
+	PORT_DIO |= (1<<DIO);
+  e6:	c4 9a       	sbi	0x18, 4	; 24
+  e8:	00 c0       	rjmp	.+0      	; 0xea <stop+0x14>
+  ea:	00 c0       	rjmp	.+0      	; 0xec <stop+0x16>
+  ec:	00 00       	nop
+  ee:	08 95       	ret
+
+000000f0 <write_byte>:
+	_delay_us(5);
+}
+
+// отправка байта в тм1637
+void write_byte(uint8_t value)
+{
+  f0:	40 e0       	ldi	r20, 0x00	; 0
+  f2:	50 e0       	ldi	r21, 0x00	; 0
+	for(uint8_t i = 0; i < 8; i++)
+	{
+		PORT_CLK &=~ (1<<CLK);
+		_delay_us(5);
+		uint8_t not_null = ((value & (1 << i)) >> i);
+		if(not_null) PORT_DIO |= (1<<DIO);
+  f4:	61 e0       	ldi	r22, 0x01	; 1
+  f6:	70 e0       	ldi	r23, 0x00	; 0
+  f8:	90 e0       	ldi	r25, 0x00	; 0
+// отправка байта в тм1637
+void write_byte(uint8_t value)
+{
+	for(uint8_t i = 0; i < 8; i++)
+	{
+		PORT_CLK &=~ (1<<CLK);
+  fa:	c3 98       	cbi	0x18, 3	; 24
+  fc:	00 c0       	rjmp	.+0      	; 0xfe <write_byte+0xe>
+  fe:	00 c0       	rjmp	.+0      	; 0x100 <write_byte+0x10>
+ 100:	00 00       	nop
+		_delay_us(5);
+		uint8_t not_null = ((value & (1 << i)) >> i);
+		if(not_null) PORT_DIO |= (1<<DIO);
+ 102:	9b 01       	movw	r18, r22
+ 104:	04 2e       	mov	r0, r20
+ 106:	02 c0       	rjmp	.+4      	; 0x10c <write_byte+0x1c>
+ 108:	22 0f       	add	r18, r18
+ 10a:	33 1f       	adc	r19, r19
+ 10c:	0a 94       	dec	r0
+ 10e:	e2 f7       	brpl	.-8      	; 0x108 <write_byte+0x18>
+ 110:	28 23       	and	r18, r24
+ 112:	39 23       	and	r19, r25
+ 114:	04 2e       	mov	r0, r20
+ 116:	02 c0       	rjmp	.+4      	; 0x11c <write_byte+0x2c>
+ 118:	35 95       	asr	r19
+ 11a:	27 95       	ror	r18
+ 11c:	0a 94       	dec	r0
+ 11e:	e2 f7       	brpl	.-8      	; 0x118 <write_byte+0x28>
+ 120:	22 23       	and	r18, r18
+ 122:	11 f0       	breq	.+4      	; 0x128 <write_byte+0x38>
+ 124:	c4 9a       	sbi	0x18, 4	; 24
+ 126:	01 c0       	rjmp	.+2      	; 0x12a <write_byte+0x3a>
+		else PORT_DIO &=~ (1<<DIO);
+ 128:	c4 98       	cbi	0x18, 4	; 24
+ 12a:	00 c0       	rjmp	.+0      	; 0x12c <write_byte+0x3c>
+ 12c:	00 c0       	rjmp	.+0      	; 0x12e <write_byte+0x3e>
+ 12e:	00 00       	nop
+		_delay_us(5);
+		PORT_CLK |= (1<<CLK);
+ 130:	c3 9a       	sbi	0x18, 3	; 24
+ 132:	00 c0       	rjmp	.+0      	; 0x134 <write_byte+0x44>
+ 134:	00 c0       	rjmp	.+0      	; 0x136 <write_byte+0x46>
+ 136:	00 00       	nop
+ 138:	4f 5f       	subi	r20, 0xFF	; 255
+ 13a:	5f 4f       	sbci	r21, 0xFF	; 255
+}
+
+// отправка байта в тм1637
+void write_byte(uint8_t value)
+{
+	for(uint8_t i = 0; i < 8; i++)
+ 13c:	48 30       	cpi	r20, 0x08	; 8
+ 13e:	51 05       	cpc	r21, r1
+ 140:	e1 f6       	brne	.-72     	; 0xfa <write_byte+0xa>
+		else PORT_DIO &=~ (1<<DIO);
+		_delay_us(5);
+		PORT_CLK |= (1<<CLK);
+		_delay_us(5);
+	}
+	PORT_CLK &=~ (1<<CLK);
+ 142:	c3 98       	cbi	0x18, 3	; 24
+ 144:	00 c0       	rjmp	.+0      	; 0x146 <write_byte+0x56>
+ 146:	00 c0       	rjmp	.+0      	; 0x148 <write_byte+0x58>
+ 148:	00 00       	nop
+	_delay_us(5);
+	PORT_CLK |= (1<<CLK);
+ 14a:	c3 9a       	sbi	0x18, 3	; 24
+ 14c:	00 c0       	rjmp	.+0      	; 0x14e <write_byte+0x5e>
+ 14e:	00 c0       	rjmp	.+0      	; 0x150 <write_byte+0x60>
+ 150:	00 00       	nop
+ 152:	08 95       	ret
+
+00000154 <indication>:
+	_delay_us(5);
+}
+
+// отправка всего дл€ индикации
+void indication(uint8_t first, uint8_t second, uint8_t third, uint8_t fourth)
+{
+ 154:	0f 93       	push	r16
+ 156:	1f 93       	push	r17
+ 158:	cf 93       	push	r28
+ 15a:	df 93       	push	r29
+ 15c:	08 2f       	mov	r16, r24
+ 15e:	16 2f       	mov	r17, r22
+ 160:	d4 2f       	mov	r29, r20
+ 162:	c2 2f       	mov	r28, r18
+	start();
+ 164:	ab df       	rcall	.-170    	; 0xbc <start>
+	write_byte(SetBright); // €ркость
+ 166:	8f e8       	ldi	r24, 0x8F	; 143
+ 168:	c3 df       	rcall	.-122    	; 0xf0 <write_byte>
+	start();
+ 16a:	a8 df       	rcall	.-176    	; 0xbc <start>
+	write_byte(0x40); // писать в регистры диспле€
+ 16c:	80 e4       	ldi	r24, 0x40	; 64
+ 16e:	c0 df       	rcall	.-128    	; 0xf0 <write_byte>
+	stop();
+ 170:	b2 df       	rcall	.-156    	; 0xd6 <stop>
+	start();
+ 172:	a4 df       	rcall	.-184    	; 0xbc <start>
+	write_byte(0xc0); // вывод с 1-го разр€да.
+ 174:	80 ec       	ldi	r24, 0xC0	; 192
+ 176:	bc df       	rcall	.-136    	; 0xf0 <write_byte>
+	write_byte(first);
+ 178:	80 2f       	mov	r24, r16
+ 17a:	ba df       	rcall	.-140    	; 0xf0 <write_byte>
+	write_byte(second);
+ 17c:	81 2f       	mov	r24, r17
+ 17e:	b8 df       	rcall	.-144    	; 0xf0 <write_byte>
+	write_byte(third);
+ 180:	8d 2f       	mov	r24, r29
+ 182:	b6 df       	rcall	.-148    	; 0xf0 <write_byte>
+	write_byte(fourth);
+ 184:	8c 2f       	mov	r24, r28
+ 186:	b4 df       	rcall	.-152    	; 0xf0 <write_byte>
+	stop();
+ 188:	a6 df       	rcall	.-180    	; 0xd6 <stop>
+}
+ 18a:	df 91       	pop	r29
+ 18c:	cf 91       	pop	r28
+ 18e:	1f 91       	pop	r17
+ 190:	0f 91       	pop	r16
+ 192:	08 95       	ret
+
+00000194 <tm1637_indication>:
+
+//индикаци€ 16 битного значени€
+void tm1637_indication(uint16_t n)
+{
+ 194:	ef 92       	push	r14
+ 196:	ff 92       	push	r15
+ 198:	0f 93       	push	r16
+ 19a:	1f 93       	push	r17
+ 19c:	cf 93       	push	r28
+ 19e:	df 93       	push	r29
+ 1a0:	00 d0       	rcall	.+0      	; 0x1a2 <tm1637_indication+0xe>
+ 1a2:	00 d0       	rcall	.+0      	; 0x1a4 <tm1637_indication+0x10>
+ 1a4:	cd b7       	in	r28, 0x3d	; 61
+ 1a6:	de b7       	in	r29, 0x3e	; 62
+ 1a8:	ac 01       	movw	r20, r24
+ 1aa:	8e 01       	movw	r16, r28
+ 1ac:	0f 5f       	subi	r16, 0xFF	; 255
+ 1ae:	1f 4f       	sbci	r17, 0xFF	; 255
+ 1b0:	7e 01       	movw	r14, r28
+ 1b2:	85 e0       	ldi	r24, 0x05	; 5
+ 1b4:	e8 0e       	add	r14, r24
+ 1b6:	f1 1c       	adc	r15, r1
+	uint8_t temp[4];
+	for(uint8_t i=0; i<4; i++)
+	{
+		temp[i] = digits[n%10];
+ 1b8:	9a 01       	movw	r18, r20
+ 1ba:	ad ec       	ldi	r26, 0xCD	; 205
+ 1bc:	bc ec       	ldi	r27, 0xCC	; 204
+ 1be:	36 d0       	rcall	.+108    	; 0x22c <__umulhisi3>
+ 1c0:	96 95       	lsr	r25
+ 1c2:	87 95       	ror	r24
+ 1c4:	96 95       	lsr	r25
+ 1c6:	87 95       	ror	r24
+ 1c8:	96 95       	lsr	r25
+ 1ca:	87 95       	ror	r24
+ 1cc:	9c 01       	movw	r18, r24
+ 1ce:	22 0f       	add	r18, r18
+ 1d0:	33 1f       	adc	r19, r19
+ 1d2:	88 0f       	add	r24, r24
+ 1d4:	99 1f       	adc	r25, r25
+ 1d6:	88 0f       	add	r24, r24
+ 1d8:	99 1f       	adc	r25, r25
+ 1da:	88 0f       	add	r24, r24
+ 1dc:	99 1f       	adc	r25, r25
+ 1de:	82 0f       	add	r24, r18
+ 1e0:	93 1f       	adc	r25, r19
+ 1e2:	fa 01       	movw	r30, r20
+ 1e4:	e8 1b       	sub	r30, r24
+ 1e6:	f9 0b       	sbc	r31, r25
+ 1e8:	e0 5a       	subi	r30, 0xA0	; 160
+ 1ea:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1ec:	80 81       	ld	r24, Z
+ 1ee:	f8 01       	movw	r30, r16
+ 1f0:	81 93       	st	Z+, r24
+ 1f2:	8f 01       	movw	r16, r30
+		n/=10;
+ 1f4:	9a 01       	movw	r18, r20
+ 1f6:	1a d0       	rcall	.+52     	; 0x22c <__umulhisi3>
+ 1f8:	ac 01       	movw	r20, r24
+ 1fa:	56 95       	lsr	r21
+ 1fc:	47 95       	ror	r20
+ 1fe:	56 95       	lsr	r21
+ 200:	47 95       	ror	r20
+ 202:	56 95       	lsr	r21
+ 204:	47 95       	ror	r20
+
+//индикаци€ 16 битного значени€
+void tm1637_indication(uint16_t n)
+{
+	uint8_t temp[4];
+	for(uint8_t i=0; i<4; i++)
+ 206:	ee 15       	cp	r30, r14
+ 208:	ff 05       	cpc	r31, r15
+ 20a:	b1 f6       	brne	.-84     	; 0x1b8 <tm1637_indication+0x24>
+	{
+		temp[i] = digits[n%10];
+		n/=10;
+	}
+	indication(temp[3], temp[2], temp[1], temp[0]);
+ 20c:	29 81       	ldd	r18, Y+1	; 0x01
+ 20e:	4a 81       	ldd	r20, Y+2	; 0x02
+ 210:	6b 81       	ldd	r22, Y+3	; 0x03
+ 212:	8c 81       	ldd	r24, Y+4	; 0x04
+ 214:	9f df       	rcall	.-194    	; 0x154 <indication>
+}
+ 216:	0f 90       	pop	r0
+ 218:	0f 90       	pop	r0
+ 21a:	0f 90       	pop	r0
+ 21c:	0f 90       	pop	r0
+ 21e:	df 91       	pop	r29
+ 220:	cf 91       	pop	r28
+ 222:	1f 91       	pop	r17
+ 224:	0f 91       	pop	r16
+ 226:	ff 90       	pop	r15
+ 228:	ef 90       	pop	r14
+ 22a:	08 95       	ret
+
+0000022c <__umulhisi3>:
+ 22c:	a2 9f       	mul	r26, r18
+ 22e:	b0 01       	movw	r22, r0
+ 230:	b3 9f       	mul	r27, r19
+ 232:	c0 01       	movw	r24, r0
+ 234:	a3 9f       	mul	r26, r19
+ 236:	01 d0       	rcall	.+2      	; 0x23a <__umulhisi3+0xe>
+ 238:	b2 9f       	mul	r27, r18
+ 23a:	70 0d       	add	r23, r0
+ 23c:	81 1d       	adc	r24, r1
+ 23e:	11 24       	eor	r1, r1
+ 240:	91 1d       	adc	r25, r1
+ 242:	08 95       	ret
+
+00000244 <_exit>:
+ 244:	f8 94       	cli
+
+00000246 <__stop_program>:
+ 246:	ff cf       	rjmp	.-2      	; 0x246 <__stop_program>

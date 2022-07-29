@@ -1,0 +1,163 @@
+
+Atmega8_sleep.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000088  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000000dc  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000000dc  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000010c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  00000148  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000005e6  00000000  00000000  00000178  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000556  00000000  00000000  0000075e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000298  00000000  00000000  00000cb4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000050  00000000  00000000  00000f4c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002f5  00000000  00000000  00000f9c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000bb  00000000  00000000  00001291  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  0000134c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	19 c0       	rjmp	.+50     	; 0x38 <__vector_2>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	1a d0       	rcall	.+52     	; 0x68 <main>
+  34:	27 c0       	rjmp	.+78     	; 0x84 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <__vector_2>:
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+
+// обработчик прерывания INT1
+ISR(INT1_vect){
+  38:	1f 92       	push	r1
+  3a:	0f 92       	push	r0
+  3c:	0f b6       	in	r0, 0x3f	; 63
+  3e:	0f 92       	push	r0
+  40:	11 24       	eor	r1, r1
+	// выход из сна
+}
+  42:	0f 90       	pop	r0
+  44:	0f be       	out	0x3f, r0	; 63
+  46:	0f 90       	pop	r0
+  48:	1f 90       	pop	r1
+  4a:	18 95       	reti
+
+0000004c <work>:
+
+
+// имитация работы мк
+void work(void){
+  4c:	94 e6       	ldi	r25, 0x64	; 100
+	for (uint8_t i=0; i<100;i++)
+	{
+		PORTB^=(1<<PB0);
+  4e:	21 e0       	ldi	r18, 0x01	; 1
+  50:	88 b3       	in	r24, 0x18	; 24
+  52:	82 27       	eor	r24, r18
+  54:	88 bb       	out	0x18, r24	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  56:	e7 ea       	ldi	r30, 0xA7	; 167
+  58:	f1 e6       	ldi	r31, 0x61	; 97
+  5a:	31 97       	sbiw	r30, 0x01	; 1
+  5c:	f1 f7       	brne	.-4      	; 0x5a <work+0xe>
+  5e:	00 c0       	rjmp	.+0      	; 0x60 <work+0x14>
+  60:	00 00       	nop
+  62:	91 50       	subi	r25, 0x01	; 1
+}
+
+
+// имитация работы мк
+void work(void){
+	for (uint8_t i=0; i<100;i++)
+  64:	a9 f7       	brne	.-22     	; 0x50 <work+0x4>
+	{
+		PORTB^=(1<<PB0);
+		_delay_ms(100);
+	}
+}
+  66:	08 95       	ret
+
+00000068 <main>:
+
+int main(void)
+{
+	MCUCR|=(1<<SE);// разрешить сон
+  68:	85 b7       	in	r24, 0x35	; 53
+  6a:	80 68       	ori	r24, 0x80	; 128
+  6c:	85 bf       	out	0x35, r24	; 53
+	MCUCR|=(1<<SM1); // выбор режима сна Power-down 
+  6e:	85 b7       	in	r24, 0x35	; 53
+  70:	80 62       	ori	r24, 0x20	; 32
+  72:	85 bf       	out	0x35, r24	; 53
+	
+	GICR|=(1<<INT1); // разрешить прерывание INT1
+  74:	8b b7       	in	r24, 0x3b	; 59
+  76:	80 68       	ori	r24, 0x80	; 128
+  78:	8b bf       	out	0x3b, r24	; 59
+	// биты ISC11, ISC10 должны быть в нуле для пробуждения мк.
+	
+    DDRB|=(1<<PB0);// пин на выход
+  7a:	b8 9a       	sbi	0x17, 0	; 23
+	
+	sei(); // глобально разрешить прерывания
+  7c:	78 94       	sei
+    while (1) 
+    {
+		work();// работаем
+  7e:	e6 df       	rcall	.-52     	; 0x4c <work>
+		asm("sleep");// уход в сон
+  80:	88 95       	sleep
+  82:	fd cf       	rjmp	.-6      	; 0x7e <main+0x16>
+
+00000084 <_exit>:
+  84:	f8 94       	cli
+
+00000086 <__stop_program>:
+  86:	ff cf       	rjmp	.-2      	; 0x86 <__stop_program>
