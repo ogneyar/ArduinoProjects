@@ -1,0 +1,37 @@
+﻿------ Build started: Project: Test, Configuration: Debug AVR ------
+Build started.
+Project "Test.cproj" (default targets):
+Target "PreBuildEvent" skipped, due to false condition; ('$(PreBuildEvent)'!='') was evaluated as (''!='').
+Target "CoreBuild" in file "C:\Program Files\Atmel\Atmel Studio 6.0\Vs\Compiler.targets" from project "C:\VSCode\ArduinoProjects\scatches\ATmega8\Test\Test\Test.cproj" (target "Build" depends on it):
+	Task "RunCompilerTask"
+		C:\Program Files\Atmel\Atmel Studio 6.0\make\make.exe all 
+		Building file: .././Test.c
+		Invoking: AVR/GNU C Compiler : (AVR_8_bit_GNU_Toolchain_3.4.1_830) 4.6.2
+		"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-gcc.exe" -funsigned-char -funsigned-bitfields -O1 -fpack-struct -fshort-enums -g2 -Wall -c -std=gnu99 -MD -MP -MF "Test.d" -MT"Test.d" -MT"Test.o"  -mmcu=atmega8   -o"Test.o" ".././Test.c" 
+		In file included from .././Test.c:3:0:
+c:\program files\atmel\atmel studio 6.0\extensions\atmel\avrgcc\3.4.1.95\avrtoolchain\bin\../lib/gcc/avr/4.6.2/../../../../avr/include/util/delay.h(90,3): #warning "F_CPU not defined for <util/delay.h>" [-Wcpp]
+		Finished building: .././Test.c
+		Building target: Test.elf
+		Invoking: AVR/GNU Linker : (AVR_8_bit_GNU_Toolchain_3.4.1_830) 4.6.2
+		"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-gcc.exe" -o Test.elf  Test.o   -Wl,-Map="Test.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group  -mmcu=atmega8  
+		Finished building target: Test.elf
+		"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "Test.elf" "Test.hex"
+		"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "Test.elf" "Test.eep" || exit 0
+		"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objdump.exe" -h -S "Test.elf" > "Test.lss"
+		"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature  "Test.elf" "Test.srec"
+		"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-size.exe" "Test.elf"
+		   text	   data	    bss	    dec	    hex	filename
+		    130	      0	      0	    130	     82	Test.elf
+	Done executing task "RunCompilerTask".
+	Task "RunOutputFileVerifyTask"
+				Program Memory Usage 	:	130 bytes   1,6 % Full
+				Data Memory Usage 		:	0 bytes   0,0 % Full
+	Done executing task "RunOutputFileVerifyTask".
+Done building target "CoreBuild" in project "Test.cproj".
+Target "PostBuildEvent" skipped, due to false condition; ('$(PostBuildEvent)' != '') was evaluated as ('' != '').
+Target "Build" in file "C:\Program Files\Atmel\Atmel Studio 6.0\Vs\Avr.common.targets" from project "C:\VSCode\ArduinoProjects\scatches\ATmega8\Test\Test\Test.cproj" (entry point):
+Done building target "Build" in project "Test.cproj".
+Done building project "Test.cproj".
+
+Build succeeded.
+========== Build: 1 succeeded or up-to-date, 0 failed, 0 skipped ==========
