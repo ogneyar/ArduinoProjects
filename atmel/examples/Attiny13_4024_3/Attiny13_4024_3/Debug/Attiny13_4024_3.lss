@@ -1,0 +1,167 @@
+
+Attiny13_4024_3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000092  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000000e6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000000e6  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000118  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000050  00000000  00000000  00000154  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000005c4  00000000  00000000  000001a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000004c4  00000000  00000000  00000768  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000376  00000000  00000000  00000c2c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000070  00000000  00000000  00000fa4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000029d  00000000  00000000  00001014  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000011f  00000000  00000000  000012b1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000030  00000000  00000000  000013d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	0e c0       	rjmp	.+28     	; 0x20 <__bad_interrupt>
+   4:	0d c0       	rjmp	.+26     	; 0x20 <__bad_interrupt>
+   6:	0c c0       	rjmp	.+24     	; 0x20 <__bad_interrupt>
+   8:	0b c0       	rjmp	.+22     	; 0x20 <__bad_interrupt>
+   a:	0a c0       	rjmp	.+20     	; 0x20 <__bad_interrupt>
+   c:	09 c0       	rjmp	.+18     	; 0x20 <__bad_interrupt>
+   e:	08 c0       	rjmp	.+16     	; 0x20 <__bad_interrupt>
+  10:	07 c0       	rjmp	.+14     	; 0x20 <__bad_interrupt>
+  12:	06 c0       	rjmp	.+12     	; 0x20 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+  1c:	20 d0       	rcall	.+64     	; 0x5e <main>
+  1e:	37 c0       	rjmp	.+110    	; 0x8e <_exit>
+
+00000020 <__bad_interrupt>:
+  20:	ef cf       	rjmp	.-34     	; 0x0 <__vectors>
+
+00000022 <cd4024_ini>:
+#include "cd4024.h"
+
+void cd4024_ini(void){
+	DDRB|=(1<<PIN_CONTROL);
+  22:	bc 9a       	sbi	0x17, 4	; 23
+  24:	08 95       	ret
+
+00000026 <cd4024_clear>:
+}
+
+void cd4024_clear(void){
+	PORTB|=(1<<PIN_CONTROL);
+  26:	c4 9a       	sbi	0x18, 4	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  28:	8b e2       	ldi	r24, 0x2B	; 43
+  2a:	91 e0       	ldi	r25, 0x01	; 1
+  2c:	01 97       	sbiw	r24, 0x01	; 1
+  2e:	f1 f7       	brne	.-4      	; 0x2c <cd4024_clear+0x6>
+  30:	00 c0       	rjmp	.+0      	; 0x32 <cd4024_clear+0xc>
+  32:	00 00       	nop
+	_delay_ms(1);
+	PORTB&=~(1<<PIN_CONTROL);
+  34:	c4 98       	cbi	0x18, 4	; 24
+  36:	8b e2       	ldi	r24, 0x2B	; 43
+  38:	91 e0       	ldi	r25, 0x01	; 1
+  3a:	01 97       	sbiw	r24, 0x01	; 1
+  3c:	f1 f7       	brne	.-4      	; 0x3a <cd4024_clear+0x14>
+  3e:	00 c0       	rjmp	.+0      	; 0x40 <__SREG__+0x1>
+  40:	00 00       	nop
+  42:	08 95       	ret
+
+00000044 <cd4024_set>:
+	_delay_ms(1);
+}
+
+void cd4024_set(uint8_t n){
+  44:	cf 93       	push	r28
+  46:	c8 2f       	mov	r28, r24
+	cd4024_clear();
+  48:	ee df       	rcall	.-36     	; 0x26 <cd4024_clear>
+	while (n--)
+  4a:	8f ef       	ldi	r24, 0xFF	; 255
+  4c:	8c 0f       	add	r24, r28
+  4e:	cc 23       	and	r28, r28
+  50:	21 f0       	breq	.+8      	; 0x5a <cd4024_set+0x16>
+	{
+		PORTB|=(1<<PIN_CONTROL);
+  52:	c4 9a       	sbi	0x18, 4	; 24
+		PORTB&=~(1<<PIN_CONTROL);
+  54:	c4 98       	cbi	0x18, 4	; 24
+	_delay_ms(1);
+}
+
+void cd4024_set(uint8_t n){
+	cd4024_clear();
+	while (n--)
+  56:	81 50       	subi	r24, 0x01	; 1
+  58:	e0 f7       	brcc	.-8      	; 0x52 <cd4024_set+0xe>
+	{
+		PORTB|=(1<<PIN_CONTROL);
+		PORTB&=~(1<<PIN_CONTROL);
+	}
+  5a:	cf 91       	pop	r28
+  5c:	08 95       	ret
+
+0000005e <main>:
+#include "main.h"
+
+int main(void)
+{
+	cd4024_ini();
+  5e:	e1 df       	rcall	.-62     	; 0x22 <cd4024_ini>
+    while (1) 
+    {
+		cd4024_set(85);
+  60:	85 e5       	ldi	r24, 0x55	; 85
+  62:	f0 df       	rcall	.-32     	; 0x44 <cd4024_set>
+  64:	2f e7       	ldi	r18, 0x7F	; 127
+  66:	89 ea       	ldi	r24, 0xA9	; 169
+  68:	93 e0       	ldi	r25, 0x03	; 3
+  6a:	21 50       	subi	r18, 0x01	; 1
+  6c:	80 40       	sbci	r24, 0x00	; 0
+  6e:	90 40       	sbci	r25, 0x00	; 0
+  70:	e1 f7       	brne	.-8      	; 0x6a <main+0xc>
+  72:	00 c0       	rjmp	.+0      	; 0x74 <main+0x16>
+  74:	00 00       	nop
+		_delay_ms(1000);
+		cd4024_set(42);
+  76:	8a e2       	ldi	r24, 0x2A	; 42
+  78:	e5 df       	rcall	.-54     	; 0x44 <cd4024_set>
+  7a:	2f e7       	ldi	r18, 0x7F	; 127
+  7c:	89 ea       	ldi	r24, 0xA9	; 169
+  7e:	93 e0       	ldi	r25, 0x03	; 3
+  80:	21 50       	subi	r18, 0x01	; 1
+  82:	80 40       	sbci	r24, 0x00	; 0
+  84:	90 40       	sbci	r25, 0x00	; 0
+  86:	e1 f7       	brne	.-8      	; 0x80 <main+0x22>
+  88:	00 c0       	rjmp	.+0      	; 0x8a <main+0x2c>
+  8a:	00 00       	nop
+  8c:	e9 cf       	rjmp	.-46     	; 0x60 <main+0x2>
+
+0000008e <_exit>:
+  8e:	f8 94       	cli
+
+00000090 <__stop_program>:
+  90:	ff cf       	rjmp	.-2      	; 0x90 <__stop_program>
