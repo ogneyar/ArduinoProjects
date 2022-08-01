@@ -1,46 +1,53 @@
 
 //#include <cstring>
 
-void sendOne(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y, char* str);
-void send(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y, char* str);
-void a(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y);
-void b(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y);
-void v(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y);
-void g(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y);
-void d(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y);
+void send(char* str, uint8_t x, uint8_t y);
+void a(uint8_t x, uint8_t y);
+void b(uint8_t x, uint8_t y);
+void v(uint8_t x, uint8_t y);
+void g(uint8_t x, uint8_t y);
+void d(uint8_t x, uint8_t y);
 
 
-void sendOne(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y, char* str) {
-//  char *ach;
-//  ach = strchr(str, 'а');
-//if (ach != NULL) { // && ach-str == 0) { // если первый символ 'а'
+void send(char * str, uint8_t x, uint8_t y) {
 
-  if (strcmp(str, "а") == 0) {
-    a(u8g, x, y);
-  }else if (strcmp(str, "б") == 0) {
-    b(u8g, x, y);
-  }else if (strcmp(str, "в") == 0) {
-    v(u8g, x, y);
-  }else if (strcmp(str, "г") == 0) {
-    g(u8g, x, y);
-  }else if (strcmp(str, "д") == 0) {
-    d(u8g, x, y);
-  }else {
-    u8g.drawPixel(2,0);
-    u8g.drawPixel(2,1);
-    u8g.drawPixel(2,2);
-    u8g.drawPixel(2,3);
-    u8g.drawPixel(2,4);
-  }
+    uint8_t i = 0;
+    while (i < strlen(str)) {
+        switch(str[i]<<8 | str[i+1]) {
+            case 'а': 
+                a(x, y);
+            break;
+            case 'б': 
+                b(x, y);
+            break;
+            case 'в': 
+                v(x, y);
+            break;
+            case 'г': 
+                g(x, y);
+            break;
+            case 'д': 
+                d(x, y);
+            break;
+        }
+        i = i + 2;
+    };
+
+//   if (strcmp(str, "а") == 0) {
+//     a(x, y);
+//   }else if (strcmp(str, "б") == 0) {
+//     b(x, y);
+//   }else if (strcmp(str, "в") == 0) {
+//     v(x, y);
+//   }else if (strcmp(str, "г") == 0) {
+//     g(x, y);
+//   }else if (strcmp(str, "д") == 0) {
+//     d(x, y);
+//   }
 }
 
-void send(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y, char* str) {
-  char s = str[0];
-	sendOne(u8g, x, y, s);
-}
 
-
-void a(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
+void a(uint8_t x, uint8_t y) {
   
     //  .000.
     //  ....0
@@ -88,7 +95,7 @@ void a(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
 }
 
 
-void b(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
+void b(uint8_t x, uint8_t y) {
   
     //  .0000
     //  0....
@@ -136,7 +143,7 @@ void b(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
 }
 
 
-void v(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
+void v(uint8_t x, uint8_t y) {
   
     //  000..
     //  0..0.
@@ -184,7 +191,7 @@ void v(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
 }
 
 
-void g(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
+void g(uint8_t x, uint8_t y) {
   
     //  00000
     //  0...0
@@ -232,7 +239,7 @@ void g(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
 }
 
 
-void d(U8GLIB_SSD1306_128X64 u8g, uint8_t x, uint8_t y) {
+void d(uint8_t x, uint8_t y) {
   
     //  ..0..
     //  .000.

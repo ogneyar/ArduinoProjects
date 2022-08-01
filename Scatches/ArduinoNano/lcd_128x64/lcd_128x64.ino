@@ -2,10 +2,9 @@
 
 
 #include <U8glib.h>
-#include "russsian.h"
-
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE|U8G_I2C_OPT_DEV_0);	// I2C / TWI 
 
+#include "russsian.h"
 #include "test.h"
 
 
@@ -15,11 +14,13 @@ void russsian_text(void) {
   do {
     u8g_prepare();
 
-    sendOne(u8g, 0, 0, "а");
-    sendOne(u8g, 6, 0, "б");
-    sendOne(u8g, 12, 0, "в");
-    sendOne(u8g, 18, 0, "г");
-    sendOne(u8g, 24, 0, "д");
+    sendOne(0, 0, "а");
+    sendOne(6, 0, "б");
+    sendOne(12, 0, "в");
+    sendOne(18, 0, "г");
+    sendOne(24, 0, "д");
+
+    send("абвгд", 0, 7);
     
   } while( u8g.nextPage() );
   
