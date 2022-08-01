@@ -9,11 +9,11 @@
 #include <ESP8266HTTPUpdateServer.h>
 
 #ifndef STASSID
-#define STASSID "MyWiFi)"
+#define STASSID "Redmi9T"
 #define STAPSK  "11111111"
 #endif
 
-const char* host = "esp8266-webupdate";
+const char* host = "esp";
 const char* ssid = STASSID;
 const char* password = STAPSK;
 
@@ -27,6 +27,7 @@ void setup(void) {
   Serial.begin(115200);
   Serial.println();
   Serial.println("Booting Sketch...");
+  
   WiFi.mode(WIFI_AP_STA);
   WiFi.begin(ssid, password);
 
@@ -41,6 +42,7 @@ void setup(void) {
   httpServer.begin();
 
   MDNS.addService("http", "tcp", 80);
+  
   Serial.printf("HTTPUpdateServer ready! Open http://%s.local/update in your browser\n", host);
 
   pinMode(LED1, OUTPUT);
