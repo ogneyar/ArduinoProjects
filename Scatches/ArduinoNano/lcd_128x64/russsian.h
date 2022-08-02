@@ -12,38 +12,26 @@ void d(uint8_t x, uint8_t y);
 void send(char * str, uint8_t x, uint8_t y) {
 
     uint8_t i = 0;
-    while (i < strlen(str)) {
-        switch(str[i]<<8 | str[i+1]) {
-            case 'а': 
-                a(x, y);
-            break;
-            case 'б': 
-                b(x, y);
-            break;
-            case 'в': 
-                v(x, y);
-            break;
-            case 'г': 
-                g(x, y);
-            break;
-            case 'д': 
-                d(x, y);
-            break;
+    while (str[i]) {
+        if ( ( (str[i] & 0x00ff) == ('а'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('а' & 0x00ff) ) ) {
+            a(x, y);
+        }else 
+        if ( ( (str[i] & 0x00ff) == ('б'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('б' & 0x00ff) ) ) {
+            b(x, y);
+        }else 
+        if ( ( (str[i] & 0x00ff) == ('в'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('в' & 0x00ff) ) ) {
+            v(x, y);
+        }else 
+        if ( ( (str[i] & 0x00ff) == ('г'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('г' & 0x00ff) ) ) {
+            g(x, y);
+        }else 
+        if ( ( (str[i] & 0x00ff) == ('д'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('д' & 0x00ff) ) ) {
+            d(x, y);
         }
+   
         i = i + 2;
-    };
-
-//   if (strcmp(str, "а") == 0) {
-//     a(x, y);
-//   }else if (strcmp(str, "б") == 0) {
-//     b(x, y);
-//   }else if (strcmp(str, "в") == 0) {
-//     v(x, y);
-//   }else if (strcmp(str, "г") == 0) {
-//     g(x, y);
-//   }else if (strcmp(str, "д") == 0) {
-//     d(x, y);
-//   }
+        x = x + 6;
+    }
 }
 
 

@@ -13,14 +13,11 @@ void russsian_text(void) {
   u8g.firstPage();
   do {
     u8g_prepare();
-
-    sendOne(0, 0, "а");
-    sendOne(6, 0, "б");
-    sendOne(12, 0, "в");
-    sendOne(18, 0, "г");
-    sendOne(24, 0, "д");
-
+    
+    // вывод русских букв на экран
+    send("абвгд", 0, 0);
     send("абвгд", 0, 7);
+    send("абвгд", 0,14);
     
   } while( u8g.nextPage() );
   

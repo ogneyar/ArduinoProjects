@@ -2,31 +2,22 @@
 //#include<stdio.h>
 //#include <util/delay.h>
 
-void test(char str[]) {
+void test(char * str) {
   uint16_t one = 'а'; 
 //  if ( (str[0] & 0x00ff == 'а' >> 8) && ((byte)str[1] & 0x00ff == (byte)'а' & 0x00ff) ) 
-//  if (str[0]<<8 | str[1] == one) Serial.println("равны");
-
-  if ((str[0] & 0x00ff) == (one>>8 & 0x00ff)) Serial.println("равны");
-  if ((str[1] & 0x00ff) == (one & 0x00ff)) Serial.println("равны");
+  if (str[2]<<8 | str[3] == one)
+    Serial.println("равны");
   
   Serial.print("Первая часть: ");
   Serial.println(str[0] & 0x00ff);
   Serial.print("Вторая часть: ");
   Serial.println(str[1] & 0x00ff);
   
-//  Serial.println(str[0]<<8 | str[1]);
-//  
 //  Serial.println(strlen(str));
-//
-//  Serial.println((uint16_t)str[0]<<0x00 | str[1]);
-//
-//  Serial.println((uint16_t)str[0]<<0x00 | 0x00<<str[1]);
-//
-//  Serial.println((uint16_t)'а');
 
-  Serial.println(one>>8);
-  Serial.println(one & 0x00ff);
+  Serial.println(str[0]<<8 | str[1]);
+
+  Serial.println('а');
 
   Serial.print("Первая часть: ");
   Serial.println('а' >> 8 & 0x00ff);
