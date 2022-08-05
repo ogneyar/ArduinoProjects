@@ -9,13 +9,14 @@
 ESP8266WebServer server(80); // сервер на порту 80, как положенно
 
 // если необходимо выводить данные в консоль
-bool debag = false; // true; // 
+bool debag = true; // false; // 
 
+char ssid0[] = "Redmi9T";
 char ssid1[] = "MyWiFi)"; // SSID (имя) вашей WiFi сети
 char ssid2[] = "WiFiSH";
 char password[] = "11111111"; // пароль wifi сети
 String buttons[] = { "light" };//{ "light", "Socket" };     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
-byte led1 = 4; // 4 - D2 (GPIO4) // 2 - D4 (GPIO2) - встроенный диод
+byte led1 = 2; // 4 - D2 (GPIO4) // 2 - D4 (GPIO2) - встроенный диод
 int pin[] = { led1 };//{2, 3};                               // номер вывода, к которому подключено исполняющее устройство (реле, транзистор и т.д.)
 
 bool protection = 0;                                    // права доступа: 0 - доступно всем пользователям, 1 - доступ по Chat ID, если оно внесено в chatID_acces.
@@ -47,16 +48,34 @@ void setup() {
     delay(100);
 
     if (debag) {
-      Serial.print("Connecting Wifi: ");
-      Serial.println(ssid1);
+      Serial.print("\r\nConnecting Wifi: ");
+      Serial.println(ssid0);
     }
     
-    WiFi.begin(ssid1, password);
+    WiFi.begin(ssid0, password);
     int flag = 0;
     while (WiFi.status() != WL_CONNECTED) {
       if (flag == 11) {
         //WiFi.disconnect();
+        WiFi.begin(ssid1, password);
+        if (debag) {
+          Serial.print("\r\nConnecting Wifi: ");
+          Serial.println(ssid1);
+        }
+      }else if (flag == 22) {
+        //WiFi.disconnect();
         WiFi.begin(ssid2, password);
+        if (debag) {
+          Serial.print("\r\nConnecting Wifi: ");
+          Serial.println(ssid2);
+        }
+      }else if (flag == 33) {
+        flag = 0;
+        WiFi.begin(ssid0, password);
+        if (debag) {
+          Serial.print("\r\nConnecting Wifi: ");
+          Serial.println(ssid0);
+        }
       }
       if (debag) Serial.print(".");
       delay(500);
@@ -130,7 +149,7 @@ void loop() {
 void handleNewMessages(int numNewMessages) {
     if (debag) {
       Serial.println("New message");
-      Serial.println("His number: " + String(numNewMessages));
+      Serial.print("His number: ");// + String(numNewMessages));
     }
 
     for (int i=0; i<numNewMessages; i++) {
@@ -146,12 +165,12 @@ void handleNewMessages(int numNewMessages) {
                 statusMessage += buttons[i1]; 
                 statusMessage += '\n';
             }
-            bot.deleteMessage(bot.messages[i].chat_id, bot.messages[i].message_id);
+//            bot.deleteMessage(bot.messages[i].chat_id, bot.messages[i].message_id);
             bot.sendMessageWithInlineKeyboard(bot.messages[i].chat_id, statusMessage, "", keyboardJson);
         
         } else {
             String text = bot.messages[i].text;
-            Serial.println(m_id);
+            if (debag) Serial.println(m_id);
             String from_name = bot.messages[i].from_name;
             if (from_name == "") from_name = "Guest";
             int i2=0;
