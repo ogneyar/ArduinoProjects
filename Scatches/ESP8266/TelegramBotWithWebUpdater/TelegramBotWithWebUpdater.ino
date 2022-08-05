@@ -5,6 +5,15 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPUpdateServer.h>
 
+#include "test.h"
+
+//#include <sstream>
+//using namespace std;
+
+void handleNewMessages(int numNewMessages);
+String webPage(String route);
+String readFile(String fileName); // cpp
+
 #define BOTtoken "5328519984:AAGa4HzzxvoOZF2cGdW3G6VR0eR07ieRrW0" 
 
 ESP8266WebServer httpServer(80); // сервер на порту 80, как положенно
@@ -18,7 +27,7 @@ char ssid2[] = "WiFiSH";
 char ssid3[] = "Redmi9T";
 char password[] = "11111111"; // пароль wifi сети
 String buttons[] = { "light" };//{ "light", "Socket" };     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
-byte led1 = 2; // 4 - D2 (GPIO4) // 2 - D4 (GPIO2) - встроенный диод
+int led1 = 2; // 4 - D2 (GPIO4) // 2 - D4 (GPIO2) - встроенный диод
 int pin[] = { led1 };//{2, 3};                               // номер вывода, к которому подключено исполняющее устройство (реле, транзистор и т.д.)
 
 bool protection = 0;                                    // права доступа: 0 - доступно всем пользователям, 1 - доступ по Chat ID, если оно внесено в chatID_acces.
@@ -124,8 +133,10 @@ void setup() {
 //    if (debag) Serial.println("HTTP server started");
     
     httpServer.on("/", [](){
-      httpServer.send(200, "text/html", webPage("/"));
-//      httpServer.send(200, "text/html", getPage());
+//      httpServer.send(200, "text/html", webPage("/"));
+      httpServer.send(200, "text/html", getPage());
+//      httpServer.send(200, "text/html", readFile("test.txt")); // cpp
+
     });
     
     //------------block 1-----------------------------------
@@ -227,8 +238,7 @@ void handleNewMessages(int numNewMessages) {
 
 
 // ---------------- функция формирования локальной страницы --------------------------------------
-String webPage(String route)
-{
+String webPage(String route) {
   String web; 
   web += "<head><meta name='viewport' content='width=device-width, initial-scale=1'> <meta charset='utf-8'><title>титл</title><style>button{color:black;padding: 10px 27px;}</style></head>";
   
@@ -264,7 +274,7 @@ String webPage(String route)
 
 String getPage() {
     String web = ""; 
-    char * filename = "/test.txt"; // "src/index.html";
+    char * filename = "test.h"; // "src/index.html";
     char cc[255];
     FILE *fp;
      
@@ -279,22 +289,57 @@ String getPage() {
 //    fclose(fp);
      
     // чтение из файла
-    if((fp= fopen(filename, "r"))==NULL)
-    {
+    if((fp= fopen(filename, "r"))==NULL) {
         return "Error occured while opening file";
     }
     // пока не дойдем до конца, считываем по 256 байт
-    while((fgets(cc, 255, fp))!=NULL)
-    {
-//        printf("%s", cc);
-      web += (String)cc;
-      Serial.printf("%s", cc);
-    }
+//    while((fgets(cc, 255, fp))!=NULL) {
+//      web += (String)cc;
+//      Serial.printf("%s", cc);
+//    }
 
-//    fgets(cc, 255, fp);
-//    if (debag) Serial.println(cc);
+    fgets(cc, 5, fp);
+    if (debag) Serial.printf("%d%d%d%d%d",cc);
+    
+    if (debag) Serial.println();
+    if (debag) Serial.println(fgetc(fp));
+    if (debag) Serial.println(fgetc(fp));
     
     fclose(fp);
-    
+
+    return "eee";
     return((String)cc);
 }
+
+// cpp
+//String readFile(string fileName) {
+//
+//    // буфер промежуточного хранения считываемого из файла текста
+//    char buff[1024]; 
+//
+//    std::stringstream response;
+//    
+//    // открыли файл для чтения
+//    std::ifstream fin(fileName);
+//    
+//    if (!fin.is_open()) {// если файл не открыт
+//        return "File not open for read!";
+//    }
+//
+//    // считали первое слово из файла
+//    // fin >> buff; 
+//    // выводим на экран
+//    // cout << buff << endl;
+//    
+//    while (!fin.eof()) {
+//        // считали строку из файла
+//        fin.getline(buff, 1024);
+//        // запись в переменную
+//        response << buff << endl;
+//    }
+//    
+//    // закрываем файл
+//    fin.close(); 
+//
+//    return response.str();
+//}
