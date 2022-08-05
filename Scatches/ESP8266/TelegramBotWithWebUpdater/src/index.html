@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP WiFi Server</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            font-family: Open sans;
+            background-color: #696969;
+        }
+        body,
+        .handle,
+        .box {
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .handle {
+            background-color: #8dec12;
+            padding: 20px;
+        }
+        .handle_title {
+            font-weight: 700;
+            font-size: 24px;
+            color:rgb(238, 238, 238);
+            background-color: #ecc412;
+            padding: 20px 30px;
+        }      
+        .box {
+            background-color: #1278ec;
+            padding: 20px 30px;
+            /* justify-content: center; */
+            align-items: center;
+        }  
+        .button {
+            /* text-align: center; */
+            width: 150px;
+            color: white;
+            padding: 10px 30px;
+            background-color: #d12525;
+            /* margin: 0 20px; */
+            /* margin: 0 auto; */
+            /* cursor: pointer; */
+        }
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            /* background-color: #a925d1; */
+        }
+        a:hover {
+            opacity:0,7;
+        }
+    </style>
+</head>
+<body>
+    <div class='handle'>
+        <h1 class='handle_title'>Управление светом онлайн</h1>
+    </div>
+    <hr/><br/>
+    <div class='box'>
+        <a href='update'>
+            <div class='button'>Обновить прошивку</div>
+        </a>
+    </div>
+</body>
+</html>

@@ -3,10 +3,12 @@
 #include <WiFiClient.h>
 #include <UniversalTelegramBot.h>
 #include <ESP8266WebServer.h>
+#include <ESP8266HTTPUpdateServer.h>
 
 #define BOTtoken "5328519984:AAGa4HzzxvoOZF2cGdW3G6VR0eR07ieRrW0" 
 
-ESP8266WebServer server(80); // сервер на порту 80, как положенно
+ESP8266WebServer httpServer(80); // сервер на порту 80, как положенно
+ESP8266HTTPUpdateServer httpUpdater;
 
 // если необходимо выводить данные в консоль
 bool debag = true; // false; // 
@@ -29,8 +31,9 @@ String on_symbol = "✅ on ";  // Индикатор включенного со
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
+
 int quantity;
-int Bot_mtbs = 1000;
+int Bot_mtbs = 3000;
 long Bot_lasttime;   
 bool Start = false;
 const int ledPin = 2;
@@ -114,20 +117,29 @@ void setup() {
     client.setInsecure();
 
 
-    server.begin();
+    httpUpdater.setup(&httpServer);
+    httpServer.begin();
     
-    if (debag) Serial.println("HTTP server started");
     
-    server.on("/", [](){
-      server.send(200, "text/html", webPage("/"));
+//    if (debag) Serial.println("HTTP server started");
+    
+    httpServer.on("/", [](){
+      httpServer.send(200, "text/html", webPage("/"));
+//      httpServer.send(200, "text/html", getPage());
     });
     
     //------------block 1-----------------------------------
-    server.on("/led1", [](){
+    httpServer.on("/led1", [](){
       digitalWrite(led1, !digitalRead(led1));
-      server.send(200, "text/html", webPage("/led1"));
+      httpServer.send(200, "text/html", webPage("/led1"));
       delay(100);
     });
+
+    if (debag) {
+      Serial.print("HTTPUpdateServer ready! Open http://");
+      Serial.print(myIP);
+      Serial.println("/update in your browser\n");
+    }
     
 }
 
@@ -142,7 +154,7 @@ void loop() {
         Bot_lasttime = millis();
     }
 
-    server.handleClient();
+    httpServer.handleClient();
 }
 
 // ---------------- функция формирования ответа бота --------------------------------
@@ -249,3 +261,40 @@ String webPage(String route)
   return(web);
 }
 //------------------------------------------------------------------------------------------
+
+String getPage() {
+    String web = ""; 
+    char * filename = "/test.txt"; // "src/index.html";
+    char cc[255];
+    FILE *fp;
+     
+    // запись в файл
+//    if((fp= fopen(filename, "w"))==NULL)
+//    {
+//        return "Error occured while opening file";
+//    }
+//    // записываем строку
+//    fputs(message, fp);
+ 
+//    fclose(fp);
+     
+    // чтение из файла
+    if((fp= fopen(filename, "r"))==NULL)
+    {
+        return "Error occured while opening file";
+    }
+    // пока не дойдем до конца, считываем по 256 байт
+    while((fgets(cc, 255, fp))!=NULL)
+    {
+//        printf("%s", cc);
+      web += (String)cc;
+      Serial.printf("%s", cc);
+    }
+
+//    fgets(cc, 255, fp);
+//    if (debag) Serial.println(cc);
+    
+    fclose(fp);
+    
+    return((String)cc);
+}
