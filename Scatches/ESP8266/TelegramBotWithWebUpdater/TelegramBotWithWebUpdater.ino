@@ -5,14 +5,12 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPUpdateServer.h>
 
-#include "test.h"
+#include <FS.h>
+#include <LittleFS.h>
 
-//#include <sstream>
-//using namespace std;
-
+String getPage();
 void handleNewMessages(int numNewMessages);
 String webPage(String route);
-String readFile(String fileName); // cpp
 
 #define BOTtoken "5328519984:AAGa4HzzxvoOZF2cGdW3G6VR0eR07ieRrW0" 
 
@@ -133,10 +131,8 @@ void setup() {
 //    if (debag) Serial.println("HTTP server started");
     
     httpServer.on("/", [](){
-//      httpServer.send(200, "text/html", webPage("/"));
-      httpServer.send(200, "text/html", getPage());
-//      httpServer.send(200, "text/html", readFile("test.txt")); // cpp
-
+     httpServer.send(200, "text/html", webPage("/"));
+      // httpServer.send(200, "text/html", getPage());
     });
     
     //------------block 1-----------------------------------
@@ -151,7 +147,11 @@ void setup() {
       Serial.print(myIP);
       Serial.println("/update in your browser\n");
     }
-    
+
+    if (!LittleFS.begin()) {
+      if (debag) Serial.println("LittleFS mount failed");
+      return;
+    }
 }
 
 void loop() {
@@ -167,6 +167,36 @@ void loop() {
 
     httpServer.handleClient();
 }
+
+
+// ---------------- тест работы библиотеки LittleFS.h --------------------------------------
+String getPage() {
+    File file;
+    
+    file = LittleFS.open("/test.txt", "w");
+    file.print("Hell o!"); 
+    delay(2000); 
+
+    file.close(); 
+    
+    file = LittleFS.open("test.txt", "r");
+    
+    if(!file) { 
+        if (debag) Serial.println("No Saved Data!"); 
+    } 
+    
+    while(file.available()) {
+        if (debag) Serial.write(file.read());
+        //return file.read();
+    }
+    
+    file.close(); 
+    
+    return "eee";
+}
+// -----------------------------------------------------------------------------------------------
+
+
 
 // ---------------- функция формирования ответа бота --------------------------------
 void handleNewMessages(int numNewMessages) {
@@ -239,107 +269,79 @@ void handleNewMessages(int numNewMessages) {
 
 // ---------------- функция формирования локальной страницы --------------------------------------
 String webPage(String route) {
-  String web; 
-  web += "<head><meta name='viewport' content='width=device-width, initial-scale=1'> <meta charset='utf-8'><title>титл</title><style>button{color:black;padding: 10px 27px;}</style></head>";
-  
-  // -----------заголовок-----------------
-  web += "<div style='text-align: center;width: 100%;'><h1 style'text-align: center;font-family: Open sans;font-weight: 100;font-size: 20px;margin: 0 auto;'>лед онлайн</h1></div>";
-  //-------------------------------------
-
-  web += "<div>";
-  //-------------------------------------
-  web += "<br>";
-  
-  //--------------block 1------------------
-  if (digitalRead(led1) == 1) {
-    web += "<div style='text-align: center;width: 98px;color:white ;padding: 10px 30px;background-color: #ec1212;margin: 0 auto;'><div style='text-align: center;margin: 5px 0px;cursor:pointer;'><a href='led1'><button>LED1</button></a></div></div>";
-  }else  {
-    web += "<div style='text-align: center;width: 98px;color:white ;padding: 10px 30px;background-color: grey;margin: 0 auto;'><div style='text-align: center;margin: 5px 0px;cursor:pointer;'><a href='led1'><button>LED1</button></a></div></div>";
-  }
-  web += "<br>";
-  //----------------------------------------
-  
-  // ----------reload---------------------------
-  web += "<div style='text-align:center;margin-top: 20px;'><a href='/'><button style='width:158px;'>REFRESH</button></a></div>";
-  // -----------------------------------------
     
-  web += "</div>";
+    // minify html files - https://www.willpeavy.com/tools/minifier/
+    // return "<!DOCTYPE html><html lang='ru'><head> <meta charset='UTF-8'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>ESP WiFi Server</title> <style>*{margin: 0; padding: 0; box-sizing: border-box;}html{font-family: Open sans; background-color: #696969;}body, .handle, .box{text-align: center; width: 100%; display: flex; flex-direction: column;}.handle{background-color: #8dec12; padding: 20px;}.handle_title{font-weight: 700; font-size: 24px; color:rgb(238, 238, 238); background-color: #ecc412; padding: 20px 30px;}.box{background-color: #1278ec; padding: 20px 30px; align-items: center;}.button{width: 150px; color: white; padding: 10px 30px; background-color: #d12525;}a{cursor: pointer; text-decoration: none;}a:hover{opacity:0,7;}</style></head><body> <div class='handle'> <h1 class='handle_title'>Управление светом онлайн</h1> </div><hr/><br/> <div class='box'> <a href='update'> <div class='button'>Обновить прошивку</div></a> </div></body></html>";
 
-//  if (route != "/") web += "<script>window.location.href = '/'</script>";
-  if (route != "/") web += "<script>window.history.pushState({}, null, '/')</script>";
+    String web = "<!DOCTYPE html>"
+        "<html lang='ru'>"
+        "<head>"
+            "<meta charset='UTF-8'>"
+            "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+            "<title>ESP WiFi Server</title>"
+            "<style>"
+                "* {"
+                    "margin: 0;"
+                    "padding: 0;"
+                    "box-sizing: border-box;"
+                "}"
+                "html {"
+                    "font-family: Open sans;"
+                    "background-color: #696969;"
+                "}"
+                "body,"
+                ".handle,"
+                ".box {"
+                    "text-align: center;"
+                    "width: 100%;"
+                    "display: flex;"
+                    "flex-direction: column;"
+                "}"
+                ".handle {"
+                    "background-color: #8dec12;"
+                    "padding: 20px;"
+                "}"
+                ".handle_title {"
+                    "font-weight: 700;"
+                    "font-size: 24px;"
+                    "color:rgb(238, 238, 238);"
+                    "background-color: #ecc412;"
+                    "padding: 20px 30px;"
+                "}"
+                ".box {"
+                    "background-color: #1278ec;"
+                    "padding: 20px 30px;"
+                    "align-items: center;"
+                "}"
+                ".button {"
+                    "width: 150px;"
+                    "color: white;"
+                    "padding: 10px 30px;"
+                    "background-color: #d12525;"
+                "}"
+                "a {"
+                    "cursor: pointer;"
+                    "text-decoration: none;"
+                "}"
+                "a:hover {"
+                    "opacity:0,7;"
+                "}"
+            "</style>"
+        "</head>"
+        "<body>"
+            "<div class='handle'>"
+                "<h1 class='handle_title'>Управление светом онлайн</h1>"
+            "</div>"
+            "<hr/><br/>"
+            "<div class='box'>"
+                "<a href='update'>"
+                    "<div class='button'>Обновить прошивку</div>"
+                "</a>"
+            "</div>"
+        "</body>"
+    "</html>";
   
   return(web);
+
 }
 //------------------------------------------------------------------------------------------
-
-String getPage() {
-    String web = ""; 
-    char * filename = "test.h"; // "src/index.html";
-    char cc[255];
-    FILE *fp;
-     
-    // запись в файл
-//    if((fp= fopen(filename, "w"))==NULL)
-//    {
-//        return "Error occured while opening file";
-//    }
-//    // записываем строку
-//    fputs(message, fp);
- 
-//    fclose(fp);
-     
-    // чтение из файла
-    if((fp= fopen(filename, "r"))==NULL) {
-        return "Error occured while opening file";
-    }
-    // пока не дойдем до конца, считываем по 256 байт
-//    while((fgets(cc, 255, fp))!=NULL) {
-//      web += (String)cc;
-//      Serial.printf("%s", cc);
-//    }
-
-    fgets(cc, 5, fp);
-    if (debag) Serial.printf("%d%d%d%d%d",cc);
-    
-    if (debag) Serial.println();
-    if (debag) Serial.println(fgetc(fp));
-    if (debag) Serial.println(fgetc(fp));
-    
-    fclose(fp);
-
-    return "eee";
-    return((String)cc);
-}
-
-// cpp
-//String readFile(string fileName) {
-//
-//    // буфер промежуточного хранения считываемого из файла текста
-//    char buff[1024]; 
-//
-//    std::stringstream response;
-//    
-//    // открыли файл для чтения
-//    std::ifstream fin(fileName);
-//    
-//    if (!fin.is_open()) {// если файл не открыт
-//        return "File not open for read!";
-//    }
-//
-//    // считали первое слово из файла
-//    // fin >> buff; 
-//    // выводим на экран
-//    // cout << buff << endl;
-//    
-//    while (!fin.eof()) {
-//        // считали строку из файла
-//        fin.getline(buff, 1024);
-//        // запись в переменную
-//        response << buff << endl;
-//    }
-//    
-//    // закрываем файл
-//    fin.close(); 
-//
-//    return response.str();
-//}
