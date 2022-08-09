@@ -53,7 +53,7 @@ void handleNewMessages(int numNewMessages) {
       statusMessage+=buttons[i1]; 
       statusMessage+='\n';
       }
-      bot.deleteMessage(bot.messages[i].chat_id, bot.messages[i].message_id);
+      bot.deleteMessage(bot.messages[i].chat_id, bot.messages[i].message_id); 
       bot.sendMessageWithInlineKeyboard(bot.messages[i].chat_id, statusMessage, "", keyboardJson);
       
     } else {

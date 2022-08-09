@@ -3,6 +3,7 @@
 #include <WiFiClient.h>
 #include <UniversalTelegramBot.h>
 #include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
 #include <ESP8266HTTPUpdateServer.h>
 
 #include <FS.h>
@@ -20,6 +21,7 @@ ESP8266HTTPUpdateServer httpUpdater;
 // если необходимо выводить данные в консоль
 bool debag = true; // false; // 
 
+char host[] = "esp8266";
 char ssid1[] = "MyWiFi)"; // SSID (имя) вашей WiFi сети
 char ssid2[] = "WiFiSH";
 char ssid3[] = "Redmi9T";
@@ -91,7 +93,7 @@ void setup() {
       delay(500);
       flag++;
     }
-	
+    	
 	  myIP = WiFi.localIP();
     
     if (debag) {
@@ -99,6 +101,7 @@ void setup() {
       Serial.println("WiFi connected");  
       Serial.print("IP address: ");
       Serial.println(myIP);
+      Serial.println("");
     }    
     
     quantity=sizeof(pin)/sizeof(int);
@@ -123,35 +126,36 @@ void setup() {
     delay(10);
     client.setInsecure();
 
-
+    MDNS.begin(host);
+    
     httpUpdater.setup(&httpServer);
     httpServer.begin();
+        
+    MDNS.addService("http", "tcp", 80);
+      
+    if (debag) {
+      if (!LittleFS.begin()) Serial.println("LittleFS mount failed...");
+      Serial.println("HTTP server started");
+      Serial.printf("Open http://%s.local/update in your browser\n", host);
+      Serial.println("or");
+      Serial.print("Open http://");
+      Serial.print(myIP);
+      Serial.println("/update in your browser\n");
+    }    
     
-    
-//    if (debag) Serial.println("HTTP server started");
-    
+    //---------------- routes ----------------------
     httpServer.on("/", [](){
      httpServer.send(200, "text/html", webPage("/"));
       // httpServer.send(200, "text/html", getPage());
     });
     
-    //------------block 1-----------------------------------
     httpServer.on("/led1", [](){
       digitalWrite(led1, !digitalRead(led1));
       httpServer.send(200, "text/html", webPage("/led1"));
       delay(100);
     });
-
-    if (debag) {
-      Serial.print("HTTPUpdateServer ready! Open http://");
-      Serial.print(myIP);
-      Serial.println("/update in your browser\n");
-    }
-
-    if (!LittleFS.begin()) {
-      if (debag) Serial.println("LittleFS mount failed");
-      return;
-    }
+    //-----------------------------------------------
+  
 }
 
 void loop() {
@@ -166,6 +170,7 @@ void loop() {
     }
 
     httpServer.handleClient();
+    MDNS.update();
 }
 
 
@@ -218,7 +223,7 @@ void handleNewMessages(int numNewMessages) {
                 statusMessage += buttons[i1]; 
                 statusMessage += '\n';
             }
-//            bot.deleteMessage(bot.messages[i].chat_id, bot.messages[i].message_id);
+            bot.deleteMessage(bot.messages[i].chat_id, bot.messages[i].message_id);
             bot.sendMessageWithInlineKeyboard(bot.messages[i].chat_id, statusMessage, "", keyboardJson);
         
         } else {
@@ -271,7 +276,7 @@ void handleNewMessages(int numNewMessages) {
 String webPage(String route) {
     
     // minify html files - https://www.willpeavy.com/tools/minifier/
-    // return "<!DOCTYPE html><html lang='ru'><head> <meta charset='UTF-8'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>ESP WiFi Server</title> <style>*{margin: 0; padding: 0; box-sizing: border-box;}html{font-family: Open sans; background-color: #696969;}body, .handle, .box{text-align: center; width: 100%; display: flex; flex-direction: column;}.handle{background-color: #8dec12; padding: 20px;}.handle_title{font-weight: 700; font-size: 24px; color:rgb(238, 238, 238); background-color: #ecc412; padding: 20px 30px;}.box{background-color: #1278ec; padding: 20px 30px; align-items: center;}.button{width: 150px; color: white; padding: 10px 30px; background-color: #d12525;}a{cursor: pointer; text-decoration: none;}a:hover{opacity:0,7;}</style></head><body> <div class='handle'> <h1 class='handle_title'>Управление светом онлайн</h1> </div><hr/><br/> <div class='box'> <a href='update'> <div class='button'>Обновить прошивку</div></a> </div></body></html>";
+    return "<!DOCTYPE html><html lang='ru'><head> <meta charset='UTF-8'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>ESP WiFi Server</title> <style>*{margin: 0; padding: 0; box-sizing: border-box;}html{font-family: Open sans; background-color: #696969;}body, .handle, .box{text-align: center; width: 100%; display: flex; flex-direction: column;}.handle{background-color: #8dec12; padding: 20px;}.handle_title{font-weight: 700; font-size: 24px; color:rgb(238, 238, 238); background-color: #ecc412; padding: 20px 30px;}.box{background-color: #1278ec; padding: 20px 30px; align-items: center;}.button{width: 150px; color: white; padding: 10px 30px; background-color: #d12525;}a{cursor: pointer; text-decoration: none;}a:hover{opacity:0,7;}</style></head><body> <div class='handle'> <h1 class='handle_title'>Управление светом онлайн</h1> </div><hr/><br/> <div class='box'> <a href='update'> <div class='button'>Обновить прошивку</div></a> </div></body></html>";
 
     String web = "<!DOCTYPE html>"
         "<html lang='ru'>"

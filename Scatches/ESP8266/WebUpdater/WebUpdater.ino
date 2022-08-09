@@ -13,7 +13,7 @@
 #define STAPSK  "11111111"
 #endif
 
-const char* host = "esp";
+const char* host = "esp8266-webupdate";
 const char* ssid = STASSID;
 const char* password = STAPSK;
 
@@ -44,6 +44,11 @@ void setup(void) {
   MDNS.addService("http", "tcp", 80);
   
   Serial.printf("HTTPUpdateServer ready! Open http://%s.local/update in your browser\n", host);
+  
+  IPAddress myIP = WiFi.localIP();
+  
+  Serial.print("IP address: ");
+  Serial.println(myIP);
 
   pinMode(LED1, OUTPUT);
 }
@@ -51,8 +56,9 @@ void setup(void) {
 void loop(void) {
   httpServer.handleClient();
   MDNS.update();
+  
   digitalWrite(LED1, HIGH);
-  delay(500);
+  delay(1000);
   digitalWrite(LED1, LOW);
-  delay(500);
+  delay(50);
 }
