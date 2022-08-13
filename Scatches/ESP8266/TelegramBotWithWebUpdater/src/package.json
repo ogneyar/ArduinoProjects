@@ -1,0 +1,29 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "hz",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Ogneyar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "nodemonConfig": {
+    "ext": "js, json, html, css",
+    "ignore": [
+      "tmp/*",
+      "prices/*"
+    ]
+  }
+}

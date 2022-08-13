@@ -33,16 +33,34 @@
             background-color: #ecc412;
             padding: 20px 30px;
         }      
-        .box {
-            background-color: #1278ec;
+        .box_on_off {
+            align-items: center;
+        }
+        .box_led1,
+        .box_update {
             padding: 20px 30px;
             align-items: center;
         }  
+        .box_led1 {
+            background-color: #1278ec;
+        }  
+        .box_update {
+            background-color: grey;
+        }  
         .button {
-            width: 150px;
+            border-radius: 5px;
             color: white;
-            padding: 10px 30px;
-            background-color: #d12525;
+        }
+        .button_led1 {
+            width: 150px;
+            padding: 10px 30px;        
+            border: 1px solid grey;    
+            background-color: lightgrey;
+        }
+        .button_update {
+            width: 120px;
+            padding: 5px 20px;
+            background-color: lightgrey;
         }
         a {
             cursor: pointer;
@@ -51,6 +69,16 @@
         a:hover {
             opacity:0,7;
         }
+        .on {
+            background-color: #d12525;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .off {
+            background-color: lightgrey;
+            padding: 20px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -58,10 +86,20 @@
         <h1 class='handle_title'>Управление светом онлайн</h1>
     </div>
     <hr/><br/>
-    <div class='box'>
+    <div class='box box_led1'>
+        <div class='box_on_off ${led1}'>
+            <a href='led1'>
+                <div class='button button_led1'>Включатель №1</div>
+            </a>
+        </div>
+    </div>
+    <br/>
+    <hr/><br/>
+    <div class='box box_update'>
         <a href='update'>
-            <div class='button'>Обновить прошивку</div>
+            <div class='button button_update'>Обновить прошивку</div>
         </a>
     </div>
+    <script></script>
 </body>
 </html>
