@@ -3,43 +3,43 @@
 #define _BOT_H_
 
 // --------------- список функций -------------------
-// void handleNewMessages(int numNewMessages);
+// void handleNewMessages(uint8_t numNewMessages);
 // --------------------------------------------------
 
 // ---------------- функция формирования ответа бота --------------------------------
-void handleNewMessages(int numNewMessages) {//, String * buttons, uint8_t * pin, bool debag) {
+void handleNewMessages(uint8_t numNewMessages) {//, String * buttons, uint8_t * pin, bool debag) {
     if (debag) {
       Serial.println("New message");
       Serial.print("His number: ");// + String(numNewMessages));
     }
 
-    for (int i=0; i<numNewMessages; i++) {
+    for (uint8_t i=0; i<numNewMessages; i++) {
         String chat_id = String(bot.messages[i].chat_id);
         String m_id = String(bot.messages[i].message_id);
         if (bot.messages[i].type == "callback_query") {
             String statusMessage;
-            for (int i1=0; i1<quantity; i1++) {
+            for (uint8_t i1=0; i1<quantity; i1++) {
                 if (bot.messages[i].text == buttons[i1]) {
                     digitalWrite (pin[i1], !digitalRead(pin[i1]));
                 }
-                digitalRead(pin[i1])? statusMessage += on_symbol : statusMessage += off_symbol;
+                digitalRead(pin[i1]) ? statusMessage += on_symbol : statusMessage += off_symbol;
                 statusMessage += buttons[i1]; 
                 statusMessage += '\n';
             }
-            bot.deleteMessage(bot.messages[i].chat_id, bot.messages[i].message_id);
-            bot.sendMessageWithInlineKeyboard(bot.messages[i].chat_id, statusMessage, "", keyboardJson);
+            bot.deleteMessage(chat_id, m_id);
+            bot.sendMessageWithInlineKeyboard(chat_id, statusMessage, "", keyboardJson);
         
         } else {
             String text = bot.messages[i].text;
             if (debag) Serial.println(m_id);
             String from_name = bot.messages[i].from_name;
             if (from_name == "") from_name = "Guest";
-            int i2=0;
+            uint8_t i2=0;
             do{
                 if (!protection || String(chatID_acces[i2]) == chat_id) {
                     if (text == "/control") {
                         String statusMessage;
-                        for (int i=0; i<quantity; i++) {
+                        for (uint8_t i=0; i<quantity; i++) {
                             digitalRead(pin[i])?statusMessage+=on_symbol:statusMessage+=off_symbol;
                             statusMessage+=buttons[i];  
                             statusMessage+='\n';

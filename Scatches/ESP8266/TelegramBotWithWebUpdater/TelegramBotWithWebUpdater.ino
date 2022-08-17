@@ -8,51 +8,13 @@
 #include <FS.h>
 #include <LittleFS.h>
 
-
 // functions
 String test();
-void handleNewMessages(int numNewMessages);
-String webPage(String route);
+// void handleNewMessages(uint8_t numNewMessages);
+// String webPage(String route);
 
-
-#define BOTtoken "5328519984:AAGa4HzzxvoOZF2cGdW3G6VR0eR07ieRrW0" 
-
-WiFiClientSecure client;
-UniversalTelegramBot bot(BOTtoken, client);
-
-ESP8266WebServer httpServer(80); // сервер на порту 80, как положенно
-ESP8266HTTPUpdateServer httpUpdater;
-
-
-// если необходимо выводить данные в консоль
-bool debag = true; // false; // 
-
-char host[] = "esp8266";
-char ssid1[] = "MyWiFi)"; // SSID (имя) вашей WiFi сети
-char ssid2[] = "WiFiSH";
-char ssid3[] = "Redmi9T";
-char password[] = "11111111"; // пароль wifi сети
-String buttons[] = { "light" };//{ "light", "Socket" };     // имена подключенных устройств, с кириллицей НЕ РАБОТАЕТ!
-uint8_t led1 = 2; // 4 - D2 (GPIO4) // 2 - D4 (GPIO2) - встроенный диод
-uint8_t pin[] = { led1 };//{2, 3};                               // номер вывода, к которому подключено исполняющее устройство (реле, транзистор и т.д.)
-
-bool protection = 0;                                    // права доступа: 0 - доступно всем пользователям, 1 - доступ по Chat ID, если оно внесено в chatID_acces.
-int chatID_acces[] = {};                                // Chat ID, которым разрешен доступ, игнорируется, если protection = 0.
-                                                        // Примечание: по команде /start в Telegram, если у пользователя нет прав доступа на управление устройством, бот выдаст Chat ID
-
-String off_symbol = "❌ off "; // Индикатор выключенного состояния.
-String on_symbol = "✅ on ";  // Индикатор включенного состояния.
-
-int quantity;
-int Bot_mtbs = 3000;
-long Bot_lasttime;   
-bool Start = false;
-const int ledPin = 2;
-int ledStatus = 0;
-String keyboardJson = "";
-
-IPAddress myIP;
-
+// инициализация переменных
+#include "main.h"
 
 // подгрузка либ после инициализации всех переменных
 #include "lib/web.h"
@@ -61,9 +23,6 @@ IPAddress myIP;
 
 void setup() {
     if (debag) Serial.begin(9600);
-
-//    WiFi.mode(WIFI_STA);
-//    WiFi.disconnect();
     delay(100);
 
     if (debag) {
@@ -72,23 +31,22 @@ void setup() {
     }
     
     WiFi.begin(ssid1, password);
-    int flag = 0;
+    
+    uint8_t flag = 0;
     while (WiFi.status() != WL_CONNECTED) {
-      if (flag == 11) {
-        //WiFi.disconnect();
+      if (flag == 15) {
         WiFi.begin(ssid2, password);
         if (debag) {
           Serial.print("\r\nConnecting Wifi: ");
           Serial.println(ssid2);
         }
-      }else if (flag == 22) {
-        //WiFi.disconnect();
+      }else if (flag == 30) {
         WiFi.begin(ssid3, password);
         if (debag) {
           Serial.print("\r\nConnecting Wifi: ");
           Serial.println(ssid3);
         }
-      }else if (flag == 33) {
+      }else if (flag == 45) {
         flag = 0;
         WiFi.begin(ssid1, password);
         if (debag) {
@@ -111,13 +69,14 @@ void setup() {
       Serial.println("");
     }    
     
-    quantity=sizeof(pin)/sizeof(int);
-    for (int i=0; i<quantity; i++) {
+    quantity=sizeof(pin)/sizeof(uint8_t);
+    
+    for (uint8_t i=0; i<quantity; i++) {
         pinMode(pin[i], OUTPUT);
         digitalWrite(pin[i], LOW);
     }
 
-    for (int i=0; i<quantity; i++) {
+    for (uint8_t i=0; i<quantity; i++) {
         if(i==0) keyboardJson += "[";
         keyboardJson += "[{ \"text\" : \"";
         keyboardJson += buttons[i];
@@ -167,7 +126,7 @@ void setup() {
 
 void loop() {
     if (millis() > Bot_lasttime + Bot_mtbs)  {
-        int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+        numNewMessages = bot.getUpdates(bot.last_message_received + 1);
 
         while(numNewMessages) {
             handleNewMessages(numNewMessages);
@@ -179,6 +138,8 @@ void loop() {
     httpServer.handleClient();
     MDNS.update();
 }
+
+
 
 
 // ---------------- тест работы библиотеки LittleFS.h --------------------------------------
@@ -200,5 +161,3 @@ String test() {
     return "eee";
 }
 // -----------------------------------------------------------------------------------------------
-
-
