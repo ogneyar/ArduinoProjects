@@ -12,6 +12,8 @@ void io(uint8_t x, uint8_t y);
 void j(uint8_t x, uint8_t y);
 void z(uint8_t x, uint8_t y);
 
+#include "max.h"
+
 
 void send(char * str, uint8_t x, uint8_t y) {
 
@@ -43,6 +45,9 @@ void send(char * str, uint8_t x, uint8_t y) {
         }else 
         if ( ( (str[i] & 0x00ff) == ('з'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('з' & 0x00ff) ) ) {
             z(x, y);
+        }else 
+        if ( ( (str[i] & 0x00ff) == ('А'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('А' & 0x00ff) ) ) {
+            A(x, y);
         }
    
         i = i + 2;
