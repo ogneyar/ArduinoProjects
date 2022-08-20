@@ -15,9 +15,9 @@ void russsian_text(void) {
     u8g_prepare();
     
     // вывод русских букв на экран
-    send("абвгдеё", 0, 0);
-    send("абвгдеё", 0, 7);
-    send("абвгдеё", 0,14);
+    send("абв", 0, 0);
+    send("абвгде", 0, 7);
+    send("абвгдеёжз", 0,14);
     
   } while( u8g.nextPage() );
   
