@@ -1,7 +1,7 @@
 byte ledPin =  LED_BUILTIN;
-bool ledState = 0;
+bool ledState = LOW;
 unsigned long previousMillis = 0;
-unsigned int interval = 1000;
+unsigned long interval = 1000;
 
 void setup() {
   pinMode(ledPin, OUTPUT);
