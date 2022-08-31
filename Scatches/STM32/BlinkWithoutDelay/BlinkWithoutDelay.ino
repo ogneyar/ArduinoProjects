@@ -1,10 +1,13 @@
 
-// STM32F103C8 - работает, уррааа
+// STM32F103C8T6 
+//#define LED_BUILTIN PC13
+// STM32F030F4P6 
+#define LED_BUILTIN PA4
 
-byte ledPin = PC13; // LED_BUILTIN; //
+byte ledPin = LED_BUILTIN; 
 bool ledState = LOW;
 unsigned long previousMillis = 0;
-unsigned long interval = 25;
+unsigned long interval = 250;
 
 void setup() {
   pinMode(ledPin, OUTPUT);
