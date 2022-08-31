@@ -22,7 +22,7 @@ void e(uint8_t x, uint8_t y); // русская 'е'
 void io(uint8_t x, uint8_t y); // русская 'ё'
 void j(uint8_t x, uint8_t y); // русская 'ж'
 void z(uint8_t x, uint8_t y); // русская 'з'
-void i(uint8_t x, uint8_t y); // русская 'и'
+void _i(uint8_t x, uint8_t y); // русская 'и'
 
 
 // русская 'а'
@@ -755,7 +755,7 @@ void z(uint8_t x, uint8_t y) {
 }
 
 // русская 'и'
-void i(uint8_t x, uint8_t y) { 
+void _i(uint8_t x, uint8_t y) { 
     // и
 
 	//  .....  1

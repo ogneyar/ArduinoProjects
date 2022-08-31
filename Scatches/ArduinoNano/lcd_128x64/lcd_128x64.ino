@@ -15,15 +15,15 @@ void russian_text(void) {
     u8g_prepare();
     
     // вывод русских букв на экран
-    send("абвг", 10, 0);
-    send("абвгдеё", 10, 10);
-    send("абвгдеёжзи", 10, 20); 
+    send("абвг", 0, 0);
+    send("абвгдеё", 0, 10);
+    send("абвгдеёжзи", 0, 20); 
 
-    send("А", 10, 30);
+    send("А", 0, 30);
 
-    // u8g.drawStr( 0, 0, "a");
-    // u8g.drawStr( 0, 10, "A");
-    // u8g.drawStr( 0, 20, "?");
+//     u8g.drawStr( 0, 0, "a");
+//     u8g.drawStr( 0, 10, "A");
+//     u8g.drawStr( 0, 20, "?");
     
   } while( u8g.nextPage() );
   

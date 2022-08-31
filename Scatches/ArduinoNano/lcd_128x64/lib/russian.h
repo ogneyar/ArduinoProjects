@@ -48,7 +48,7 @@ void send(char * str, uint8_t x, uint8_t y) {
             z(x, y);
         }else 
         if ( ( (str[i] & 0x00ff) == ('и'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('и' & 0x00ff) ) ) {
-            i(x, y);
+            _i(x, y);
         }else 
         if ( ( (str[i] & 0x00ff) == ('А'>>8 & 0x00ff) ) && ( (str[i+1] & 0x00ff) == ('А' & 0x00ff) ) ) {
             A(x, y);
