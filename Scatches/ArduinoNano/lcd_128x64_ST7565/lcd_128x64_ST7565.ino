@@ -1,8 +1,19 @@
-// Arduino Nano
+
+#include <Arduino.h>
+#include <U8g2lib.h>
+
+#ifdef U8X8_HAVE_HW_SPI
+#include <SPI.h>
+#endif
+#ifdef U8X8_HAVE_HW_I2C
+#include <Wire.h>
+#endif
 
 
-#include <U8glib.h>
-U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE|U8G_I2C_OPT_DEV_0);	// I2C / TWI 
+U8G2_ST7565_ERC12864_ALT_F_4W_SW_SPI u8g2(U8G2_R0, /* clock(SCL)=*/ 8, /* data(SI)=*/ 9, /* cs(CS)=*/ 5, /* dc(RS)=*/ 7, /* reset(RSE)=*/ 6); // contrast improved version for ERC12864
+// для русских символов создаём класс u8g
+U8G2_ST7565_ERC12864_ALT_F_4W_SW_SPI u8g(U8G2_R0, /* clock(SCL)=*/ 8, /* data(SI)=*/ 9, /* cs(CS)=*/ 5, /* dc(RS)=*/ 7, /* reset(RSE)=*/ 6); // contrast improved version for ERC12864
+
 
 #include "lib/russian.h"
 #include "test.h"
@@ -10,9 +21,9 @@ U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE|U8G_I2C_OPT_DEV_0);	// I2C / TWI
 
 void russian_text(void) {
   
-  u8g.firstPage();
-  do {
-    u8g_prepare();
+    u8g2.clearBuffer();
+    
+    u8g2_prepare();
     
     // вывод русских букв на экран
     send("абвг", 0, 0);
@@ -37,15 +48,15 @@ void russian_text(void) {
 //     u8g.drawStr( 0, 0, "a");
 //     u8g.drawStr( 0, 10, "A");
 //     u8g.drawStr( 0, 20, "?");
+
     
-  } while( u8g.nextPage() );
+    u8g2.sendBuffer();
   
 }
 
+
 void setup(void) {
-  
-  // flip screen, if required
-  // u8g.setRot180();
+  u8g2.begin();
   
   russian_text();
 }
@@ -53,5 +64,5 @@ void setup(void) {
 void loop(void) {
   
 //  test_screen();
-  
+
 }
