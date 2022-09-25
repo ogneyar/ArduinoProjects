@@ -2,5 +2,22 @@
 // для esp8266
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
+
 // для ATmega8
 https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+
+
+//  для ATtiny
+https://raw.githubusercontent.com/damellis/attiny/ide-1.6.x-boards-manager/package_damellis_attiny_index.json
+
+
+// для STM32
+https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+
+
+// для STM8
+https://github.com/tenbaht/sduino/raw/master/package_sduino_stm8_index.json
+
+
+// для Raspberry Pi Pico
+https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
