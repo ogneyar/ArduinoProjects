@@ -1,13 +1,13 @@
 
 // STM32F103C8T6 
-//#define LED_BUILTIN PC13
+// #define LED_BUILTIN PC13
 // STM32F030F4P6 
-#define LED_BUILTIN PA4
+// #define LED_BUILTIN PA4
 
-byte ledPin = LED_BUILTIN; 
+byte ledPin = PC13; //LED_BUILTIN; 
 bool ledState = LOW;
 unsigned long previousMillis = 0;
-unsigned long interval = 250;
+unsigned long interval = 100;
 
 void setup() {
   pinMode(ledPin, OUTPUT);

@@ -1,4 +1,4 @@
-// ESP8266
+// ESP8266 & D1 mini
 
 byte LED1 = 2;
   
@@ -8,7 +8,7 @@ void setup() {
 
 void loop() {
   digitalWrite(LED1, HIGH);
-  delay(500);
+  delay(1000);
   digitalWrite(LED1, LOW);
-  delay(500);
+  delay(1000);
 }
