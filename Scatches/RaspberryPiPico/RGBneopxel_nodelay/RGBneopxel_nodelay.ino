@@ -36,6 +36,7 @@ void setup() {
   strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
 
   pinMode(LED_PIN, OUTPUT);
+  pinMode(21, OUTPUT);
 }
 
 
@@ -82,6 +83,7 @@ void loop() {
   if((currentMillis - ledPrevious) >= ledInterval) {  
       ledPrevious = currentMillis;
       digitalWrite(LED_PIN, ! digitalRead(LED_PIN));
+      digitalWrite(21, 1);
   }
 }
 
