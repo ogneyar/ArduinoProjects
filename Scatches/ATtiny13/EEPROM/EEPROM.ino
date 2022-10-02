@@ -14,7 +14,7 @@ void EEPROM_write(uint16_t address, uint8_t data){
 	EEDR=data;
 	/* разрешение на запись */
 	EECR |= (1<<EEMPE);/* сначала 1 в бит EEMPE - мастер разрешение записи */
-	EECR |= (1<<EEPE);
+	EECR |= (1<<EEPE);   /* потом 1 в бит EEPE - разрешение записи */
 }
 
 // чтение байта из ячейки
