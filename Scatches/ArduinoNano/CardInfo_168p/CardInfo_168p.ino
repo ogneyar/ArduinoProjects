@@ -13,6 +13,8 @@ const int chipSelect = 14;
 void setup() {
   Serial.begin(9600);
   while (!Serial); 
+  
+  SD.begin(chipSelect);
 
   if (!card.init(SPI_HALF_SPEED, chipSelect)) {
     Serial.println("failed");
