@@ -1,5 +1,5 @@
 
-// STM32F103C8T6 
+// STM32F103C8T6 or STM32F401CCU6
 
 int led = PA0;           // A0
 int brightness = 0;    // how bright the LED is

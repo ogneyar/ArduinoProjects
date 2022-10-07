@@ -1,0 +1,42 @@
+
+// STM32F103C8T6 or STM32F401CCU6
+#define LED_BUILTIN PC13
+// STM32F030F4P6 
+// #define LED_BUILTIN PA4
+
+#define LIGHT_ON LOW
+#define LIGHT_OFF HIGH
+
+unsigned int intervalRising = 1024; // количество микро секунд (при значении 2000 срабатывает WTD походу)
+unsigned int intervalFalling = 0;
+
+
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+
+void loop() {
+
+  while(intervalRising) {    
+    digitalWrite(LED_BUILTIN, LIGHT_ON);  
+    delayMicroseconds(intervalRising);
+    digitalWrite(LED_BUILTIN, LIGHT_OFF);
+    delayMicroseconds(intervalFalling);
+
+    intervalRising--;
+    intervalFalling++;    
+  }
+    
+
+  while(intervalFalling) {    
+    digitalWrite(LED_BUILTIN, LIGHT_ON);  
+    delayMicroseconds(intervalRising);
+    digitalWrite(LED_BUILTIN, LIGHT_OFF);
+    delayMicroseconds(intervalFalling);
+      
+    intervalRising++;
+    intervalFalling--;
+  }
+
+}
