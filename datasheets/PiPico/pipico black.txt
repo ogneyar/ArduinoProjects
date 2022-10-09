@@ -1,0 +1,28 @@
+LED 25
+LED_PIXEL 23
+USR_BUTTON 24
+
+							RASPBERRY PI PICO BLACK
+
+                                 +-\/-+
+								0|    |Vout
+								1|    |Vin
+							  GND|    |GND  
+								2|    |23 
+								3|    |3V3
+								4|    |29 
+								5|    |28 
+							  GND|    |GND  
+								6|    |27 
+								7|    |26 
+								8|    |RUN
+								9|    |22
+							  GND|    |GND 
+							   10|    |21 
+							   11|    |20 
+							   12|    |19 
+							   13|    |18 
+							  GND|    |GND 
+							   14|    |17 
+							   15|    |16 
+                                 +----+

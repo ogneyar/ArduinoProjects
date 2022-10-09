@@ -2,9 +2,11 @@
 #include <Adafruit_NeoPixel.h>
 
 #define LED_PIXEL_PIN    23
-
 #define LED_COUNT 1
 
+#define USR_BUTTON_PIN   24
+#define USR_BUTTON_OFF   HIGH
+#define USR_BUTTON_ON    LOW
 
 #ifdef LED_BUILTIN 
 #define LED_PIN LED_BUILTIN
@@ -36,7 +38,7 @@ void setup() {
   strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
 
   pinMode(LED_PIN, OUTPUT);
-  pinMode(21, OUTPUT);
+  pinMode(USR_BUTTON_PIN, INPUT_PULLUP);
 }
 
 
@@ -82,8 +84,14 @@ void loop() {
 
   if((currentMillis - ledPrevious) >= ledInterval) {  
       ledPrevious = currentMillis;
-      digitalWrite(LED_PIN, ! digitalRead(LED_PIN));
-      digitalWrite(21, 1);
+      
+      byte buttonState = digitalRead(USR_BUTTON_PIN);
+      if (buttonState == USR_BUTTON_ON) {
+        digitalWrite(LED_PIN, LOW);
+      } else {
+          // digitalWrite(LED_PIN, HIGH);
+          digitalWrite(LED_PIN, ! digitalRead(LED_PIN));
+      }
   }
 }
 
