@@ -1,7 +1,12 @@
 
+#ifndef LED_BUILTIN
 // STM32F103C8T6 or STM32F401CCU6
+// #define LED_BUILTIN PC13
+// STM32F030F4P6 
+#define LED_BUILTIN PA4
+#endif
 
-int led = PA0;           // A0
+int led = LED_BUILTIN;
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
 
