@@ -1,4 +1,6 @@
+
 // ESP8266 & D1 mini
+// NodeMCU
 
 byte LED1 = 2;
   
