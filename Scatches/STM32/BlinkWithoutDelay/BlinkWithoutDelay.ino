@@ -1,12 +1,10 @@
 
-#ifndef LED_BUILTIN
-// STM32F103C8T6 or STM32F401CCU6
-#define LED_BUILTIN PC13
+// STM32F103C8T6 or STM32F401CCU6 or STM32F411CEU6
+#define LED PC13
 // STM32F030F4P6 
-// #define LED_BUILTIN PA4
-#endif
+// #define LED PA4
 
-byte ledPin = LED_BUILTIN; 
+byte ledPin = LED; 
 bool ledState = LOW;
 unsigned long previousMillis = 0;
 unsigned long interval = 100;

@@ -1,8 +1,10 @@
 
-// STM32F103C8T6 or STM32F401CCU6
-// #define LED_BUILTIN PC13
+// STM32F103C8T6 or STM32F401CCU6 or STM32F411CEU6
+#define LED PC13
 // STM32F030F4P6 
-#define LED_BUILTIN PA4
+//#define LED PA4
+
+byte ledPin = LED; 
 
 #define LIGHT_ON LOW
 #define LIGHT_OFF HIGH
@@ -12,16 +14,16 @@ unsigned int intervalFalling = 0;
 
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(ledPin, OUTPUT);
 }
 
 
 void loop() {
 
   while(intervalRising) {    
-    digitalWrite(LED_BUILTIN, LIGHT_ON);  
+    digitalWrite(ledPin, LIGHT_ON);  
     delayMicroseconds(intervalRising);
-    digitalWrite(LED_BUILTIN, LIGHT_OFF);
+    digitalWrite(ledPin, LIGHT_OFF);
     delayMicroseconds(intervalFalling);
 
     intervalRising--;
@@ -30,9 +32,9 @@ void loop() {
     
 
   while(intervalFalling) {    
-    digitalWrite(LED_BUILTIN, LIGHT_ON);  
+    digitalWrite(ledPin, LIGHT_ON);  
     delayMicroseconds(intervalRising);
-    digitalWrite(LED_BUILTIN, LIGHT_OFF);
+    digitalWrite(ledPin, LIGHT_OFF);
     delayMicroseconds(intervalFalling);
       
     intervalRising++;
