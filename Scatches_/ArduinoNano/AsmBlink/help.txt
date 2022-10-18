@@ -1,0 +1,6 @@
+
+// Здесь описание всех регистров AVR МК
+https://github.com/DarkSector/AVR/tree/master/asm/include
+
+// Ассемблер в Ардуино
+https://adior.ru/index.php/robototekhnika/155-assembler-arduino
