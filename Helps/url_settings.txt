@@ -37,3 +37,7 @@ http://drazzy.com/package_drazzy.com_index.json
 https://cdn.jsdelivr.net/gh/Hi-LinkDuino/w80x_arduino/package_w80x_proxy_index.json
 // w80x (temp)
 https://server.leidtogi.ru/temp.json
+
+
+// Seeduino
+https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json
