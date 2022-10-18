@@ -31,3 +31,6 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 // MH-Tiny
 http://drazzy.com/package_drazzy.com_index.json
+
+// w80x (lua)
+https://cdn.jsdelivr.net/gh/Hi-LinkDuino/w80x_arduino/package_w80x_proxy_index.json
