@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>4</fileVersion>
+    <fileChecksum>4136693591</fileChecksum>
+    <configuration>
+        <name>Debug</name>
+        <outputs>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_bkp.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_rst_clk.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_dma.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_clk_msr.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_uart.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_sensors.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_wwdg.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_adc.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_otp.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_iwdg.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_i2c.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_rng.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_rst_clk.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_sensors.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_ssp.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_timer.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_uart.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_wwdg.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_adc.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_adcui.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_bkp.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_clk_msr.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_crc.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_dma.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_eeprom.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_gpio.xcl</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_ssp.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_timer.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_rst_clk.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_sensors.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_lib.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_gpio.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_adcui.h</file>
+            <file>$TOOLKIT_DIR$\lib\dlrv32imcn.a</file>
+            <file>$TOOLKIT_DIR$\config\linker\Milandr\MLDR187.icf</file>
+            <file>$TOOLKIT_DIR$\lib\dbgrv32imcn.a</file>
+            <file>$TOOLKIT_DIR$\lib\atomicrv32imcn.a</file>
+            <file>$TOOLKIT_DIR$\lib\dirv32imcn.a</file>
+            <file>$PROJ_DIR$\Debug\List\Led_MLDR187.map</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_rng.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_eeprom.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_crc.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_power.h</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\inc\MLDR187_iso7816.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_adcui.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_crc.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_adc.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_clk_msr.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_bkp.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_iso7816.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_i2c.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_gpio.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_eeprom.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_dma.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_power.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_otp.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_iwdg.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_i2c.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_iso7816.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_iwdg.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_otp.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_power.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_rng.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_rst_clk.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_sensors.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_ssp.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_timer.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_uart.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MLDR187_wwdg.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.xcl</file>
+            <file>$PROJ_DIR$\Debug\Exe\Led_MLDR187.out</file>
+            <file>$PROJ_DIR$\Debug\Obj\Led_MLDR187.pbd</file>
+            <file>$PROJ_DIR$\main.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_ssp.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_timer.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_uart.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_wwdg.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_adc.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_i2c.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_rng.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_iwdg.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_otp.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_iso7816.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_clk_msr.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_crc.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_eeprom.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_gpio.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_dma.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_power.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_bkp.c</file>
+            <file>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_adcui.c</file>
+        </outputs>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_rst_clk.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 70</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 12</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 1 0</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_sensors.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 71</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 13</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 5 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 78 45</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Debug\Exe\Led_MLDR187.out</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 45</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 41 76 53 51 55 54 52 60 59 58 57 56 63 62 61 11 12 13 14 15 16 17 43 42 40 44</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 77</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 76</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 31 30 35 33 32 34 36 37 38</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_ssp.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 72</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 14</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 26 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_timer.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 73</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 15</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 27 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_uart.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 74</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 16</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 4 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_wwdg.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 75</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 17</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 6 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_adc.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 18</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 53</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 7 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_i2c.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 64</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 57</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 10 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_rng.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 69</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 11</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 46 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_iwdg.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 63</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 9 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_otp.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 67</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 62</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 8 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_iso7816.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 65</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 56</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 50 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_clk_msr.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 21</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 54</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 3 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_crc.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 22</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 52</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 48</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_eeprom.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 24</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 59</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 47 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_gpio.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 25</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 58</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 38 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_dma.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 23</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 60</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 2 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_power.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 68</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 61</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 49 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_bkp.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 20</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 55</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 0 1</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\MLDR187_SPL\src\MLDR187_adcui.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 19</file>
+                </tool>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 51</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCRISCV</name>
+                    <file> 30 35 33 32 34 36 37 31 39 1</file>
+                </tool>
+            </inputs>
+        </file>
+    </configuration>
+    <configuration>
+        <name>Release</name>
+        <outputs />
+        <forcedrebuild>
+            <name>[MULTI_TOOL]</name>
+            <tool>ILINK</tool>
+        </forcedrebuild>
+    </configuration>
+</project>

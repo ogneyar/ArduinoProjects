@@ -1,0 +1,100 @@
+
+Реализация Media Access Interface для FatFs:
+
+-disk_status (diskio.c) - Get device status
+  └ SD_Detect() (sdio_sd.c) - всегда возвращает SD_PRESENT.
+  
+-disk_initialize (diskio.c) - Initialize device
+  └ SD_Init() (sdio_sd.c)
+    ├ SD_PowerON() (sdio_sd.c)
+    │ ├ Включение блока SDIO и установка конфигурации: 400 кГц, шина данных 1 бит;
+    │ └ Отправка команд: CMD0 (GO_IDLE_STATE) - сброс карты и переход в режим Card Identification Mode, 
+    │                    CMD8 (SEND_IF_COND) - проверка рабочих напряжений карты памяти. SD card 2.0 возвращает ответ, SD card 1.1 - не отвечает.
+    │                    ACMD41(SD_SEND_OP_COND) с аргументами в зависимости от карты (SD card 2.0 или SD card 1.1), по ответу (регистр OCR) определяется статус включения карты (31 бит).
+    │
+    ├ SD_InitializeCards() (sdio_sd.c)
+    │ └ Отправка команд и сохранение полученных параметров: CMD2 (ALL_SEND_CID), сохранение парметров CID[3:0]; 
+    │                                                       CMD3 (SEND_RELATIVE_ADDR), сохранение адреса карты RCA, 
+    │                                                       CMD9 (SEND_CSD) с адресом карты RCA, сохранение параметров CSD[3:0].
+    │
+    ├ После команды CMD3 карта переходит в Data Transfer Mode, поэтому выполняется инициализация контроллера SDIO на частоту не более 10 МГц, шина данных 1 бит. 
+    │
+    ├ SD_GetCardInfo(&SDCardInfo) (sdio_sd.c)
+    │ └ Заполнение структуры SDCardInfo данными, полученными с карты памяти.
+    │
+    ├ SD_SelectDeselect() (sdio_sd.c)
+    │ └ Отправка команды CMD7 (SELECT_CARD/DESELECT_CARD) с адресом RCA, чтобы выбрать карту и перевести её в состояние передачи (Transfer state).
+    │
+    └ SD_EnableWideBusOperation(SDIO_BusWide_4b) (sdio_sd.c)
+      ├ SDEnWideBus() (sdio_sd.c)
+      │ ├ FindSCR() (sdio_sd.c) - отправка команд: CMD16 (SET_BLOCKLEN) - установка длины блока 8 байт;
+      │ │                                          ACMD51 (SEND_SCR) - чтение регистра SCR (предварительно включается режим чтения данных для получения 8 байт по линии DAT0).
+      │ │  
+      │ └ Анализ поля SD_BUS_WIDTHS в регистре SCR. Если режим 4 битной шины данных поддерживается, то отправка команды:
+      │   ACMD6 (SET_BUS_WIDTH) с аргументом 2 - установка 4 битной шины данных.
+      │
+      └ Если карта поддерживает режим 4 битной шины данных, то выполняется инициализация контроллера SDIO в режим 4 битной шины данных.
+    
+-disk_read (diskio.c) - Read data
+  ├ Если массив buff[], из стуктуры типа FIL, выровнен на границе 32-разрядного слова, то вызываются:
+  │ ├ SD_ReadMultiBlocks_DMA() (sdio_sd.c) - чтение блоков данных с помощью DMA
+  │ │ ├ Разрешение прерываний от SDIO и инициализация контроллера DMA на приём NumberOfBlocks*BlockSize байт.
+  │ │ ├ Отправка команды CMD16 (SET_BLOCKLEN) - установка длины блока 512 байт.
+  │ │ ├ Включение режима чтения данных для получения NumberOfBlocks*BlockSize байт.
+  │ │ └ Отправка команды CMD18 (READ_MULTIPLE_BLOCK) - чтение (выдача картой) последовательно идущих блоков, пока не будет отправлена команда CMD12 (STOP_TRANSMISSION).
+  │ │
+  │ └ SD_WaitReadOperation() (sdio_sd.c)
+  │   ├ Ожидание флагов, устанавливаемых в прерывании от DMA (окончание работы) или в прерывании от SDIO, либо ожидание таймаута.
+  │   └ SD_StopTransfer()
+  │     └ Отправка команды CMD12 (STOP_TRANSMISSION) - остановка ранее переданной команды CMD18 (READ_MULTIPLE_BLOCK).
+  │
+  ├ Если массив buff[], из стуктуры типа FIL, НЕ выровнен на границе 32-разрядного слова, то вызывается:
+  │ └ SD_ReadMultiBlocks() (sdio_sd.c) - чтение блоков данных с помощью CPU (Cortex-M4 поддерживает невыровенный доступ)
+  │   ├ Отправка команды CMD16 (SET_BLOCKLEN) - установка длины блока 512 байт.
+  │   ├ Включение режима чтения данных для получения NumberOfBlocks*BlockSize байт.
+  │   ├ Отправка команды CMD18 (READ_MULTIPLE_BLOCK) - чтение (выдача картой) последовательно идущих блоков, пока не будет отправлена команда CMD12 (STOP_TRANSMISSION).
+  │   ├ Считывание NumberOfBlocks*BlockSize байт процессором из буфера FIFO приемника с отслеживанием соответствующих флагов контроллера SDIO.
+  │   ├ SD_StopTransfer()
+  │   │ └ Отправка команды CMD12 (STOP_TRANSMISSION) - остановка ранее переданной команды CMD18 (READ_MULTIPLE_BLOCK).
+  │   │
+  │   └  Проверка флагов ошибок.
+  │
+  └ SD_GetStatus() (sdio_sd.c)
+    └ Отправка команды CMD13 (SEND_STATUS) для получения Сard status (R1). Чтение повторяется до тех пор, пока карта не перейдёт в состояние tran (поле CURRENT_STATE регистра Сard status).
+
+-disk_write (diskio.c) - Write data
+  ├ Если массив buff[], из стуктуры типа FIL, выровнен на границе 32-разрядного слова, то вызываются:
+  │ ├ SD_WriteMultiBlocks_DMA() (sdio_sd.c) - запись блоков данных с помощью DMA
+  │ │ ├ Разрешение прерываний от SDIO и инициализация контроллера DMA на передачу NumberOfBlocks*BlockSize байт.
+  │ │ ├ Отправка команды CMD16 (SET_BLOCKLEN) - установка длины блока 512 байт.
+  │ │ ├ Отправка команды ACMD23 (SET_WR_BLK_ERASE_COUNT) - установка NumberOfBlocks записываемых блоков, которые должны быть предварительно очищены перед записью.
+  │ │ ├ Отправка команды CMD25 (WRITE_MULTIPLE_BLOCK) - запись последовательно идущих блоков, пока не будет отправлена команда CMD12 (STOP_TRANSMISSION).
+  │ │ └ Включение режима записи данных для передачи NumberOfBlocks*BlockSize байт.
+  │ │
+  │ └ SD_WaitWriteOperation() (sdio_sd.c)
+  │   ├ Ожидание флагов, устанавливаемых в прерывании от DMA (окончание работы) или в прерывании от SDIO, либо ожидание таймаута.
+  │   └ SD_StopTransfer()
+  │     └ Отправка команды CMD12 (STOP_TRANSMISSION) - остановка ранее переданной команды CMD25 (WRITE_MULTIPLE_BLOCK).
+  │
+  ├ Если массив buff[], из стуктуры типа FIL, НЕ выровнен на границе 32-разрядного слова, то вызывается:
+  │ └ SD_WriteMultiBlocks() (sdio_sd.c) - запись блоков данных с помощью CPU (Cortex-M4 поддерживает невыровенный доступ)
+  │   ├ Отправка команды CMD16 (SET_BLOCKLEN) - установка длины блока 512 байт.
+  │   ├ Отправка команды ACMD23 (SET_WR_BLK_ERASE_COUNT) - установка NumberOfBlocks записываемых блоков, которые должны быть предварительно очищены перед записью.
+  │   ├ Отправка команды CMD25 (WRITE_MULTIPLE_BLOCK) - запись последовательно идущих блоков, пока не будет отправлена команда CMD12 (STOP_TRANSMISSION).
+  │   ├ Включение режима записи данных для передачи NumberOfBlocks*BlockSize байт.
+  │   ├ Запись NumberOfBlocks*BlockSize байт процессором в буфер FIFO передатчика с отслеживанием соответствующих флагов контроллера SDIO.
+  │   ├ SD_StopTransfer()
+  │   │ └ Отправка команды CMD12 (STOP_TRANSMISSION) - остановка ранее переданной команды CMD18 (READ_MULTIPLE_BLOCK).
+  │   │
+  │   └  Проверка флагов ошибок.
+  │
+  └ SD_GetStatus() (sdio_sd.c)
+    └ Отправка команды CMD13 (SEND_STATUS) для получения Сard status (R1). Чтение повторяется до тех пор, пока карта не перейдёт в состояние tran (поле CURRENT_STATE регистра Сard status).
+    
+-disk_ioctl (diskio.c) Control device dependent functions
+ └ SD_GetCardInfo() (sdio_sd.c)
+   └ Вызывается при необходимости получить параметры карты памяти.
+   
+-get_fattime Get current time - не используется, так как установлено макроопределение FF_FS_NORTC=1 в ffconf.h
+
+

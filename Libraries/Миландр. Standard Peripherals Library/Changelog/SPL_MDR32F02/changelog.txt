@@ -1,0 +1,157 @@
+Список изменений Standard Peripherals Library для МК 1986ВК025.
+
+--------------------------------------------------------------------------------
+
+ver 0.31 - 29.12.2021
+1. Bits F0VGAIN and F0I0GAIN were swapped within spec., MLDR187.h updated
+2. Fixed bit mask for RST_CLK_SSP_CLOCK_SSPxCLKEN fields
+
+ver 0.30 - 14.10.2021
+1. fixed IAR C-compiler error with binary number representation
+2. fixed assembly injection in BKP for compatibility with the IAR compiler
+3. fixed ADC channels definitions
+4. ADCUI DMA WRAPPER was added
+5. fixed bug in ADC module
+6. SSP_DMACmd takes into account the previous DMACR value
+7. compatibility with IAR
+8. fixed race condition within BKP module
+9. fixed bugs from cppcheck
+10. fixed typos in asserts
+11. enum was fixed in ADCUI
+12. DMA init address alignment was fixed
+
+ver 0.29 - 21.05.2021
+1. BKP domain RTC fixed
+2. ISO7816 bug fixed
+3. CLK_MEASURE register correction
+4. S-D ADCUI current integrator initial setup with correct value
+5. ADC magic number added, ADC_GO -> ADC_DelayGO
+
+ver 0.28 - 17.03.2021
+1. extended DMA support
+2. interrupts header moved to SPL
+3. UART module backward compatibility naming:
+    UART_PutNext -> UART_SendData
+    UART_GetLast -> UART_ReceiveData
+    UART_GetFlagSingle -> UART_GetFlagStatus
+    UART_ITsetNewState -> UART_ITConfig
+4. SSP module backward compatibility naming:
+    SSP_PutNext -> SSP_SendData
+    SSP_GetLast -> SSP_ReceiveData
+    SSP_GetFlagSingle -> SSP_GetFlagStatus
+    SSP_ItsetNewState -> SSP_ItConfig
+5. I2C module backward compatibility naming:
+    I2C_Init with initialization structure
+    I2C_InitiateTransfer -> I2C_Send7bitAddress
+    I2C_GetLastReceived -> I2C_GetReceivedData
+    I2C_FinalizeTransfer -> I2C_SendSTOP
+    I2C_CheckFlag -> I2C_GetFlagStatus
+6. some bugs fixed within OTP module
+7. MATH_sqrtX2pY2FastASM negative and zero arg bug fixed
+
+ver 0.27 - 11.03.2021
+1. TIM module fixed
+2. IWDG module update at start
+3. WWDG module fixed
+4. RST_CLK reinitialize (with PLL switch off) procedure fixed
+
+ver 0.26 - 15.02.2021
+1. EEPROM setLattency() TMR bit should be set every time
+
+ver 0.25 - 12.02.2021
+1. EEPROM module fixed after @sobolev.v review: 1) TMR bit should be set every time, 2) write byte variable length fixed, 3) definition EEPROM_CMD_YE fixed
+2. RST_CLK module fixed: 1) peripheral source clock moved to global for legacy support, ADCUI frequency selector fixed
+3. UART IT naming fixed
+4. BKP DeInit() bug fixed after @sobolev.v review: default MUST be equal to it's RESET value
+5. version list added
+
+ver 0.24 - 11.02.2021
+1. CRYPTO Kuznechik
+    Fixed a bug in assembler implementation of cryptography block interaction when:
+    program is placed in RAM and kuzExpandKey, kuzEncBlock, kuzDecBlock gave wrong results.
+    Reason is in insufficient NOP delays.
+    Added some more, tested on demo board.
+
+ver 0.23 - 28.01.2021
+1. MATH library added
+
+ver 0.22 - 19.01.2021
+1. ADCUI bug fixed - zeroCrossRms option doesn't reset DSP any more
+
+ver 0.21 - 25.12.2020
+1. BKP_Init() function should not touch registers that doesn't set, IAR compatibility problem fixed
+
+ver 0.20 - 24.12.2020
+1. BKP module:
+    a. function BKP_SetTamperNewState() added
+    b. new function - BKP_GetSWPinState() that return state of the SW pin
+    c. BKP_LDO fix after @Hamizov.R - we should drop SW_OFF bit every time while read-modify-write
+    operations, because it loaded from pin state, not a previous state
+    d. Write protection should be deactivated before any operations with register
+
+ver 0.19 - 22.12.2020
+1. Fix address increments for channels 1 and 2
+
+ver 0.18 - 17.12.2020
+1. UART blocking receving bug fixed after @komarkov.v review
+
+ver 0.17 - 15.12.2020
+1. TIMER module bug fixed + renamed NonInverted channel to Direct channel to avoid simular problems
+2. PORT init struct default function added 
+
+ver 0.16 - 02.12.2020
+1. Timer module non-atomic clear flag operation bug fixed
+
+ver 0.15 - 01.12.2020
+1. UART RFU fields added
+
+ver 0.14 - 09.11.2020
+1. CRYPTO AES function
+
+ver 0.13 - 30.10.2020
+1. CRYPTO Kuznechik function
+2. PORT, IWDG, TIMER naming functions fixed
+3. maximum PLL multiplier comment fixed
+
+ver 0.12 - 16.10.2020
+1. UART send string function
+2. PLL bug fixed
+
+ver 0.11 - 13.10.2020
+1. ADCUI, ADC, RST_CLK modules formating
+
+ver 0.10 - 09.10.2020
+1. SSP, UART modules formatting
+
+ver 0.9 - 08.10.2020
+1. WWDG, SENSORS, RST_CLK, RANDOM modules CMSIS naming convention fixed
+2. UART, TIMER, SENSORS unused sections removed
+
+ver 0.8 - 07.10.2020
+1. POWER, OTP, IWDG, CRC, GPIO modules CMSIS naming convention fixed
+
+ver 0.7 - 05.10.2020
+1. CLK_MSR module added
+
+ver 0.6 - 01.10.2020
+1. ADC module added
+2. ISO7816 module added 
+
+ver 0.5 - 30.09.2020
+1. BKP module added
+
+ver 0.4 - 28.09.2020
+1. ADCUI module added
+
+ver 0.3 - 24.09.2020
+1. DMA module added
+2. OTP module timings possible overflow fixed
+
+ver 0.2 - 23.09.2020
+1. I2C module added
+2. SSP module added
+3. UART data is right aligned
+
+ver 0.1 - 22.09.2020
+1. initial version
+

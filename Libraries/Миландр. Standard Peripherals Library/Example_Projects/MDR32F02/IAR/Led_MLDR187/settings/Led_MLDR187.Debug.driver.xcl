@@ -1,0 +1,19 @@
+"--core=RV32IMC" 
+
+"-p" 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\riscv\config\debugger\Milandr\MLDR187.ddf" 
+
+"--jet_standard_reset=1,0,0" 
+
+"--reset_style=\"0,-,0,Disabled__no_reset_\"" 
+
+"--reset_style=\"1,-,1,Software\"" 
+
+"--reset_style=\"2,-,0,Hardware\"" 
+
+"--drv_catch_exceptions=0x70000001" 
+
+
+
+

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>4</fileVersion>
+    <fileChecksum>2844724150</fileChecksum>
+    <configuration>
+        <name>Debug</name>
+        <outputs>
+            <file>$PROJ_DIR$\Debug\Obj\HelloWorld_MDR32F9Q2I.pbd</file>
+            <file>$PROJ_DIR$\Debug\Obj\system_MDR32F9Q2I.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MDR32FxQI_rst_clk.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\MDR32FxQI_rst_clk.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\MDR32FxQI_port.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+            <file>$PROJ_DIR$\..\..\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\startup\iar\system_MDR32F9Q2I.c</file>
+            <file>$PROJ_DIR$\Debug\Obj\system_MDR32F9Q2I.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.xcl</file>
+            <file>$PROJ_DIR$\Debug\Obj\startup_MDR32F9Q2I.o</file>
+            <file>$PROJ_DIR$\..\..\Libraries\SPL\MDR32FxQI\src\MDR32FxQI_port.c</file>
+            <file>$PROJ_DIR$\main.c</file>
+            <file>$PROJ_DIR$\Debug\Obj\MDR32FxQI_port.o</file>
+            <file>$PROJ_DIR$\..\..\Libraries\SPL\MDR32FxQI\src\MDR32FxQI_rst_clk.c</file>
+            <file>$PROJ_DIR$\..\..\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\startup\iar\startup_MDR32F9Q2I.S</file>
+            <file>$PROJ_DIR$\Debug\Exe\HelloWorld_MDR32F9Q2I.out</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 15</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\startup\iar\system_MDR32F9Q2I.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 7</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 1</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\Libraries\SPL\MDR32FxQI\src\MDR32FxQI_port.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 12</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 4</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 5</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 8</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\Libraries\SPL\MDR32FxQI\src\MDR32FxQI_rst_clk.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 3</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 2</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\startup\iar\startup_MDR32F9Q2I.S</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 9</file>
+                </tool>
+            </outputs>
+        </file>
+    </configuration>
+    <configuration>
+        <name>Release</name>
+        <outputs>
+            <file>$PROJ_DIR$\Release\Exe\HelloWorld_1986VE92.out</file>
+            <file>$PROJ_DIR$\Release\Obj\MDR32F9Qx_port.__cstat.et</file>
+            <file>$PROJ_DIR$\Release\Exe\HelloWorld_1986VE92.hex</file>
+            <file>$PROJ_DIR$\..\..\SPL\CMSIS\CM3\DeviceSupport\MDR32F9Qx\startup\iar\startup_MDR32F9Qx.s</file>
+            <file>$PROJ_DIR$\Release\Obj\MDR32F9Qx_rst_clk.__cstat.et</file>
+            <file>$PROJ_DIR$\Release\Obj\system_MDR32F9Qx.xcl</file>
+            <file>$PROJ_DIR$\..\..\SPL\MDR32F9Qx_StdPeriph_Driver\src\MDR32F9Qx_port.c</file>
+            <file>$PROJ_DIR$\Release\Obj\MDR32F9Qx_rst_clk.xcl</file>
+            <file>$PROJ_DIR$\..\..\SPL\CMSIS\CM3\DeviceSupport\MDR32F9Qx\startup\iar\system_MDR32F9Qx.c</file>
+            <file>$PROJ_DIR$\..\..\SPL\MDR32F9Qx_StdPeriph_Driver\src\MDR32F9Qx_rst_clk.c</file>
+            <file>$PROJ_DIR$\main.c</file>
+            <file>$PROJ_DIR$\Release\Obj\startup_MDR32F9Qx.o</file>
+            <file>$PROJ_DIR$\Release\Obj\system_MDR32F9Qx.__cstat.et</file>
+            <file>$PROJ_DIR$\Release\Obj\MDR32F9Qx_port.xcl</file>
+            <file>$PROJ_DIR$\Release\Obj\main.xcl</file>
+            <file>$PROJ_DIR$\Release\Obj\main.__cstat.et</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 0</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Release\Exe\HelloWorld_1986VE92.out</name>
+            <outputs>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 2</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\SPL\CMSIS\CM3\DeviceSupport\MDR32F9Qx\startup\iar\startup_MDR32F9Qx.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 11</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\SPL\MDR32F9Qx_StdPeriph_Driver\src\MDR32F9Qx_port.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 13</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 1</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\SPL\CMSIS\CM3\DeviceSupport\MDR32F9Qx\startup\iar\system_MDR32F9Qx.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 5</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 12</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\SPL\MDR32F9Qx_StdPeriph_Driver\src\MDR32F9Qx_rst_clk.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 7</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 4</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+            <outputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 14</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 15</file>
+                </tool>
+            </outputs>
+        </file>
+        <forcedrebuild>
+            <name>[MULTI_TOOL]</name>
+            <tool>ILINK</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\Release\Exe\HelloWorld_1986VE92.out</name>
+            <tool>OBJCOPY</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>[REBUILD_ALL]</name>
+        </forcedrebuild>
+    </configuration>
+</project>

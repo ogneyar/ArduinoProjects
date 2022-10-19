@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspace>
+    <project>
+        <path>$WS_DIR$\MDR32FG16S1QI\HelloWorld_MDR32FG16S1QI\HelloWorld_MDR32FG16S1QI.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\MDR32F1QI\HelloWorld_MDR32F1QI\HelloWorld_MDR32F1QI.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\MDR32F9Q2I\HelloWorld_MDR32F9Q2I\HelloWorld_MDR32F9Q2I.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\MDR1986VK01\HelloWorld_MDR1986VK01\HelloWorld_MDR1986VK01.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\MDR1986VK01\HelloWorld_DualCore_MDR1986VK01\HelloWorld_DualCore_MDR1986VK01.ewp</path>
+    </project>
+    <batchBuild />
+</workspace>
