@@ -1,5 +1,7 @@
 --cpu Cortex-M3
 ".\main.o"
+".\mdr32fxqi_port.o"
+".\mdr32fxqi_rst_clk.o"
 ".\startup_mdr32f9q2i_1.o"
 ".\system_mdr32f9q2i_1.o"
 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

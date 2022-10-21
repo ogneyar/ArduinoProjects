@@ -404,6 +404,21 @@
               <FileType>5</FileType>
               <FilePath>.\MDR32FxQI_rst_clk.h</FilePath>
             </File>
+            <File>
+              <FileName>MDR32FxQI_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MDR32FxQI_port.c</FilePath>
+            </File>
+            <File>
+              <FileName>MDR32FxQI_rst_clk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MDR32FxQI_rst_clk.c</FilePath>
+            </File>
+            <File>
+              <FileName>MDR32FxQI_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MDR32FxQI_config.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
