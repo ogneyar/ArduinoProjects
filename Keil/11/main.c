@@ -31,10 +31,10 @@ void Init_All_Ports(void)
 
 int main(void)
 {
-	
+/*
     Init_All_Ports();
 
-    RST_CLK_PCLKcmd(RST_CLK_PCLK_PORTB | RST_CLK_PCLK_PORTD/* | RST_CLK_PCLK_PORTE*/, ENABLE);
+    RST_CLK_PCLKcmd(RST_CLK_PCLK_PORTB | RST_CLK_PCLK_PORTD, ENABLE);
 
     PORT_InitStructure.PORT_Pin   = (PORT_Pin_1 | PORT_Pin_2);
     PORT_InitStructure.PORT_OE    = PORT_OE_OUT;
@@ -51,7 +51,7 @@ int main(void)
     PORT_InitStructure.PORT_SPEED = PORT_SPEED_SLOW;
 
     PORT_Init(MDR_PORTD, &PORT_InitStructure);
-
+*/
     /*PORT_InitStructure.PORT_Pin   = (PORT_Pin_3);
     PORT_InitStructure.PORT_OE    = PORT_OE_IN;
     PORT_InitStructure.PORT_FUNC  = PORT_FUNC_PORT;
@@ -60,9 +60,17 @@ int main(void)
 
     PORT_Init(MDR_PORTE, &PORT_InitStructure);*/
 
+MDR_RST_CLK->PER_CLOCK |= (1 << 23);
+MDR_PORTC->PWR |= PORT_PWR2_Msk;
+MDR_PORTC->ANALOG |= 0x4;
+MDR_PORTC->OE |= 0x4;
+
+volatile uint16_t wait = 0;
 
     while(1)
     {
+			if (! wait) MDR_PORTC->RXTX ^= 0x4;
+			/*
         if (PORT_ReadInputDataBit(MDR_PORTB, PORT_Pin_5) == RESET)
         {
             PORT_SetBits(MDR_PORTC, PORT_Pin_1);
@@ -73,6 +81,7 @@ int main(void)
 					  PORT_SetBits(MDR_PORTC, PORT_Pin_2);
             PORT_ResetBits(MDR_PORTC, PORT_Pin_1);
         }
+			*/
     
         /*if (PORT_ReadInputDataBit(MDR_PORTE, PORT_Pin_3) == RESET)
         {
@@ -85,7 +94,7 @@ int main(void)
     }
 }
 
-
+/*
 #if (USE_ASSERT_INFO == 1)
 void assert_failed(uint8_t* file, uint32_t line)
 {
@@ -101,4 +110,5 @@ void assert_failed(uint8_t* file, uint32_t line, const uint8_t* expr)
     }
 }
 #endif
+*/
 
