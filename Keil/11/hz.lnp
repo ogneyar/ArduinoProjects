@@ -2,8 +2,8 @@
 ".\main.o"
 ".\mdr32fxqi_port.o"
 ".\mdr32fxqi_rst_clk.o"
-".\startup_mdr32f9q2i_1.o"
-".\system_mdr32f9q2i_1.o"
+".\startup_mdr32f9q2i.o"
+".\system_mdr32f9q2i.o"
 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\hz.map" -o .\hz.axf

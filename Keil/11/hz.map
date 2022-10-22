@@ -54,20 +54,20 @@ Section Cross References
     mdr32fxqi_rst_clk.o(.ARM.exidx.text.RST_CLK_RTC_HSEclkEnable) refers to mdr32fxqi_rst_clk.o(.text.RST_CLK_RTC_HSEclkEnable) for [Anonymous Symbol]
     mdr32fxqi_rst_clk.o(.ARM.exidx.text.RST_CLK_CPUclkSelectionC1) refers to mdr32fxqi_rst_clk.o(.text.RST_CLK_CPUclkSelectionC1) for [Anonymous Symbol]
     mdr32fxqi_rst_clk.o(.ARM.exidx.text.RST_CLK_GetClocksFreq) refers to mdr32fxqi_rst_clk.o(.text.RST_CLK_GetClocksFreq) for [Anonymous Symbol]
-    startup_mdr32f9q2i_1.o(STACK) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
-    startup_mdr32f9q2i_1.o(HEAP) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
-    startup_mdr32f9q2i_1.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
-    startup_mdr32f9q2i_1.o(RESET) refers to startup_mdr32f9q2i_1.o(STACK) for __initial_sp
-    startup_mdr32f9q2i_1.o(RESET) refers to startup_mdr32f9q2i_1.o(.text) for Reset_Handler
-    startup_mdr32f9q2i_1.o(.text) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
-    startup_mdr32f9q2i_1.o(.text) refers to system_mdr32f9q2i_1.o(.text.SystemInit) for SystemInit
-    startup_mdr32f9q2i_1.o(.text) refers to __main.o(!!!main) for __main
-    startup_mdr32f9q2i_1.o(.text) refers to startup_mdr32f9q2i_1.o(HEAP) for Heap_Mem
-    startup_mdr32f9q2i_1.o(.text) refers to startup_mdr32f9q2i_1.o(STACK) for Stack_Mem
-    system_mdr32f9q2i_1.o(.text.SystemCoreClockUpdate) refers to system_mdr32f9q2i_1.o(.data.SystemCoreClock) for SystemCoreClock
-    system_mdr32f9q2i_1.o(.ARM.exidx.text.SystemCoreClockUpdate) refers to system_mdr32f9q2i_1.o(.text.SystemCoreClockUpdate) for [Anonymous Symbol]
-    system_mdr32f9q2i_1.o(.text.SystemInit) refers to system_mdr32f9q2i_1.o(.data.SystemCoreClock) for SystemCoreClock
-    system_mdr32f9q2i_1.o(.ARM.exidx.text.SystemInit) refers to system_mdr32f9q2i_1.o(.text.SystemInit) for [Anonymous Symbol]
+    startup_mdr32f9q2i.o(STACK) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mdr32f9q2i.o(HEAP) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mdr32f9q2i.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mdr32f9q2i.o(RESET) refers to startup_mdr32f9q2i.o(STACK) for __initial_sp
+    startup_mdr32f9q2i.o(RESET) refers to startup_mdr32f9q2i.o(.text) for Reset_Handler
+    startup_mdr32f9q2i.o(.text) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
+    startup_mdr32f9q2i.o(.text) refers to system_mdr32f9q2i.o(.text.SystemInit) for SystemInit
+    startup_mdr32f9q2i.o(.text) refers to __main.o(!!!main) for __main
+    startup_mdr32f9q2i.o(.text) refers to startup_mdr32f9q2i.o(HEAP) for Heap_Mem
+    startup_mdr32f9q2i.o(.text) refers to startup_mdr32f9q2i.o(STACK) for Stack_Mem
+    system_mdr32f9q2i.o(.text.SystemCoreClockUpdate) refers to system_mdr32f9q2i.o(.data.SystemCoreClock) for SystemCoreClock
+    system_mdr32f9q2i.o(.ARM.exidx.text.SystemCoreClockUpdate) refers to system_mdr32f9q2i.o(.text.SystemCoreClockUpdate) for [Anonymous Symbol]
+    system_mdr32f9q2i.o(.text.SystemInit) refers to system_mdr32f9q2i.o(.data.SystemCoreClock) for SystemCoreClock
+    system_mdr32f9q2i.o(.ARM.exidx.text.SystemInit) refers to system_mdr32f9q2i.o(.text.SystemInit) for [Anonymous Symbol]
     __main.o(!!!main) refers to __rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
     __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000A) for __rt_entry_li
     __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000D) for __rt_entry_main
@@ -88,7 +88,7 @@ Section Cross References
     __rtentry4.o(.ARM.Collect$$rtentry$$00000004) refers to sys_stackheap_outer.o(.text) for __user_setup_stackheap
     __rtentry4.o(.ARM.exidx) refers to __rtentry4.o(.ARM.Collect$$rtentry$$00000004) for .ARM.Collect$$rtentry$$00000004
     sys_stackheap_outer.o(.text) refers to libspace.o(.text) for __user_perproc_libspace
-    sys_stackheap_outer.o(.text) refers to startup_mdr32f9q2i_1.o(.text) for __user_initial_stackheap
+    sys_stackheap_outer.o(.text) refers to startup_mdr32f9q2i.o(.text) for __user_initial_stackheap
     exit.o(.text) refers to rtexit.o(.ARM.Collect$$rtexit$$00000000) for __rt_exit
     libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000030) for __rt_lib_init_alloca_1
     libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000002E) for __rt_lib_init_argv_1
@@ -275,10 +275,10 @@ Removing Unused input sections from the image.
     Removing mdr32fxqi_rst_clk.o(.ARM.exidx.text.RST_CLK_CPUclkSelectionC1), (8 bytes).
     Removing mdr32fxqi_rst_clk.o(.text.RST_CLK_GetClocksFreq), (274 bytes).
     Removing mdr32fxqi_rst_clk.o(.ARM.exidx.text.RST_CLK_GetClocksFreq), (8 bytes).
-    Removing system_mdr32f9q2i_1.o(.text), (0 bytes).
-    Removing system_mdr32f9q2i_1.o(.text.SystemCoreClockUpdate), (110 bytes).
-    Removing system_mdr32f9q2i_1.o(.ARM.exidx.text.SystemCoreClockUpdate), (8 bytes).
-    Removing system_mdr32f9q2i_1.o(.ARM.exidx.text.SystemInit), (8 bytes).
+    Removing system_mdr32f9q2i.o(.text), (0 bytes).
+    Removing system_mdr32f9q2i.o(.text.SystemCoreClockUpdate), (110 bytes).
+    Removing system_mdr32f9q2i.o(.ARM.exidx.text.SystemCoreClockUpdate), (8 bytes).
+    Removing system_mdr32f9q2i.o(.ARM.exidx.text.SystemInit), (8 bytes).
 
 100 unused section(s) (total 2398 bytes) removed from the image.
 
@@ -343,11 +343,11 @@ Image Symbol Table
     ../fplib/fpinit_empty.s                  0x00000000   Number         0  fpinit_empty.o ABSOLUTE
     MDR32FxQI_port.c                         0x00000000   Number         0  mdr32fxqi_port.o ABSOLUTE
     MDR32FxQI_rst_clk.c                      0x00000000   Number         0  mdr32fxqi_rst_clk.o ABSOLUTE
-    RTE\Device\MDR32F9Q2I\startup_MDR32F9Q2I.S 0x00000000   Number         0  startup_mdr32f9q2i_1.o ABSOLUTE
+    RTE\Device\MDR32F9Q2I\startup_MDR32F9Q2I.S 0x00000000   Number         0  startup_mdr32f9q2i.o ABSOLUTE
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
     main.c                                   0x00000000   Number         0  main.o ABSOLUTE
-    system_MDR32F9Q2I.c                      0x00000000   Number         0  system_mdr32f9q2i_1.o ABSOLUTE
-    RESET                                    0x00008000   Section      192  startup_mdr32f9q2i_1.o(RESET)
+    system_MDR32F9Q2I.c                      0x00000000   Number         0  system_mdr32f9q2i.o ABSOLUTE
+    RESET                                    0x00008000   Section      192  startup_mdr32f9q2i.o(RESET)
     !!!main                                  0x000080c0   Section        8  __main.o(!!!main)
     !!!scatter                               0x000080c8   Section       52  __scatter.o(!!!scatter)
     !!handler_zi                             0x000080fc   Section       28  __scatter_zi.o(!!handler_zi)
@@ -393,7 +393,7 @@ Image Symbol Table
     .ARM.Collect$$rtexit$$00000002           0x00008134   Section        0  rtexit2.o(.ARM.Collect$$rtexit$$00000002)
     .ARM.Collect$$rtexit$$00000003           0x00008134   Section        4  rtexit2.o(.ARM.Collect$$rtexit$$00000003)
     .ARM.Collect$$rtexit$$00000004           0x00008138   Section        6  rtexit2.o(.ARM.Collect$$rtexit$$00000004)
-    .text                                    0x00008140   Section       64  startup_mdr32f9q2i_1.o(.text)
+    .text                                    0x00008140   Section       64  startup_mdr32f9q2i.o(.text)
     .text                                    0x00008180   Section        0  heapauxi.o(.text)
     .text                                    0x00008186   Section       74  sys_stackheap_outer.o(.text)
     .text                                    0x000081d0   Section        0  exit.o(.text)
@@ -401,14 +401,14 @@ Image Symbol Table
     .text                                    0x000081ec   Section        0  sys_exit.o(.text)
     .text                                    0x000081f8   Section        2  use_no_semi.o(.text)
     .text                                    0x000081fa   Section        0  indicate_semi.o(.text)
-    [Anonymous Symbol]                       0x000081fc   Section        0  system_mdr32f9q2i_1.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x000081fc   Section        0  system_mdr32f9q2i.o(.text.SystemInit)
     [Anonymous Symbol]                       0x00008288   Section        0  main.o(.text.main)
     .bss                                     0x000082e8   Section       96  libspace.o(.bss)
-    Heap_Mem                                 0x00008348   Data         512  startup_mdr32f9q2i_1.o(HEAP)
-    HEAP                                     0x00008348   Section      512  startup_mdr32f9q2i_1.o(HEAP)
-    Stack_Mem                                0x00008548   Data        1024  startup_mdr32f9q2i_1.o(STACK)
-    STACK                                    0x00008548   Section     1024  startup_mdr32f9q2i_1.o(STACK)
-    __initial_sp                             0x00008948   Data           0  startup_mdr32f9q2i_1.o(STACK)
+    Heap_Mem                                 0x00008348   Data         512  startup_mdr32f9q2i.o(HEAP)
+    HEAP                                     0x00008348   Section      512  startup_mdr32f9q2i.o(HEAP)
+    Stack_Mem                                0x00008548   Data        1024  startup_mdr32f9q2i.o(STACK)
+    STACK                                    0x00008548   Section     1024  startup_mdr32f9q2i.o(STACK)
+    __initial_sp                             0x00008948   Data           0  startup_mdr32f9q2i.o(STACK)
 
     Global Symbols
 
@@ -445,9 +445,9 @@ Image Symbol Table
     _terminate_alloc                          - Undefined Weak Reference
     _terminate_user_alloc                     - Undefined Weak Reference
     _terminateio                              - Undefined Weak Reference
-    __Vectors_Size                           0x000000c0   Number         0  startup_mdr32f9q2i_1.o ABSOLUTE
-    __Vectors                                0x00008000   Data           4  startup_mdr32f9q2i_1.o(RESET)
-    __Vectors_End                            0x000080c0   Data           0  startup_mdr32f9q2i_1.o(RESET)
+    __Vectors_Size                           0x000000c0   Number         0  startup_mdr32f9q2i.o ABSOLUTE
+    __Vectors                                0x00008000   Data           4  startup_mdr32f9q2i.o(RESET)
+    __Vectors_End                            0x000080c0   Data           0  startup_mdr32f9q2i.o(RESET)
     __main                                   0x000080c1   Thumb Code     8  __main.o(!!!main)
     __scatterload                            0x000080c9   Thumb Code     0  __scatter.o(!!!scatter)
     __scatterload_rt2                        0x000080c9   Thumb Code    44  __scatter.o(!!!scatter)
@@ -496,38 +496,38 @@ Image Symbol Table
     __rt_exit_ls                             0x00008135   Thumb Code     0  rtexit2.o(.ARM.Collect$$rtexit$$00000003)
     __rt_exit_prels_1                        0x00008135   Thumb Code     0  rtexit2.o(.ARM.Collect$$rtexit$$00000002)
     __rt_exit_exit                           0x00008139   Thumb Code     0  rtexit2.o(.ARM.Collect$$rtexit$$00000004)
-    Reset_Handler                            0x00008141   Thumb Code     8  startup_mdr32f9q2i_1.o(.text)
-    NMI_Handler                              0x00008149   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    HardFault_Handler                        0x0000814b   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    MemManage_Handler                        0x0000814d   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    BusFault_Handler                         0x0000814f   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    UsageFault_Handler                       0x00008151   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    SVC_Handler                              0x00008153   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    DebugMon_Handler                         0x00008155   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    PendSV_Handler                           0x00008157   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    SysTick_Handler                          0x00008159   Thumb Code     2  startup_mdr32f9q2i_1.o(.text)
-    ADC_IRQHandler                           0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    BACKUP_IRQHandler                        0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    CAN1_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    CAN2_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    COMPARATOR_IRQHandler                    0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    DMA_IRQHandler                           0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    EXT_INT1_IRQHandler                      0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    EXT_INT2_IRQHandler                      0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    EXT_INT3_IRQHandler                      0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    EXT_INT4_IRQHandler                      0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    I2C_IRQHandler                           0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    POWER_IRQHandler                         0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    SSP1_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    SSP2_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    Timer1_IRQHandler                        0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    Timer2_IRQHandler                        0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    Timer3_IRQHandler                        0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    UART1_IRQHandler                         0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    UART2_IRQHandler                         0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    USB_IRQHandler                           0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    WWDG_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
-    __user_initial_stackheap                 0x0000815d   Thumb Code     0  startup_mdr32f9q2i_1.o(.text)
+    Reset_Handler                            0x00008141   Thumb Code     8  startup_mdr32f9q2i.o(.text)
+    NMI_Handler                              0x00008149   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    HardFault_Handler                        0x0000814b   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    MemManage_Handler                        0x0000814d   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    BusFault_Handler                         0x0000814f   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    UsageFault_Handler                       0x00008151   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    SVC_Handler                              0x00008153   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    DebugMon_Handler                         0x00008155   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    PendSV_Handler                           0x00008157   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    SysTick_Handler                          0x00008159   Thumb Code     2  startup_mdr32f9q2i.o(.text)
+    ADC_IRQHandler                           0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    BACKUP_IRQHandler                        0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    CAN1_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    CAN2_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    COMPARATOR_IRQHandler                    0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    DMA_IRQHandler                           0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    EXT_INT1_IRQHandler                      0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    EXT_INT2_IRQHandler                      0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    EXT_INT3_IRQHandler                      0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    EXT_INT4_IRQHandler                      0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    I2C_IRQHandler                           0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    POWER_IRQHandler                         0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    SSP1_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    SSP2_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    Timer1_IRQHandler                        0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    Timer2_IRQHandler                        0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    Timer3_IRQHandler                        0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    UART1_IRQHandler                         0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    UART2_IRQHandler                         0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    USB_IRQHandler                           0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    WWDG_IRQHandler                          0x0000815b   Thumb Code     0  startup_mdr32f9q2i.o(.text)
+    __user_initial_stackheap                 0x0000815d   Thumb Code     0  startup_mdr32f9q2i.o(.text)
     __use_two_region_memory                  0x00008181   Thumb Code     2  heapauxi.o(.text)
     __rt_heap_escrow$2region                 0x00008183   Thumb Code     2  heapauxi.o(.text)
     __rt_heap_expand$2region                 0x00008185   Thumb Code     2  heapauxi.o(.text)
@@ -540,11 +540,11 @@ Image Symbol Table
     __I$use$semihosting                      0x000081f9   Thumb Code     0  use_no_semi.o(.text)
     __use_no_semihosting_swi                 0x000081f9   Thumb Code     2  use_no_semi.o(.text)
     __semihosting_library_function           0x000081fb   Thumb Code     0  indicate_semi.o(.text)
-    SystemInit                               0x000081fd   Thumb Code   140  system_mdr32f9q2i_1.o(.text.SystemInit)
+    SystemInit                               0x000081fd   Thumb Code   140  system_mdr32f9q2i.o(.text.SystemInit)
     main                                     0x00008289   Thumb Code    74  main.o(.text.main)
     Region$$Table$$Base                      0x000082d4   Number         0  anon$$obj.o(Region$$Table)
     Region$$Table$$Limit                     0x000082e4   Number         0  anon$$obj.o(Region$$Table)
-    SystemCoreClock                          0x000082e4   Data           4  system_mdr32f9q2i_1.o(.data.SystemCoreClock)
+    SystemCoreClock                          0x000082e4   Data           4  system_mdr32f9q2i.o(.data.SystemCoreClock)
     __libspace_start                         0x000082e8   Data          96  libspace.o(.bss)
     __temporary_stack_top$libspace           0x00008348   Data           0  libspace.o(.bss)
 
@@ -562,7 +562,7 @@ Memory Map of the image
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00008000   0x00008000   0x000000c0   Data   RO          120    RESET               startup_mdr32f9q2i_1.o
+    0x00008000   0x00008000   0x000000c0   Data   RO          120    RESET               startup_mdr32f9q2i.o
     0x000080c0   0x000080c0   0x00000008   Code   RO          144  * !!!main             c_w.l(__main.o)
     0x000080c8   0x000080c8   0x00000034   Code   RO          309    !!!scatter          c_w.l(__scatter.o)
     0x000080fc   0x000080fc   0x0000001c   Code   RO          311    !!handler_zi        c_w.l(__scatter_zi.o)
@@ -609,7 +609,7 @@ Memory Map of the image
     0x00008134   0x00008134   0x00000004   Code   RO          226    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
     0x00008138   0x00008138   0x00000006   Code   RO          227    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x0000813e   0x0000813e   0x00000002   PAD
-    0x00008140   0x00008140   0x00000040   Code   RO          121  * .text               startup_mdr32f9q2i_1.o
+    0x00008140   0x00008140   0x00000040   Code   RO          121  * .text               startup_mdr32f9q2i.o
     0x00008180   0x00008180   0x00000006   Code   RO          142    .text               c_w.l(heapauxi.o)
     0x00008186   0x00008186   0x0000004a   Code   RO          162    .text               c_w.l(sys_stackheap_outer.o)
     0x000081d0   0x000081d0   0x00000012   Code   RO          164    .text               c_w.l(exit.o)
@@ -619,7 +619,7 @@ Memory Map of the image
     0x000081f8   0x000081f8   0x00000002   Code   RO          250    .text               c_w.l(use_no_semi.o)
     0x000081fa   0x000081fa   0x00000000   Code   RO          252    .text               c_w.l(indicate_semi.o)
     0x000081fa   0x000081fa   0x00000002   PAD
-    0x000081fc   0x000081fc   0x0000008c   Code   RO          130    .text.SystemInit    system_mdr32f9q2i_1.o
+    0x000081fc   0x000081fc   0x0000008c   Code   RO          130    .text.SystemInit    system_mdr32f9q2i.o
     0x00008288   0x00008288   0x0000004a   Code   RO            4    .text.main          main.o
     0x000082d2   0x000082d2   0x00000002   PAD
     0x000082d4   0x000082d4   0x00000010   Data   RO          308    Region$$Table       anon$$obj.o
@@ -629,7 +629,7 @@ Memory Map of the image
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x000082e4   0x000082e4   0x00000004   Data   RW          132    .data.SystemCoreClock  system_mdr32f9q2i_1.o
+    0x000082e4   0x000082e4   0x00000004   Data   RW          132    .data.SystemCoreClock  system_mdr32f9q2i.o
 
 
     Execution Region ER_ZI (Exec base: 0x000082e8, Load base: 0x000082e8, Size: 0x00000660, Max: 0xffffffff, ABSOLUTE)
@@ -637,8 +637,8 @@ Memory Map of the image
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x000082e8        -       0x00000060   Zero   RW          173    .bss                c_w.l(libspace.o)
-    0x00008348        -       0x00000200   Zero   RW          119    HEAP                startup_mdr32f9q2i_1.o
-    0x00008548        -       0x00000400   Zero   RW          118    STACK               startup_mdr32f9q2i_1.o
+    0x00008348        -       0x00000200   Zero   RW          119    HEAP                startup_mdr32f9q2i.o
+    0x00008548        -       0x00000400   Zero   RW          118    STACK               startup_mdr32f9q2i.o
 
 
 ==============================================================================
@@ -648,12 +648,12 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        74          0          0          0          0       2555   main.o
-        64         26        192          0       1536        820   startup_mdr32f9q2i_1.o
-       140          0          0          4          0       1766   system_mdr32f9q2i_1.o
+        74          0          0          0          0       2547   main.o
+        64         26        192          0       1536        820   startup_mdr32f9q2i.o
+       140          0          0          4          0       1758   system_mdr32f9q2i.o
 
     ----------------------------------------------------------------------
-       280         26        208          4       1536       5141   Object Totals
+       280         26        208          4       1536       5125   Object Totals
          0          0         16          0          0          0   (incl. Generated)
          2          0          0          0          0          0   (incl. Padding)
 
@@ -701,8 +701,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-       532         42        208          4       1632       5529   Grand Totals
-       532         42        208          4       1632       5529   ELF Image Totals
+       532         42        208          4       1632       5513   Grand Totals
+       532         42        208          4       1632       5513   ELF Image Totals
        532         42        208          4          0          0   ROM Totals
 
 ==============================================================================
