@@ -1,3 +1,0 @@
-Dependencies for Project 'test', Target 'Target 1': (DO NOT MODIFY !)
-CompilerVersion: 6180000::V6.18::ARMCLANG
-F (.\main.c)(0x63502F19)(-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-D__UVISION_VERSION="537"-o ./objects/main.o -MD)
