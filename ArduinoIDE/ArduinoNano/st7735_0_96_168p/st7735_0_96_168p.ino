@@ -1,5 +1,5 @@
 
-// Arduino Nano 168p ST7735S 0,96 inch
+// Arduino Nano 168p ST7735S 0,96 inch 80х160
 
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h> // Hardware-specific library
