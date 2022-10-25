@@ -1,0 +1,212 @@
+
+ATtiny104_test1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000102  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800040  00800040  00000156  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000156  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000188  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  000001c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000050a  00000000  00000000  000001ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000484  00000000  00000000  000006f6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000001f9  00000000  00000000  00000b7a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000054  00000000  00000000  00000d74  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002fa  00000000  00000000  00000dc8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000dc  00000000  00000000  000010c2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  0000119e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0f c0       	rjmp	.+30     	; 0x20 <__ctors_end>
+   2:	16 c0       	rjmp	.+44     	; 0x30 <__bad_interrupt>
+   4:	15 c0       	rjmp	.+42     	; 0x30 <__bad_interrupt>
+   6:	14 c0       	rjmp	.+40     	; 0x30 <__bad_interrupt>
+   8:	13 c0       	rjmp	.+38     	; 0x30 <__bad_interrupt>
+   a:	12 c0       	rjmp	.+36     	; 0x30 <__bad_interrupt>
+   c:	11 c0       	rjmp	.+34     	; 0x30 <__bad_interrupt>
+   e:	10 c0       	rjmp	.+32     	; 0x30 <__bad_interrupt>
+  10:	0f c0       	rjmp	.+30     	; 0x30 <__bad_interrupt>
+  12:	0e c0       	rjmp	.+28     	; 0x30 <__bad_interrupt>
+  14:	0d c0       	rjmp	.+26     	; 0x30 <__bad_interrupt>
+  16:	0c c0       	rjmp	.+24     	; 0x30 <__bad_interrupt>
+  18:	0b c0       	rjmp	.+22     	; 0x30 <__bad_interrupt>
+  1a:	0a c0       	rjmp	.+20     	; 0x30 <__bad_interrupt>
+  1c:	09 c0       	rjmp	.+18     	; 0x30 <__bad_interrupt>
+  1e:	08 c0       	rjmp	.+16     	; 0x30 <__bad_interrupt>
+
+00000020 <__ctors_end>:
+  20:	11 27       	eor	r17, r17
+  22:	1f bf       	out	0x3f, r17	; 63
+  24:	cf e5       	ldi	r28, 0x5F	; 95
+  26:	d0 e0       	ldi	r29, 0x00	; 0
+  28:	de bf       	out	0x3e, r29	; 62
+  2a:	cd bf       	out	0x3d, r28	; 61
+  2c:	2e d0       	rcall	.+92     	; 0x8a <main>
+  2e:	67 c0       	rjmp	.+206    	; 0xfe <_exit>
+
+00000030 <__bad_interrupt>:
+  30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
+
+00000032 <delay>:
+		delay(interval);
+		
+    }
+}
+
+void delay(uint32_t  interval) {
+  32:	cf 93       	push	r28
+  34:	df 93       	push	r29
+  36:	00 d0       	rcall	.+0      	; 0x38 <delay+0x6>
+  38:	00 d0       	rcall	.+0      	; 0x3a <delay+0x8>
+  3a:	cd b7       	in	r28, 0x3d	; 61
+  3c:	de b7       	in	r29, 0x3e	; 62
+  3e:	cf 5f       	subi	r28, 0xFF	; 255
+  40:	df 4f       	sbci	r29, 0xFF	; 255
+  42:	69 93       	st	Y+, r22
+  44:	79 93       	st	Y+, r23
+  46:	89 93       	st	Y+, r24
+  48:	98 83       	st	Y, r25
+  4a:	c4 50       	subi	r28, 0x04	; 4
+  4c:	d0 40       	sbci	r29, 0x00	; 0
+	for (uint32_t i=0; i < interval; i++) asm("nop");
+  4e:	40 e0       	ldi	r20, 0x00	; 0
+  50:	50 e0       	ldi	r21, 0x00	; 0
+  52:	60 e0       	ldi	r22, 0x00	; 0
+  54:	70 e0       	ldi	r23, 0x00	; 0
+  56:	05 c0       	rjmp	.+10     	; 0x62 <__stack+0x3>
+  58:	00 00       	nop
+  5a:	4f 5f       	subi	r20, 0xFF	; 255
+  5c:	5f 4f       	sbci	r21, 0xFF	; 255
+  5e:	6f 4f       	sbci	r22, 0xFF	; 255
+  60:	7f 4f       	sbci	r23, 0xFF	; 255
+  62:	cf 5f       	subi	r28, 0xFF	; 255
+  64:	df 4f       	sbci	r29, 0xFF	; 255
+  66:	89 91       	ld	r24, Y+
+  68:	99 91       	ld	r25, Y+
+  6a:	a9 91       	ld	r26, Y+
+  6c:	b8 81       	ld	r27, Y
+  6e:	c4 50       	subi	r28, 0x04	; 4
+  70:	d0 40       	sbci	r29, 0x00	; 0
+  72:	48 17       	cp	r20, r24
+  74:	59 07       	cpc	r21, r25
+  76:	6a 07       	cpc	r22, r26
+  78:	7b 07       	cpc	r23, r27
+  7a:	70 f3       	brcs	.-36     	; 0x58 <__SREG__+0x19>
+}
+  7c:	0f 91       	pop	r16
+  7e:	0f 91       	pop	r16
+  80:	0f 91       	pop	r16
+  82:	0f 91       	pop	r16
+  84:	df 91       	pop	r29
+  86:	cf 91       	pop	r28
+  88:	08 95       	ret
+
+0000008a <main>:
+
+void delay(uint32_t  interval);
+
+
+int main(void)
+{
+  8a:	cf 93       	push	r28
+  8c:	df 93       	push	r29
+  8e:	00 d0       	rcall	.+0      	; 0x90 <main+0x6>
+  90:	00 d0       	rcall	.+0      	; 0x92 <main+0x8>
+  92:	cd b7       	in	r28, 0x3d	; 61
+  94:	de b7       	in	r29, 0x3e	; 62
+    DDRA |= LED;  // на выход
+  96:	41 b1       	in	r20, 0x01	; 1
+  98:	40 62       	ori	r20, 0x20	; 32
+  9a:	41 b9       	out	0x01, r20	; 1
+	//DDRB &= ~BTN_USR; // на вход (по умолчанию)
+	DDRB |= BTN_USR;
+  9c:	45 b1       	in	r20, 0x05	; 5
+  9e:	42 60       	ori	r20, 0x02	; 2
+  a0:	45 b9       	out	0x05, r20	; 5
+	
+	//PORTB |= BTN_USR; // pull up -  подтяжка к плюсу питания
+	//PORTB &= ~BTN_USR; // pull down -  подтяжка к минусу питания
+	
+	PORTB = 0b00000010;
+  a2:	42 e0       	ldi	r20, 0x02	; 2
+  a4:	46 b9       	out	0x06, r20	; 6
+	
+	uint32_t  interval = 10000;
+	
+	while(PORTB == 0b00000010) ;// BTN_USR) ) ;
+  a6:	46 b1       	in	r20, 0x06	; 6
+  a8:	42 30       	cpi	r20, 0x02	; 2
+  aa:	e9 f3       	breq	.-6      	; 0xa6 <main+0x1c>
+	
+    while (1) 
+    {
+		if ( ! (PORTB & BTN_USR) )
+  ac:	31 99       	sbic	0x06, 1	; 6
+  ae:	0d c0       	rjmp	.+26     	; 0xca <main+0x40>
+			interval = 100000;
+  b0:	40 ea       	ldi	r20, 0xA0	; 160
+  b2:	56 e8       	ldi	r21, 0x86	; 134
+  b4:	61 e0       	ldi	r22, 0x01	; 1
+  b6:	70 e0       	ldi	r23, 0x00	; 0
+  b8:	cf 5f       	subi	r28, 0xFF	; 255
+  ba:	df 4f       	sbci	r29, 0xFF	; 255
+  bc:	49 93       	st	Y+, r20
+  be:	59 93       	st	Y+, r21
+  c0:	69 93       	st	Y+, r22
+  c2:	78 83       	st	Y, r23
+  c4:	c4 50       	subi	r28, 0x04	; 4
+  c6:	d0 40       	sbci	r29, 0x00	; 0
+  c8:	0c c0       	rjmp	.+24     	; 0xe2 <main+0x58>
+		else 
+			interval = 10000;
+  ca:	40 e1       	ldi	r20, 0x10	; 16
+  cc:	57 e2       	ldi	r21, 0x27	; 39
+  ce:	60 e0       	ldi	r22, 0x00	; 0
+  d0:	70 e0       	ldi	r23, 0x00	; 0
+  d2:	cf 5f       	subi	r28, 0xFF	; 255
+  d4:	df 4f       	sbci	r29, 0xFF	; 255
+  d6:	49 93       	st	Y+, r20
+  d8:	59 93       	st	Y+, r21
+  da:	69 93       	st	Y+, r22
+  dc:	78 83       	st	Y, r23
+  de:	c4 50       	subi	r28, 0x04	; 4
+  e0:	d0 40       	sbci	r29, 0x00	; 0
+		
+		PORT_LED ^= LED;
+  e2:	52 b1       	in	r21, 0x02	; 2
+  e4:	40 e2       	ldi	r20, 0x20	; 32
+  e6:	45 27       	eor	r20, r21
+  e8:	42 b9       	out	0x02, r20	; 2
+		delay(interval);
+  ea:	cf 5f       	subi	r28, 0xFF	; 255
+  ec:	df 4f       	sbci	r29, 0xFF	; 255
+  ee:	69 91       	ld	r22, Y+
+  f0:	79 91       	ld	r23, Y+
+  f2:	89 91       	ld	r24, Y+
+  f4:	98 81       	ld	r25, Y
+  f6:	c4 50       	subi	r28, 0x04	; 4
+  f8:	d0 40       	sbci	r29, 0x00	; 0
+  fa:	9b df       	rcall	.-202    	; 0x32 <delay>
+		
+    }
+  fc:	d7 cf       	rjmp	.-82     	; 0xac <main+0x22>
+
+000000fe <_exit>:
+  fe:	f8 94       	cli
+
+00000100 <__stop_program>:
+ 100:	ff cf       	rjmp	.-2      	; 0x100 <__stop_program>
