@@ -1,31 +1,31 @@
 
-Blink.elf:     file format elf32-avr
+ATtiny104_test1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000116  00000000  00000000  00000054  2**1
+  0 .text         00000152  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800040  00800040  0000016a  2**0
+  1 .data         00000000  00800040  00800040  000001a6  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  0000016a  2**0
+  2 .comment      00000030  00000000  00000000  000001a6  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000019c  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001d8  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000028  00000000  00000000  000001d8  2**0
+  4 .debug_aranges 00000028  00000000  00000000  00000214  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000506  00000000  00000000  00000200  2**0
+  5 .debug_info   00000511  00000000  00000000  0000023c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000484  00000000  00000000  00000706  2**0
+  6 .debug_abbrev 00000478  00000000  00000000  0000074d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000001d9  00000000  00000000  00000b8a  2**0
+  7 .debug_line   00000213  00000000  00000000  00000bc5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000044  00000000  00000000  00000d64  2**2
+  8 .debug_frame  00000044  00000000  00000000  00000dd8  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000002ec  00000000  00000000  00000da8  2**0
+  9 .debug_str    00000305  00000000  00000000  00000e1c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000007d  00000000  00000000  00001094  2**0
+ 10 .debug_loc    000000c8  00000000  00000000  00001121  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000018  00000000  00000000  00001111  2**0
+ 11 .debug_ranges 00000018  00000000  00000000  000011e9  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -56,14 +56,14 @@ Disassembly of section .text:
   28:	de bf       	out	0x3e, r29	; 62
   2a:	cd bf       	out	0x3d, r28	; 61
   2c:	62 d0       	rcall	.+196    	; 0xf2 <main>
-  2e:	71 c0       	rjmp	.+226    	; 0x112 <_exit>
+  2e:	8f c0       	rjmp	.+286    	; 0x14e <_exit>
 
 00000030 <__bad_interrupt>:
   30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
 
 00000032 <delay>:
-		PORT_LED ^= LED;
-		delay(interval);		
+		
+		if (flag > 10) flag = 0;
     }
 }
 
@@ -87,7 +87,7 @@ void delay(uint32_t  interval) {
   52:	98 83       	st	Y, r25
   54:	c8 50       	subi	r28, 0x08	; 8
   56:	d0 40       	sbci	r29, 0x00	; 0
-	for (uint32_t i=0; i < interval<<4; i++) asm("nop"); // <<4 - вместо * на 16
+	for (uint32_t i=0; i < (interval<<4); i++) asm("nop"); // <<4 - вместо * на 16
   58:	cf 5f       	subi	r28, 0xFF	; 255
   5a:	df 4f       	sbci	r29, 0xFF	; 255
   5c:	19 93       	st	Y+, r17
@@ -173,34 +173,100 @@ void delay(uint32_t  interval);
 
 int main(void)
 {
-    DDRA |= LED;  // на выход
+    DDRA |= LED; // на выход
   f2:	41 b1       	in	r20, 0x01	; 1
   f4:	40 62       	ori	r20, 0x20	; 32
   f6:	41 b9       	out	0x01, r20	; 1
+	//DDRA &= ~LED; // на вход (по умолчанию)
+    DDRB |= BTN_USR; // на выход
+  f8:	45 b1       	in	r20, 0x05	; 5
+  fa:	42 60       	ori	r20, 0x02	; 2
+  fc:	45 b9       	out	0x05, r20	; 5
+	//DDRB &= ~BTN_USR; // на вход (по умолчанию)
+		
+	PORT_BTN |= BTN_USR; // pull up -  подтяжка к плюсу питания
+  fe:	46 b1       	in	r20, 0x06	; 6
+ 100:	42 60       	ori	r20, 0x02	; 2
+ 102:	46 b9       	out	0x06, r20	; 6
+	//PORT_BTN &= ~BTN_USR; // pull down -  подтяжка к минусу питания
 	PORT_LED |= LED; // pull up - (светодиод гаснет)
-  f8:	42 b1       	in	r20, 0x02	; 2
-  fa:	40 62       	ori	r20, 0x20	; 32
-  fc:	42 b9       	out	0x02, r20	; 2
+ 104:	42 b1       	in	r20, 0x02	; 2
+ 106:	40 62       	ori	r20, 0x20	; 32
+ 108:	42 b9       	out	0x02, r20	; 2
+	//PORT_LED &= ~LED; // pull down - (светодиод горит)
+		
+	uint32_t  interval = 1000; // примерно секунда
 	
-	uint32_t  interval = 100;
+	int8_t flag = 0;
+ 10a:	c0 e0       	ldi	r28, 0x00	; 0
+ 10c:	01 c0       	rjmp	.+2      	; 0x110 <main+0x1e>
+		delay(interval);
+		PORT_LED ^= LED;
+		
+		flag++;
+		
+		if (flag > 10) flag = 0;
+ 10e:	c0 e0       	ldi	r28, 0x00	; 0
+	
+	int8_t flag = 0;
 	
     while (1) 
     {
+		if (!(PINB & BTN_USR)) //  если кнопка нажата
+ 110:	21 9b       	sbis	0x04, 1	; 4
+ 112:	07 c0       	rjmp	.+14     	; 0x122 <main+0x30>
+			interval = 50;
+		else if (flag < 4)
+ 114:	c4 30       	cpi	r28, 0x04	; 4
+ 116:	54 f4       	brge	.+20     	; 0x12c <main+0x3a>
+			interval = 500;
+ 118:	44 ef       	ldi	r20, 0xF4	; 244
+ 11a:	51 e0       	ldi	r21, 0x01	; 1
+ 11c:	60 e0       	ldi	r22, 0x00	; 0
+ 11e:	70 e0       	ldi	r23, 0x00	; 0
+ 120:	09 c0       	rjmp	.+18     	; 0x134 <main+0x42>
+	int8_t flag = 0;
+	
+    while (1) 
+    {
+		if (!(PINB & BTN_USR)) //  если кнопка нажата
+			interval = 50;
+ 122:	42 e3       	ldi	r20, 0x32	; 50
+ 124:	50 e0       	ldi	r21, 0x00	; 0
+ 126:	60 e0       	ldi	r22, 0x00	; 0
+ 128:	70 e0       	ldi	r23, 0x00	; 0
+ 12a:	04 c0       	rjmp	.+8      	; 0x134 <main+0x42>
+		else if (flag < 4)
+			interval = 500;
+		else 
+			interval = 100;
+ 12c:	44 e6       	ldi	r20, 0x64	; 100
+ 12e:	50 e0       	ldi	r21, 0x00	; 0
+ 130:	60 e0       	ldi	r22, 0x00	; 0
+ 132:	70 e0       	ldi	r23, 0x00	; 0
+		
+		delay(interval);
+ 134:	97 2f       	mov	r25, r23
+ 136:	86 2f       	mov	r24, r22
+ 138:	75 2f       	mov	r23, r21
+ 13a:	64 2f       	mov	r22, r20
+ 13c:	7a df       	rcall	.-268    	; 0x32 <delay>
 		PORT_LED ^= LED;
-  fe:	52 b1       	in	r21, 0x02	; 2
- 100:	40 e2       	ldi	r20, 0x20	; 32
- 102:	45 27       	eor	r20, r21
- 104:	42 b9       	out	0x02, r20	; 2
-		delay(interval);		
- 106:	64 e6       	ldi	r22, 0x64	; 100
- 108:	70 e0       	ldi	r23, 0x00	; 0
- 10a:	80 e0       	ldi	r24, 0x00	; 0
- 10c:	90 e0       	ldi	r25, 0x00	; 0
- 10e:	91 df       	rcall	.-222    	; 0x32 <delay>
- 110:	f6 cf       	rjmp	.-20     	; 0xfe <main+0xc>
+ 13e:	52 b1       	in	r21, 0x02	; 2
+ 140:	40 e2       	ldi	r20, 0x20	; 32
+ 142:	45 27       	eor	r20, r21
+ 144:	42 b9       	out	0x02, r20	; 2
+		
+		flag++;
+ 146:	cf 5f       	subi	r28, 0xFF	; 255
+		
+		if (flag > 10) flag = 0;
+ 148:	cb 30       	cpi	r28, 0x0B	; 11
+ 14a:	0c f7       	brge	.-62     	; 0x10e <main+0x1c>
+ 14c:	e1 cf       	rjmp	.-62     	; 0x110 <main+0x1e>
 
-00000112 <_exit>:
- 112:	f8 94       	cli
+0000014e <_exit>:
+ 14e:	f8 94       	cli
 
-00000114 <__stop_program>:
- 114:	ff cf       	rjmp	.-2      	; 0x114 <__stop_program>
+00000150 <__stop_program>:
+ 150:	ff cf       	rjmp	.-2      	; 0x150 <__stop_program>

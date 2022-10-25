@@ -11,14 +11,11 @@
 #include <stdint.h>
 
 #ifndef PA5
-#define PA5  5
-#define PB1  1
+#define PA5 5
 #endif
 
 #define PORT_LED PORTA
-#define PORT_BTN PORTB
-#define LED		(1<<PA5)
-#define BTN_USR (1<<PB1)
+#define LED (1<<PA5)
 
 void delay(uint32_t  interval);
 
@@ -26,27 +23,19 @@ void delay(uint32_t  interval);
 int main(void)
 {
     DDRA |= LED;  // на выход
-	DDRB &= ~BTN_USR; // на вход (по умолчанию)
+	PORT_LED |= LED; // pull up - (светодиод гаснет)
 	
-	PORTB |= BTN_USR; // pull up -  подтяжка к плюсу питания
-	
-	uint32_t  interval = 10000;
+	uint32_t  interval = 100;
 	
     while (1) 
     {
-		if ( ! (PORTB & BTN_USR) )
-			interval = 100000;
-		else 
-			interval = 10000;
-		
 		PORT_LED ^= LED;
-		delay(interval);
-		
+		delay(interval);		
     }
 }
 
 void delay(uint32_t  interval) {
-	for (uint32_t i=0; i < interval; i++) asm("nop");
+	for (uint32_t i=0; i < interval<<4; i++) asm("nop"); // <<4 - вместо * на 16
 }
 
 
