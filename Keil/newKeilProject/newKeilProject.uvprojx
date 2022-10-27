@@ -394,11 +394,6 @@
               <FileType>5</FileType>
               <FilePath>.\MDR32F9x.h</FilePath>
             </File>
-            <File>
-              <FileName>MDR32Fx.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\MDR32Fx.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -485,5 +480,14 @@
       </file>
     </files>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>newKeilProject</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

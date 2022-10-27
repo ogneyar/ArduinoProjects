@@ -18,6 +18,7 @@ void GPIO_Init(void);
 
 int main (void)
 {
+	//MDR_RST_CLK->HS_CONTROL |= (1<<0);
 	
 	uint16_t intervalRising = 250;//500;//1000; 
 	uint16_t intervalFalling = 0;
