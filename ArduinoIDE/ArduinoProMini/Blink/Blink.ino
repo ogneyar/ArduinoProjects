@@ -1,11 +1,13 @@
 
-// ATtiny13
+// Arduino Pro Mini
 
-#define LED_BUILTIN 3
+// Перед загрузкой через UART необходимо жать RESET
+// у меня плата 3.3v 328p
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 }
+
 
 void loop() {
   digitalWrite(LED_BUILTIN, HIGH);
