@@ -1,4 +1,9 @@
-TARGET_MCU	:= atmega8
+
+# PROGRAMMER	:= avrisp -P com6
+PROGRAMMER	:= usbasp
+
+# TARGET_MCU	:= atmega8
+TARGET_MCU	:= attiny13
 TARGET_FCPU	:= 16000000
 
 OUTPUT_NAME	:= AVR_makefile
@@ -28,5 +33,7 @@ $(HEX): $(ELF)
 	
 upload: $(HEX)
 	@echo Program $(TARGET_MCU)
-# @avrdude -p $(TARGET_MCU) -c usbasp -u -U flash:w:$(HEX):a
-	@avrdude -p $(TARGET_MCU) -c avrisp -P com6 -b 19200 -U flash:w:$(HEX)
+	@avrdude -p $(TARGET_MCU) -c $(PROGRAMMER) -b 19200 -U flash:w:$(HEX):a
+	
+	
+
