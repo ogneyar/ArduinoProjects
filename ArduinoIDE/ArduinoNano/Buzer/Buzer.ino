@@ -13,8 +13,8 @@ int main(void) // Timer Counter 2
     //TCCR2B |= (1<<CS21) | (1<<CS22); // делитель на 256  (0b110)
     TCCR2B |= (1<<CS20) | (1<<CS21) | (1<<CS22); // делитель на 1024  (0b111)
   
-    // Oscillator Calibration Register
-    //OSCCAL = 10; // регистр сравнения (не пойму зачем)
+    // Output Compare Register A
+	OCR2A = 100; // регистр сравнения
 
 
     // ПОДКЛЮЧАЕМ buzer К ПИНУ PB3 (11 пин ардуины)

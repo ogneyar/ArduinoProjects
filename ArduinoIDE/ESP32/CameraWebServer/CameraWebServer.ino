@@ -1,47 +1,38 @@
 
 // AI Thinker ESP32-CAM
 
+
+//------------------------------------------------------------------------
+// Adafruit_NeoPixel
+//------------------------------------------------------------------------
+
+#include "neopixel.h"
+
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+
 #include "esp_camera.h"
 #include <WiFi.h>
 
-//
-// WARNING!!! PSRAM IC required for UXGA resolution and high JPEG quality
-//            Ensure ESP32 Wrover Module or other board with PSRAM is selected
-//            Partial images will be transmitted if image exceeds buffer size
-//
-//            You must select partition scheme from the board menu that has at least 3MB APP space.
-//            Face Recognition is DISABLED for ESP32 and ESP32-S2, because it takes up from 15 
-//            seconds to process single frame. Face Detection is ENABLED if PSRAM is enabled as well
-
-// ===================
-// Select camera model
-// ===================
-//#define CAMERA_MODEL_WROVER_KIT // Has PSRAM
-//#define CAMERA_MODEL_ESP_EYE // Has PSRAM
-//#define CAMERA_MODEL_ESP32S3_EYE // Has PSRAM
-//#define CAMERA_MODEL_M5STACK_PSRAM // Has PSRAM
-//#define CAMERA_MODEL_M5STACK_V2_PSRAM // M5Camera version B Has PSRAM
-//#define CAMERA_MODEL_M5STACK_WIDE // Has PSRAM
-//#define CAMERA_MODEL_M5STACK_ESP32CAM // No PSRAM
-//#define CAMERA_MODEL_M5STACK_UNITCAM // No PSRAM
 #define CAMERA_MODEL_AI_THINKER // Has PSRAM
-//#define CAMERA_MODEL_TTGO_T_JOURNAL // No PSRAM
-// ** Espressif Internal Boards **
-//#define CAMERA_MODEL_ESP32_CAM_BOARD
-//#define CAMERA_MODEL_ESP32S2_CAM_BOARD
-//#define CAMERA_MODEL_ESP32S3_CAM_LCD
 
 #include "camera_pins.h"
 
-// ===========================
-// Enter your WiFi credentials
-// ===========================
 const char* ssid = "MyWiFi)";
 const char* password = "11111111";
 
 void startCameraServer();
 
 void setup() {
+  
+  //------------------------------------
+  strip.begin();
+  strip.show();
+  strip.setBrightness(50);
+  //------------------------------------
+  
+  
   Serial.begin(115200);
   Serial.setDebugOutput(true);
   Serial.println();
@@ -142,9 +133,56 @@ void setup() {
   Serial.print("Camera Ready! Use 'http://");
   Serial.print(WiFi.localIP());
   Serial.println("' to connect");
+
+  pinMode(4, OUTPUT); // LED
+  digitalWrite(4, HIGH); // ON
+  
 }
+
 
 void loop() {
   // Do nothing. Everything is done in another task by the web server
-  delay(10000);
+  //delay(10000);
+
+
+  //-------------------------------------------------------------------------------------
+  unsigned long currentMillis = millis();                     //  Update current time
+  if((currentMillis - patternPrevious) >= patternInterval) {  //  Check for expired time
+    patternPrevious = currentMillis;
+    patternCurrent++;                                         //  Advance to next pattern
+    if(patternCurrent >= 7)
+      patternCurrent = 0;
+  }
+  
+  if(currentMillis - pixelPrevious >= pixelInterval) {        //  Check for expired time
+    pixelPrevious = currentMillis;                            //  Run current frame
+    switch (patternCurrent) {
+      case 7:
+        theaterChaseRainbow(50); // Rainbow-enhanced theaterChase variant
+        break;
+      case 6:
+        rainbow(10); // Flowing rainbow cycle along the whole strip
+        break;     
+      case 5:
+        theaterChase(strip.Color(0, 0, 127), 50); // Blue
+        break;
+      case 4:
+        theaterChase(strip.Color(127, 0, 0), 50); // Red
+        break;
+      case 3:
+        theaterChase(strip.Color(127, 127, 127), 50); // White
+        break;
+      case 2:
+        colorWipe(strip.Color(0, 0, 255), 50); // Blue
+        break;
+      case 1:
+        colorWipe(strip.Color(0, 255, 0), 50); // Green
+        break;        
+      default:
+        colorWipe(strip.Color(255, 0, 0), 50); // Red
+        break;
+    }
+  }
+  //-------------------------------------------------------------------------------------
+
 }
