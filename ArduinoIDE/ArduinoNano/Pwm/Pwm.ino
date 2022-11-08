@@ -9,22 +9,22 @@ int main(void) {
   timerCounter0(32);
   timerCounter2(128);
 
-//  volatile uint8_t ocr2a = 1;
+  volatile uint8_t ocr2a = 1;
   
   while (1) {
-//    TCCR2B = 0;
-//    TCCR2A = 0;
-//    TCNT2 = 0;
-//    OCR2A = ocr2a;
-//    TCCR2A |= (1<<WGM20) | (1<<WGM21) | (1<<COM2A0);
-//    TCCR2B |= (1<<WGM22); // top OCRA
-//    TCCR2B |= (1<<CS20) | (1<<CS22); // делитель на 128
-//    //TCCR2B ^= (1<<CS21);
+    TCCR2B = 0;
+    TCCR2A = 0;
+    TCNT2 = 0;
+    OCR2A = ocr2a;
+    TCCR2A |= (1<<WGM20) | (1<<COM2A0);
+    TCCR2B |= (1<<WGM22); // top OCRA
+    TCCR2B |= (1<<CS20) | (1<<CS22); // делитель на 128
+    //TCCR2B ^= (1<<CS21);
 //    if (ocr2a == 10) ocr2a = 240;
 //    else ocr2a = 10;
-//    
-//    delay(10000);
-//    if (ocr2a > 255 || ocr2a <= 0) ocr2a = 1;
+    ocr2a++;
+    delay(1000);
+    if (ocr2a > 255 || ocr2a <= 0) ocr2a = 1;
     
     //period *= clockCyclesPerMicrosecond();
   }
@@ -64,18 +64,18 @@ void timerCounter0(int divider) // Timer Counter 0
 
 void timerCounter2(int divider) // Timer Counter 2
 {  
-//  TIMSK2 |= OCIE2A;
+//  TIMSK2 |= OCIE2A; // разрешить прерывания для регистра А
   
   // Timer Counter 2 Control Register A
   //TCCR2A |= (1<<WGM21); // выбор режима - CTC
-  TCCR2A |= (1<<WGM21) | (1<<WGM20); // выбор режима - Fast PWM
-  //TCCR2A |= (1<<WGM20); // выбор режима - fase correct PWMOCRA
+  //TCCR2A |= (1<<WGM21) | (1<<WGM20); // выбор режима - Fast PWM
+  TCCR2A |= (1<<WGM20); // выбор режима - fase correct PWMOCRA
   
-  //TCCR2A |= (1<<COM2A0); // toggle
-  TCCR2A |= (1<<COM2A1); // сброс по совпадению 
+  TCCR2A |= (1<<COM2A0); // toggle
+  //TCCR2A |= (1<<COM2A1); // сброс по совпадению 
   //TCCR2A |= (1<<COM2A1) | (1<<COM2A0); // установка по сопадению 
 
-  //TCCR2B |= (1<<WGM22); // top OCRA
+  TCCR2B |= (1<<WGM22); // top OCRA
     
   // Timer Counter 2 Control Register B
   if (divider == 0) TCCR2B |= (1<<CS20); // без делителя (0b001)

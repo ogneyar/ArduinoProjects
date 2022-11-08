@@ -1,5 +1,6 @@
 
-// Wemos D1 mini
+// Wemos D1 mini 
+// Generic ESP8266 Module (модуль ESP12-F)
 
 #define LIGHT_ON LOW
 #define LIGHT_OFF HIGH
