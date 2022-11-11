@@ -1,5 +1,5 @@
 
-C:\Users\58A5~1\AppData\Local\Temp\arduino_build_444337/blink.ino.elf:     file format elf32-avr
+C:\Users\58A5~1\AppData\Local\Temp\arduino_build_592841/blink.ino.elf:     file format elf32-avr
 
 
 Disassembly of section .text:
@@ -54,13 +54,13 @@ void led_blink(){
   3a:	91 e0       	ldi	r25, 0x01	; 1
   3c:	89 27       	eor	r24, r25
   3e:	82 bb       	out	0x12, r24	; 18
-  40:	80 e8       	ldi	r24, 0x80	; 128
-  42:	94 e8       	ldi	r25, 0x84	; 132
-  44:	ae e1       	ldi	r26, 0x1E	; 30
+  40:	80 e4       	ldi	r24, 0x40	; 64
+  42:	9d e0       	ldi	r25, 0x0D	; 13
+  44:	a3 e0       	ldi	r26, 0x03	; 3
   46:	b0 e0       	ldi	r27, 0x00	; 0
 G:\VSCode\ArduinoProjects\ArduinoIDE\ATmega8\blink/blink.ino:26 (discriminator 2)
   //_delay_ms(200);   
-  for(uint32_t i=0; i<2000000; i++) asm("nop");
+  for(uint32_t i=0; i<200000; i++) asm("nop");
   48:	00 00       	nop
   4a:	01 97       	sbiw	r24, 0x01	; 1
   4c:	a1 09       	sbc	r26, r1

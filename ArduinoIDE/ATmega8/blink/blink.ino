@@ -23,7 +23,7 @@
 void led_blink(){
   PORT ^= (1<<LED); 
   //_delay_ms(200);   
-  for(uint32_t i=0; i<2000000; i++) asm("nop");
+  for(uint32_t i=0; i<200000; i++) asm("nop");
 }
 
 int main(void) {
