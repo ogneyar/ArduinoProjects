@@ -14,21 +14,20 @@
 //  delay(period);
 //}
 
-#define LED   PC4   // PB1
-#define PORT  PORTC // PORTB
-#define DDR   DDRC  // DDRB
+#define LED   PD0   // PC4   // PB1
+#define PORT  PORTD // PORTC // PORTB
+#define DDR   DDRD  // DDRC  // DDRB
 
-byte flag = 1;
+
 // функция мигания диода
-void led_blink(void){
-  if (flag) PORT|=(1<<LED);
-  else PORT&=~(1<<LED);        
-  flag = !flag;    
-  _delay_ms(200);   
+void led_blink(){
+  PORT ^= (1<<LED); 
+  //_delay_ms(200);   
+  for(uint32_t i=0; i<2000000; i++) asm("nop");
 }
 
 int main(void) {
-  DDR|=(1<<LED);
+  DDR |= (1<<LED);
     
   while (1) {
     led_blink();

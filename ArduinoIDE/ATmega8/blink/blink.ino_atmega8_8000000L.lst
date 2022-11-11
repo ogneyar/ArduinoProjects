@@ -1,0 +1,95 @@
+
+C:\Users\58A5~1\AppData\Local\Temp\arduino_build_444337/blink.ino.elf:     file format elf32-avr
+
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+__vectors():
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+__trampolines_start():
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	10 d0       	rcall	.+32     	; 0x54 <main>
+  34:	12 c0       	rjmp	.+36     	; 0x5a <_exit>
+
+00000036 <__bad_interrupt>:
+__vector_1():
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <led_blink()>:
+_Z9led_blinkv():
+G:\VSCode\ArduinoProjects\ArduinoIDE\ATmega8\blink/blink.ino:24
+#define DDR   DDRD  // DDRC  // DDRB
+
+
+// функция мигания диода
+void led_blink(){
+  PORT ^= (1<<LED); 
+  38:	82 b3       	in	r24, 0x12	; 18
+  3a:	91 e0       	ldi	r25, 0x01	; 1
+  3c:	89 27       	eor	r24, r25
+  3e:	82 bb       	out	0x12, r24	; 18
+  40:	80 e8       	ldi	r24, 0x80	; 128
+  42:	94 e8       	ldi	r25, 0x84	; 132
+  44:	ae e1       	ldi	r26, 0x1E	; 30
+  46:	b0 e0       	ldi	r27, 0x00	; 0
+G:\VSCode\ArduinoProjects\ArduinoIDE\ATmega8\blink/blink.ino:26 (discriminator 2)
+  //_delay_ms(200);   
+  for(uint32_t i=0; i<2000000; i++) asm("nop");
+  48:	00 00       	nop
+  4a:	01 97       	sbiw	r24, 0x01	; 1
+  4c:	a1 09       	sbc	r26, r1
+  4e:	b1 09       	sbc	r27, r1
+  50:	d9 f7       	brne	.-10     	; 0x48 <__SREG__+0x9>
+G:\VSCode\ArduinoProjects\ArduinoIDE\ATmega8\blink/blink.ino:27
+}
+  52:	08 95       	ret
+
+00000054 <main>:
+main():
+G:\VSCode\ArduinoProjects\ArduinoIDE\ATmega8\blink/blink.ino:30
+
+int main(void) {
+  DDR |= (1<<LED);
+  54:	88 9a       	sbi	0x11, 0	; 17
+G:\VSCode\ArduinoProjects\ArduinoIDE\ATmega8\blink/blink.ino:33 (discriminator 1)
+    
+  while (1) {
+    led_blink();
+  56:	f0 df       	rcall	.-32     	; 0x38 <led_blink()>
+  58:	fe cf       	rjmp	.-4      	; 0x56 <main+0x2>
+
+0000005a <_exit>:
+exit():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr4/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+  5a:	f8 94       	cli
+
+0000005c <__stop_program>:
+__stop_program():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr4/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
+  5c:	ff cf       	rjmp	.-2      	; 0x5c <__stop_program>
