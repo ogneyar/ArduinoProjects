@@ -14,9 +14,5 @@ void loop() {
 //  delay(500);
 
   PORTB ^= (1<<5);
-  _delay_us(500000);
-//  asm("nop");
-//  asm("nop");
-//  asm("nop");
-//  asm("nop");
+  _delay_us(100000);
 }
