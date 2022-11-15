@@ -1,5 +1,5 @@
 
-// Arduino Nano 328p ST7735 1.8" 128x160
+// Arduino Nano 328p ST7735 (1.8" 128x160 or 1.77" 160x128)
 
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
