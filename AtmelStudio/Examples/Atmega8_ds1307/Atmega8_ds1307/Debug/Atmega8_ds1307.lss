@@ -1,0 +1,555 @@
+
+Atmega8_ds1307.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000296  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  00000296  0000032a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000000a  0080006a  0080006a  00000334  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000334  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000364  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000f8  00000000  00000000  000003a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000e49  00000000  00000000  00000498  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000007c9  00000000  00000000  000012e1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000767  00000000  00000000  00001aaa  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000214  00000000  00000000  00002214  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003bc  00000000  00000000  00002428  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000061c  00000000  00000000  000027e4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000b8  00000000  00000000  00002e00  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	0a c1       	rjmp	.+532    	; 0x218 <__vector_1>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	61 c0       	rjmp	.+194    	; 0xca <__vector_3>
+   8:	6f c0       	rjmp	.+222    	; 0xe8 <__vector_4>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e6 e9       	ldi	r30, 0x96	; 150
+  3a:	f2 e0       	ldi	r31, 0x02	; 2
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	aa 36       	cpi	r26, 0x6A	; 106
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	aa e6       	ldi	r26, 0x6A	; 106
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a4 37       	cpi	r26, 0x74	; 116
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	0c d1       	rcall	.+536    	; 0x272 <main>
+  5a:	1b c1       	rjmp	.+566    	; 0x292 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <display_bright>:
+uint8_t digit[10]={0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6f};// символы с 0 по 9
+uint8_t buff[4];// буфер
+uint8_t bright[4];// массив €ркости разр€дов
+
+void display_bright(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3){
+	bright[3]=b3;
+  5e:	ef e6       	ldi	r30, 0x6F	; 111
+  60:	f0 e0       	ldi	r31, 0x00	; 0
+  62:	23 83       	std	Z+3, r18	; 0x03
+	bright[2]=b2;
+  64:	42 83       	std	Z+2, r20	; 0x02
+	bright[1]=b1;
+  66:	61 83       	std	Z+1, r22	; 0x01
+	bright[0]=b0;
+  68:	80 83       	st	Z, r24
+  6a:	08 95       	ret
+
+0000006c <display>:
+}
+
+void display(uint8_t n3, uint8_t n2, uint8_t n1, uint8_t n0)
+{
+	buff[3]=digit[n3];
+  6c:	ab e6       	ldi	r26, 0x6B	; 107
+  6e:	b0 e0       	ldi	r27, 0x00	; 0
+  70:	e8 2f       	mov	r30, r24
+  72:	f0 e0       	ldi	r31, 0x00	; 0
+  74:	e0 5a       	subi	r30, 0xA0	; 160
+  76:	ff 4f       	sbci	r31, 0xFF	; 255
+  78:	80 81       	ld	r24, Z
+  7a:	13 96       	adiw	r26, 0x03	; 3
+  7c:	8c 93       	st	X, r24
+  7e:	13 97       	sbiw	r26, 0x03	; 3
+	buff[2]=digit[n2];
+  80:	e6 2f       	mov	r30, r22
+  82:	f0 e0       	ldi	r31, 0x00	; 0
+  84:	e0 5a       	subi	r30, 0xA0	; 160
+  86:	ff 4f       	sbci	r31, 0xFF	; 255
+  88:	80 81       	ld	r24, Z
+  8a:	12 96       	adiw	r26, 0x02	; 2
+  8c:	8c 93       	st	X, r24
+  8e:	12 97       	sbiw	r26, 0x02	; 2
+	buff[1]=digit[n1];
+  90:	e4 2f       	mov	r30, r20
+  92:	f0 e0       	ldi	r31, 0x00	; 0
+  94:	e0 5a       	subi	r30, 0xA0	; 160
+  96:	ff 4f       	sbci	r31, 0xFF	; 255
+  98:	80 81       	ld	r24, Z
+  9a:	11 96       	adiw	r26, 0x01	; 1
+  9c:	8c 93       	st	X, r24
+  9e:	11 97       	sbiw	r26, 0x01	; 1
+	buff[0]=digit[n0];
+  a0:	e2 2f       	mov	r30, r18
+  a2:	f0 e0       	ldi	r31, 0x00	; 0
+  a4:	e0 5a       	subi	r30, 0xA0	; 160
+  a6:	ff 4f       	sbci	r31, 0xFF	; 255
+  a8:	80 81       	ld	r24, Z
+  aa:	8c 93       	st	X, r24
+  ac:	08 95       	ret
+
+000000ae <display_ini>:
+}
+
+// инициализаци€ индикации
+void display_ini(void){
+	DDRB=255;// пины сегментов на выход
+  ae:	8f ef       	ldi	r24, 0xFF	; 255
+  b0:	87 bb       	out	0x17, r24	; 23
+	DDRC|=(1<<PC0) | (1<<PC1) | (1<<PC2) | (1<<PC3);// пины разр€дов на выход
+  b2:	84 b3       	in	r24, 0x14	; 20
+  b4:	8f 60       	ori	r24, 0x0F	; 15
+  b6:	84 bb       	out	0x14, r24	; 20
+	
+	TCCR2|=(1<<CS22);// запуск таймера 2 с делителем 64
+  b8:	85 b5       	in	r24, 0x25	; 37
+  ba:	84 60       	ori	r24, 0x04	; 4
+  bc:	85 bd       	out	0x25, r24	; 37
+	TIMSK|=(1<<TOIE2) | (1<<OCIE2);// разрешить прерывание по переполнению и совпадению
+  be:	89 b7       	in	r24, 0x39	; 57
+  c0:	80 6c       	ori	r24, 0xC0	; 192
+  c2:	89 bf       	out	0x39, r24	; 57
+	OCR2=100;
+  c4:	84 e6       	ldi	r24, 0x64	; 100
+  c6:	83 bd       	out	0x23, r24	; 35
+  c8:	08 95       	ret
+
+000000ca <__vector_3>:
+}
+
+
+ISR(TIMER2_COMP_vect){
+  ca:	1f 92       	push	r1
+  cc:	0f 92       	push	r0
+  ce:	0f b6       	in	r0, 0x3f	; 63
+  d0:	0f 92       	push	r0
+  d2:	11 24       	eor	r1, r1
+  d4:	8f 93       	push	r24
+	PORTC&=0xF0;// выключить все разр€ды
+  d6:	85 b3       	in	r24, 0x15	; 21
+  d8:	80 7f       	andi	r24, 0xF0	; 240
+  da:	85 bb       	out	0x15, r24	; 21
+}
+  dc:	8f 91       	pop	r24
+  de:	0f 90       	pop	r0
+  e0:	0f be       	out	0x3f, r0	; 63
+  e2:	0f 90       	pop	r0
+  e4:	1f 90       	pop	r1
+  e6:	18 95       	reti
+
+000000e8 <__vector_4>:
+
+//обработчик прерывани€ по переполнению таймера 2
+ISR(TIMER2_OVF_vect){
+  e8:	1f 92       	push	r1
+  ea:	0f 92       	push	r0
+  ec:	0f b6       	in	r0, 0x3f	; 63
+  ee:	0f 92       	push	r0
+  f0:	11 24       	eor	r1, r1
+  f2:	8f 93       	push	r24
+	uint8_t static status;
+	
+	switch (status)
+  f4:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <__data_end>
+  f8:	81 30       	cpi	r24, 0x01	; 1
+  fa:	89 f0       	breq	.+34     	; 0x11e <__vector_4+0x36>
+  fc:	28 f0       	brcs	.+10     	; 0x108 <__vector_4+0x20>
+  fe:	82 30       	cpi	r24, 0x02	; 2
+ 100:	c9 f0       	breq	.+50     	; 0x134 <__vector_4+0x4c>
+ 102:	83 30       	cpi	r24, 0x03	; 3
+ 104:	11 f1       	breq	.+68     	; 0x14a <__vector_4+0x62>
+ 106:	2a c0       	rjmp	.+84     	; 0x15c <__vector_4+0x74>
+	{
+		case 0:// разр€д 0
+		PORTB=buff[0];
+ 108:	80 91 6b 00 	lds	r24, 0x006B	; 0x80006b <buff>
+ 10c:	88 bb       	out	0x18, r24	; 24
+		PORTC|=(1<<PC3);
+ 10e:	ab 9a       	sbi	0x15, 3	; 21
+		OCR2=bright[0];
+ 110:	80 91 6f 00 	lds	r24, 0x006F	; 0x80006f <bright>
+ 114:	83 bd       	out	0x23, r24	; 35
+		status=1;
+ 116:	81 e0       	ldi	r24, 0x01	; 1
+ 118:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__data_end>
+		break;
+ 11c:	1f c0       	rjmp	.+62     	; 0x15c <__vector_4+0x74>
+		
+		case 1:// разр€д 1
+		PORTB=buff[1];
+ 11e:	80 91 6c 00 	lds	r24, 0x006C	; 0x80006c <buff+0x1>
+ 122:	88 bb       	out	0x18, r24	; 24
+		PORTC|=(1<<PC2);
+ 124:	aa 9a       	sbi	0x15, 2	; 21
+		OCR2=bright[1];
+ 126:	80 91 70 00 	lds	r24, 0x0070	; 0x800070 <bright+0x1>
+ 12a:	83 bd       	out	0x23, r24	; 35
+		status=2;
+ 12c:	82 e0       	ldi	r24, 0x02	; 2
+ 12e:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__data_end>
+		break;
+ 132:	14 c0       	rjmp	.+40     	; 0x15c <__vector_4+0x74>
+		
+		case 2:// разр€д 2
+		PORTB=buff[2];
+ 134:	80 91 6d 00 	lds	r24, 0x006D	; 0x80006d <buff+0x2>
+ 138:	88 bb       	out	0x18, r24	; 24
+		PORTC|=(1<<PC1);
+ 13a:	a9 9a       	sbi	0x15, 1	; 21
+		OCR2=bright[2];
+ 13c:	80 91 71 00 	lds	r24, 0x0071	; 0x800071 <bright+0x2>
+ 140:	83 bd       	out	0x23, r24	; 35
+		status=3;
+ 142:	83 e0       	ldi	r24, 0x03	; 3
+ 144:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__data_end>
+		break;
+ 148:	09 c0       	rjmp	.+18     	; 0x15c <__vector_4+0x74>
+		
+		case 3:// разр€д 3
+		PORTB=buff[3];
+ 14a:	80 91 6e 00 	lds	r24, 0x006E	; 0x80006e <buff+0x3>
+ 14e:	88 bb       	out	0x18, r24	; 24
+		PORTC|=(1<<PC0);
+ 150:	a8 9a       	sbi	0x15, 0	; 21
+		OCR2=bright[3];
+ 152:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <bright+0x3>
+ 156:	83 bd       	out	0x23, r24	; 35
+		status=0;
+ 158:	10 92 6a 00 	sts	0x006A, r1	; 0x80006a <__data_end>
+		break;
+	}
+	
+ 15c:	8f 91       	pop	r24
+ 15e:	0f 90       	pop	r0
+ 160:	0f be       	out	0x3f, r0	; 63
+ 162:	0f 90       	pop	r0
+ 164:	1f 90       	pop	r1
+ 166:	18 95       	reti
+
+00000168 <ds1307_writebyte>:
+	
+	// конвертим мз воично ес€тичного в дес€тичный
+	*ss=(s>>4)*10+(s&0x0F);
+	*mm=(m>>4)*10+(m&0x0F);
+	*hh=(h>>4)*10+(h&0x0F);
+}
+ 168:	cf 93       	push	r28
+ 16a:	df 93       	push	r29
+ 16c:	d8 2f       	mov	r29, r24
+ 16e:	c6 2f       	mov	r28, r22
+ 170:	6a d0       	rcall	.+212    	; 0x246 <i2c_start>
+ 172:	80 ed       	ldi	r24, 0xD0	; 208
+ 174:	6f d0       	rcall	.+222    	; 0x254 <i2c_write>
+ 176:	8d 2f       	mov	r24, r29
+ 178:	6d d0       	rcall	.+218    	; 0x254 <i2c_write>
+ 17a:	8c 2f       	mov	r24, r28
+ 17c:	6b d0       	rcall	.+214    	; 0x254 <i2c_write>
+ 17e:	67 d0       	rcall	.+206    	; 0x24e <i2c_stop>
+ 180:	df 91       	pop	r29
+ 182:	cf 91       	pop	r28
+ 184:	08 95       	ret
+
+00000186 <ds1307_readbyte>:
+ 186:	cf 93       	push	r28
+ 188:	c8 2f       	mov	r28, r24
+ 18a:	5d d0       	rcall	.+186    	; 0x246 <i2c_start>
+ 18c:	80 ed       	ldi	r24, 0xD0	; 208
+ 18e:	62 d0       	rcall	.+196    	; 0x254 <i2c_write>
+ 190:	8c 2f       	mov	r24, r28
+ 192:	60 d0       	rcall	.+192    	; 0x254 <i2c_write>
+ 194:	5c d0       	rcall	.+184    	; 0x24e <i2c_stop>
+ 196:	57 d0       	rcall	.+174    	; 0x246 <i2c_start>
+ 198:	81 ed       	ldi	r24, 0xD1	; 209
+ 19a:	5c d0       	rcall	.+184    	; 0x254 <i2c_write>
+ 19c:	80 e0       	ldi	r24, 0x00	; 0
+ 19e:	5f d0       	rcall	.+190    	; 0x25e <i2c_read>
+ 1a0:	c8 2f       	mov	r28, r24
+ 1a2:	55 d0       	rcall	.+170    	; 0x24e <i2c_stop>
+ 1a4:	8c 2f       	mov	r24, r28
+ 1a6:	cf 91       	pop	r28
+ 1a8:	08 95       	ret
+
+000001aa <ds1307_ini>:
+ 1aa:	80 e0       	ldi	r24, 0x00	; 0
+ 1ac:	ec df       	rcall	.-40     	; 0x186 <ds1307_readbyte>
+ 1ae:	88 23       	and	r24, r24
+ 1b0:	1c f4       	brge	.+6      	; 0x1b8 <ds1307_ini+0xe>
+ 1b2:	60 e0       	ldi	r22, 0x00	; 0
+ 1b4:	80 e0       	ldi	r24, 0x00	; 0
+ 1b6:	d8 df       	rcall	.-80     	; 0x168 <ds1307_writebyte>
+ 1b8:	85 b7       	in	r24, 0x35	; 53
+ 1ba:	82 60       	ori	r24, 0x02	; 2
+ 1bc:	85 bf       	out	0x35, r24	; 53
+ 1be:	8b b7       	in	r24, 0x3b	; 59
+ 1c0:	80 64       	ori	r24, 0x40	; 64
+ 1c2:	8b bf       	out	0x3b, r24	; 59
+ 1c4:	60 e1       	ldi	r22, 0x10	; 16
+ 1c6:	87 e0       	ldi	r24, 0x07	; 7
+ 1c8:	cf df       	rcall	.-98     	; 0x168 <ds1307_writebyte>
+ 1ca:	08 95       	ret
+
+000001cc <ds1307_showtime>:
+
+
+void ds1307_showtime(void){
+ 1cc:	cf 93       	push	r28
+ 1ce:	df 93       	push	r29
+	if (update)
+ 1d0:	80 91 73 00 	lds	r24, 0x0073	; 0x800073 <update>
+ 1d4:	88 23       	and	r24, r24
+ 1d6:	e9 f0       	breq	.+58     	; 0x212 <ds1307_showtime+0x46>
+	{
+		uint8_t m,s;
+		i2c_start();// старт
+ 1d8:	36 d0       	rcall	.+108    	; 0x246 <i2c_start>
+		i2c_write(DS1307_WRITE);//адрес на запись
+ 1da:	80 ed       	ldi	r24, 0xD0	; 208
+ 1dc:	3b d0       	rcall	.+118    	; 0x254 <i2c_write>
+		i2c_write(0);//номер регистра
+ 1de:	80 e0       	ldi	r24, 0x00	; 0
+ 1e0:	39 d0       	rcall	.+114    	; 0x254 <i2c_write>
+		i2c_stop();//стоп
+ 1e2:	35 d0       	rcall	.+106    	; 0x24e <i2c_stop>
+		
+		i2c_start();//старт
+ 1e4:	30 d0       	rcall	.+96     	; 0x246 <i2c_start>
+		i2c_write(DS1307_READ);//адрес на чтение
+ 1e6:	81 ed       	ldi	r24, 0xD1	; 209
+ 1e8:	35 d0       	rcall	.+106    	; 0x254 <i2c_write>
+		s=i2c_read(1);//читаем байт с ответом
+ 1ea:	81 e0       	ldi	r24, 0x01	; 1
+ 1ec:	38 d0       	rcall	.+112    	; 0x25e <i2c_read>
+ 1ee:	c8 2f       	mov	r28, r24
+		m=i2c_read(0);// без ответа т.к. последний байт
+ 1f0:	80 e0       	ldi	r24, 0x00	; 0
+ 1f2:	35 d0       	rcall	.+106    	; 0x25e <i2c_read>
+ 1f4:	d8 2f       	mov	r29, r24
+		i2c_stop();//стоп
+ 1f6:	2b d0       	rcall	.+86     	; 0x24e <i2c_stop>
+		
+		display(m>>4, m&0x0F, s>>4, s&0x0F);
+ 1f8:	2c 2f       	mov	r18, r28
+ 1fa:	2f 70       	andi	r18, 0x0F	; 15
+ 1fc:	4c 2f       	mov	r20, r28
+ 1fe:	42 95       	swap	r20
+ 200:	4f 70       	andi	r20, 0x0F	; 15
+ 202:	6d 2f       	mov	r22, r29
+ 204:	6f 70       	andi	r22, 0x0F	; 15
+ 206:	8d 2f       	mov	r24, r29
+ 208:	82 95       	swap	r24
+ 20a:	8f 70       	andi	r24, 0x0F	; 15
+ 20c:	2f df       	rcall	.-418    	; 0x6c <display>
+		update=0;
+ 20e:	10 92 73 00 	sts	0x0073, r1	; 0x800073 <update>
+	}
+		
+}
+ 212:	df 91       	pop	r29
+ 214:	cf 91       	pop	r28
+ 216:	08 95       	ret
+
+00000218 <__vector_1>:
+
+// прерывание инт0
+ISR(INT0_vect){
+ 218:	1f 92       	push	r1
+ 21a:	0f 92       	push	r0
+ 21c:	0f b6       	in	r0, 0x3f	; 63
+ 21e:	0f 92       	push	r0
+ 220:	11 24       	eor	r1, r1
+ 222:	8f 93       	push	r24
+	update=1;
+ 224:	81 e0       	ldi	r24, 0x01	; 1
+ 226:	80 93 73 00 	sts	0x0073, r24	; 0x800073 <update>
+ 22a:	8f 91       	pop	r24
+ 22c:	0f 90       	pop	r0
+ 22e:	0f be       	out	0x3f, r0	; 63
+ 230:	0f 90       	pop	r0
+ 232:	1f 90       	pop	r1
+ 234:	18 95       	reti
+
+00000236 <i2c_ini>:
+#include "i2c.h"
+
+// натройка интерфейса на тактирование 100  гц
+void i2c_ini(void){
+	TWSR=0;
+ 236:	11 b8       	out	0x01, r1	; 1
+	TWBR=32;
+ 238:	80 e2       	ldi	r24, 0x20	; 32
+ 23a:	80 b9       	out	0x00, r24	; 0
+ 23c:	08 95       	ret
+
+0000023e <i2c_wait>:
+}
+
+//ожидание завершени€ задани€
+void i2c_wait(void){
+	while (!(TWCR & (1<<TWINT)));
+ 23e:	06 b6       	in	r0, 0x36	; 54
+ 240:	07 fe       	sbrs	r0, 7
+ 242:	fd cf       	rjmp	.-6      	; 0x23e <i2c_wait>
+}
+ 244:	08 95       	ret
+
+00000246 <i2c_start>:
+
+// условие старт
+void i2c_start(void) {
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+ 246:	84 ea       	ldi	r24, 0xA4	; 164
+ 248:	86 bf       	out	0x36, r24	; 54
+	i2c_wait();
+ 24a:	f9 df       	rcall	.-14     	; 0x23e <i2c_wait>
+ 24c:	08 95       	ret
+
+0000024e <i2c_stop>:
+}
+
+// условие стоп
+void i2c_stop(void) {
+	TWCR = (1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
+ 24e:	84 e9       	ldi	r24, 0x94	; 148
+ 250:	86 bf       	out	0x36, r24	; 54
+ 252:	08 95       	ret
+
+00000254 <i2c_write>:
+}
+
+// запись байта
+void i2c_write(uint8_t byte) {
+	TWDR = byte;
+ 254:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT)|(1<<TWEN);
+ 256:	84 e8       	ldi	r24, 0x84	; 132
+ 258:	86 bf       	out	0x36, r24	; 54
+	i2c_wait();
+ 25a:	f1 df       	rcall	.-30     	; 0x23e <i2c_wait>
+ 25c:	08 95       	ret
+
+0000025e <i2c_read>:
+}
+
+// чтение байта, ack!=0 с ответом, ack=0 без ответа.
+uint8_t i2c_read(uint8_t ack){
+	if (ack) TWCR = (1<<TWINT)|(1<<TWEN)|(1<<TWEA);
+ 25e:	88 23       	and	r24, r24
+ 260:	19 f0       	breq	.+6      	; 0x268 <i2c_read+0xa>
+ 262:	84 ec       	ldi	r24, 0xC4	; 196
+ 264:	86 bf       	out	0x36, r24	; 54
+ 266:	02 c0       	rjmp	.+4      	; 0x26c <i2c_read+0xe>
+	else TWCR = (1<<TWINT)|(1<<TWEN);
+ 268:	84 e8       	ldi	r24, 0x84	; 132
+ 26a:	86 bf       	out	0x36, r24	; 54
+	i2c_wait();
+ 26c:	e8 df       	rcall	.-48     	; 0x23e <i2c_wait>
+	return TWDR;
+ 26e:	83 b1       	in	r24, 0x03	; 3
+ 270:	08 95       	ret
+
+00000272 <main>:
+uint8_t hh,mm,ss;
+
+
+int main(void)
+{
+	i2c_ini();// инициализаци€ i2c
+ 272:	e1 df       	rcall	.-62     	; 0x236 <i2c_ini>
+	ds1307_ini(); // инициализаци€ дс1307
+ 274:	9a df       	rcall	.-204    	; 0x1aa <ds1307_ini>
+	
+	display_ini();
+ 276:	1b df       	rcall	.-458    	; 0xae <display_ini>
+	display(1,2,3,4);
+ 278:	24 e0       	ldi	r18, 0x04	; 4
+ 27a:	43 e0       	ldi	r20, 0x03	; 3
+ 27c:	62 e0       	ldi	r22, 0x02	; 2
+ 27e:	81 e0       	ldi	r24, 0x01	; 1
+ 280:	f5 de       	rcall	.-534    	; 0x6c <display>
+	display_bright(255,255,255,255);
+ 282:	2f ef       	ldi	r18, 0xFF	; 255
+ 284:	4f ef       	ldi	r20, 0xFF	; 255
+ 286:	6f ef       	ldi	r22, 0xFF	; 255
+ 288:	8f ef       	ldi	r24, 0xFF	; 255
+ 28a:	e9 de       	rcall	.-558    	; 0x5e <display_bright>
+	sei();
+ 28c:	78 94       	sei
+	
+	
+    while (1) 
+    {
+		ds1307_showtime();
+ 28e:	9e df       	rcall	.-196    	; 0x1cc <ds1307_showtime>
+ 290:	fe cf       	rjmp	.-4      	; 0x28e <main+0x1c>
+
+00000292 <_exit>:
+ 292:	f8 94       	cli
+
+00000294 <__stop_program>:
+ 294:	ff cf       	rjmp	.-2      	; 0x294 <__stop_program>
