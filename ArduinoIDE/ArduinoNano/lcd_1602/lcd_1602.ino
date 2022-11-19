@@ -1,3 +1,6 @@
+
+// Nano
+
 #include <Wire.h>                  // подключаем библиотеку I2C
 #include <LiquidCrystal_I2C.h>     // подключаем библиотеку дисплея 
 
