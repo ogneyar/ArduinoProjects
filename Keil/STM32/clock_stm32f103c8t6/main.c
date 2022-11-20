@@ -9,7 +9,7 @@ static volatile uint32_t SysTimer_ms = 0;
 static volatile uint32_t Delay_counter_ms = 0;
 
 void SysTick_Init(void);
-void SystemClock_Config(void);
+void SystemClock_72MHz(void);
 void GPIO_Init(void);
 void Delay_ms(uint32_t Milliseconds);
 void SysTick_Handler(void);
@@ -23,7 +23,7 @@ int main(void)
 	SysTick_Init();
 	
 	/* Configure the system clock */
-  SystemClock_Config();
+  SystemClock_72MHz();
 
   /* Initialize all configured peripherals */
 	GPIO_Init();
@@ -84,7 +84,7 @@ void SysTick_Init(void) {
 
 
 /* Configure the system clock */
-void SystemClock_Config(void) {			
+void SystemClock_72MHz(void) {			
 /* Clock control register (RCC_CR) */	
 	// HSION: Internal high-speed clock enable
 	SET_BIT(RCC->CR, RCC_CR_HSION); // internal 8 MHz RC oscillator ON

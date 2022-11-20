@@ -1,6 +1,5 @@
 
 // Nano
-
 // зуммер (buzer) на D11
 
 void timerCounter2(int = 1024);
@@ -21,12 +20,14 @@ int main(void) {
     TCCR2B |= (1<<CS20) | (1<<CS22); // делитель на 128
     ocr2a++;
     delay(1000);
+    if (ocr2a > 255 || ocr2a <= 0) ocr2a = 1;
   }
 }
 
 
 void timerCounter2(int divider) // Timer Counter 2
 {    
+  TCCR0B |= (1<<CS00); // без этого не работает Timer Counter 2
   // Timer Counter 2 Control Register A
   TCCR2A |= (1<<WGM20); // выбор режима - fase correct PWMOCRA  
   TCCR2A |= (1<<COM2A0); // toggle
