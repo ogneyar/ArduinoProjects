@@ -1,0 +1,59 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              11/21/2022 14:27:09 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: G:\Program\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listi
+                    -ngs\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          
+   2          #include <STC15F2K60S2.H>
+   3          
+   4          #include "main.h"
+   5          
+   6          
+   7          
+   8          void delay(unsigned int);
+   9          
+  10          
+  11          
+  12          void main (void) 
+  13          {
+  14   1        P01_PushPull_Mode;
+  15   1      
+  16   1        while(1)
+  17   1        {
+  18   2          set_LED1;
+  19   2          delay(1000);
+  20   2          clr_LED1;
+  21   2          delay(1000);
+  22   2        }
+  23   1        
+  24   1      
+  25   1      }
+  26          
+  27          
+  28          void delay(unsigned int value) {
+  29   1        unsigned long iter;
+  30   1        unsigned long her = 1;
+  31   1        for (iter = 0; iter < (unsigned long)(value<<5); iter++) her *= value;
+  32   1        //asm("nop");
+  33   1      }
+  34          
+  35          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    129    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

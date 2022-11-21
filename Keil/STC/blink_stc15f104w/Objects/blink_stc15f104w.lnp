@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj" 
+TO ".\Objects\blink_stc15f104w" 
+PRINT(".\Listings\blink_stc15f104w.m51")
