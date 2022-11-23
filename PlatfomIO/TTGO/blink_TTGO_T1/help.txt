@@ -1,0 +1,12 @@
+
+// узнать всё о подключенном устройстве
+esptool.py -p COM7 -b 115200 flash_id
+
+// сделать бэкап прошивки с 4мб памяти
+esptool.py -p COM7 -b 115200 read_flash 0x00000 0x400000 backup.bin
+
+// стереть прошивку
+esptool.py -p COM7 -b 115200 erase_flash
+
+// залить прошивку firmware.bin
+esptool.py -p COM7 -b 115200 --after no_reset write_flash --flash_size 4MB --flash_mode dio 0x00000 firmware.bin --erase-all
