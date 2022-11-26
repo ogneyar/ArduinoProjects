@@ -2,6 +2,8 @@
 #include "main.h"
 
 static volatile uint32_t Counter_ADC = 0;
+static volatile uint32_t Counter_DMA = 0;
+static volatile uint16_t ADC_Data[2] = { 0, };
 
 static volatile uint32_t SysTimer_ms = 0;
 static volatile uint32_t Delay_counter_ms = 0;
@@ -12,6 +14,7 @@ void GPIO_Init(void);
 void Delay_ms(uint32_t Milliseconds);
 void SysTick_Handler(void);
 void ADC1_2_IRQHandler(void);
+void DMA1_Channel1_IRQHandler(void);
 	
 	
 	
@@ -26,6 +29,32 @@ int main(void)
 
   /* Initialize all configured peripherals */
 	GPIO_Init();
+	
+	
+	// setting DMA
+	SET_BIT(RCC->AHBENR, RCC_AHBENR_DMA1EN); // DMA1 clock enable
+	// Channel configuration procedure (page 278)
+	// 1. Set the peripheral register address in the DMA_CPARx register.
+	DMA1_Channel1->CPAR = (uint32_t)&(ADC1->DR); // device address
+	// 2. Set the memory address in the DMA_CMARx register.
+	DMA1_Channel1->CMAR = (uint32_t)ADC_Data; // memory address
+	// 3. Configure the total number of data to be transferred in the DMA_CNDTRx register.
+	DMA1_Channel1->CNDTR = 2; // amount of data
+	// 4. Configure the channel priority using the PL[1:0] bits in the DMA_CCRx register
+	// 13.4.3 DMA channel x configuration register (DMA_CCRx) (page 286)
+	//CLEAR_BIT(DMA1_Channel1->CCR, (unsigned int)DMA_CCR1_PL); // PL[1:0]: Channel priority level (00: Low)
+	// 5. Configure data transfer direction, circular mode, peripheral & memory incremented mode, peripheral & memory data size, and interrupt after half and/or full transfer in the DMA_CCRx register
+	//CLEAR_BIT(DMA1_Channel1->CCR, (unsigned int)DMA_CCR1_DIR); // DIR: Data transfer direction (0: Read from peripheral)
+	SET_BIT(DMA1_Channel1->CCR, DMA_CCR1_CIRC); // CIRC: Circular mode (1: Circular mode enabled)
+	SET_BIT(DMA1_Channel1->CCR, DMA_CCR1_PSIZE_0); // PSIZE[1:0]: Peripheral size (01: 16-bits)
+	SET_BIT(DMA1_Channel1->CCR, DMA_CCR1_MSIZE_0); // MSIZE[1:0]: Memory size (01: 16-bits)
+	SET_BIT(DMA1_Channel1->CCR, DMA_CCR1_TCIE); // TCIE: Transfer complete interrupt enable (1: TC interrupt enabled)
+	//CLEAR_BIT(DMA1_Channel1->CCR, DMA_CCR1_HTIE); // HTIE: Half transfer interrupt enable (0: HT interrupt disabled)
+	SET_BIT(DMA1_Channel1->CCR, DMA_CCR1_TEIE); // TEIE: Transfer error interrupt enable
+	SET_BIT(DMA1_Channel1->CCR, DMA_CCR1_MINC); // MINC: Memory increment mode (1: Memory increment mode enabled)
+	// 6. Activate the channel by setting the ENABLE bit in the DMA_CCRx register.
+	SET_BIT(DMA1_Channel1->CCR, DMA_CCR1_EN); // EN: Channel enable (1: Channel enabled)
+	NVIC_EnableIRQ(DMA1_Channel1_IRQn); // DMA1 interrupt enable
 	
 	
 	// setting ADC
@@ -239,4 +268,19 @@ void ADC1_2_IRQHandler(void) {
 	}
 	
 }
+
+
+void DMA1_Channel1_IRQHandler(void) {
+	// 13.4.1 DMA interrupt status register (DMA_ISR) (page 284)
+	if (READ_BIT(DMA1->ISR, DMA_ISR_TCIF1)) { // TCIFx: Channel x transfer complete flag (x = 1 ..7)
+		// 13.4.2 DMA interrupt flag clear register (DMA_IFCR) (page 285)
+		SET_BIT(DMA1->IFCR, DMA_IFCR_CGIF1); // reset global flag // CGIFx: Channel x global interrupt clear 
+		Counter_DMA++;
+	} else if (READ_BIT(DMA1->ISR, DMA_ISR_TEIF1)) { // TEIFx: Channel x transfer error flag (x = 1 ..7)
+		// 13.4.2 DMA interrupt flag clear register (DMA_IFCR) (page 285)
+		SET_BIT(DMA1->IFCR, DMA_IFCR_CGIF1); // reset global flag // CGIFx: Channel x global interrupt clear 
+	}
+}
+
+
 
