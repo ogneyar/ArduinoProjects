@@ -1,7 +1,7 @@
 
 // ATtiny13
 
-#define LED_BUILTIN 3
+#define LED_BUILTIN 1
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -9,7 +9,7 @@ void setup() {
 
 void loop() {
   digitalWrite(LED_BUILTIN, HIGH);
-  delay(20);
+  delay(100);
   digitalWrite(LED_BUILTIN, LOW);
-  delay(20);
+  delay(100);
 }

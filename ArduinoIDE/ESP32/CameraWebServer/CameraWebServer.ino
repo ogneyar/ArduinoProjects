@@ -134,8 +134,8 @@ void setup() {
   Serial.print(WiFi.localIP());
   Serial.println("' to connect");
 
-  pinMode(4, OUTPUT); // LED
-  digitalWrite(4, HIGH); // ON
+//  pinMode(4, OUTPUT); // LED
+//  digitalWrite(4, HIGH); // ON
   
 }
 
@@ -145,44 +145,44 @@ void loop() {
   //delay(10000);
 
 
-  //-------------------------------------------------------------------------------------
-  unsigned long currentMillis = millis();                     //  Update current time
-  if((currentMillis - patternPrevious) >= patternInterval) {  //  Check for expired time
-    patternPrevious = currentMillis;
-    patternCurrent++;                                         //  Advance to next pattern
-    if(patternCurrent >= 7)
-      patternCurrent = 0;
-  }
-  
-  if(currentMillis - pixelPrevious >= pixelInterval) {        //  Check for expired time
-    pixelPrevious = currentMillis;                            //  Run current frame
-    switch (patternCurrent) {
-      case 7:
-        theaterChaseRainbow(50); // Rainbow-enhanced theaterChase variant
-        break;
-      case 6:
-        rainbow(10); // Flowing rainbow cycle along the whole strip
-        break;     
-      case 5:
-        theaterChase(strip.Color(0, 0, 127), 50); // Blue
-        break;
-      case 4:
-        theaterChase(strip.Color(127, 0, 0), 50); // Red
-        break;
-      case 3:
-        theaterChase(strip.Color(127, 127, 127), 50); // White
-        break;
-      case 2:
-        colorWipe(strip.Color(0, 0, 255), 50); // Blue
-        break;
-      case 1:
-        colorWipe(strip.Color(0, 255, 0), 50); // Green
-        break;        
-      default:
-        colorWipe(strip.Color(255, 0, 0), 50); // Red
-        break;
-    }
-  }
+  //-- RGB Neopixel ----------------------------------------------------------------------
+//  unsigned long currentMillis = millis();                     //  Update current time
+//  if((currentMillis - patternPrevious) >= patternInterval) {  //  Check for expired time
+//    patternPrevious = currentMillis;
+//    patternCurrent++;                                         //  Advance to next pattern
+//    if(patternCurrent >= 7)
+//      patternCurrent = 0;
+//  }
+//  
+//  if(currentMillis - pixelPrevious >= pixelInterval) {        //  Check for expired time
+//    pixelPrevious = currentMillis;                            //  Run current frame
+//    switch (patternCurrent) {
+//      case 7:
+//        theaterChaseRainbow(50); // Rainbow-enhanced theaterChase variant
+//        break;
+//      case 6:
+//        rainbow(10); // Flowing rainbow cycle along the whole strip
+//        break;     
+//      case 5:
+//        theaterChase(strip.Color(0, 0, 127), 50); // Blue
+//        break;
+//      case 4:
+//        theaterChase(strip.Color(127, 0, 0), 50); // Red
+//        break;
+//      case 3:
+//        theaterChase(strip.Color(127, 127, 127), 50); // White
+//        break;
+//      case 2:
+//        colorWipe(strip.Color(0, 0, 255), 50); // Blue
+//        break;
+//      case 1:
+//        colorWipe(strip.Color(0, 255, 0), 50); // Green
+//        break;        
+//      default:
+//        colorWipe(strip.Color(255, 0, 0), 50); // Red
+//        break;
+//    }
+//  }
   //-------------------------------------------------------------------------------------
 
 }
