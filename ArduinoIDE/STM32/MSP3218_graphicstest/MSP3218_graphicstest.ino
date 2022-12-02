@@ -9,13 +9,13 @@
 #define TFT_CS PB9
 #define TFT_DC PB8
 #define TFT_MOSI PB7
-#define TFT_CLK PB6
-#define TFT_RST PB5
-#define TFT_MISO PB4
+#define TFT_MISO PB6
+#define TFT_CLK PB5
+#define TFT_RST PB4
 
-// Use hardware SPI (on Uno, #13, #12, #11) and the above for CS/DC
+// Use hardware SPI ! ! ! NOT WORKING
 //Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
-// If using the breakout, change pins as desired
+// Use software SPI
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
 
 void setup() {
