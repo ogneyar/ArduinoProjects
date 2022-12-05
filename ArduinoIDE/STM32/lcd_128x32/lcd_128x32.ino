@@ -1,5 +1,5 @@
 
-// STM32F103C8T6
+// STM32F103C8T6 - не работает!!!
 
 //#include <Wire.h>
 
@@ -23,8 +23,11 @@ U8GLIB_SSD1306_128X32 u8g(U8G_I2C_OPT_NONE);  // I2C / TWI
 
 
 //uint8_t address = 0x3C;
+
 //uint8_t command = 0x80;
 //uint8_t data = 0xC0;
+//uint8_t dataArray = 0x40;
+
 //uint8_t val = 0xAF; // 0xAF - display on
 
 
