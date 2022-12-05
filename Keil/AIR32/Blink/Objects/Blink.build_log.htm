@@ -1,0 +1,224 @@
+<html>
+<body>
+<pre>
+<h1>�Vision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: �Vision V5.37.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Ogneyar Yakovlev, LeidTogi, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.37.0.0
+Toolchain Path:  G:\Program\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.18
+Assembler:       Armasm.exe V6.18
+Linker/Locator:  ArmLink.exe V6.18
+Library Manager: ArmAr.exe V6.18
+Hex Converter:   FromElf.exe V6.18
+CPU DLL:         SARMCM3.DLL V5.37.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
+Dialog DLL:      TCM.DLL V1.56.1.0
+ 
+<h2>Project:</h2>
+G:\VSCode\ArduinoProjects\Keil\AIR32\Blink\Blink.uvprojx
+Project File Date:  12/02/2022
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.18', folder: 'G:\Program\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+compiling main.c...
+src/main.c(16): warning: // comments are not allowed in this language [-Wcomment]
+//USART_TypeDef *USART_TEST = USART1;
+^
+src/main.c(40): warning: implicit declaration of function 'GPIO_SetBits' [-Wimplicit-function-declaration]
+                GPIO_SetBits(GPIO_GROUP_TEST, GPIO_PIN1_TEST);
+                ^
+src/main.c(40): error: use of undeclared identifier 'GPIO_GROUP_TEST'
+                GPIO_SetBits(GPIO_GROUP_TEST, GPIO_PIN1_TEST);
+                             ^
+src/main.c(40): error: use of undeclared identifier 'GPIO_PIN1_TEST'
+                GPIO_SetBits(GPIO_GROUP_TEST, GPIO_PIN1_TEST);
+                                              ^
+src/main.c(41): warning: implicit declaration of function 'Delay_Ms' [-Wimplicit-function-declaration]
+                Delay_Ms(200);
+                ^
+src/main.c(42): error: use of undeclared identifier 'GPIO_GROUP_TEST'
+                GPIO_SetBits(GPIO_GROUP_TEST, GPIO_PIN2_TEST);
+                             ^
+src/main.c(42): error: use of undeclared identifier 'GPIO_PIN2_TEST'
+                GPIO_SetBits(GPIO_GROUP_TEST, GPIO_PIN2_TEST);
+                                              ^
+src/main.c(44): error: use of undeclared identifier 'GPIO_GROUP_TEST'
+                GPIO_SetBits(GPIO_GROUP_TEST, GPIO_PIN3_TEST);
+                             ^
+src/main.c(44): error: use of undeclared identifier 'GPIO_PIN3_TEST'
+                GPIO_SetBits(GPIO_GROUP_TEST, GPIO_PIN3_TEST);
+                                              ^
+src/main.c(46): warning: implicit declaration of function 'GPIO_ResetBits' [-Wimplicit-function-declaration]
+                GPIO_ResetBits(GPIO_GROUP_TEST, GPIO_PIN1_TEST);
+                ^
+src/main.c(46): error: use of undeclared identifier 'GPIO_GROUP_TEST'
+                GPIO_ResetBits(GPIO_GROUP_TEST, GPIO_PIN1_TEST);
+                               ^
+src/main.c(46): error: use of undeclared identifier 'GPIO_PIN1_TEST'
+                GPIO_ResetBits(GPIO_GROUP_TEST, GPIO_PIN1_TEST);
+                                                ^
+src/main.c(48): error: use of undeclared identifier 'GPIO_GROUP_TEST'
+                GPIO_ResetBits(GPIO_GROUP_TEST, GPIO_PIN2_TEST);
+                               ^
+src/main.c(48): error: use of undeclared identifier 'GPIO_PIN2_TEST'
+                GPIO_ResetBits(GPIO_GROUP_TEST, GPIO_PIN2_TEST);
+                                                ^
+src/main.c(50): error: use of undeclared identifier 'GPIO_GROUP_TEST'
+                GPIO_ResetBits(GPIO_GROUP_TEST, GPIO_PIN3_TEST);
+                               ^
+src/main.c(50): error: use of undeclared identifier 'GPIO_PIN3_TEST'
+                GPIO_ResetBits(GPIO_GROUP_TEST, GPIO_PIN3_TEST);
+                                                ^
+src/main.c(58): error: unknown type name 'GPIO_InitTypeDef'; did you mean 'GPIO_TypeDef'?
+        GPIO_InitTypeDef GPIO_InitStructure;
+        ^~~~~~~~~~~~~~~~
+        GPIO_TypeDef
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/Include\air32f10x.h(642): note: 'GPIO_TypeDef' declared here
+} GPIO_TypeDef;
+  ^
+src/main.c(60): warning: implicit declaration of function 'RCC_APB2PeriphClockCmd' [-Wimplicit-function-declaration]
+        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE); //使能GPIOB时钟
+        ^
+src/main.c(60): error: use of undeclared identifier 'RCC_APB2Periph_GPIOB'
+        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE); //使能GPIOB时钟
+                               ^
+src/main.c(62): error: no member named 'GPIO_Pin' in 'GPIO_TypeDef'
+        GPIO_InitStructure.GPIO_Pin = GPIO_PIN1_TEST | GPIO_PIN2_TEST | GPIO_PIN3_TEST;
+        ~~~~~~~~~~~~~~~~~~ ^
+src/main.c(62): error: use of undeclared identifier 'GPIO_PIN1_TEST'
+        GPIO_InitStructure.GPIO_Pin = GPIO_PIN1_TEST | GPIO_PIN2_TEST | GPIO_PIN3_TEST;
+                                      ^
+src/main.c(62): error: use of undeclared identifier 'GPIO_PIN2_TEST'
+        GPIO_InitStructure.GPIO_Pin = GPIO_PIN1_TEST | GPIO_PIN2_TEST | GPIO_PIN3_TEST;
+                                                       ^
+src/main.c(62): error: use of undeclared identifier 'GPIO_PIN3_TEST'
+        GPIO_InitStructure.GPIO_Pin = GPIO_PIN1_TEST | GPIO_PIN2_TEST | GPIO_PIN3_TEST;
+                                                                        ^
+src/main.c(63): error: no member named 'GPIO_Speed' in 'GPIO_TypeDef'
+        GPIO_InitStructure.GPIO_Speed = GPIO_SPEED_TEST; //速度50MHz
+        ~~~~~~~~~~~~~~~~~~ ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+5 warnings and 20 errors generated.
+assembling startup_air32f10x.s...
+compiling system_air32f10x.c...
+RTE/Device/AIR32F103CB/system_air32f10x.c(167): warning: no previous extern declaration for non-static variable 'AHBPrescTable' [-Wmissing-variable-declarations]
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+            ^
+RTE/Device/AIR32F103CB/system_air32f10x.c(167): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+    ^
+1 warning generated.
+compiling air32f10x_gpio.c...
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(3): warning: In file included from...
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/Include\air32f10x_rcc.h(378): warning: commas at the end of enumerator lists are a C99-specific feature [-Wc99-extensions]
+        RCC_MCO_PLLCLK_Div16,
+                            ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(96): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(163): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(271): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(293): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(309): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(331): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(346): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(362): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(382): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(405): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(422): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(451): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_EVENTOUT_PORT_SOURCE(GPIO_PortSource));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(471): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_FUNCTIONAL_STATE(NewState));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(539): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_REMAP(GPIO_Remap));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(596): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+        assert_param(IS_air_GPIO_REMAP(GPIO_Remap));
+        ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(618): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_EXTI_PORT_SOURCE(GPIO_PortSource));
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(637): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+  assert_param(IS_GPIO_ETH_MEDIA_INTERFACE(GPIO_ETH_MediaInterface)); 
+  ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(645): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+        assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+        ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(660): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+        assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+        ^
+G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/src/air32f10x_gpio.c(668): warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+        assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
+        ^
+21 warnings generated.
+".\Objects\Blink.axf" - 19 Error(s), 27 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                https://luatos.com/t/air32f103/Keil.AIR32F103_DFP.1.0.6.pack
+                Keil.AIR32F103_DFP.1.0.6
+                AirM2M AIR32F1 Series Device Support, Drivers
+   * Component: Startup Version: 1.0.0
+   * Component: GPIO Version: 1.0.0
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/Device/AIR32F103CB
+  ./RTE/_Target_1
+  G:/Program/Keil_v5/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/Include
+  G:/Program/Keil_v5/Packs/Keil/AIR32F103_DFP/1.0.6/Device/StdPeriph_Driver/inc
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+
+   * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device/Source/ARM/startup_air32f10x.s
+      Source file:   Device/Source/system_air32f10x.c
+      Include file:  RTE_Driver/Config/RTE_Device.h
+
+   * Component: Keil::Device:StdPeriph Drivers:GPIO:1.0.0
+      Include file:  Device/StdPeriph_Driver/inc/air32f10x_gpio.h
+      Source file:   Device/StdPeriph_Driver/src/air32f10x_gpio.c
+Target not created.
+Build Time Elapsed:  00:00:05
+</pre>
+</body>
+</html>
