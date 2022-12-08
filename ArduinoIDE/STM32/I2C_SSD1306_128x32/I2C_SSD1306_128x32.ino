@@ -1,5 +1,5 @@
 
-// STM32F103C8T6 - НЕ РАБОТАЕТ !!!
+// STM32F103C8T6
 
 #define SCREEN_BUFFER_LENGTH 512 // 512 * 8 or 128 * 32
 
@@ -13,7 +13,7 @@ uint8_t command = 0x00; // or 0x80
 uint8_t dataByte = 0x40;
 uint8_t dataArray = 0xc0;
 
-uint8_t scr_buffer[0]; // Буфер дисплея
+static uint8_t scr_buffer[] = {0}; // Буфер дисплея
 
 
 static const uint8_t ssd1306_128x32_init[] PROGMEM = {
@@ -45,14 +45,6 @@ static const uint8_t ssd1306_128x32_init[] PROGMEM = {
 };
 
 
-void i2c_init(void) {}
-void i2c_wait() {}
-void i2c_start() {}
-void i2c_send_byte(uint8_t data) {}
-uint8_t i2c_read_byte(uint8_t ack) {return 1;}
-void i2c_stop(void) {}
-
-
 // Функция записи данных/команды в дисплей
 void disp_write(uint8_t mode, uint8_t data) // Режим: 1-данные, 0-команда
 {
@@ -63,31 +55,17 @@ void disp_write(uint8_t mode, uint8_t data) // Режим: 1-данные, 0-к�
   Wire.write(mode);
   Wire.write(data);
   Wire.endTransmission();
-  
-//  i2c_start();
-//  i2c_send_byte(address<<1); // команда на запись (7 бит адреса + 1 бит на запись/чтение )
-//  i2c_send_byte(mode);   //Control Byte - Command
-//  i2c_send_byte(data);    //payload
-//  i2c_stop();
 }
 
 // Функция записи массива данных из буфера в дисплей
-void disp_write_array() {  
-  Wire.beginTransmission(address);
-  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) {
-    Wire.write(dataArray);
-    Wire.write(scr_buffer[i]);
-  }
-  Wire.endTransmission();
-  
-//  i2c_start();
-//  i2c_send_byte(address<<1); // команда на запись (7 бит адреса + 1 бит на запись/чтение )  
+//void disp_write_array() {  
+//  Wire.beginTransmission(address);
 //  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) {
-//    i2c_send_byte(dataArray);
-//    i2c_send_byte(scr_buffer[i]);    
+//    Wire.write(dataArray);
+//    Wire.write(scr_buffer[i]);
 //  }
-//  i2c_stop();    
-}
+//  Wire.endTransmission();
+//}
 
 
 // Функция инициализации дисплея
@@ -97,12 +75,13 @@ void display_init(void) {
 }
 
 // Функция очистки буфера дисплея
-void screen_clear(void) {
-  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) scr_buffer[i] = 0;
-}
+//void screen_clear(void) {
+//  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) scr_buffer[i] = 0;
+//}
 
 // Функция обновления дисплея
-void screen_update(void) {
+//void screen_update(void) {
+void screen_update(uint8_t data) {
   disp_write(0,0x21); // Установка столбца
   disp_write(0,0);    // Начальный адрес
   disp_write(0,127);  // Конечный адрес
@@ -112,43 +91,47 @@ void screen_update(void) {
   disp_write(0,3);    // Конечный адрес
   
   // Запись данных из буфера в дисплей
-  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) disp_write(1, scr_buffer[i]);
+  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) disp_write(1, data);
+  //for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) disp_write(1, scr_buffer[i]);
 //  disp_write_array();  
 }
 
 
-void test_screen(void) {
-  byte flag = 0xff;
-  for(uint16_t i = 0; i < 1024; i++) {
-    scr_buffer[i] = flag;
-    if (flag) flag = 0x00;
-    else flag = 0xff;
-  }
-  screen_update();
-  
-  delay(1000);
-  screen_clear();
-  screen_update();
-  
-  delay(1000);
-  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) scr_buffer[i] = 0xff;
-  screen_update();
-}
+//void test_screen(void) {
+//  byte flag = 0xff;
+//  for(uint16_t i = 0; i < 1024; i++) {
+//    scr_buffer[i] = flag;
+//    if (flag) flag = 0x00;
+//    else flag = 0xff;
+//  }
+//  screen_update();
+//  
+//  delay(1000);
+//  screen_clear();
+//  screen_update();
+//  
+//  delay(1000);
+//  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) scr_buffer[i] = 0xff;
+//  screen_update();
+//}
 
 
 void setup() {
     
   Wire.begin();
-//  i2c_init();
+  //Wire.setClock(400000L);
+
   display_init();
   
-  screen_clear();
-  screen_update();
+//  screen_clear();
+  screen_update(0x00);
 
   delay(1000);
 
-  test_screen();
-  
+//  test_screen();
+  screen_update(0xff);
 }
 
 void loop() {}
+
+//
