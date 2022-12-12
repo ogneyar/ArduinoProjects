@@ -1,0 +1,126 @@
+
+
+0111100 - адрес устройства (0x3C)
+0111101 - или такой адрес устройства (0x3D)
+
+01111000 - Write data (0x78)
+01111001 - Read data (0x79)
+
+00000000 - управляющий бит передачи команды (0x00)
+10000000 - управляющий бит передачи массива команд (0x80)
+01000000 - управляющий бит передачи данных (0x40)
+11000000 - управляющий бит передачи массива данных (0xC0)
+
+COM0 - COM31 - количество строк
+SEG0 - SEG127 - количество столбцов
+
+
+Command Table
+
+10000001 - Set Contrast Control (0x81)
+
+10100100 - Resume to RAM content display (RESET) (0xA4)
+10100101 - Entire display ON (0xA5)
+
+10100110 - none inverted normal display mode (0xA6)
+10100111 - Inverse display (0xA7)
+
+10101110 - Display OFF (sleep mode) (0xAE)
+10101111 - Display ON (0xAF)
+
+
+10.1.4 Set Column Address (21h)
+
+10.1.5 Set Page Address (22h)
+
+
+
+static const uint8_t ssd1306_128x32_init[] PROGMEM = {
+  0xAE, // Выключить дисплей 
+  
+  0xD5, // Настройка частоты обновления дисплея 
+  0x80, ///+----- делитель 0-F/ 0 - деление на 1 //+------ частота генератора. по умочанию 0x80 
+  
+  0xA8, // Установить multiplex ratio 
+    0x1F, // 1/64 duty (значение по умолчанию), 0x1F - 128x32, 0x3F - 128x64 
+	
+  0xD3, // Смещение дисплея (offset) 
+  0x00, // Нет смещения 
+  
+  0x40, // Начала строки начала разверки 0x40 с начала RAM 
+  
+  0x8D, // Управление внутреним преобразователем 
+  0x14, // 0x10 - отключить (VCC подается извне) 0x14 - запустить внутрений DC/DC 
+  
+  0x20, // Режим автоматической адресации 
+  0x00, // 0-по горизонтали с переходом на новую страницу (строку) // 1 - по вертикали с переходом на новую строку // 2 - только по выбранной странице без перехода 
+  
+  0xA1, // Режим разверки по странице (по X) // A1 - нормальный режим (слева/направо) A0 - обратный (справа/налево) 
+  
+  0xC8, // Режим сканирования озу дисплея // для изменения системы координат // С0 - снизу/верх (начало нижний левый угол) // С8 - сверху/вниз (начало верний левый угол) 
+  
+  0xDA, // Аппаратная конфигурация COM 
+    0x02, // 0x02 - 128x32, 0x12 - 128x64 
+	
+  0x81, // Установка яркости дисплея 
+  0x8F, // 0x8F..0xCF контраст
+  
+  0xD9, // Настройка фаз DC/DC преоразователя, HIGH: 0xD9, LOW: 0xEF
+  0xF1, // 0x22 - VCC подается извне / 0xF1 для внутренего 
+  
+  0xDB, // Установка уровня VcomH 
+  0x40, // Влияет на яркость дисплея 0x00..0x70 
+  
+  0xA4, // Режим нормальный 
+  
+  0xA6, // 0xA6 - нет инверсии, 0xA7 - инверсия дисплея 
+  
+  0xAF // Дисплей включен
+};
+
+// 
+static const uint8_t u8x8_d_ssd1306_128x64_vcomh0_init_seq[] = {
+  0x0ae,		                /* display off */
+  0x0d5, 0x080,		/* clock divide ratio (0x00=1) and oscillator frequency (0x8) */
+  0x0a8, 0x03f,		/* multiplex ratio */
+  0x0d3, 0x000,		/* display offset */
+  0x040,		                /* set display start line to 0 */
+  0x08d, 0x014,		/* [2] charge pump setting (p62): 0x014 enable, 0x010 disable, SSD1306 only, should be removed for SH1106 */
+  0x020, 0x000,		/* horizontal addressing mode */  
+  0x0a1,				/* segment remap a0/a1*/
+  0x0c8,				/* c0: scan dir normal, c8: reverse */
+  0x0da, 0x012,		/* com pin HW config, sequential com pin config (bit 4), disable left/right remap (bit 5) */
+  0x081, 0x0ef, 		/* [2] set contrast control */
+  0x0d9, 0x0a1, 		/* [2] pre-charge period 0x022/f1*/
+  0x0db, 0x000, 		/* vcomh deselect level 0x000 .. 0x070, low nibble always 0 */
+  0x02e,				/* Deactivate scroll */ 
+  0x0a4,				/* output ram to display */
+  0x0a6,				/* none inverted normal display mode */
+  
+  0xAF
+};
+
+
+// u8g2
+static const uint8_t u8x8_d_ssd1306_128x64_noname_init_seq[] = {
+  0x0ae,		                /* display off */
+  0x0d5, 0x080,		/* clock divide ratio (0x00=1) and oscillator frequency (0x8) */
+  0x0a8, 0x03f,		/* multiplex ratio */
+  0x0d3, 0x000,		/* display offset */
+  0x040,		                /* set display start line to 0 */
+  0x08d, 0x014,		/* [2] charge pump setting (p62): 0x014 enable, 0x010 disable, SSD1306 only, should be removed for SH1106 */
+  0x020, 0x000,		/* horizontal addressing mode */  
+  0x0a1,				/* segment remap a0/a1*/
+  0x0c8,				/* c0: scan dir normal, c8: reverse */
+  0x0da, 0x012,		/* com pin HW config, sequential com pin config (bit 4), disable left/right remap (bit 5) */
+  0x081, 0x0cf, 		/* [2] set contrast control */
+  0x0d9, 0x0f1, 		/* [2] pre-charge period 0x022/f1*/
+  x0db, 0x040, 		/* vcomh deselect level */  
+  x02e,				/* Deactivate scroll */ 
+  0x0a4,				/* output ram to display */
+  0x0a6,				/* none inverted normal display mode */
+  
+  0xAF
+};
+
+
