@@ -1,0 +1,12 @@
+file:/home/ogneyar/.gitconfig	user.name=Ogneyar
+file:/home/ogneyar/.gitconfig	user.email=ya13th@mqil.ru
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=false
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	core.symlinks=false
+file:.git/config	core.ignorecase=true
+file:.git/config	remote.origin.url=https://github.com/ogneyar/ArduinoProjects.git
+file:.git/config	remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+file:.git/config	branch.master.remote=origin
+file:.git/config	branch.master.merge=refs/heads/master

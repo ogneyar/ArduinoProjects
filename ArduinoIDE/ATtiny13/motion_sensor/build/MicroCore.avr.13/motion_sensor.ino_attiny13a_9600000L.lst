@@ -1,0 +1,455 @@
+
+C:\Users\ogney\AppData\Local\Temp\arduino-sketch-4D59DA68F05F108584EEC603E215E8E0/motion_sensor.ino.elf:     file format elf32-avr
+
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+__vectors():
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	83 c0       	rjmp	.+262    	; 0x10a <__bad_interrupt>
+   4:	82 c0       	rjmp	.+260    	; 0x10a <__bad_interrupt>
+   6:	81 c0       	rjmp	.+258    	; 0x10a <__bad_interrupt>
+   8:	80 c0       	rjmp	.+256    	; 0x10a <__bad_interrupt>
+   a:	7f c0       	rjmp	.+254    	; 0x10a <__bad_interrupt>
+   c:	7e c0       	rjmp	.+252    	; 0x10a <__bad_interrupt>
+   e:	7d c0       	rjmp	.+250    	; 0x10a <__bad_interrupt>
+  10:	84 c0       	rjmp	.+264    	; 0x11a <__vector_8>
+  12:	7b c0       	rjmp	.+246    	; 0x10a <__bad_interrupt>
+
+00000014 <__ctors_end>:
+__trampolines_start():
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+
+0000001c <__do_copy_data>:
+__do_copy_data():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2409
+  1c:	10 e0       	ldi	r17, 0x00	; 0
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2410
+  1e:	a0 e6       	ldi	r26, 0x60	; 96
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2411
+  20:	b0 e0       	ldi	r27, 0x00	; 0
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2412
+  22:	e0 e4       	ldi	r30, 0x40	; 64
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2413
+  24:	f1 e0       	ldi	r31, 0x01	; 1
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2414
+  26:	02 c0       	rjmp	.+4      	; 0x2c <__do_copy_data+0x10>
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2417
+  28:	05 90       	lpm	r0, Z+
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2422
+  2a:	0d 92       	st	X+, r0
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2424
+  2c:	a2 36       	cpi	r26, 0x62	; 98
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2425
+  2e:	b1 07       	cpc	r27, r17
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2426
+  30:	d9 f7       	brne	.-10     	; 0x28 <__do_copy_data+0xc>
+
+00000032 <__do_clear_bss>:
+__do_clear_bss():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2441
+  32:	20 e0       	ldi	r18, 0x00	; 0
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2442
+  34:	a2 e6       	ldi	r26, 0x62	; 98
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2443
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2444
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2446
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2448
+  3c:	ac 36       	cpi	r26, 0x6C	; 108
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2449
+  3e:	b2 07       	cpc	r27, r18
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2450
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+.do_clear_bss_start():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:69
+    out SREG, ZL
+    pop ZL
+    reti
+
+.section .init8
+    ldi r16, 1<<WDTIE
+  42:	00 e4       	ldi	r16, 0x40	; 64
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:70
+    out WDTCR, r16
+  44:	01 bd       	out	0x21, r16	; 33
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:71
+    sei
+  46:	78 94       	sei
+  48:	01 d0       	rcall	.+2      	; 0x4c <main>
+  4a:	78 c0       	rjmp	.+240    	; 0x13c <_exit>
+
+0000004c <main>:
+main():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring.c:164
+    // Set timer0 couter to zero
+    TCNT0 = 0;
+  #endif
+
+  // Turn on global interrupts
+  sei();
+  4c:	78 94       	sei
+pinMode():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_digital.c:31
+  if(mode == OUTPUT) // Pin as output
+    DDRB |= _BV(pin);
+
+  else // Pin as input or input pullup
+  {
+    DDRB &= ~_BV(pin); // Set pin as input
+  4e:	bc 98       	cbi	0x17, 4	; 23
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_digital.c:27
+ *        INPUT_PULLUP - set pin as input and enable internal pullup resistor
+ */
+void pinMode(uint8_t pin, uint8_t mode)
+{
+  if(mode == OUTPUT) // Pin as output
+    DDRB |= _BV(pin);
+  50:	bb 9a       	sbi	0x17, 3	; 23
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_digital.c:31
+
+  else // Pin as input or input pullup
+  {
+    DDRB &= ~_BV(pin); // Set pin as input
+  52:	b9 98       	cbi	0x17, 1	; 23
+digitalWrite():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_digital.c:49
+void digitalWrite(uint8_t pin, uint8_t val)
+{
+  if(val)
+    PORTB |= _BV(pin);  // Set pin high
+  else
+    PORTB &= ~_BV(pin); // Set pin low
+  54:	c4 98       	cbi	0x18, 4	; 24
+  56:	c3 98       	cbi	0x18, 3	; 24
+millis():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring.c:38
+ * @return uint32_t Number of milliseconds passed since the program started
+ */
+uint32_t millis()
+{
+  uint32_t m;
+  asm volatile ("rcall _millis" : "=w" (m) :: "r30");
+  58:	59 d0       	rcall	.+178    	; 0x10c <_millis>
+setup():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:50
+  pinMode(photoresistor, INPUT);
+  
+  digitalWrite(motion_sensor, LOW);
+  digitalWrite(led_pin, LOW);
+  
+  last_time = millis();
+  5a:	90 93 66 00 	sts	0x0066, r25	; 0x800066 <last_time+0x1>
+  5e:	80 93 65 00 	sts	0x0065, r24	; 0x800065 <last_time>
+analogRead():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_analog.c:66
+    #elif F_CPU <= 1200000L            // Between 200 kHz and 1.2 MHz
+      ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADPS1); // Prescaler to 4 -> F_CPU / 4
+    #elif F_CPU <= 6400000L            // Between 1.2 MHz and 6.4 MHz
+      ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADPS2); // Prescaler to 16 -> F_CPU / 16
+    #else                              // Greater than 6.4 MHz
+      ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0); // Prescaler to 128 -> F_CPU / 128
+  62:	87 ec       	ldi	r24, 0xC7	; 199
+  64:	f8 2e       	mov	r15, r24
+sensor_polling():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:38
+    }
+    wait = 3000;
+  }else {
+    digitalWrite(led_pin, LOW);
+    flagON = false;
+    wait = 500;
+  66:	24 ef       	ldi	r18, 0xF4	; 244
+  68:	31 e0       	ldi	r19, 0x01	; 1
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:34
+      flagON = true;
+    }else {
+      digitalWrite(led_pin, LOW);
+      flagON = false;
+    }
+    wait = 3000;
+  6a:	08 eb       	ldi	r16, 0xB8	; 184
+  6c:	1b e0       	ldi	r17, 0x0B	; 11
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:29
+void sensor_polling() {
+  if ( ! flagON) pr = analogRead(photoresistor);
+  if(digitalRead(motion_sensor)==HIGH) {
+    if (pr > 430) {
+      digitalWrite(led_pin, HIGH);
+      flagON = true;
+  6e:	ee 24       	eor	r14, r14
+  70:	e3 94       	inc	r14
+delay_millis():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:18
+int wait = 100;
+int pr;
+boolean flagON = false;
+
+void delay_millis(int del) {      
+  if (millis() - last_time > del) {
+  72:	80 90 65 00 	lds	r8, 0x0065	; 0x800065 <last_time>
+  76:	90 90 66 00 	lds	r9, 0x0066	; 0x800066 <last_time+0x1>
+  7a:	b1 2c       	mov	r11, r1
+  7c:	a1 2c       	mov	r10, r1
+  7e:	40 91 60 00 	lds	r20, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  82:	50 91 61 00 	lds	r21, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  86:	05 2e       	mov	r0, r21
+  88:	00 0c       	add	r0, r0
+  8a:	66 0b       	sbc	r22, r22
+  8c:	77 0b       	sbc	r23, r23
+millis():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring.c:38
+  8e:	3e d0       	rcall	.+124    	; 0x10c <_millis>
+delay_millis():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:18
+  90:	88 19       	sub	r24, r8
+  92:	99 09       	sbc	r25, r9
+  94:	aa 09       	sbc	r26, r10
+  96:	bb 09       	sbc	r27, r11
+  98:	48 17       	cp	r20, r24
+  9a:	59 07       	cpc	r21, r25
+  9c:	6a 07       	cpc	r22, r26
+  9e:	7b 07       	cpc	r23, r27
+  a0:	b0 f7       	brcc	.-20     	; 0x8e <main+0x42>
+millis():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring.c:38
+  a2:	34 d0       	rcall	.+104    	; 0x10c <_millis>
+delay_millis():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:19
+      last_time = millis();
+  a4:	90 93 66 00 	sts	0x0066, r25	; 0x800066 <last_time+0x1>
+  a8:	80 93 65 00 	sts	0x0065, r24	; 0x800065 <last_time>
+sensor_polling():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:25
+      sensor_polling();
+  }
+}
+
+void sensor_polling() {
+  if ( ! flagON) pr = analogRead(photoresistor);
+  ac:	80 91 64 00 	lds	r24, 0x0064	; 0x800064 <flagON>
+  b0:	81 11       	cpse	r24, r1
+  b2:	0e c0       	rjmp	.+28     	; 0xd0 <__stack+0x31>
+analogRead():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_analog.c:42
+ * @return int16_t Analog reading on the pin (10-bit, 0-1023)
+ */
+int16_t analogRead(analog_pin_t pin)
+{
+  // MUX1 & MUX0 are 2 lowest bits in ADMUX
+  ADMUX = (ADMUX & 0xFC) | pin;
+  b4:	87 b1       	in	r24, 0x07	; 7
+  b6:	8c 7f       	andi	r24, 0xFC	; 252
+  b8:	81 60       	ori	r24, 0x01	; 1
+  ba:	87 b9       	out	0x07, r24	; 7
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_analog.c:66
+    #elif F_CPU <= 1200000L            // Between 200 kHz and 1.2 MHz
+      ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADPS1); // Prescaler to 4 -> F_CPU / 4
+    #elif F_CPU <= 6400000L            // Between 1.2 MHz and 6.4 MHz
+      ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADPS2); // Prescaler to 16 -> F_CPU / 16
+    #else                              // Greater than 6.4 MHz
+      ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0); // Prescaler to 128 -> F_CPU / 128
+  bc:	f6 b8       	out	0x06, r15	; 6
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_analog.c:70
+    #endif
+  #endif
+
+  while(ADCSRA & _BV(ADSC)); // Wait for conversion
+  be:	36 99       	sbic	0x06, 6	; 6
+  c0:	fe cf       	rjmp	.-4      	; 0xbe <__stack+0x1f>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_analog.c:71
+  int16_t result = ADCW;
+  c2:	84 b1       	in	r24, 0x04	; 4
+  c4:	95 b1       	in	r25, 0x05	; 5
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_analog.c:72
+  ADCSRA = 0; // turn off ADC
+  c6:	16 b8       	out	0x06, r1	; 6
+sensor_polling():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:25
+  c8:	90 93 63 00 	sts	0x0063, r25	; 0x800063 <__data_end+0x1>
+  cc:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <__data_end>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:26
+  if(digitalRead(motion_sensor)==HIGH) {
+  d0:	b4 9b       	sbis	0x16, 4	; 22
+  d2:	13 c0       	rjmp	.+38     	; 0xfa <__stack+0x5b>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:27
+    if (pr > 430) {
+  d4:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <__data_end>
+  d8:	90 91 63 00 	lds	r25, 0x0063	; 0x800063 <__data_end+0x1>
+  dc:	8f 3a       	cpi	r24, 0xAF	; 175
+  de:	91 40       	sbci	r25, 0x01	; 1
+  e0:	44 f0       	brlt	.+16     	; 0xf2 <__stack+0x53>
+digitalWrite():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_digital.c:47
+ * @param val The state to set. Valid options are HIGH or LOW
+ */
+void digitalWrite(uint8_t pin, uint8_t val)
+{
+  if(val)
+    PORTB |= _BV(pin);  // Set pin high
+  e2:	c3 9a       	sbi	0x18, 3	; 24
+sensor_polling():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:29
+      digitalWrite(led_pin, HIGH);
+      flagON = true;
+  e4:	e0 92 64 00 	sts	0x0064, r14	; 0x800064 <flagON>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:34
+    }else {
+      digitalWrite(led_pin, LOW);
+      flagON = false;
+    }
+    wait = 3000;
+  e8:	10 93 61 00 	sts	0x0061, r17	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  ec:	00 93 60 00 	sts	0x0060, r16	; 0x800060 <__DATA_REGION_ORIGIN__>
+  f0:	c0 cf       	rjmp	.-128    	; 0x72 <main+0x26>
+digitalWrite():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_digital.c:49
+  else
+    PORTB &= ~_BV(pin); // Set pin low
+  f2:	c3 98       	cbi	0x18, 3	; 24
+sensor_polling():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:32
+    if (pr > 430) {
+      digitalWrite(led_pin, HIGH);
+      flagON = true;
+    }else {
+      digitalWrite(led_pin, LOW);
+      flagON = false;
+  f4:	10 92 64 00 	sts	0x0064, r1	; 0x800064 <flagON>
+  f8:	f7 cf       	rjmp	.-18     	; 0xe8 <__stack+0x49>
+digitalWrite():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/wiring_digital.c:49
+  fa:	c3 98       	cbi	0x18, 3	; 24
+sensor_polling():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:37
+    }
+    wait = 3000;
+  }else {
+    digitalWrite(led_pin, LOW);
+    flagON = false;
+  fc:	10 92 64 00 	sts	0x0064, r1	; 0x800064 <flagON>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\motion_sensor/motion_sensor.ino:38
+    wait = 500;
+ 100:	30 93 61 00 	sts	0x0061, r19	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 104:	20 93 60 00 	sts	0x0060, r18	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 108:	b4 cf       	rjmp	.-152    	; 0x72 <main+0x26>
+
+0000010a <__bad_interrupt>:
+__vector_1():
+ 10a:	7a cf       	rjmp	.-268    	; 0x0 <__vectors>
+
+0000010c <_millis>:
+_millis():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:36
+.section .text.millis
+
+; return millis counter ulong in r24:r27
+.global _millis
+_millis:
+    ldi ZL, lo8(wdt_millis_counter)
+ 10c:	e7 e6       	ldi	r30, 0x67	; 103
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:37
+    cli
+ 10e:	f8 94       	cli
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:38
+    ld r24, Z+
+ 110:	81 91       	ld	r24, Z+
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:39
+    ld r25, Z+
+ 112:	91 91       	ld	r25, Z+
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:40
+    ld r26, Z+
+ 114:	a1 91       	ld	r26, Z+
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:41
+    ld r27, Z+
+ 116:	b1 91       	ld	r27, Z+
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:42
+    reti
+ 118:	18 95       	reti
+
+0000011a <__vector_8>:
+__vector_8():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:48
+
+#define tmp1 r16
+
+.global WDT_vect
+WDT_vect:
+    push ZL
+ 11a:	ef 93       	push	r30
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:49
+    in ZL, SREG
+ 11c:	ef b7       	in	r30, 0x3f	; 63
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:50
+    push ZL                             ; Save SREG
+ 11e:	ef 93       	push	r30
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:51
+    push tmp1
+ 120:	0f 93       	push	r16
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:52
+    ldi ZL, lo8(wdt_millis_counter)
+ 122:	e7 e6       	ldi	r30, 0x67	; 103
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:53
+    ld tmp1, Z
+ 124:	00 81       	ld	r16, Z
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:54
+    subi tmp1, -19                      ; Add 19 (not 16) because the WDT clock isn't really 128 kHz
+ 126:	0d 5e       	subi	r16, 0xED	; 237
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:55
+    rjmp save
+ 128:	02 c0       	rjmp	.+4      	; 0x12e <save>
+
+0000012a <add1>:
+add1():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:57
+add1:
+    ld tmp1, Z
+ 12a:	00 81       	ld	r16, Z
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:58
+    sbci tmp1, -1
+ 12c:	0f 4f       	sbci	r16, 0xFF	; 255
+
+0000012e <save>:
+save():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:60
+save:
+    st Z+, tmp1
+ 12e:	01 93       	st	Z+, r16
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:61
+    brcc add1
+ 130:	e0 f7       	brcc	.-8      	; 0x12a <add1>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:62
+    pop tmp1
+ 132:	0f 91       	pop	r16
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:63
+    pop ZL
+ 134:	ef 91       	pop	r30
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:64
+    out SREG, ZL
+ 136:	ef bf       	out	0x3f, r30	; 63
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:65
+    pop ZL
+ 138:	ef 91       	pop	r30
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.0\cores\microcore/millis.S:66
+    reti
+ 13a:	18 95       	reti
+
+0000013c <_exit>:
+exit():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+ 13c:	f8 94       	cli
+
+0000013e <__stop_program>:
+__stop_program():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
+ 13e:	ff cf       	rjmp	.-2      	; 0x13e <__stop_program>
