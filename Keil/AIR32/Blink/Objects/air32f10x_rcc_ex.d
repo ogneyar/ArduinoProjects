@@ -1,10 +1,11 @@
-./objects/main.o: src\main.c \
+./objects/air32f10x_rcc_ex.o: \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\src\air32f10x_rcc_ex.c \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\Include\air32f10x.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h \

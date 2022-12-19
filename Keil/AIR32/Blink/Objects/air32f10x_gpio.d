@@ -1,12 +1,35 @@
 ./objects/air32f10x_gpio.o: \
-  G:\Program\Keil_v5\Packs\Keil\AIR32F103_DFP\1.0.6\Device\StdPeriph_Driver\src\air32f10x_gpio.c \
-  G:\Program\Keil_v5\Packs\Keil\AIR32F103_DFP\1.0.6\Device\Include\air32f10x_gpio.h \
-  G:\Program\Keil_v5\Packs\Keil\AIR32F103_DFP\1.0.6\Device\Include\air32f10x.h \
-  G:\Program\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h \
-  G:\Program\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  G:\Program\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h \
-  G:\Program\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h \
-  G:\Program\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h \
-  G:\Program\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h \
-  G:\Program\Keil_v5\Packs\Keil\AIR32F103_DFP\1.0.6\Device\Include\system_air32f10x.h \
-  G:\Program\Keil_v5\Packs\Keil\AIR32F103_DFP\1.0.6\Device\Include\air32f10x_rcc.h
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\src\air32f10x_gpio.c \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_gpio.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\Include\air32f10x.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\Include\system_air32f10x.h \
+  RTE\Device\AIR32F103CB\air32f10x_conf.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_adc.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_bkp.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_can.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_cec.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_crc.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_dac.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_dbgmcu.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_dma.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_exti.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_flash.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_fsmc.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_i2c.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_iwdg.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_pwr.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_rcc.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_rcc_ex.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_rtc.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_sdio.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_spi.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_tim.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_usart.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_wwdg.h \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\misc.h

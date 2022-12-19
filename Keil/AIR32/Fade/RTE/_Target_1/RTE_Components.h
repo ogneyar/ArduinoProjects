@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'Blink' 
+ * Project: 'Fade' 
  * Target:  'Target 1' 
  */
 

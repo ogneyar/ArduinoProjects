@@ -4,7 +4,7 @@ VERSION = "1.0.1"
 
 local sys = require "sys"
 
-local wait = 50
+local wait = 100
 
 sys.taskInit(
     function()

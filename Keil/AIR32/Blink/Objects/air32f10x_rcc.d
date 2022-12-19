@@ -1,7 +1,6 @@
-./objects/main.o: src\main.c \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+./objects/air32f10x_rcc.o: \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\src\air32f10x_rcc.c \
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_rcc.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\Include\air32f10x.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
@@ -26,7 +25,6 @@
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_i2c.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_iwdg.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_pwr.h \
-  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_rcc.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_rcc_ex.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_rtc.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_sdio.h \
