@@ -9,9 +9,14 @@ uint8_t ocr2a = 100;
 
 
 int main(void) {  
-  timerCounter2(128, ocr2a);
-  
-  while (1) {}
+  timerCounter2(128, ocr2a);  
+  DDRB |= (1<<PB5); // пин PB5 на выход (13 пин ардуины)
+  while (1) {
+    //PORTB |= ((PINB & PB3)<<PB5);
+    // digitalWrite(13, digitalRead(11));
+    PORTB ^= (1<<PB5);
+    _delay_ms(100);
+  }
 }
 
 
