@@ -30,7 +30,21 @@ void setup() {
   while (!digitalRead(SW));
 #else
   // стартовое меню
-  EEPROM.get(EEPR_SETTINGS, settings);
+  EEPROM.get(EEPR_SETTINGS, settings);    
+  // settings.backlight = eeprom_read_byte(EEPR_SETTINGS);
+  // settings.backlTime = eeprom_read_byte(EEPR_SETTINGS + 1);
+  // settings.drvSpeed = eeprom_read_byte(EEPR_SETTINGS + 2);
+  // settings.srv1_Speed = eeprom_read_byte(EEPR_SETTINGS + 3);
+  // settings.srv2_Speed = eeprom_read_byte(EEPR_SETTINGS + 4);
+  // settings.srv1_Acc = eeprom_read_float(EEPR_SETTINGS + 5);
+  // settings.srv2_Acc = eeprom_read_float(EEPR_SETTINGS + 9);
+  // settings.comSensPeriod = eeprom_read_word(EEPR_SETTINGS + 13);
+  // settings.plotMode = eeprom_read_byte(EEPR_SETTINGS + 15);
+  // settings.minAngle[0] = eeprom_read_byte(EEPR_SETTINGS + 16);
+  // settings.minAngle[1] = eeprom_read_byte(EEPR_SETTINGS + 17);
+  // settings.maxAngle[0] = eeprom_read_byte(EEPR_SETTINGS + 18);
+  // settings.maxAngle[1] = eeprom_read_byte(EEPR_SETTINGS + 19);
+  // settings.driveTimeout = eeprom_read_word(EEPR_SETTINGS + 20);
   if (!digitalRead(SW)) {
     drawStartMenu(0);
     while (!digitalRead(SW));
@@ -44,6 +58,20 @@ void setup() {
     clearEEPROM();  // сброс настроек
   }
   EEPROM.get(EEPR_SETTINGS, settings);     // чтение настроек
+  // settings.backlight = eeprom_read_byte(EEPR_SETTINGS);
+  // settings.backlTime = eeprom_read_byte(EEPR_SETTINGS + 1);
+  // settings.drvSpeed = eeprom_read_byte(EEPR_SETTINGS + 2);
+  // settings.srv1_Speed = eeprom_read_byte(EEPR_SETTINGS + 3);
+  // settings.srv2_Speed = eeprom_read_byte(EEPR_SETTINGS + 4);
+  // settings.srv1_Acc = eeprom_read_float(EEPR_SETTINGS + 5);
+  // settings.srv2_Acc = eeprom_read_float(EEPR_SETTINGS + 9);
+  // settings.comSensPeriod = eeprom_read_word(EEPR_SETTINGS + 13);
+  // settings.plotMode = eeprom_read_byte(EEPR_SETTINGS + 15);
+  // settings.minAngle[0] = eeprom_read_byte(EEPR_SETTINGS + 16);
+  // settings.minAngle[1] = eeprom_read_byte(EEPR_SETTINGS + 17);
+  // settings.maxAngle[0] = eeprom_read_byte(EEPR_SETTINGS + 18);
+  // settings.maxAngle[1] = eeprom_read_byte(EEPR_SETTINGS + 19);
+  // settings.driveTimeout = eeprom_read_word(EEPR_SETTINGS + 20);
   applySettings();  // применение настроек
 
   // ----- понеслась -----

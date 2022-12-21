@@ -309,6 +309,25 @@ struct channelsStruct {
 channelsStruct activeChannel, setChannel;
 
 #define loadChannel(x) channelsStruct(EEPROM.get((x) * EEPR_CH_STEP, activeChannel))
+// #define loadChannel(x) channelsStruct({
+//   activeChannel.type = eeprom_read_byte((x) * EEPR_CH_STEP);
+//   activeChannel.state = eeprom_read_byte((x) * EEPR_CH_STEP + 1);
+//   activeChannel.direction = eeprom_read_byte((x) * EEPR_CH_STEP + 2);
+//   activeChannel.global = eeprom_read_byte((x) * EEPR_CH_STEP + 3);
+//   activeChannel.week = eeprom_read_byte((x) * EEPR_CH_STEP + 4);
+//   activeChannel.sensor = eeprom_read_byte((x) * EEPR_CH_STEP + 5);
+//   activeChannel.relayType = eeprom_read_byte((x) * EEPR_CH_STEP + 6);
+//   activeChannel.mode = eeprom_read_byte((x) * EEPR_CH_STEP + 7);
+//   activeChannel.startHour = eeprom_read_byte((x) * EEPR_CH_STEP + 8);
+//   activeChannel.impulsePrd = eeprom_read_byte((x) * EEPR_CH_STEP + 9);
+//   activeChannel.threshold = eeprom_read_word((x) * EEPR_CH_STEP + 10);
+//   activeChannel.thresholdMax = eeprom_read_word((x) * EEPR_CH_STEP + 12);
+//   activeChannel.sensPeriod = eeprom_read_word((x) * EEPR_CH_STEP + 14);
+//   activeChannel.period = eeprom_read_float((x) * EEPR_CH_STEP + 16);
+//   activeChannel.work = eeprom_read_float((x) * EEPR_CH_STEP + 20);
+//   activeChannel.weekOn = eeprom_read_float((x) * EEPR_CH_STEP + 24);
+//   activeChannel.weekOff = eeprom_read_float((x) * EEPR_CH_STEP + 28);
+// })
 
 uint32_t timerMillis[10];       // счётчик миллис
 
