@@ -40,10 +40,6 @@ void initHardware() {
   dht.begin();
 #endif
 
-#if (USE_HTU21D == 1)
-  myHTU21D.begin();
-#endif
-
 #if (USE_DRIVE == 1)
   // привод
   // частота на пинах 3 и 11 - 31.4 кГц

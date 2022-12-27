@@ -100,7 +100,7 @@ void serviceOUT() {   // выполняем при выходе с сервис�
   if (!loadChannel(8).state) servo2.stop();
   servo2.setTargetDeg(pwmVal[5]);
 #else
-  servo2.write(pwmVal[5]);
+  servo1.write(pwmVal[5]);
   if (!loadChannel(8).state) servo2.detach();
 #endif
 #endif

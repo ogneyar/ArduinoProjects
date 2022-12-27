@@ -7,20 +7,15 @@ void getAllData() {
 #if (USE_BME == 1)
   sensorVals[0] = bme.readTemperature();
   sensorVals[1] = bme.readHumidity();
+  sensorVals[1] = constrain(sensorVals[1], 0, 99);
 #endif
 
 
 #if (DHT_SENS2 == 1)
-  sensorVals[0] = dht.readTemperature();
-  sensorVals[1] = dht.readHumidity();
-#endif
-
-#if (USE_HTU21D == 1)
-  sensorVals[1] = myHTU21D.readHumidity();
-  sensorVals[0] = myHTU21D.readTemperature();
-#endif
-
+  sensorVals[0] = (dht.readTemperature());
+  sensorVals[1] = (dht.readHumidity());
   sensorVals[1] = constrain(sensorVals[1], 0, 99);
+#endif
 
   sensorVals[2] = analogReadAverage(SENS_1) / 4;
   sensorVals[3] = analogReadAverage(SENS_2) / 4;

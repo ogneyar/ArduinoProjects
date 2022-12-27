@@ -290,7 +290,7 @@ void channelSett(int dir) {
         currentLine = 3;
 
       } else {    // привод
-        incr(&settings.driveTimeout, dir, 30000);
+        incr(&settings.driveTimeout, dir, 255);
         currentLine = 3;
       }
       break;
@@ -548,7 +548,7 @@ void controlTick() {
 #endif
 
 #if (FAST_TURN == 1)
-    byte fastTurn = enc.isFast() ? (arrowPos == 0 ? 1 : FAST_TURN_STEP) : 1;
+    byte fastTurn = enc.isFast() ? (navDepth == 0 ? 1 : FAST_TURN_STEP) : 1;
 #else
     byte fastTurn = 1;
 #endif

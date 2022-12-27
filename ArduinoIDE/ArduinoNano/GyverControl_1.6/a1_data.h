@@ -64,20 +64,20 @@
 
 // карта епром
 #define EEPR_KEY_ADDR 1022
-#define EEPR_KEY 121
+#define EEPR_KEY 41
 
 #define EEPR_CH 0
 #define EEPR_PID 320
 #define EEPR_DAWN 460
 #define EEPR_SETTINGS 502
-#define EEPR_PLOT_D 524
-#define EEPR_PLOT_H 704
-#define EEPR_SHED 884
+#define EEPR_PLOT_D 523
+#define EEPR_PLOT_H 703
+#define EEPR_SHED 883
 
 #define EEPR_CH_STEP 32
 #define EEPR_PID_STEP 20
 #define EEPR_DAWN_STEP 6
-#define EEPR_SETTINGS_STEP 22
+#define EEPR_SETTINGS_STEP 21
 #define EEPR_SHED_STEP (6+SCHEDULE_MAX*2)
 
 // -------------------- БИБЛИОТЕКИ ---------------------
@@ -136,11 +136,6 @@ MicroDS18B20 dallas(SENS_1);
 #if (DHT_SENS2 == 1)
 #include <DHT.h>
 DHT dht(SENS_2, DHT_TYPE);
-#endif
-
-#if (USE_HTU21D == 1)
-#include <microHTU21D.h>
-HTU21D myHTU21D(HTU21D_RES_RH12_TEMP14);
 #endif
 
 #if (WDT_ENABLE == 1)
@@ -282,7 +277,7 @@ struct {
   int8_t plotMode = 0;
   byte minAngle[2] = {0, 0};
   byte maxAngle[2] = {180, 180};
-  int16_t driveTimeout = 50;
+  byte driveTimeout = 50;
 } settings; //21
 
 // Channels
@@ -309,25 +304,6 @@ struct channelsStruct {
 channelsStruct activeChannel, setChannel;
 
 #define loadChannel(x) channelsStruct(EEPROM.get((x) * EEPR_CH_STEP, activeChannel))
-// #define loadChannel(x) channelsStruct({
-//   activeChannel.type = eeprom_read_byte((x) * EEPR_CH_STEP);
-//   activeChannel.state = eeprom_read_byte((x) * EEPR_CH_STEP + 1);
-//   activeChannel.direction = eeprom_read_byte((x) * EEPR_CH_STEP + 2);
-//   activeChannel.global = eeprom_read_byte((x) * EEPR_CH_STEP + 3);
-//   activeChannel.week = eeprom_read_byte((x) * EEPR_CH_STEP + 4);
-//   activeChannel.sensor = eeprom_read_byte((x) * EEPR_CH_STEP + 5);
-//   activeChannel.relayType = eeprom_read_byte((x) * EEPR_CH_STEP + 6);
-//   activeChannel.mode = eeprom_read_byte((x) * EEPR_CH_STEP + 7);
-//   activeChannel.startHour = eeprom_read_byte((x) * EEPR_CH_STEP + 8);
-//   activeChannel.impulsePrd = eeprom_read_byte((x) * EEPR_CH_STEP + 9);
-//   activeChannel.threshold = eeprom_read_word((x) * EEPR_CH_STEP + 10);
-//   activeChannel.thresholdMax = eeprom_read_word((x) * EEPR_CH_STEP + 12);
-//   activeChannel.sensPeriod = eeprom_read_word((x) * EEPR_CH_STEP + 14);
-//   activeChannel.period = eeprom_read_float((x) * EEPR_CH_STEP + 16);
-//   activeChannel.work = eeprom_read_float((x) * EEPR_CH_STEP + 20);
-//   activeChannel.weekOn = eeprom_read_float((x) * EEPR_CH_STEP + 24);
-//   activeChannel.weekOff = eeprom_read_float((x) * EEPR_CH_STEP + 28);
-// })
 
 uint32_t timerMillis[10];       // счётчик миллис
 
