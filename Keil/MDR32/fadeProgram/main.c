@@ -1,5 +1,5 @@
 
-#include "MDR32F9x.h"
+#include "MDR32F9Q2I.h"
 
 #define PB1 1
 #define PB2 2
@@ -17,7 +17,7 @@ void GPIO_Init(void);
 int main (void)
 {
 	
-	uint16_t intervalRising = 100;//500;//1000; 
+	uint16_t intervalRising = 500;//1000; 
 	uint16_t intervalFalling = 0;
 	
 	uint16_t i;
@@ -61,12 +61,6 @@ int main (void)
 			intervalRising++;
 			intervalFalling--;
 		}
-
-	
-		/*MDR_PORTB->RXTX &= ~(unsigned int)LED_VD5; 
-		for(i=0; i<10000; i++) __asm("nop");
-		MDR_PORTB->RXTX |= (unsigned int)LED_VD5; 
-		for(i=0; i<10000; i++) __asm("nop");*/
 		
 	}
 	

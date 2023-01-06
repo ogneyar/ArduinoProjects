@@ -1,5 +1,5 @@
 
-#include "MDR32F9x.h"
+#include "MDR32F9Q2I.h"
 
 #define PB1 1
 #define PB2 2

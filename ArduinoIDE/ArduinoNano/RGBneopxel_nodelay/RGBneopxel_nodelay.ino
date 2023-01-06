@@ -3,10 +3,10 @@
 
 #include <Adafruit_NeoPixel.h>
 
-#define LED_PIXEL_PIN    PD3
+#define LED_PIXEL_PIN    3 // PD3
 #define LED_COUNT        30
 
-#define USR_BUTTON_PIN   PD4
+#define USR_BUTTON_PIN   4 // PD4
 #define USR_BUTTON_OFF   HIGH
 #define USR_BUTTON_ON    LOW
 

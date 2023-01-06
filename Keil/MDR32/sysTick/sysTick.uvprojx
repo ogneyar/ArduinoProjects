@@ -402,9 +402,6 @@
         <Group>
           <GroupName>::Device</GroupName>
         </Group>
-        <Group>
-          <GroupName>::Drivers</GroupName>
-        </Group>
       </Groups>
     </Target>
   </Targets>
@@ -419,18 +416,6 @@
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="Milandr" Cversion="2.0.2i" condition="CON_MDR32F9Q2I">
-        <package name="MDR32FxQI" schemaVersion="1.2" url="https://ic.milandr.ru/soft/" vendor="Milandr" version="1.0"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Drivers" Cgroup="PORT" Cvendor="Milandr" Cversion="2.0.2i" condition="CON_MDR32FxQI">
-        <package name="MDR32FxQI" schemaVersion="1.2" url="https://ic.milandr.ru/soft/" vendor="Milandr" version="1.0"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Drivers" Cgroup="RST_CLK" Cvendor="Milandr" Cversion="2.0.2i" condition="CON_MDR32FxQI">
         <package name="MDR32FxQI" schemaVersion="1.2" url="https://ic.milandr.ru/soft/" vendor="Milandr" version="1.0"/>
         <targetInfos>
           <targetInfo name="Target 1"/>

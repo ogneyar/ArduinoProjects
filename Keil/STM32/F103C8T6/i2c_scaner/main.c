@@ -18,17 +18,8 @@ bool I2C_send_byte(I2C_TypeDef *I2C, uint8_t byte, uint32_t Timeout_ms);
 void I2C_stop(I2C_TypeDef *I2C);
 
 bool I2C_Adress_Device_Scan(I2C_TypeDef *I2C, uint8_t Adress_Device, uint32_t Timeout_ms);
-//bool I2C_Data_Transmit(I2C_TypeDef *I2C, uint8_t Adress_Device, uint8_t* data, uint16_t Size_data, uint32_t Timeout_ms);
-//bool I2C_Data_Receive(I2C_TypeDef *I2C, uint8_t Adress_Device, uint8_t* data, uint16_t Size_data, uint32_t Timeout_ms);
-//bool I2C_MemWrite(I2C_TypeDef *I2C, uint8_t Adress_Device, uint16_t Adress_data, uint8_t Size_adress, uint8_t* data, uint16_t Size_data, uint32_t Timeout_ms);
-//bool I2C_MemRead(I2C_TypeDef *I2C, uint8_t Adress_Device, uint16_t Adress_data, uint8_t Size_adress, uint8_t* data, uint16_t Size_data, uint32_t Timeout_ms);
 	
 static bool flag_I2C_Adress_Device_ACK;
-// static bool flag_I2C_Data_Transmit;
-// static bool flag_I2C_Data_Receive;
-// static uint8_t i2c_tx_buffer[32] = { 0, 0, 4, 8, 15, 16, 23, 42 };
-// static uint8_t i2c_rx_buffer[32] = { 0, };
-// static uint8_t i2c_tx_buffer_2[32] = { 1, 2, 3, 4, 5, 6 };
 
 	
 // main function
@@ -38,9 +29,9 @@ int main(void)
 	SysTick_Init();
 	
 	/* Configure the system clock */
-  SystemClock_72MHz();
+	SystemClock_72MHz();
 
-  /* Initialize all configured peripherals */
+	/* Initialize all configured peripherals */
 	GPIO_Init();
 	
 	
@@ -48,21 +39,15 @@ int main(void)
 	Delay_ms(1000);
 	
 	flag_I2C_Adress_Device_ACK = I2C_Adress_Device_Scan(I2C1, 0x3c, 100);
-	//Delay_ms(10);
-	//flag_I2C_Data_Transmit = I2C_Data_Transmit(I2C1, 0x50, i2c_tx_buffer, 8, 100);
-	//flag_I2C_Data_Transmit = I2C_Data_Transmit(I2C1, 0x50, i2c_tx_buffer, 2, 100);
-	//Delay_ms(5);
-	//flag_I2C_Data_Receive = I2C_Data_Receive(I2C1, 0x50, i2c_rx_buffer, 6, 100);
-	//flag_I2C_Data_Transmit = I2C_MemWrite(I2C1, 0x50, 6, 2, i2c_tx_buffer_2, 6, 100);
-	//flag_I2C_Data_Receive = I2C_MemRead(I2C1, 0x50, 6, 2, i2c_rx_buffer, 6, 100);
-	
 	
   while (1)
   {
 		GPIOC->BSRR |= GPIO_BSRR_BS13;
+		GPIOB->BSRR |= GPIO_BSRR_BS2; // signal for WeAct board
 		if (flag_I2C_Adress_Device_ACK) Delay_ms(1000);
 		else Delay_ms(100);
 		GPIOC->BSRR |= GPIO_BSRR_BR13;
+		GPIOB->BSRR |= GPIO_BSRR_BR2; // signal for WeAct board
 		if (flag_I2C_Adress_Device_ACK) Delay_ms(1000);
 		else Delay_ms(100);
   }
@@ -176,6 +161,11 @@ void GPIO_Init(void) {
 	// MODEy[1:0]: Port x mode bits (y= 8 .. 15)
 	GPIOC->CRH |= GPIO_CRH_MODE13; // 11: Maximum output speed 50 MHz
 /* ----------------------------------------------------- */		
+		
+	// PB2 - out
+	SET_BIT(RCC->APB2ENR, RCC_APB2ENR_IOPBEN); // 1: IO port B clock enabled
+	GPIOB->CRL &= ~GPIO_CRL_CNF2; // 00: General purpose output push-pull (PB2)
+	GPIOB->CRL |= GPIO_CRL_MODE2; // 11: Maximum output speed 50 MHz
 }
 
 
