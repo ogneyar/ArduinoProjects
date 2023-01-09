@@ -108,7 +108,7 @@ Servo servo2;
 #endif
 #endif
 
-#include <microWire.h>
+//#include <microWire.h>
 #include <microLiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(LCD_ADDR, 20, 4);
 

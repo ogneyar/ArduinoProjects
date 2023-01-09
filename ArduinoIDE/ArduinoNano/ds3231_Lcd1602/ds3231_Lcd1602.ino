@@ -1,5 +1,5 @@
 
-// Arduino NANO
+// Arduino NANO, LGT8F328
 
 //#define DEBUG_ON 1
 
