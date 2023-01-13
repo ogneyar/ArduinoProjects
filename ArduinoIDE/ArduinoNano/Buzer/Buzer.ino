@@ -1,5 +1,6 @@
 
-// Nano
+// Nano, LGT8F328
+
 // зуммер (buzer) на D11
 
 void timerCounter2(int = 1024);
