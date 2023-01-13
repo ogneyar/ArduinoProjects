@@ -1,7 +1,4 @@
-./objects/main.o: src\main.c \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+./objects/main.o: main.c \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\Include\air32f10x.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
@@ -34,4 +31,5 @@
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_tim.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_usart.h \
   C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\air32f10x_wwdg.h \
-  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\misc.h
+  C:\Users\ogney\AppData\Local\Arm\Packs\Keil\AIR32F103_DFP\1.1.0\Device\StdPeriph_Driver\inc\misc.h \
+  delay.h

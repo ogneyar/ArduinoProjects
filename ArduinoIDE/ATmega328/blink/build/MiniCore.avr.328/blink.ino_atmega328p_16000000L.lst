@@ -1,0 +1,116 @@
+
+C:\Users\ogney\AppData\Local\Temp\arduino-sketch-385CB08A56BD2BBBB397A05BAA5542BE/blink.ino.elf:     file format elf32-avr
+
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+__vectors():
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+__trampolines_start():
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 52 00 	call	0xa4	; 0xa4 <main>
+  78:	0c 94 5e 00 	jmp	0xbc	; 0xbc <_exit>
+
+0000007c <__bad_interrupt>:
+__vector_22():
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <_delay(unsigned long)>:
+_Z6_delaym():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATmega328\blink/blink.ino:11
+#define DDR   DDRD  // DDRC  // DDRB
+
+
+// функция мигания диода
+void _delay(uint32_t del){
+  for(uint32_t i=0; i< (del << 8); i++) asm("nop");
+  80:	44 27       	eor	r20, r20
+  82:	56 2f       	mov	r21, r22
+  84:	67 2f       	mov	r22, r23
+  86:	78 2f       	mov	r23, r24
+  88:	80 e0       	ldi	r24, 0x00	; 0
+  8a:	90 e0       	ldi	r25, 0x00	; 0
+  8c:	dc 01       	movw	r26, r24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATmega328\blink/blink.ino:11 (discriminator 3)
+  8e:	48 17       	cp	r20, r24
+  90:	59 07       	cpc	r21, r25
+  92:	6a 07       	cpc	r22, r26
+  94:	7b 07       	cpc	r23, r27
+  96:	29 f0       	breq	.+10     	; 0xa2 <_delay(unsigned long)+0x22>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATmega328\blink/blink.ino:11 (discriminator 2)
+  98:	00 00       	nop
+  9a:	01 96       	adiw	r24, 0x01	; 1
+  9c:	a1 1d       	adc	r26, r1
+  9e:	b1 1d       	adc	r27, r1
+  a0:	f6 cf       	rjmp	.-20     	; 0x8e <_delay(unsigned long)+0xe>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATmega328\blink/blink.ino:12
+}
+  a2:	08 95       	ret
+
+000000a4 <main>:
+main():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATmega328\blink/blink.ino:15
+
+int main(void) {
+  DDR |= (1 << LED);
+  a4:	50 9a       	sbi	0x0a, 0	; 10
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATmega328\blink/blink.ino:18
+    
+  while (1) {
+    PORT ^= (1 << LED); 
+  a6:	c1 e0       	ldi	r28, 0x01	; 1
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATmega328\blink/blink.ino:18 (discriminator 1)
+  a8:	8b b1       	in	r24, 0x0b	; 11
+  aa:	8c 27       	eor	r24, r28
+  ac:	8b b9       	out	0x0b, r24	; 11
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATmega328\blink/blink.ino:19 (discriminator 1)
+    _delay(200);
+  ae:	68 ec       	ldi	r22, 0xC8	; 200
+  b0:	70 e0       	ldi	r23, 0x00	; 0
+  b2:	80 e0       	ldi	r24, 0x00	; 0
+  b4:	90 e0       	ldi	r25, 0x00	; 0
+  b6:	0e 94 40 00 	call	0x80	; 0x80 <_delay(unsigned long)>
+  ba:	f6 cf       	rjmp	.-20     	; 0xa8 <main+0x4>
+
+000000bc <_exit>:
+exit():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr5/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+  bc:	f8 94       	cli
+
+000000be <__stop_program>:
+__stop_program():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr5/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
+  be:	ff cf       	rjmp	.-2      	; 0xbe <__stop_program>

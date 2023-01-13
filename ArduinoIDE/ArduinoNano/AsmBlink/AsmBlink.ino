@@ -1,10 +1,11 @@
+
+// Nano, LGT8F328
+
 extern "C" {
   extern __FlashStringHelper *D13OnOff(byte);
 }
 
-void setup() {
-
-}
+void setup() {}
 
 void loop() {
   D13OnOff(0b00000000);

@@ -3,7 +3,7 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.37.0.0
+IDE-Version: µVision V5.38.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
 License Information: Ogneyar Yakovlev, LeidTogi, LIC=----
  
@@ -17,25 +17,26 @@ Library Manager: ArmAr.exe V6.18
 Hex Converter:   FromElf.exe V6.18
 CPU DLL:         SARMCM3.DLL V5.37.0.0
 Dialog DLL:      DCM.DLL V1.17.5.0
-Target DLL:      CMSIS_AGDI.dll V1.33.12.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TCM.DLL V1.56.1.0
  
 <h2>Project:</h2>
 E:\VSCode\ArduinoProjects\Keil\AIR32\Blink\Blink.uvprojx
-Project File Date:  12/19/2022
+Project File Date:  01/09/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
-Rebuild target 'Target 1'
+Build target 'Target 1'
 compiling main.c...
 compiling air32f10x_gpio.c...
 compiling air32f10x_rcc.c...
 compiling air32f10x_rcc_ex.c...
 compiling misc.c...
+compiling GPIO_AIR32F10x.c...
 assembling startup_air32f10x.s...
 compiling system_air32f10x.c...
 linking...
-Program Size: Code=976 RO-data=560 RW-data=0 ZI-data=8288  
+Program Size: Code=5534 RO-data=614 RW-data=4 ZI-data=8296  
 FromELF: creating hex file...
 ".\Objects\Blink.axf" - 0 Error(s), 0 Warning(s).
 
@@ -51,6 +52,7 @@ Package Vendor: Keil
                 https://luatos.com/t/air32f103/Keil.AIR32F103_DFP.1.1.0.pack
                 Keil.AIR32F103_DFP.1.1.0
                 AirM2M AIR32F1 Series Device Support, Drivers
+   * Component: GPIO Version: 1.0
    * Component: Startup Version: 1.0.0
    * Component: Framework Version: 1.0.1
    * Component: GPIO Version: 1.0.0
@@ -62,34 +64,39 @@ Package Vendor: Keil
   C:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
   C:/Users/ogney/AppData/Local/Arm/Packs/Keil/AIR32F103_DFP/1.1.0/Device/Include
   C:/Users/ogney/AppData/Local/Arm/Packs/Keil/AIR32F103_DFP/1.1.0/Device/StdPeriph_Driver/inc
+  C:/Users/ogney/AppData/Local/Arm/Packs/Keil/AIR32F103_DFP/1.1.0/RTE_Driver
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
+   * Component: Keil::Device:GPIO:1.0
+      Include file:  RTE_Driver/GPIO_AIR32F10x.h
+      Source file:   RTE_Driver/GPIO_AIR32F10x.c
+
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device/Source/system_air32f10x.c
       Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/startup_air32f10x.s
+      Source file:   Device/Source/system_air32f10x.c
 
    * Component: Keil::Device:StdPeriph Drivers:Framework:1.0.1
-      Source file:   Device/StdPeriph_Driver/src/misc.c
-      Include file:  Device/StdPeriph_Driver/templates/air32f10x_it.h
       Source file:   Device/StdPeriph_Driver/templates/main.c
-      Source file:   Device/StdPeriph_Driver/templates/air32f10x_conf.h
       Source file:   Device/StdPeriph_Driver/templates/air32f10x_it.c
+      Source file:   Device/StdPeriph_Driver/src/misc.c
       Include file:  Device/StdPeriph_Driver/inc/misc.h
+      Source file:   Device/StdPeriph_Driver/templates/air32f10x_conf.h
+      Include file:  Device/StdPeriph_Driver/templates/air32f10x_it.h
 
    * Component: Keil::Device:StdPeriph Drivers:GPIO:1.0.0
       Include file:  Device/StdPeriph_Driver/inc/air32f10x_gpio.h
       Source file:   Device/StdPeriph_Driver/src/air32f10x_gpio.c
 
    * Component: Keil::Device:StdPeriph Drivers:RCC:1.0.0
-      Include file:  Device/StdPeriph_Driver/inc/air32f10x_rcc_ex.h
-      Source file:   Device/StdPeriph_Driver/src/air32f10x_rcc_ex.c
       Include file:  Device/StdPeriph_Driver/inc/air32f10x_rcc.h
+      Source file:   Device/StdPeriph_Driver/src/air32f10x_rcc_ex.c
+      Include file:  Device/StdPeriph_Driver/inc/air32f10x_rcc_ex.h
       Source file:   Device/StdPeriph_Driver/src/air32f10x_rcc.c
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

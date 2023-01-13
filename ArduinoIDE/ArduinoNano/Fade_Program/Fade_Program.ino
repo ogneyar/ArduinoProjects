@@ -1,5 +1,5 @@
 
-// Arduino Nano
+// Nano, LGT8F328
 
 #define LIGHT_ON LOW
 #define LIGHT_OFF HIGH

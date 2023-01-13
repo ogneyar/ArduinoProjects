@@ -1,10 +1,11 @@
-// Arduino Nano
 
-//byte LED1 = 13;
+// Nano, LGT8F328
+
+//byte LED1 = 13; // PB5
   
 void setup() {
 //  pinMode(LED1, OUTPUT);
-  DDRB |= (1<<5);
+  DDRB |= (1 << 5);
 }
 
 void loop() {
@@ -12,7 +13,6 @@ void loop() {
 //  delay(500);  
 //  digitalWrite(LED1, LOW);
 //  delay(500);
-
-  PORTB ^= (1<<5);
+  PORTB ^= (1 << 5);
   _delay_us(100000);
 }
