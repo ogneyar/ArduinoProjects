@@ -1,8 +1,9 @@
 
-// Nano
+// Nano, LGT8F328
 
-#define SCREEN_BUFFER_LENGTH 512 // 
-
+#define SH1106 1 // смена направления вывода данных
+#define SCREEN_BUFFER_LENGTH 512 // 512 * 8 = 128 * 32
+#define OLED_WIDTH              128
 #ifndef F_CPU
 #define F_CPU 16000000UL
 #endif
@@ -17,7 +18,7 @@ uint8_t command = 0x00; // or 0x80
 uint8_t dataByte = 0x40;
 uint8_t dataArray = 0xc0;
 
-uint16_t scr_buffer[0]; // Буфер дисплея
+uint16_t scr_buffer[SCREEN_BUFFER_LENGTH]; // Буфер дисплея
 
 
 static const uint8_t ssd1306_64x32_init[] PROGMEM = {
@@ -36,13 +37,13 @@ static const uint8_t ssd1306_64x32_init[] PROGMEM = {
   0xA1, // Режим разверки по странице (по X) // A1 - нормальный режим (слева/направо) A0 - обратный (справа/налево) 
   0xC8, // Режим сканирования озу дисплея // для изменения системы координат // С0 - снизу/верх (начало нижний левый угол) // С8 - сверху/вниз (начало верний левый угол) 
   0xDA, // Аппаратная конфигурация COM 
-    0x02, // 0x02 - 128x32, 0x12 - 128x64 
+    0x12, // 0x02 - 128x32, 0x12 - 128x64 
   0x81, // Установка яркости дисплея 
-  0x8F, // 0x8F..0xCF контраст
+  0x80, // 0x8F..0xCF контраст
   0xD9, // Настройка фаз DC/DC преоразователя, HIGH: 0xD9, LOW: 0xEF
-  0xF1, // 0x22 - VCC подается извне / 0xF1 для внутренего 
+  0x22, // 0x22 - VCC подается извне / 0xF1 для внутренего 
   0xDB, // Установка уровня VcomH 
-  0x40, // Влияет на яркость дисплея 0x00..0x70 
+  0x28, // Влияет на яркость дисплея 0x00..0x70 
   0xA4, // Режим нормальный 
   0xA6, // 0xA6 - нет инверсии, 0xA7 - инверсия дисплея 
   0xAF // Дисплей включен
@@ -50,10 +51,11 @@ static const uint8_t ssd1306_64x32_init[] PROGMEM = {
 
 
 void i2c_init(void) {
-   TWSR = 0;
+  TWSR = 0;   
+  TWBR = F_CPU/(2*1000000)-8; // 12 --> 1MHz
   //  TWBR = F_CPU/(2*400000)-8; // 12 --> 400KHz
-  TWBR = F_CPU/(2*100000)-8; // 72 --> 100KHz
-//   TWBR = F_CPU/(2*50000)-8; // 152 --> 50KHz
+  // TWBR = F_CPU/(2*100000)-8; // 72 --> 100KHz
+  // TWBR = F_CPU/(2*50000)-8; // 152 --> 50KHz
 }
 
 void i2c_wait() {
@@ -131,17 +133,37 @@ void screen_clear(void) {
 
 // Функция обновления дисплея
 void screen_update(void) {
+  if (SH1106) {  // для SSD1106
+    disp_write(0, 0x00);
+    disp_write(0, 0x10);
+    disp_write(0, 0x40);    
+    uint16_t ptr = 0;                
+    for (uint8_t i = 0; i < (64 >> 3); i++) {
+      disp_write(0, 0xB0 + i + 0);    //set page address
+      disp_write(0, 0x02);//2 & 0xf);        //set lower column address
+      disp_write(0, 0x10);            //set higher column address
+      for (uint8_t a = 0; a < OLED_WIDTH; a++) {
+        disp_write(1, scr_buffer[a + (i * OLED_WIDTH)]);
+        //disp_write(1, scr_buffer[((ptr&0x7F)<<3)+(ptr>>7)]); 
+        // 0, 1,  2,  3,  4,  5,  6,  7,  8, ...,  127,  128
+        // 0, 8, 16, 24, 32, 40, 48, 56, 64, ..., 1016, 1024
+        ptr++;
+      }
+    }
+    
+  }else {
   disp_write(0,0x21); // Установка столбца
   disp_write(0,0);    // Начальный адрес
   disp_write(0,127);  // Конечный адрес
   
   disp_write(0,0x22); // Установка строки
   disp_write(0,0);    // Начальный адрес
-  disp_write(0,3);    // Конечный адрес
+  disp_write(0,7);    // Конечный адрес
   
   // Запись данных из буфера в дисплей
-//  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) disp_write(1, scr_buffer[i]);
-  disp_write_array();  
+  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) disp_write(1, scr_buffer[i]);
+  // disp_write_array();  
+  }  
 }
 
 
@@ -170,15 +192,7 @@ void setup() {
   i2c_init();
   display_init();
   
-  screen_clear();
-  screen_update();
-
-  delay(1000);
-  
-  for(uint16_t i = 0; i < SCREEN_BUFFER_LENGTH; i++) scr_buffer[i] = 0xff;
-  screen_update();
-
-  // test_screen();
+  test_screen();
   
 }
 

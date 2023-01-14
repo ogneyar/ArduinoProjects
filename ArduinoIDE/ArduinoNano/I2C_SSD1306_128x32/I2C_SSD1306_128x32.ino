@@ -51,6 +51,7 @@ static const uint8_t ssd1306_128x32_init[] PROGMEM = {
 
 void i2c_init(void) {
    TWSR = 0;
+   // TWBR = F_CPU/(2*1000000)-8; // 12 --> 1MHz
    TWBR = F_CPU/(2*400000)-8; // 12 --> 400KHz
 //   TWBR = F_CPU/(2*100000)-8; // 72 --> 100KHz
 //   TWBR = F_CPU/(2*50000)-8; // 152 --> 50KHz

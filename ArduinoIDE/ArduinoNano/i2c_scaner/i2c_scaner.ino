@@ -1,4 +1,6 @@
 
+// Nano, LGT8F328
+
 #include <Wire.h>
  
  

@@ -1,5 +1,5 @@
 
-// Nano
+// Nano, LGT8F328
 
 #include <Arduino.h>
 #include <U8x8lib.h>
@@ -15,15 +15,18 @@ void setup(void)
 {  
   u8x8.begin();
   u8x8.setPowerSave(0);  
+  
+  u8x8.setFont(u8x8_font_chroma48medium8_r);
+  u8x8.drawString(0,0,"Hello");
+  u8x8.drawString(0,1,"World!");
 }
 
 void loop(void)
 {
-  u8x8.setFont(u8x8_font_chroma48medium8_r);
-  u8x8.drawString(0,1,"Hello World!");
-  u8x8.drawString(0,0,"Line 0");
-  u8x8.drawString(0,8,"Line 8");
-  u8x8.drawString(0,9,"Line 9");
-  u8x8.refreshDisplay();		// only required for SSD1606/7  
-  delay(2000);
+  // u8x8.setFont(u8x8_font_chroma48medium8_r);
+  // u8x8.drawString(0,1,"Hello World!");
+  // u8x8.drawString(0,0,"Line 0");
+  // u8x8.drawString(0,8,"Line 8");
+  // u8x8.drawString(0,9,"Line 9");
+  // delay(2000);
 }
