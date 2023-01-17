@@ -25,6 +25,7 @@ void SPI_MasterTransmit(char* TextString) {
   while (*PtrToStrChar != 0) {// Цикл "если не конец строки", то ..
     /* Запуск передачи данных: */
     SPDR = *PtrToStrChar;
+	asm volatile("nop");
     /* Ожидание завершения передачи: */
     while (!(SPSR & (1 << SPIF))) ;
     PtrToStrChar++;  // переход к следующему символу в строке.
