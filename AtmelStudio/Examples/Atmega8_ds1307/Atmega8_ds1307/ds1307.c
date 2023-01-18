@@ -1,5 +1,6 @@
 #include "ds1307.h"
 
+#define DS1307_ADDRESS	0x86
 #define DS1307_WRITE	0xD0
 #define DS1307_READ		0xD1
 

@@ -1,5 +1,5 @@
 
-// Arduino NANO
+// NANO, LGT8F328
 
 #include <microDS3231.h>
 MicroDS3231 rtc;

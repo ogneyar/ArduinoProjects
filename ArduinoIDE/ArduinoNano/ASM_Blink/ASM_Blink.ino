@@ -1,0 +1,39 @@
+
+// LGT8328
+
+void setup() {  
+asm volatile(
+  
+".EQU DDRB, 0x04 \n\t"
+".EQU PORTB, 0x05 \n\t"
+
+";MAIN LABEL \n\t"
+"MAIN: \n\t"
+  "LDI R16, 0xFF \n\t"
+  "OUT DDRB, R16 ;PORTB IS OUTPUT \n\t"
+
+"BACK: \n\t"
+  "COM R16 ;COMPLEMENT THE VALUE IN R16 \n\t"
+  "OUT PORTB, R16 ;PUSH THE VALUE IN R16 TO PORTB \n\t"
+  "CALL DELAY \n\t"
+  "RJMP BACK ;KEEP DOING THIS INFINITELY \n\t"
+
+"DELAY: \n\t"
+  "LDI R17, 100 \n\t"
+  "LOOP3: LDI R18, 255 \n\t"
+  "LOOP2: LDI R19, 255 \n\t"
+  "LOOP1: DEC R19 \n\t"
+  "BRNE LOOP1 ;KEEP DECREASING R19 \n\t"
+  "DEC R18 \n\t"
+  "BRNE LOOP2 ;FOR EVERY DECREASE OF R18 REDO THE PREVIOUS LOOP \n\t"
+  "DEC R17 \n\t"
+  "BRNE LOOP3 ;FOR EVERY DECREASE OF R17 REPEAT PREVIOUS LOOP \n\t"
+"RET 	   ;RETURN TO PREVIOUS PC ADDRESS \n\t"
+
+);
+}
+
+void loop() {}
+
+
+//

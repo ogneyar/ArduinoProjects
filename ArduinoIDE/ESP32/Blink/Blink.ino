@@ -1,9 +1,13 @@
 
-// Esp32s2_lolin_mini (LED_BUILTIN 15)
-// Esp32с3_WeAct (LED_BUILTIN 8)
+// ESP32S2_Lolin_mini, ESP32C3_WeAct, ESP32_Lite(ESP32_Dev_Module)
 
+// ESP32S2_Lolin_mini (LED_BUILTIN 15)
+// ESP32C3_WeAct (LED_BUILTIN 8)
+// ESP32_Lite(ESP32_Dev_Module) (LED_BUILTIN 8)
+
+#ifndef LED_BUILTIN
 #define LED_BUILTIN 8
-
+#endif
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
