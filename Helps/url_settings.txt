@@ -7,6 +7,10 @@ http://arduino.esp8266.com/stable/package_esp8266com_index.json
 https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
 
 
+// для ATmega64
+https://mcudude.github.io/MegaCore/package_MCUdude_MegaCore_index.json
+
+
 //  для ATtiny
 https://raw.githubusercontent.com/damellis/attiny/ide-1.6.x-boards-manager/package_damellis_attiny_index.json
 
