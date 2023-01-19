@@ -3,8 +3,8 @@
 
 //ПОДКЛЮЧЕНИЕ ДИСПЛЕЯ НА TM1637
 
-#define CLK 2
-#define DIO 3
+#define CLK 3
+#define DIO 4
 
 #include <GyverTM1637.h>
 GyverTM1637 disp(CLK, DIO);
