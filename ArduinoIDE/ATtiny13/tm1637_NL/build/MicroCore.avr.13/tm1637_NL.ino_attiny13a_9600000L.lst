@@ -1,0 +1,397 @@
+
+C:\Users\ogney\AppData\Local\Temp\arduino-sketch-86E2E1BE73C6826B71F1D853A5814CD9/tm1637_NL.ino.elf:     file format elf32-avr
+
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+__vectors():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:20
+  .endm
+
+  .section .vectors
+  .global __vectors
+__vectors:
+  rjmp __init
+   0:	0a c0       	rjmp	.+20     	; 0x16 <__ctors_end>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:21
+  vector __vector_1
+   2:	72 c0       	rjmp	.+228    	; 0xe8 <__vector_1>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:22
+  vector __vector_2
+   4:	07 c0       	rjmp	.+14     	; 0x14 <__empty_interrupt>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:23
+  vector __vector_3
+   6:	06 c0       	rjmp	.+12     	; 0x14 <__empty_interrupt>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:24
+  vector __vector_4
+   8:	05 c0       	rjmp	.+10     	; 0x14 <__empty_interrupt>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:25
+  vector __vector_5
+   a:	04 c0       	rjmp	.+8      	; 0x14 <__empty_interrupt>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:26
+  vector __vector_6
+   c:	03 c0       	rjmp	.+6      	; 0x14 <__empty_interrupt>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:27
+  vector __vector_7
+   e:	02 c0       	rjmp	.+4      	; 0x14 <__empty_interrupt>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:28
+  vector __vector_8
+  10:	01 c0       	rjmp	.+2      	; 0x14 <__empty_interrupt>
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:29
+  vector __vector_9
+  12:	00 c0       	rjmp	.+0      	; 0x14 <__empty_interrupt>
+
+00000014 <__empty_interrupt>:
+__vector_6():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:44
+  vector __vector_19
+
+  ;.text
+  .global __empty_interrupt
+__empty_interrupt:
+  reti
+  14:	18 95       	reti
+
+00000016 <__ctors_end>:
+__init():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/pcrt.S:50
+
+    .section .init0
+__init:
+
+    .section .init2
+    clr r1
+  16:	11 24       	eor	r1, r1
+
+00000018 <__do_clear_bss>:
+__do_clear_bss():
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2441
+  18:	20 e0       	ldi	r18, 0x00	; 0
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2442
+  1a:	a0 e6       	ldi	r26, 0x60	; 96
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2443
+  1c:	b0 e0       	ldi	r27, 0x00	; 0
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2444
+  1e:	01 c0       	rjmp	.+2      	; 0x22 <.do_clear_bss_start>
+
+00000020 <.do_clear_bss_loop>:
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2446
+  20:	1d 92       	st	X+, r1
+
+00000022 <.do_clear_bss_start>:
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2448
+  22:	a1 36       	cpi	r26, 0x61	; 97
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2449
+  24:	b2 07       	cpc	r27, r18
+/home/jenkins-mingw32/workspace/avr-gcc-staging/label/Ubuntu14.04x64-mingw32/gcc-build/avr/avr25/tiny-stack/libgcc/../../../../../gcc/libgcc/config/avr/lib1funcs.S:2450
+  26:	e1 f7       	brne	.-8      	; 0x20 <.do_clear_bss_loop>
+
+00000028 <main>:
+main():
+C:\Users\ogney\AppData\Local\Arduino15\packages\MicroCore\hardware\avr\2.2.1\cores\microcore/wiring.c:63
+ * @brief Initializing function that runs before setup().
+ */
+void init()
+{
+  // Turn on global interrupts
+  sei();
+  28:	78 94       	sei
+tm1637_init():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:46
+
+//-------------------------------- TM1637 ---------------------------------------
+
+// tm1637 initialization
+void tm1637_init(uint8_t bright) {
+  DDRB |= (1 << DISPLAY_CLK) |  (1 << DISPLAY_DIO);  // CLK OUTPUT, DIO OUTPUT
+  2a:	87 b3       	in	r24, 0x17	; 23
+  2c:	88 61       	ori	r24, 0x18	; 24
+  2e:	87 bb       	out	0x17, r24	; 23
+tm1637_brightness():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:105
+  tm1637_sendOne(4, digit[n3]);
+}
+
+// установка яркости экрана
+void tm1637_brightness(uint8_t bri) {
+  Cmd_DispCtrl = 0x88 + bri;
+  30:	8b e8       	ldi	r24, 0x8B	; 139
+  32:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+tm1637_display():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:97
+  return ack;
+}
+
+//
+void tm1637_display(uint8_t n0, uint8_t n1, uint8_t n2, uint8_t n3) {
+  tm1637_sendOne(1, digit[n0]);
+  36:	66 e0       	ldi	r22, 0x06	; 6
+  38:	81 e0       	ldi	r24, 0x01	; 1
+  3a:	3f d0       	rcall	.+126    	; 0xba <tm1637_sendOne(unsigned char, signed char)>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:98
+  tm1637_sendOne(2, digit[n1]);
+  3c:	6b e5       	ldi	r22, 0x5B	; 91
+  3e:	82 e0       	ldi	r24, 0x02	; 2
+  40:	3c d0       	rcall	.+120    	; 0xba <tm1637_sendOne(unsigned char, signed char)>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:99
+  tm1637_sendOne(3, digit[n2]);
+  42:	6f e4       	ldi	r22, 0x4F	; 79
+  44:	83 e0       	ldi	r24, 0x03	; 3
+  46:	39 d0       	rcall	.+114    	; 0xba <tm1637_sendOne(unsigned char, signed char)>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:100
+  tm1637_sendOne(4, digit[n3]);
+  48:	66 e6       	ldi	r22, 0x66	; 102
+  4a:	84 e0       	ldi	r24, 0x04	; 4
+  4c:	36 d0       	rcall	.+108    	; 0xba <tm1637_sendOne(unsigned char, signed char)>
+  4e:	ff cf       	rjmp	.-2      	; 0x4e <__SREG__+0xf>
+
+00000050 <tm1637_stop()>:
+_Z11tm1637_stopv():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:60
+  PORTB &= ~(1 << DISPLAY_CLK); // CLK LOW
+}
+
+//End of transmission
+void tm1637_stop(void) {
+  PORTB &= ~(1 << DISPLAY_CLK); // CLK LOW
+  50:	c3 98       	cbi	0x18, 3	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:61
+  PORTB &= ~(1 << DISPLAY_DIO); // DIO LOW
+  52:	c4 98       	cbi	0x18, 4	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:62
+  PORTB |= (1 << DISPLAY_CLK); // CLK HIGH
+  54:	c3 9a       	sbi	0x18, 3	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:63
+  PORTB |= (1 << DISPLAY_DIO); // DIO HIGH
+  56:	c4 9a       	sbi	0x18, 4	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:64
+}
+  58:	08 95       	ret
+
+0000005a <tm1637_start()>:
+_Z12tm1637_startv():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:52
+  tm1637_brightness(bright);
+}
+
+//send start signal
+void tm1637_start(void) {
+  PORTB |= (1 << DISPLAY_CLK); // CLK HIGH
+  5a:	c3 9a       	sbi	0x18, 3	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:53
+  PORTB |= (1 << DISPLAY_DIO); // DIO HIGH
+  5c:	c4 9a       	sbi	0x18, 4	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:54
+  PORTB &= ~(1 << DISPLAY_DIO); // DIO LOW
+  5e:	c4 98       	cbi	0x18, 4	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:55
+  PORTB &= ~(1 << DISPLAY_CLK); // CLK LOW
+  60:	c3 98       	cbi	0x18, 3	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:56
+}
+  62:	08 95       	ret
+
+00000064 <tm1637_writeByte(signed char)>:
+_Z16tm1637_writeBytea():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:67
+  PORTB |= (1 << DISPLAY_CLK); // CLK HIGH
+  PORTB |= (1 << DISPLAY_DIO); // DIO HIGH
+}
+
+//
+int tm1637_writeByte(int8_t wr_data) {
+  64:	98 e0       	ldi	r25, 0x08	; 8
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:71
+  uint8_t i, count1;
+  for (i = 0; i < 8; i++)  //sent 8bit data
+  {
+    PORTB &= ~(1 << DISPLAY_CLK); // CLK LOW
+  66:	c3 98       	cbi	0x18, 3	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:72
+    if (wr_data & 0x01) PORTB |= (1 << DISPLAY_DIO); // DIO HIGH
+  68:	28 2f       	mov	r18, r24
+  6a:	08 2e       	mov	r0, r24
+  6c:	00 0c       	add	r0, r0
+  6e:	33 0b       	sbc	r19, r19
+  70:	80 ff       	sbrs	r24, 0
+  72:	02 c0       	rjmp	.+4      	; 0x78 <tm1637_writeByte(signed char)+0x14>
+  74:	c4 9a       	sbi	0x18, 4	; 24
+  76:	01 c0       	rjmp	.+2      	; 0x7a <tm1637_writeByte(signed char)+0x16>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:73
+    else PORTB &= ~(1 << DISPLAY_DIO); // DIO LOW
+  78:	c4 98       	cbi	0x18, 4	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:74
+    wr_data >>= 1;
+  7a:	35 95       	asr	r19
+  7c:	27 95       	ror	r18
+  7e:	82 2f       	mov	r24, r18
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:75
+    PORTB |= (1 << DISPLAY_CLK); // CLK HIGH
+  80:	c3 9a       	sbi	0x18, 3	; 24
+  82:	91 50       	subi	r25, 0x01	; 1
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:69
+}
+
+//
+int tm1637_writeByte(int8_t wr_data) {
+  uint8_t i, count1;
+  for (i = 0; i < 8; i++)  //sent 8bit data
+  84:	81 f7       	brne	.-32     	; 0x66 <tm1637_writeByte(signed char)+0x2>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:77
+    if (wr_data & 0x01) PORTB |= (1 << DISPLAY_DIO); // DIO HIGH
+    else PORTB &= ~(1 << DISPLAY_DIO); // DIO LOW
+    wr_data >>= 1;
+    PORTB |= (1 << DISPLAY_CLK); // CLK HIGH
+  }
+  PORTB &= ~(1 << DISPLAY_CLK); // CLK LOW
+  86:	c3 98       	cbi	0x18, 3	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:78
+  PORTB |= (1 << DISPLAY_DIO); // DIO HIGH
+  88:	c4 9a       	sbi	0x18, 4	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:79
+  PORTB |= (1 << DISPLAY_CLK); // CLK HIGH
+  8a:	c3 9a       	sbi	0x18, 3	; 24
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:80
+  DDRB &= ~(1 << DISPLAY_DIO); // DIO INPUT
+  8c:	bc 98       	cbi	0x17, 4	; 23
+_delay_us():
+c:\users\ogney\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\avr\include\util/delay.h:276
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  8e:	80 ea       	ldi	r24, 0xA0	; 160
+  90:	8a 95       	dec	r24
+  92:	f1 f7       	brne	.-4      	; 0x90 <tm1637_writeByte(signed char)+0x2c>
+  94:	00 00       	nop
+_Z16tm1637_writeBytea():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:83
+
+  delayMicroseconds(50);
+  uint8_t ack = PINB & (1 << DISPLAY_DIO);
+  96:	96 b3       	in	r25, 0x16	; 22
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:84
+  if (ack == 0) {
+  98:	89 2f       	mov	r24, r25
+  9a:	80 71       	andi	r24, 0x10	; 16
+  9c:	94 fd       	sbrc	r25, 4
+  9e:	02 c0       	rjmp	.+4      	; 0xa4 <tm1637_writeByte(signed char)+0x40>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:85
+    DDRB |= (1 << DISPLAY_DIO); // DIO OUTPUT
+  a0:	bc 9a       	sbi	0x17, 4	; 23
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:86
+    PORTB &= ~(1 << DISPLAY_DIO); // DIO LOW
+  a2:	c4 98       	cbi	0x18, 4	; 24
+_delay_us():
+c:\users\ogney\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\avr\include\util/delay.h:276
+  a4:	90 ea       	ldi	r25, 0xA0	; 160
+  a6:	9a 95       	dec	r25
+  a8:	f1 f7       	brne	.-4      	; 0xa6 <tm1637_writeByte(signed char)+0x42>
+  aa:	00 00       	nop
+_Z16tm1637_writeBytea():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:89
+  }
+  delayMicroseconds(50);
+  DDRB |= (1 << DISPLAY_DIO); // DIO OUTPUT
+  ac:	bc 9a       	sbi	0x17, 4	; 23
+_delay_us():
+c:\users\ogney\appdata\local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino7\avr\include\util/delay.h:276
+  ae:	90 ea       	ldi	r25, 0xA0	; 160
+  b0:	9a 95       	dec	r25
+  b2:	f1 f7       	brne	.-4      	; 0xb0 <tm1637_writeByte(signed char)+0x4c>
+  b4:	00 00       	nop
+_Z16tm1637_writeBytea():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:93
+  delayMicroseconds(50);
+
+  return ack;
+}
+  b6:	90 e0       	ldi	r25, 0x00	; 0
+  b8:	08 95       	ret
+
+000000ba <tm1637_sendOne(unsigned char, signed char)>:
+_Z14tm1637_sendOneha():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:114
+void tm1637_point(uint8_t pointFlag) {
+  points = pointFlag;
+}
+
+// функция отправки данных на дисплей
+void tm1637_sendOne(uint8_t number, int8_t data) {
+  ba:	cf 93       	push	r28
+  bc:	df 93       	push	r29
+  be:	c8 2f       	mov	r28, r24
+  c0:	d6 2f       	mov	r29, r22
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:115
+  tm1637_start();
+  c2:	cb df       	rcall	.-106    	; 0x5a <tm1637_start()>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:116
+  tm1637_writeByte(ADDR_FIXED);              //
+  c4:	84 e4       	ldi	r24, 0x44	; 68
+  c6:	ce df       	rcall	.-100    	; 0x64 <tm1637_writeByte(signed char)>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:117
+  tm1637_stop();                             //
+  c8:	c3 df       	rcall	.-122    	; 0x50 <tm1637_stop()>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:118
+  tm1637_start();                            //
+  ca:	c7 df       	rcall	.-114    	; 0x5a <tm1637_start()>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:119
+  tm1637_writeByte(number - 1 | STARTADDR);  //
+  cc:	8f ef       	ldi	r24, 0xFF	; 255
+  ce:	8c 0f       	add	r24, r28
+  d0:	80 6c       	ori	r24, 0xC0	; 192
+  d2:	c8 df       	rcall	.-112    	; 0x64 <tm1637_writeByte(signed char)>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:121
+  if (points) tm1637_writeByte(data | 0x80);
+  else tm1637_writeByte(data);     //
+  d4:	8d 2f       	mov	r24, r29
+  d6:	c6 df       	rcall	.-116    	; 0x64 <tm1637_writeByte(signed char)>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:122
+  tm1637_stop();                   //
+  d8:	bb df       	rcall	.-138    	; 0x50 <tm1637_stop()>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:123
+  tm1637_start();                  //
+  da:	bf df       	rcall	.-130    	; 0x5a <tm1637_start()>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:124
+  tm1637_writeByte(Cmd_DispCtrl);  //
+  dc:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  e0:	c1 df       	rcall	.-126    	; 0x64 <tm1637_writeByte(signed char)>
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:126
+  tm1637_stop();                   //
+}
+  e2:	df 91       	pop	r29
+  e4:	cf 91       	pop	r28
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:125
+  if (points) tm1637_writeByte(data | 0x80);
+  else tm1637_writeByte(data);     //
+  tm1637_stop();                   //
+  tm1637_start();                  //
+  tm1637_writeByte(Cmd_DispCtrl);  //
+  tm1637_stop();                   //
+  e6:	b4 cf       	rjmp	.-152    	; 0x50 <tm1637_stop()>
+
+000000e8 <__vector_1>:
+__vector_1():
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:25
+void tm1637_brightness(uint8_t bri);
+void tm1637_point(uint8_t pointFlag);
+void tm1637_sendOne(uint8_t number, int8_t data);
+
+// прерывание инт0
+ISR(INT0_vect) {
+  e8:	1f 92       	push	r1
+  ea:	0f 92       	push	r0
+  ec:	0f b6       	in	r0, 0x3f	; 63
+  ee:	0f 92       	push	r0
+  f0:	11 24       	eor	r1, r1
+E:\VSCode\ArduinoProjects\ArduinoIDE\ATtiny13\tm1637_NL/tm1637_NL.ino:27
+  update = 1;
+}
+  f2:	0f 90       	pop	r0
+  f4:	0f be       	out	0x3f, r0	; 63
+  f6:	0f 90       	pop	r0
+  f8:	1f 90       	pop	r1
+  fa:	18 95       	reti

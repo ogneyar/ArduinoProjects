@@ -1,12 +1,18 @@
 
 // LGT8F328, Nano, ATmega8
 
+// INT0 на PD2
+// I2C_CLK на PC5 (A5)
+// I2C_DIO на PC4 (A4)
+// DISPLAY_CLK на PD5
+// DISPLAY_DIO на PD6
+
 #define DISPLAY_CLK 5
 #define DISPLAY_DIO 6
 
-#ifndef F_CPU
-#define F_CPU 16000000UL
-#endif
+// #ifndef F_CPU
+// #define F_CPU 16000000UL
+// #endif
 
 #define DS1307_ADDRESS 0x86
 #define DS1307_WRITE 0xD0
@@ -17,24 +23,18 @@
 #define STARTADDR 0xc0
 
 
-#include <Arduino.h>
 #include <EEPROM.h>
 #include "buildTime.h"
 
 uint8_t update;  // флажок для обновления
-uint8_t hh, mm, ss;
-
 uint8_t digit[10] = { 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6f };  // символы с 0 по 9
-
 uint8_t Cmd_DispCtrl = 0;  //0x88;
-
-uint8_t _DispCLKpin = 3;
-uint8_t _DispDIOpin = 4;
-
+uint8_t _DispCLKpin = 5;
+uint8_t _DispDIOpin = 6;
 uint8_t points = 0;
 
 int address = 0;    // адрес ключа
-uint8_t key = 235;  // ключ для проверки первого запуска
+uint8_t key = 237;  // ключ для проверки первого запуска
 
 void i2c_ini(void);             // инициализация
 void i2c_start(void);           // условие старт
@@ -54,7 +54,7 @@ void tm1637_start(void);
 void tm1637_stop(void);
 int tm1637_writeByte(int8_t wr_data);
 void tm1637_brightness(uint8_t bri);
-
+void tm1637_point(uint8_t pointFlag);
 void tm1637_sendOne(uint8_t number, int8_t data);
 void tm1637_sendAll(uint8_t data[]);
 void tm1637_clear(void);
@@ -65,12 +65,8 @@ ISR(INT0_vect) {
 }
 
 
-// int main(void)
 void setup(void)
 {
-  // Serial.begin(9600);
-  // Serial.println("run");
-
   i2c_ini();     // инициализация i2c
   ds1307_ini();  // инициализация дс1307
 
@@ -80,24 +76,18 @@ void setup(void)
     ds1307_settime(BUILD_HOUR, BUILD_MIN, BUILD_SEC);    
   }
   
-  tm1637_run(DISPLAY_CLK, DISPLAY_DIO);  // по умолчанию CLK = 3, а DIO = 4
+  tm1637_run(DISPLAY_CLK, DISPLAY_DIO);  // по умолчанию CLK = 5, а DIO = 6
   tm1637_clear();
-  tm1637_brightness(7);  // яркость, 0 - 7 (минимум - максимум)
-  // tm1637_display(1, 2, 3, 4);
+  tm1637_brightness(1);  // яркость, 0 - 7 (минимум - максимум)
+  tm1637_point(1);
+  tm1637_display(8, 8, 8, 8);
 
   sei(); // разрешить прерывания
-
-  // while(1) {
-  //   ds1307_showtime();
-  // }
 }
 
 void loop(void) {
   ds1307_showtime();
-  // if (update) Serial.println("update");
 }
-
-
 
 
 
