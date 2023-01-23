@@ -5,7 +5,7 @@
 void GPIO_Init(void);
 void delay(uint16_t inter);
 
-static uint16_t interval = 100;
+static uint16_t interval = 200;
 	
 	
 // main function
@@ -30,7 +30,7 @@ int main(void)
 void GPIO_Init(void) {
 	/* для платы WeAct Studio */
 	RCC->APB2ENR |= RCC_APB2ENR_IOPBEN; // Input Output Port C Enable
-	GPIOB->CRL &= ~GPIO_CRL_CNF2; // 0b00 // PC13 Output Push-Pull
+	GPIOB->CRL &= ~GPIO_CRL_CNF2; // 0b00 // PB2 Output Push-Pull
 	GPIOB->CRL |= GPIO_CRL_MODE2; //50 MHz
 	
 	RCC->APB2ENR |= RCC_APB2ENR_IOPCEN; // Input Output Port C Enable

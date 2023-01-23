@@ -14,16 +14,16 @@
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32G030C6Tx</Device>
+          <Device>STM32G030F6Px</Device>
           <Vendor>STMicroelectronics</Vendor>
           <PackID>Keil.STM32G0xx_DFP.1.4.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00002000) IROM(0x08000000,0x00008000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC2000 -FN1 -FF0STM32G0xx_32 -FS08000000 -FL08000 -FP0($$Device:STM32G030C6Tx$CMSIS\Flash\STM32G0xx_32.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC2000 -FN1 -FF0STM32G0xx_32 -FS08000000 -FL08000 -FP0($$Device:STM32G030F6Px$CMSIS\Flash\STM32G0xx_32.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:STM32G030C6Tx$Drivers\CMSIS\Device\ST\STM32G0xx\Include\stm32g0xx.h</RegisterFile>
+          <RegisterFile>$$Device:STM32G030F6Px$Drivers\CMSIS\Device\ST\STM32G0xx\Include\stm32g0xx.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -33,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:STM32G030C6Tx$CMSIS\SVD\STM32G030.svd</SFDFile>
+          <SFDFile>$$Device:STM32G030F6Px$CMSIS\SVD\STM32G030.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -454,20 +454,16 @@
         <targetInfos/>
       </file>
       <file attr="config" category="source" condition="STM32G030 ARMCC" name="Drivers\CMSIS\Device\ST\STM32G0xx\Source\Templates\arm\startup_stm32g030xx.s" version="1.5.0">
-        <instance index="0">RTE\Device\STM32G030C6Tx\startup_stm32g030xx.s</instance>
+        <instance index="0" removed="1">RTE\Device\STM32G030C6Tx\startup_stm32g030xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.4.0" condition="STM32G0 CMSIS"/>
         <package name="STM32G0xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.4.0"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.c" version="1.5.0">
-        <instance index="0">RTE\Device\STM32G030C6Tx\system_stm32g0xx.c</instance>
+        <instance index="0" removed="1">RTE\Device\STM32G030C6Tx\system_stm32g0xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.4.0" condition="STM32G0 CMSIS"/>
         <package name="STM32G0xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.4.0"/>
-        <targetInfos>
-          <targetInfo name="Target 1"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="source" condition="STM32G030 ARMCC" name="Drivers\CMSIS\Device\ST\STM32G0xx\Source\Templates\arm\startup_stm32g030xx.s" version="1.5.0">
         <instance index="0" removed="1">RTE\Device\STM32G030C8Tx\startup_stm32g030xx.s</instance>
@@ -482,16 +478,20 @@
         <targetInfos/>
       </file>
       <file attr="config" category="source" condition="STM32G030 ARMCC" name="Drivers\CMSIS\Device\ST\STM32G0xx\Source\Templates\arm\startup_stm32g030xx.s" version="1.5.0">
-        <instance index="0" removed="1">RTE\Device\STM32G030F6Px\startup_stm32g030xx.s</instance>
+        <instance index="0">RTE\Device\STM32G030F6Px\startup_stm32g030xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.4.0" condition="STM32G0 CMSIS"/>
         <package name="STM32G0xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.4.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
       <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.c" version="1.5.0">
-        <instance index="0" removed="1">RTE\Device\STM32G030F6Px\system_stm32g0xx.c</instance>
+        <instance index="0">RTE\Device\STM32G030F6Px\system_stm32g0xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.4.0" condition="STM32G0 CMSIS"/>
         <package name="STM32G0xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.4.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
       </file>
     </files>
   </RTE>

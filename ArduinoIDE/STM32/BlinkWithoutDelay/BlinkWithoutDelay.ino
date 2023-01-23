@@ -1,10 +1,11 @@
 
 // STM32F103C8T6 or STM32F401CCU6 or STM32F411CEU6
-#define LED PC13
+//#define LED PC13
 // STM32F030F4P6 
 // #define LED PA4
 // (STM32G070RBT6 and STM32G030C8T6 and STM32G030F6P6 not working)
 // #define LED D2
+#define LED PB0
 
 byte ledPin = LED; 
 bool ledState = LOW;
@@ -20,8 +21,8 @@ void loop() {
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
     ledState = !ledState;
-    //digitalWrite(ledPin, ledState);
-    if (ledState) SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS13);
-    else SET_BIT(GPIOC->BSRR, GPIO_BSRR_BR13);
+    digitalWrite(ledPin, ledState);
+    // if (ledState) SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS13);
+    // else SET_BIT(GPIOC->BSRR, GPIO_BSRR_BR13);
   }
 }

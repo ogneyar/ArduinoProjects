@@ -21,19 +21,21 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TARMCM1.DLL V1.14.6.0
  
 <h2>Project:</h2>
-E:\VSCode\ArduinoProjects\Keil\STM32\G030\blink_stm32g030\blink_stm32g030.uvprojx
-Project File Date:  01/09/2023
+E:\VSCode\ArduinoProjects\Keil\STM32\blink_stm32g030\blink_stm32g030.uvprojx
+Project File Date:  01/23/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
 compiling main.c...
 main.c(10): warning: unused variable 'interval' [-Wunused-variable]
 static uint16_t interval = 500;
                 ^
 1 warning generated.
+assembling startup_stm32g030xx.s...
+compiling system_stm32g0xx.c...
 linking...
-Program Size: Code=408 RO-data=208 RW-data=0 ZI-data=1632  
+Program Size: Code=436 RO-data=208 RW-data=0 ZI-data=1632  
 FromELF: creating hex file...
 ".\Objects\blink_stm32g030c8t6.axf" - 0 Error(s), 1 Warning(s).
 
@@ -61,10 +63,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.4.0
-      Source file:   Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/arm/startup_stm32g030xx.s
+      Source file:   MDK/Device/Source/ARM/STM32G0x0_SB_OPT.s
       Source file:   MDK/Device/Source/ARM/STM32G0x0_DB_OPT.s
       Include file:  Drivers/CMSIS/Device/ST/STM32G0xx/Include/stm32g0xx.h
-      Source file:   MDK/Device/Source/ARM/STM32G0x0_SB_OPT.s
+      Source file:   Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/arm/startup_stm32g030xx.s
       Source file:   Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/system_stm32g0xx.c
 Build Time Elapsed:  00:00:01
 </pre>
