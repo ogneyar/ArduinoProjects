@@ -7,13 +7,13 @@
 // 8 бит в пакете, бит четности - нет, 1 стоп бит. битрейт 115200 - по умолчанию
 void uart_ini(uint32_t baud = 115200)
 {
-  uint16_t ubrr = ( F_CPU / (8 * baud) ) - 1; // (8 * x) при U2X0 в 1, (16 * x) при U2X0 в 0
-  UBRR0H = (uint8_t)(ubrr >> 8);
+	uint16_t ubrr = ( F_CPU / (8 * baud) ) - 1; // (8 * x) при U2X0 в 1, (16 * x) при U2X0 в 0
+	UBRR0H = (uint8_t)(ubrr >> 8);
 	UBRR0L = (uint8_t)ubrr;
 	UCSR0A |= (1 << U2X0);// бит в 1
   
 	UCSR0B |= (1 << RXEN0) | (1 << TXEN0); // разрешить работу передатчика и приемника
-  UCSR0C |= (1 << UPM01); // - Enabled, Even Parity
+  	UCSR0C |= (1 << UPM01) | (1 << UCSZ01) | (1 << UCSZ00); // UPM01 - Enabled, Even Parity // UCSZ01 = 1 и UCSZ00 = 1 по умолчанию
 }
 
 
@@ -60,17 +60,17 @@ void setup()
 	DDRB |= (1 << PB5);// пин LED на выход 
 	uart_ini(115200);	// инициализация UART
 
-  uart_send("Hello Чел!!!\r\n\r\n");
+	uart_send("Hello Чел!!!\r\n\r\n");
 
-  uart_send("Жми 1 для включения LED\r\n"); 
-  uart_send("Жми 0 для выключения\r\n"); 
+	uart_send("Жми 1 для включения LED\r\n"); 
+	uart_send("Жми 0 для выключения\r\n"); 
 
     // while (1) uart_read_com();// ждем и выполняем команды
 }
 
 void loop() 
 {
-  uart_read_com();// ждем и выполняем команды
+  	uart_read_com();// ждем и выполняем команды
 }
 
 //
