@@ -13,7 +13,7 @@ void uart_ini(uint32_t baud = 115200)
 	UCSR0A |= (1 << U2X0);// бит в 1
   
 	UCSR0B |= (1 << RXEN0) | (1 << TXEN0); // разрешить работу передатчика и приемника
-  	UCSR0C |= (1 << UPM01) | (1 << UCSZ01) | (1 << UCSZ00); // UPM01 - Enabled, Even Parity // UCSZ01 = 1 и UCSZ00 = 1 по умолчанию
+  UCSR0C |= (1 << UPM01) | (1 << UCSZ01) | (1 << UCSZ00); // UPM01 - Enabled, Even Parity // UCSZ01 = 1 и UCSZ00 = 1 по умолчанию
 }
 
 
