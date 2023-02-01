@@ -1,6 +1,7 @@
 
 // Nano, LGT8F328
 
+
 // #define F_CPU 16000000UL // для Nano
 // #define F_CPU 32000000UL // для LGT8F328
 
@@ -54,9 +55,17 @@ void uart_read_com(void)
 	}
 }
 
-// int main(void)
-void setup()
-{
+
+
+int main(void)
+// void setup()
+{ 
+#if defined(__LGT8F__) // для LGT8F328
+		// prescaler settings
+		CLKPR = 0x80;
+		CLKPR = 0x00;	
+#endif	
+
 	DDRB |= (1 << PB5);// пин LED на выход 
 	uart_ini(115200);	// инициализация UART
 
@@ -65,12 +74,14 @@ void setup()
 	uart_send("Жми 1 для включения LED\r\n"); 
 	uart_send("Жми 0 для выключения\r\n"); 
 
-    // while (1) uart_read_com();// ждем и выполняем команды
+  while (1) uart_read_com();// ждем и выполняем команды
+
+	return 0;
 }
 
-void loop() 
-{
-  	uart_read_com();// ждем и выполняем команды
-}
+// void loop() 
+// {
+//   	uart_read_com();// ждем и выполняем команды
+// }
 
 //

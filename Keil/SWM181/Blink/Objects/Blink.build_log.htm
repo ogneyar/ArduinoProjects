@@ -1,0 +1,79 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Ogneyar Yakovlev, LeidTogi, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.37.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.18
+Assembler:       Armasm.exe V6.18
+Linker/Locator:  ArmLink.exe V6.18
+Library Manager: ArmAr.exe V6.18
+Hex Converter:   FromElf.exe V6.18
+CPU DLL:         SARMCM3.DLL V5.37.0.0
+Dialog DLL:      DARMCM1.DLL V1.19.6.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
+Dialog DLL:      TARMCM1.DLL V1.14.6.0
+ 
+<h2>Project:</h2>
+E:\VSCode\ArduinoProjects\Keil\SWM181\Blink\Blink.uvprojx
+Project File Date:  01/31/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+compiling main.c...
+compiling SWM181_gpio.c...
+compiling SWM181_port.c...
+compiling system_SWM181.c...
+linking...
+Program Size: Code=1764 RO-data=224 RW-data=8 ZI-data=1120  
+FromELF: creating hex file...
+".\Objects\Blink.axf" - 0 Error(s), 0 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Synwit
+                http://www.synwit.com/pack/Synwit.SWM32_DFP.1.20.3.pack
+                Synwit.SWM32_DFP.1.20.3
+                Synwit 32bit MCU Device Support
+   * Component: GPIO Version: 1.6.0
+   * Component: Port Version: 1.6.0
+   * Component: Startup Version: 1.6.0
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_Target_1
+  C:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/ogney/AppData/Local/Arm/Packs/Synwit/SWM32_DFP/1.20.3/CSL/SWM181/CMSIS/DeviceSupport
+  C:/Users/ogney/AppData/Local/Arm/Packs/Synwit/SWM32_DFP/1.20.3/CSL/SWM181/SWM181_StdPeriph_Driver
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+
+   * Component: Synwit::Device:Driver:GPIO:1.6.0
+      Include file:  CSL/SWM181/SWM181_StdPeriph_Driver/SWM181_gpio.h
+      Source file:   CSL/SWM181/SWM181_StdPeriph_Driver/SWM181_gpio.c
+
+   * Component: Synwit::Device:Driver:Port:1.6.0
+      Include file:  CSL/SWM181/SWM181_StdPeriph_Driver/SWM181_port.h
+      Source file:   CSL/SWM181/SWM181_StdPeriph_Driver/SWM181_port.c
+
+   * Component: Synwit::Device:Startup:1.6.0
+      Source file:   CSL/SWM181/CMSIS/DeviceSupport/startup/arm/startup_SWM181.s
+      Source file:   CSL/SWM181/CMSIS/DeviceSupport/system_SWM181.c
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>
