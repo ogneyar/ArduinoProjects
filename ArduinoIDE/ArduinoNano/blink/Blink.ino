@@ -1,5 +1,5 @@
 
-// Nano, LGT8F328
+// Nano, LGT8F328, ProMini
 
 //byte LED1 = 13; // PB5
   
