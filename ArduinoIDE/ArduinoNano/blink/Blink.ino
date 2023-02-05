@@ -14,5 +14,5 @@ void loop() {
 //  digitalWrite(LED1, LOW);
 //  delay(500);
   PORTB ^= (1 << 5);
-  _delay_us(200000);
+  _delay_us(100000);
 }

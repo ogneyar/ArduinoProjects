@@ -28,8 +28,8 @@
 //GyverOLED<SSD1306_128x32, OLED_NO_BUFFER> oled;
 //GyverOLED<SSD1306_128x64, OLED_BUFFER> oled;
 //GyverOLED<SSD1306_128x64, OLED_NO_BUFFER> oled;
-//GyverOLED<SSD1306_128x64, OLED_BUFFER, OLED_SPI, 8, 7, 6> oled;
-GyverOLED<SSH1106_128x64> oled;
+GyverOLED<SSD1306_128x64, OLED_BUFFER, OLED_SPI, 10, 9, 8> oled;
+// GyverOLED<SSH1106_128x64> oled;
 
 // для I2C можно передать адрес: GyverOLED oled(0x3C);
 

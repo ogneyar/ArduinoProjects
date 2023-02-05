@@ -46,7 +46,10 @@ int main() {
 
   st7565_init();
   
-  test_display();
+  // test_display();
+
+  st7565_drawline(0, 48, 127, 48);  
+  st7565_display();  
   
   while (1) {}
 }
