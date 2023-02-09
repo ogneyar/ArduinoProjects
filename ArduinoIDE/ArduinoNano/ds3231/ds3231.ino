@@ -6,7 +6,7 @@ MicroDS3231 rtc;
 #include <EEPROM.h>
 
 int address = 0;  // адрес ключа
-byte key;         // ключ для проверки первого запуска
+byte key = 138;         // ключ для проверки первого запуска
 
 
 void setup() {
@@ -19,9 +19,8 @@ void setup() {
     for(;;);
   }
   
-  key = EEPROM.read(address);
-  if (key != 251) { // значение ключа
-      EEPROM.write(address, 251);
+  if (EEPROM.read(address) != key) { // значение ключа
+      EEPROM.write(address, key);
       // установить время == времени компиляции
       // rtc.setTime(COMPILE_TIME); // так
       rtc.setTime(BUILD_SEC, BUILD_MIN, BUILD_HOUR, BUILD_DAY, BUILD_MONTH, BUILD_YEAR); // или так

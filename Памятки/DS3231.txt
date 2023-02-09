@@ -1,0 +1,16 @@
+
+
+			DS3231
+
+			+-\/-+
+ out 32KHz 1|    |16 SCL
+	   Vcc 2|    |15 SDA
+   INT/SQW 3|    |14 Vbat
+	   RST 4|    |13 GND
+	    NC 5|    |12 NC
+	    NC 6|    |11 NC
+	    NC 7|    |10 NC
+	    NC 8|    |9  NC
+			+----+
+			
+			

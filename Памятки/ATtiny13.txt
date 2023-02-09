@@ -1,0 +1,11 @@
+
+
+					ATMEL ATTINY13 / ARDUINO
+
+                                 +-\/-+
+     (PCINT5/RESET/ADC0/dW) PB5 1|    |8 Vcc
+ d pin 3 (PCINT3/CLKI/ADC3) PB3 2|    |7 PB2 (SCK/ADC1/T0/PCINT2)  			digital pin 2 
+ d pin 4      (PCINT4/ADC2) PB4 3|    |6 PB1 (MISO/AIN1/OC0B/INT0/PCINT1)   digital pin 1 PWM
+                            GND 4|    |5 PB0 (MOSI/AIN0/OC0A/PCINT0)      	digital pin 0 PWM
+                                 +----+
+
