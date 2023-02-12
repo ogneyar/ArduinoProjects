@@ -13,6 +13,12 @@ void loop() {
 //  delay(500);  
 //  digitalWrite(LED1, LOW);
 //  delay(500);
-  PORTB ^= (1 << 5);
+
+  // PORTB ^= (1 << 5);
+  // _delay_us(100000);
+  
+  PORTB |= (1 << 5);
   _delay_us(100000);
+  PORTB &= ~(1 << 5);
+  _delay_us(900000);
 }
