@@ -1,6 +1,6 @@
 
 
-									ATMEL ATTINY24/45/85
+									ATMEL ATTINY25/45/85
 
 											+-\/-+
 				(PCINT5/RESET/ADC0/dW) PB5 1|    |8 Vcc
@@ -10,4 +10,8 @@
 											+----+
 
 
-ATtiny85 - 8Кб памяти устройства
+ATtiny25 - 2Кб памяти устройства, 128б EEPROM памяти, 128б SRAM памяти 
+ATtiny45 - 4Кб памяти устройства, 256б EEPROM памяти, 256б SRAM памяти
+ATtiny85 - 8Кб памяти устройства, 512б EEPROM памяти, 512б SRAM памяти
+
+Fcpu - 10 MHz or 20 MHz
