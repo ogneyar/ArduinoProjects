@@ -14,52 +14,36 @@ static uint16_t interval = 500;
 int main(void)
 {
   /* Initialize all configured peripherals */
-	GPIO_Init();
+	//GPIO_Init();
 	
-	
-	//SET_BIT(GPIOA->BSRR, GPIO_BSRR_BS0);
-	//SET_BIT(GPIOA->BSRR, GPIO_BSRR_BR0);
-		
-	//SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS0);
-	//SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR0);
+	RCC->IOPENR |= RCC_IOPENR_GPIOBEN;
+	GPIOB->MODER |= (1 << GPIO_MODER_MODE2_Pos);
+	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED2_Msk;
+	//SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS2);
+	SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR2);
 	
 	
   while (1)
-  {
-		//GPIOA->ODR |= 0x00000001;
-    //delay(300000);
-		//GPIOA->ODR &= 0x11111110;
-    //delay(300000);
-				
-		
+  {			
+		//SET_BIT(GPIOB->ODR, GPIO_ODR_OD1);
+		//SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS1);
 		//delay(interval);
-		SET_BIT(GPIOA->BSRR, GPIO_BSRR_BS0);
-		SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS0);
+		//CLEAR_BIT(GPIOB->ODR, GPIO_ODR_OD1);
+		//SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR1);
 		//delay(interval);
-		SET_BIT(GPIOA->BSRR, GPIO_BSRR_BR0);
-		SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR0);
-		
   }	
 }
 
 
 /* Initialize all configured peripherals */
-void GPIO_Init(void) {
-		
-	RCC->IOPENR |= RCC_IOPENR_GPIOAEN; // Popt A 		
-	// PA0
-	GPIOA->MODER |= (0x01 << GPIO_MODER_MODE0_Pos); // 01: General purpose output mode PA0 
-	//GPIOA->OTYPER |= (0 << GPIO_OTYPER_OT0_Pos); // 0: Output push-pull
-	GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEED0_Msk; // 0x11: Very high speed
-	//GPIOA->PUPDR |= GPIO_PUPDR_PUPD0_0;
-	
+void GPIO_Init(void) {	
 	RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Popt B	
-	// PB0
-	GPIOB->MODER |= (1 << GPIO_MODER_MODE0_Pos); // 01: General purpose output mode PB0
-	//GPIOB->OTYPER &= ~GPIO_OTYPER_OT0; // 0: Output push-pull
-	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED0_Msk; // 0x11: Very high speed
-	//GPIOB->PUPDR |= GPIO_PUPDR_PUPD0_0;
-	
+	// PB1
+	GPIOB->MODER |= (1 << GPIO_MODER_MODE1_Pos); // 01: General purpose output mode PB1
+	//GPIOB->OTYPER &= ~GPIO_OTYPER_OT1; // 0: Output push-pull
+	GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED1_Msk; // 0x11: Very high speed
+	//GPIOB->PUPDR |= GPIO_PUPDR_PUPD1_0; // pull up
+	//GPIOB->PUPDR |= GPIO_PUPDR_PUPD1_1; // pull down	
 }
 
 // delay

@@ -1,0 +1,7 @@
+".\Output\GPIO.obj",
+".\Output\Common.obj",
+".\Output\Delay.obj",
+".\Output\STARTUP.obj" 
+TO ".\Output\Example_Blink_N76E003" 
+PRINT(".\LST\Example_Blink_N76E003.m51") RAMSIZE(256) 
+DISABLEWARNING (16) 

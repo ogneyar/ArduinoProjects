@@ -4,7 +4,6 @@ Component: Arm Compiler for Embedded 6.18 Tool: armlink [5e4cc100]
 
 Section Cross References
 
-    main.o(.text.main) refers to main.o(.text.GPIO_Init) for GPIO_Init
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
     main.o(.ARM.exidx.text.GPIO_Init) refers to main.o(.text.GPIO_Init) for [Anonymous Symbol]
     main.o(.ARM.exidx.text.delay) refers to main.o(.text.delay) for [Anonymous Symbol]
@@ -143,6 +142,7 @@ Removing Unused input sections from the image.
 
     Removing main.o(.text), (0 bytes).
     Removing main.o(.ARM.exidx.text.main), (8 bytes).
+    Removing main.o(.text.GPIO_Init), (44 bytes).
     Removing main.o(.ARM.exidx.text.GPIO_Init), (8 bytes).
     Removing main.o(.text.delay), (42 bytes).
     Removing main.o(.ARM.exidx.text.delay), (8 bytes).
@@ -155,7 +155,7 @@ Removing Unused input sections from the image.
     Removing system_stm32g0xx.o(.rodata.AHBPrescTable), (64 bytes).
     Removing system_stm32g0xx.o(.rodata.APBPrescTable), (32 bytes).
 
-13 unused section(s) (total 566 bytes) removed from the image.
+14 unused section(s) (total 610 bytes) removed from the image.
 
 ==============================================================================
 
@@ -279,16 +279,13 @@ Image Symbol Table
     .text                                    0x080001d4   Section        8  libspace.o(.text)
     .text                                    0x080001dc   Section        0  sys_exit.o(.text)
     .text                                    0x080001e8   Section        2  use_no_semi.o(.text)
+    [Anonymous Symbol]                       0x080001ea   Section        0  system_stm32g0xx.o(.text.SystemInit)
     .text                                    0x080001ea   Section        0  indicate_semi.o(.text)
-    [Anonymous Symbol]                       0x080001ec   Section        0  main.o(.text.GPIO_Init)
-    __arm_cp.1_0                             0x08000228   Number         4  main.o(.text.GPIO_Init)
-    __arm_cp.1_1                             0x0800022c   Number         4  main.o(.text.GPIO_Init)
-    __arm_cp.1_2                             0x08000230   Number         4  main.o(.text.GPIO_Init)
-    __arm_cp.1_3                             0x08000234   Number         4  main.o(.text.GPIO_Init)
-    [Anonymous Symbol]                       0x08000238   Section        0  system_stm32g0xx.o(.text.SystemInit)
-    [Anonymous Symbol]                       0x0800023c   Section        0  main.o(.text.main)
-    __arm_cp.0_0                             0x0800026c   Number         4  main.o(.text.main)
-    __arm_cp.0_1                             0x08000270   Number         4  main.o(.text.main)
+    [Anonymous Symbol]                       0x080001ec   Section        0  main.o(.text.main)
+    __arm_cp.0_0                             0x08000220   Number         4  main.o(.text.main)
+    __arm_cp.0_1                             0x08000224   Number         4  main.o(.text.main)
+    __arm_cp.0_2                             0x08000228   Number         4  main.o(.text.main)
+    __arm_cp.0_3                             0x0800022c   Number         4  main.o(.text.main)
     .bss                                     0x20000000   Section       96  libspace.o(.bss)
     Heap_Mem                                 0x20000060   Data         512  startup_stm32g030xx.o(HEAP)
     HEAP                                     0x20000060   Section      512  startup_stm32g030xx.o(HEAP)
@@ -422,12 +419,11 @@ Image Symbol Table
     _sys_exit                                0x080001dd   Thumb Code     8  sys_exit.o(.text)
     __I$use$semihosting                      0x080001e9   Thumb Code     0  use_no_semi.o(.text)
     __use_no_semihosting_swi                 0x080001e9   Thumb Code     2  use_no_semi.o(.text)
+    SystemInit                               0x080001eb   Thumb Code     2  system_stm32g0xx.o(.text.SystemInit)
     __semihosting_library_function           0x080001eb   Thumb Code     0  indicate_semi.o(.text)
-    GPIO_Init                                0x080001ed   Thumb Code    60  main.o(.text.GPIO_Init)
-    SystemInit                               0x08000239   Thumb Code     2  system_stm32g0xx.o(.text.SystemInit)
-    main                                     0x0800023d   Thumb Code    48  main.o(.text.main)
-    Region$$Table$$Base                      0x08000274   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08000284   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x080001ed   Thumb Code    52  main.o(.text.main)
+    Region$$Table$$Base                      0x08000230   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08000240   Number         0  anon$$obj.o(Region$$Table)
     __libspace_start                         0x20000000   Data          96  libspace.o(.bss)
     __temporary_stack_top$libspace           0x20000060   Data           0  libspace.o(.bss)
 
@@ -439,9 +435,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000149
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x00000284, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x08000000, Size: 0x00000240, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000284, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000240, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -500,20 +496,17 @@ Memory Map of the image
     0x080001dc   0x080001dc   0x0000000c   Code   RO          144    .text               c_p.l(sys_exit.o)
     0x080001e8   0x080001e8   0x00000002   Code   RO          167    .text               c_p.l(use_no_semi.o)
     0x080001ea   0x080001ea   0x00000000   Code   RO          169    .text               c_p.l(indicate_semi.o)
-    0x080001ea   0x080001ea   0x00000002   PAD
-    0x080001ec   0x080001ec   0x0000004c   Code   RO            4    .text.GPIO_Init     main.o
-    0x08000238   0x08000238   0x00000002   Code   RO           25    .text.SystemInit    system_stm32g0xx.o
-    0x0800023a   0x0800023a   0x00000002   PAD
-    0x0800023c   0x0800023c   0x00000038   Code   RO            2    .text.main          main.o
-    0x08000274   0x08000274   0x00000010   Data   RO          222    Region$$Table       anon$$obj.o
+    0x080001ea   0x080001ea   0x00000002   Code   RO           25    .text.SystemInit    system_stm32g0xx.o
+    0x080001ec   0x080001ec   0x00000044   Code   RO            2    .text.main          main.o
+    0x08000230   0x08000230   0x00000010   Data   RO          222    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x08000284, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x08000240, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region ER_ZI (Exec base: 0x20000000, Load base: 0x08000284, Size: 0x00000660, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x20000000, Load base: 0x08000240, Size: 0x00000660, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -529,14 +522,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       132         24          0          0          0       1890   main.o
+        68         16          0          0          0       1857   main.o
         56         26        192          0       1536        672   startup_stm32g030xx.o
          2          0          0          0          0       1956   system_stm32g0xx.o
 
     ----------------------------------------------------------------------
-       192         50        208          0       1536       4518   Object Totals
+       126         42        208          0       1536       4485   Object Totals
          0          0         16          0          0          0   (incl. Generated)
-         2          0          0          0          0          0   (incl. Padding)
+         0          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -563,8 +556,8 @@ Image component sizes
          2          0          0          0          0         68   use_no_semi.o
 
     ----------------------------------------------------------------------
-       244         16          0          0         96        548   Library Totals
-         4          0          0          0          0          0   (incl. Padding)
+       242         16          0          0         96        548   Library Totals
+         2          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -573,7 +566,7 @@ Image component sizes
        240         16          0          0         96        548   c_p.l
 
     ----------------------------------------------------------------------
-       244         16          0          0         96        548   Library Totals
+       242         16          0          0         96        548   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -582,15 +575,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-       436         66        208          0       1632       4886   Grand Totals
-       436         66        208          0       1632       4886   ELF Image Totals
-       436         66        208          0          0          0   ROM Totals
+       368         58        208          0       1632       4853   Grand Totals
+       368         58        208          0       1632       4853   ELF Image Totals
+       368         58        208          0          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                  644 (   0.63kB)
+    Total RO  Size (Code + RO Data)                  576 (   0.56kB)
     Total RW  Size (RW Data + ZI Data)              1632 (   1.59kB)
-    Total ROM Size (Code + RO Data + RW Data)        644 (   0.63kB)
+    Total ROM Size (Code + RO Data + RW Data)        576 (   0.56kB)
 
 ==============================================================================
 
