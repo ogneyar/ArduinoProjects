@@ -1,5 +1,5 @@
 
-// ATtiny88 (MH-Tiny)
+// Nano
 
 #include "spi.h"
 // #include <util/delay.h>
@@ -167,7 +167,7 @@ void st7735_send(uint8_t dc, uint8_t data)
   if (dc == LCD_D) PORT_SPI |= (1 << DD_DC); // gpio_set(GPIOB,DC);
   else PORT_SPI &= ~(1 << DD_DC); // gpio_reset(GPIOB,DC);
   SPI_Master_SendByte(data);
-  // _delay_us(2);
+  // _delay_us(20);
 }
 
 

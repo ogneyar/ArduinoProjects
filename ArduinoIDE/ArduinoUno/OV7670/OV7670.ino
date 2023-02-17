@@ -192,4 +192,7 @@ void setup(){
  
 void loop(){
     captureImg(320, 240);
+    // captureImg(160, 120);
+    // captureImg(80, 60);
+    // captureImg(40, 30);
 }
