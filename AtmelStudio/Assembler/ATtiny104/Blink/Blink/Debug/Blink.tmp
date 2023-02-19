@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATtiny104"</DEVICE>
+ <WORKING_DIR>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>E:/Program\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\2.0.368\avrasm\inc</DIR>
+  <DIR>E:\Program\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>E:/Program\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\2.0.368\avrasm\inc\tn104def.inc</FILE>
+  <FILE>E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\tn104def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\Debug\Blink.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Blink.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Blink.map</FILE>
+  <FILE>Blink.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <RESET><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\main.asm</FILE><LINE>41</LINE></RESET>
+  <RAM_Flush><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\main.asm</FILE><LINE>55</LINE></RAM_Flush>
+  <Reg_Flush><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\main.asm</FILE><LINE>63</LINE></Reg_Flush>
+  <Start><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\main.asm</FILE><LINE>76</LINE></Start>
+  <Wait><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\main.asm</FILE><LINE>88</LINE></Wait>
+  <Loop_Wait><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\Blink\Blink\main.asm</FILE><LINE>92</LINE></Loop_Wait>
+ </LABELS>
+</ASSEMBLER_INFO>

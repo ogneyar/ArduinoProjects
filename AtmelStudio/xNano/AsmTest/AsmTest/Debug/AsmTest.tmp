@@ -1,0 +1,28 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATtiny104"</DEVICE>
+ <WORKING_DIR>E:\VSCode\ArduinoProjects\AtmelStudio\xNano\AsmTest\AsmTest\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>E:/Program\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.10.348\avrasm\inc</DIR>
+  <DIR>E:\Program\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>E:\VSCode\ArduinoProjects\AtmelStudio\xNano\AsmTest\AsmTest\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>E:/Program\Atmel\Studio\7.0\Packs\atmel\ATtiny_DFP\1.10.348\avrasm\inc\tn104def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>E:\VSCode\ArduinoProjects\AtmelStudio\xNano\AsmTest\AsmTest\Debug\AsmTest.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>AsmTest.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>AsmTest.map</FILE>
+  <FILE>AsmTest.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <main><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\xNano\AsmTest\AsmTest\main.asm</FILE><LINE>10</LINE></main>
+  <loop><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\xNano\AsmTest\AsmTest\main.asm</FILE><LINE>18</LINE></loop>
+ </LABELS>
+</ASSEMBLER_INFO>

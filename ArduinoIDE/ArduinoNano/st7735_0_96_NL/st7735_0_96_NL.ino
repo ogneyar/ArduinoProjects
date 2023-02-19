@@ -73,8 +73,14 @@
 #define LCD_D        1 // data
 #define LCD_C        0 // command
 
+#define ST7735_SHIFT  26
+#define ST7735_XSTART 0
+#define ST7735_YSTART 0
+#define ST7735_WIDTH  80
+#define ST7735_HEIGHT 160
+
 void st7735_fill(uint16_t color, uint8_t hl = 0, uint8_t hr = 0, uint8_t vt = 0, uint8_t vb = 0);
-void st7735_set_column_and_page(uint8_t caset1 = 0x1a, uint8_t caset2 = 0x6a, uint8_t raset1 = 0x00, uint8_t raset2 = 0xa0);
+void st7735_set_column_and_page(uint8_t caset1 = ST7735_XSTART + ST7735_SHIFT, uint8_t caset2 = ST7735_XSTART + ST7735_SHIFT + ST7735_WIDTH, uint8_t raset1 = ST7735_YSTART, uint8_t raset2 = ST7735_YSTART + ST7735_HEIGHT);
 
 
 void setup(void) {
@@ -116,7 +122,8 @@ void st7735_display(uint16_t color)
   uint8_t c1=(uint8_t)((color & 0x00ff));
   uint8_t c2=color>>8;
 
-  //PORT_SPI |= (1 << DD_DC); // gpio_set(GPIOB,DC);
+  st7735_send(LCD_C, ST77XX_RAMWR); // 0x2C
+  
   for (uint16_t i=0; i < (uint16_t)13040; i++)
   {
      st7735_send(LCD_D, c1);
@@ -127,10 +134,8 @@ void st7735_display(uint16_t color)
 void st7735_fill(uint16_t color, uint8_t hl, uint8_t hr, uint8_t vt, uint8_t vb) // hl - horisontal left,  hr - horisontal right, vt - vertical top,  vb - vertical bottom
 {
   PORT_SPI &= ~(1 << DD_SS); // chip_select_enable();
-
-  st7735_set_column_and_page(0x1a+hl, 0x6a-hr, 0x00+vt, 0xa0-vb);
-
-  st7735_send(LCD_C, ST77XX_RAMWR); // 0x2C
+    
+  st7735_set_column_and_page(ST7735_XSTART + ST7735_SHIFT + hl, ST7735_XSTART + ST7735_WIDTH + ST7735_SHIFT - hr, ST7735_YSTART + vt, ST7735_YSTART + ST7735_HEIGHT - vb);
   
   st7735_display(color);
 
@@ -142,16 +147,16 @@ void st7735_fill(uint16_t color, uint8_t hl, uint8_t hr, uint8_t vt, uint8_t vb)
 void st7735_set_column_and_page(uint8_t caset1, uint8_t caset2, uint8_t raset1, uint8_t raset2)
 {
   st7735_send(LCD_C, ST77XX_CASET); // 0x2A
-  st7735_send(LCD_D, 0x00); // x1 - начало
-  st7735_send(LCD_D, caset1); // y1
-  st7735_send(LCD_D, 0x00); // x2 - конец
-  st7735_send(LCD_D, caset2); // y1   // 128 horizontal
+  st7735_send(LCD_D, 0x00); // x1 high - начало
+  st7735_send(LCD_D, caset1); // x1 low   // + 26 shift
+  st7735_send(LCD_D, 0x00); // x2 high - конец
+  st7735_send(LCD_D, caset2); // x2 low   // 80 horizontal + 26 shift
 
   st7735_send(LCD_C, ST77XX_RASET); // 0x2B
-  st7735_send(LCD_D, 0x00); // x1 - начало
-  st7735_send(LCD_D, raset1); // y1
-  st7735_send(LCD_D, 0x00); // x2 - конец
-  st7735_send(LCD_D, raset2); // y1   // 160 vertical
+  st7735_send(LCD_D, 0x00); // y1 high - начало
+  st7735_send(LCD_D, raset1); // y1 low
+  st7735_send(LCD_D, 0x00); // y2 high - конец
+  st7735_send(LCD_D, raset2); // y2 low  // 160 vertical
 }
 
 
@@ -189,8 +194,7 @@ void st7735_init_minimal() {
 
     st7735_send(LCD_C, ST77XX_COLMOD); // 0x3A // 15: set color mode, 1 arg
     st7735_send(LCD_D, 0x05); // 16-bit/pixel 
-
-    
+        
     st7735_send(LCD_C, ST7735_GMCTRP1); // 0xE0 //  1: Gamma Adjustments (pos. polarity), 16 args
     st7735_send(LCD_D, 0x02);
     st7735_send(LCD_D, 0x1C);

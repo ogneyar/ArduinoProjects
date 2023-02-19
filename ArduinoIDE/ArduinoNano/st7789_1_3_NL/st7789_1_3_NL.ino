@@ -6,7 +6,7 @@
 
 
 void st7735_fill(uint16_t color, uint8_t hl = 0, uint8_t hr = 0, uint8_t vt = 0, uint8_t vb = 0);
-void st7735_set_column_and_page(uint8_t caset1 = 0x00, uint8_t caset2 = 0xf0, uint8_t raset1 = 0x00, uint8_t raset2 = 0xf0);
+void st7735_set_column_and_page(uint8_t caset1 = ST7789_XSTART, uint8_t caset2 = ST7789_XSTART + ST7789_WIDTH, uint8_t raset1 = ST7789_YSTART, uint8_t raset2 = ST7789_YSTART + ST7789_HEIGHT);
 
 
 void setup(void) {
@@ -58,7 +58,7 @@ void st7735_display(uint16_t color)
 void st7735_fill(uint16_t color, uint8_t hl, uint8_t hr, uint8_t vt, uint8_t vb) // hl - horisontal left,  hr - horisontal right, vt - vertical top,  vb - vertical bottom
 {
   PORT_SPI &= ~(1 << DD_SS); // chip_select_enable();
-  st7735_set_column_and_page(0x00+hl, 0xf0-hr, 0x00+vt, 0xf0-vb);
+  st7735_set_column_and_page(ST7789_XSTART + hl, ST7789_XSTART + ST7789_WIDTH - hr, ST7789_YSTART + vt, ST7789_YSTART + ST7789_HEIGHT - vb);
 
   st7735_display(color);
   PORT_SPI |= (1 << DD_SS); // chip_select_disable();
@@ -97,10 +97,8 @@ void st7735_send(uint8_t dc, uint8_t data)
 }
 
 
-void st7735_init() {
-  
-    PORT_SPI |= (1 << DD_RES);
-    delay(50);
+void st7735_init() 
+{  
     PORT_SPI &= ~(1 << DD_RES);
     delay(50);
     PORT_SPI |= (1 << DD_RES);
@@ -114,32 +112,12 @@ void st7735_init() {
     delay(500);
 
     st7735_send(LCD_C, ST77XX_COLMOD); // 0x3A // 15: set color mode, 1 arg
-    st7735_send(LCD_D, 0x55); 
+    st7735_send(LCD_D, 0x05); 
     delay(10);
-
-    st7735_send(LCD_C, ST77XX_MADCTL); // 0x36 // 14: Mem access ctl (directions), 1 arg 
-    st7735_send(LCD_D, 0x00); 
-    delay(1);
-
-    st7735_send(LCD_C, ST77XX_CASET); // 0x2A //  2: Column addr set, 4 args
-    st7735_send(LCD_D, 0x00);
-    st7735_send(LCD_D, 0x00);
-    st7735_send(LCD_D, 0x00);
-    st7735_send(LCD_D, 0xf0);         // 240 horizontal
-
-    st7735_send(LCD_C, ST77XX_RASET); // 0x2B //  3: Row addr set, 4 args
-    st7735_send(LCD_D, 0x00);
-    st7735_send(LCD_D, 0x00);
-    st7735_send(LCD_D, 0x00);
-    st7735_send(LCD_D, 0xf0);         // 240  vertical
-    delay(1);
     
     st7735_send(LCD_C, ST77XX_INVON); // 0x21 // 13: Invert display, no args
     delay(10);
-    
-    st7735_send(LCD_C, ST77XX_NORON); // 0x13 //  3: Normal display on, no args, w/delay
-    delay(10);
-    
+        
     st7735_send(LCD_C, ST77XX_DISPON); // 0x29 //  4: Main screen turn on, no args w/delay
     delay(20);
 

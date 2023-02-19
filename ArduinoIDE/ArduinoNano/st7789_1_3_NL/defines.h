@@ -52,6 +52,11 @@
 #define LCD_D        1 // data
 #define LCD_C        0 // command
 
+#define ST7789_SHIFT  80
+#define ST7789_XSTART 0
+#define ST7789_YSTART 0
+#define ST7789_WIDTH  240
+#define ST7789_HEIGHT 240
 
 
 #endif  /* _DEFINES_H_ */
