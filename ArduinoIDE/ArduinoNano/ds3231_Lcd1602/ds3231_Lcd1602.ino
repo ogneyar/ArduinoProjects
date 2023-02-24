@@ -3,6 +3,8 @@
 
 //#define DEBUG_ON 1
 
+#define USE_LGT_EEPROM_API
+
 #include <microDS3231.h>
 #include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
@@ -12,7 +14,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // шим на PD5 (5 пин ардуины)
 void timerCounter0(int = 1024, uint8_t = 240);
-uint8_t ocr0b = 10; // длительность импульса (яркость экрана)
+uint8_t ocr0b = 5; // длительность импульса (яркость экрана)
 
 int address = 0;  // адрес ключа
 byte key;         // ключ для проверки первого запуска
@@ -41,8 +43,8 @@ void setup() {
   timerCounter0(32, ocr0b); // шим на PD5 (5 пин ардуины к Аноду)
   
   key = EEPROM.read(address);
-  if (key != 239) { // значение ключа
-      EEPROM.write(address, 239);
+  if (key != 237) { // значение ключа
+      EEPROM.write(address, 237);
       // установить время == времени компиляции
 //      rtc.setTime(COMPILE_TIME); // так
       rtc.setTime(BUILD_SEC, BUILD_MIN, BUILD_HOUR, BUILD_DAY, BUILD_MONTH, BUILD_YEAR); // или так    
