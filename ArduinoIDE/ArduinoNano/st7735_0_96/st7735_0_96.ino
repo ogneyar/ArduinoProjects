@@ -16,8 +16,7 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 float p = 3.1415926;
 
 void setup(void) {
-  Serial.begin(9600);
-  Serial.print(F("Hello! ST77xx TFT Test"));
+  Serial.begin(9600);Serial.print(F("Hello! ST77xx TFT Test"));
 
   // Use this initializer if using a 1.8" TFT screen:
   //tft.initR(INITR_BLACKTAB);      // Init ST7735S chip, black tab

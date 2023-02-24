@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm Thu Feb 23 12:57:27 2023
+AVRASM ver. 2.2.8  E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm Thu Feb 23 15:11:03 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -438,20 +438,55 @@ EQU  F_CPU        000f4240
 EQU  DIVIDER      00000008
 EQU  BAUD         00002580
 EQU  UBRR         0000000c
-EQU  Delay        000001f4
-EQU  Number       000186a0
+EQU  I2C_DIVIDER  00000001
+EQU  I2C_BAUD     000186a0
+EQU  I2C_UBRR     0000000a
 DEF  Data         r16
-DEF  Temp         r17
-DEF  Flag         r25
-CSEG RESET        00000033
+DEF  Ask          r17
+DEF  I2C_Address  r18
+DEF  Counter      r19
+DEF  Delay        r22
+DEF  Null         r23
+CSEG RESET        00000165
 CSEG Program_name 00000001
-CSEG USART_Init   00000016
-CSEG USART_Transmit 0000001f
-CSEG loop_USART_Transmit 00000020
-CSEG USART_Receive 00000026
-CSEG wait_flag_RXC 00000027
-CSEG USART_Print_String 0000002d
-CSEG End_USART_Print_String 00000032
-CSEG Start        00000037
-CSEG Wait         00000056
-CSEG Loop_Wait    00000059
+CSEG Delay_1000ms 00000010
+CSEG Loop_Delay_1000ms 00000019
+CSEG Delay_500ms  00000023
+CSEG Loop_Delay_500ms 0000002d
+CSEG Delay_100ms  00000037
+CSEG Loop_Delay_100ms 00000040
+CSEG Delay_10ms   0000004a
+CSEG Loop_Delay_10ms 00000053
+CSEG USART_Init   0000005d
+CSEG USART_Transmit 00000066
+CSEG loop_USART_Transmit 00000067
+CSEG USART_Receive 0000006d
+CSEG wait_flag_RXC 0000006e
+CSEG USART_Print_String 00000074
+CSEG End_USART_Print_String 00000079
+CSEG I2C_Init     0000007a
+CSEG I2C_Delay    00000085
+CSEG loop_I2C_Delay 00000089
+CSEG I2C_Start    0000008e
+CSEG I2C_Stop     00000092
+CSEG I2C_Send     00000099
+CSEG repeat_I2C_Send 000000a0
+CSEG set_0_I2C_Send 000000a4
+CSEG set_1_I2C_Send 000000a6
+CSEG continue_I2C_Send 000000a8
+CSEG I2C_Read     000000b6
+CSEG I2C_Scan     000000b9
+CSEG Repeat_I2C_Scan 000000c1
+CSEG AddressOn_send 000000ce
+CSEG Clear_I2C_Address 000000cc
+CSEG AddressOff_send 000000dd
+CSEG AddressOn    00000102
+CSEG Loop_I2C_Scan 000000d0
+CSEG Null_send    000000d4
+CSEG One_send     000000d7
+CSEG Decrement_Bit 000000d9
+CSEG End_I2C_Scan 000000de
+CSEG AddressOff   0000012b
+CSEG EndSearchDevices 00000146
+CSEG Hello_W      000000e5
+CSEG Start        0000016c

@@ -1,12 +1,18 @@
 
-AVRASM ver. 2.2.8  E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm Thu Feb 23 12:57:27 2023
+AVRASM ver. 2.2.8  E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm Thu Feb 23 15:11:03 2023
 
 [builtin](2): Including file 'E:/Program\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\2.0.368\avrasm\inc\tn104def.inc'
-E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(11): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\macro.inc'
-E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(51): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\usart.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(11): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\macro.inc'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(49): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\delay.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(50): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\usart.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(51): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(52): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c_scan.asm'
 [builtin](2): Including file 'E:/Program\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\2.0.368\avrasm\inc\tn104def.inc'
-E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(11): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\macro.inc'
-E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(51): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\usart.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(11): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\macro.inc'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(49): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\delay.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(50): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\usart.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(51): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_scaner\I2C_scaner\main.asm(52): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c_scan.asm'
                                  
                                  ;
                                  
@@ -647,12 +653,12 @@ E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(5
                                  
                                  
                                  
-                                 ; USART.asm
+                                 ; I2C_scaner.asm
                                  ;
                                  ; Created: 19.02.2023 11:32:07
                                  ; Author : Ogneyar
                                  ;
-                                 ; Тестирование USART на микроконтроллере ATtiny104
+                                 ; Тестирование I2C на микроконтроллере ATtiny104
                                  
                                  ;#pragma AVRPART CORE NEW_INSTRUCTIONS lpm rd,z+
                                  
@@ -691,14 +697,18 @@ E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(5
                                  	.equ 	DIVIDER					= 8				; 8 при U2X = 1, 16 при U2X = 0
                                  	.equ 	BAUD 					= 9600			; Скорость обмена по UART
                                  	.equ 	UBRR 					= F_CPU/DIVIDER/BAUD-1
-                                 
-                                 	.equ 	Delay 					= 500
-                                 	.equ 	Number 					= Delay * F_CPU / 1000 / 5
-                                 
+                                 	
+                                 	.equ 	I2C_DIVIDER				= 1				; делитель
+                                 	.equ 	I2C_BAUD 				= 100000		; Скорость обмена по I2C
+                                 	.equ 	I2C_UBRR				= F_CPU/I2C_DIVIDER/I2C_BAUD ; количество тиков в 10 мкс (1секунду/100 000) около 100 KHz
+                                 	
                                  ;=================================================
                                  	.def 	Data					= R16			; регистр данных USART
-                                 	.def 	Temp					= R17			; регистр для временных данных
-                                 	.def 	Flag 					= R25 			; регистр для флага
+                                 	.def 	Ask						= R17			; регистр данных
+                                 	.def 	I2C_Address				= R18			; регистр адреса
+                                 	.def 	Counter					= R19			; регистр счёичик
+                                 	.def 	Delay 					= R22			; регистр задержки
+                                 	.def 	Null 					= R23 			; регистр для флага
                                  
                                  ;=================================================
                                  ; Сегмент SRAM памяти
@@ -709,40 +719,145 @@ E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(5
                                  ;=================================================
                                  ; Таблица прерываний
                                  	.ORG 0x00
-000000 c032                      		RJMP	RESET
+000000 c164                      		RJMP	RESET
                                  
                                  ;=================================================
                                  	; Переменные во флеш памяти		
 000001 6554
 000002 7473
-000003 5520
-000004 4153
-000005 5452
-000006 5420
-000007 6172
-000008 736e
-000009 696d
-00000a 2d74
-00000b 6552
-00000c 6573
-00000d 7669
-00000e 2065
-00000f 6e6f
-000010 4120
-000011 7454
-000012 6e69
-000013 3179
-000014 3430
-000015 0020                      	Program_name: .db "Test USART Transmit-Reseive on ATtiny104 ",0
-                                 	; Hello_String: 
-                                 	; 	.db '\n',"Hello Чел! ",'\n','\n'
-                                 	; 	.db "Чтобы включить LED, пришли 1 ",'\n'
-                                 	; 	.db "Чтобы погасить LED, пришли 0 ",'\n','\n',0
-                                 	; LedOn: .db "LED включен! ",'\n','\n',0
-                                 	; LedOff: .db "LED погашен! ",'\n','\n',0
+000003 4920
+000004 4332
+000005 7320
+000006 6163
+000007 656e
+000008 2072
+000009 6e6f
+00000a 4120
+00000b 7454
+00000c 6e69
+00000d 3179
+00000e 3430
+00000f 0020                      	Program_name: .db "Test I2C scaner on ATtiny104 ",0
                                  
                                  ;=================================================
                                  	; Подключение библиотек
+                                 	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\delay.asm"    ; подключение файла 'задержек'
+                                 
+                                 #ifndef _DELAY_INC_
+                                 #define _DELAY_INC_
+                                 
+                                 #ifndef F_CPU
+                                 #define F_CPU 1000000
+                                 #endif
+                                 
+                                 #define DELAY_DATA_1000 F_CPU/5 ; ( ( _delay_ms / 1000 ) * F_CPU / 5 )
+                                 #define DELAY_DATA_500 F_CPU/10
+                                 #define DELAY_DATA_100 F_CPU/50
+                                 #define DELAY_DATA_10 F_CPU/500
+                                 
+                                 ; N = Time*Fcpu/(r+2) // РіРґРµ r вЂ” С‡РёСЃР»Рѕ СЂРµРіРёСЃС‚СЂРѕРІ 
+                                 ; N = T*F/5 // T = 500ms = 0,5s // N = 120 000 РїСЂРё 1,2 РњР“С†
+                                 ; 120 000 = 0,5 * 1 200 000 / 5
+                                 
+                                 Delay_1000ms:
+000010 930f                      	push	r16
+000011 931f                      	push	r17
+000012 932f                      	push	r18
+000013 933f                      	push	r19	
+                                 	; СЃРѕС…СЂР°РЅСЏРµРј СЃС‚Р°С‚СѓСЃ СЂРµРіРёСЃС‚СЂС‹
+000014 b73f                      	IN		r19, SREG
+000015 94f8                      	cli ; Р·Р°РїСЂРµС‰Р°РµРј РїСЂРµСЂС‹РІР°РЅРёСЏ
+000016 e023                      	ldi 	r18, byte3(DELAY_DATA_1000) ; СЃС‚Р°СЂС€РёР№ Р±Р°Р№С‚ N
+000017 e01d                      	ldi 	r17, high(DELAY_DATA_1000) ; СЃСЂРµРґРЅРёР№ Р±Р°Р№С‚ N
+000018 e400                      	ldi 	r16, low(DELAY_DATA_1000) ; РјР»Р°РґС€РёР№ Р±Р°Р№С‚ N
+                                 Loop_Delay_1000ms: 
+000019 5001                      	subi 	r16, 1 ; Subtract Immediate
+00001a 4010                      	sbci 	r17, 0 ; Subtract Immediate with Carry
+00001b 4020                      	sbci 	r18, 0
+00001c f7e0                      	brcc 	Loop_Delay_1000ms ; Branch if Carry Cleared
+                                 	; РІРѕР·РІСЂР°С‰СЏРµРј СЃС‚Р°С‚СѓСЃ СЂРµРіРёСЃС‚СЂС‹
+00001d bf3f                      	OUT	SREG, r19
+00001e 913f                      	pop 	r19
+00001f 912f                      	pop 	r18
+000020 911f                      	pop		r17
+000021 910f                      	pop		r16 
+000022 9508                      ret
+                                 
+                                 Delay_500ms:
+000023 94f8                      	cli ; Р·Р°РїСЂРµС‰Р°РµРј РїСЂРµСЂС‹РІР°РЅРёСЏ
+000024 930f                      	push	r16
+000025 931f                      	push	r17
+000026 932f                      	push	r18
+000027 933f                      	push	r19	
+                                 	; СЃРѕС…СЂР°РЅСЏРµРј СЃС‚Р°С‚СѓСЃ СЂРµРіРёСЃС‚СЂС‹
+000028 b73f                      	IN		r19, SREG
+000029 94f8                      	cli ; Р·Р°РїСЂРµС‰Р°РµРј РїСЂРµСЂС‹РІР°РЅРёСЏ
+00002a e021                      	ldi 	r18, byte3(DELAY_DATA_500) ; СЃС‚Р°СЂС€РёР№ Р±Р°Р№С‚ N
+00002b e816                      	ldi 	r17, high(DELAY_DATA_500) ; СЃСЂРµРґРЅРёР№ Р±Р°Р№С‚ N
+00002c ea00                      	ldi 	r16, low(DELAY_DATA_500) ; РјР»Р°РґС€РёР№ Р±Р°Р№С‚ N
+                                 Loop_Delay_500ms: 
+00002d 5001                      	subi 	r16, 1 ; Subtract Immediate
+00002e 4010                      	sbci 	r17, 0 ; Subtract Immediate with Carry
+00002f 4020                      	sbci 	r18, 0
+000030 f7e0                      	brcc 	Loop_Delay_500ms ; Branch if Carry Cleared
+                                 	; РІРѕР·РІСЂР°С‰СЏРµРј СЃС‚Р°С‚СѓСЃ СЂРµРіРёСЃС‚СЂС‹
+000031 bf3f                      	OUT	SREG, r19
+000032 913f                      	pop 	r19
+000033 912f                      	pop 	r18
+000034 911f                      	pop		r17
+000035 910f                      	pop		r16 
+000036 9508                      ret
+                                 
+                                 Delay_100ms:
+000037 930f                      	push	r16
+000038 931f                      	push	r17
+000039 932f                      	push	r18
+00003a 933f                      	push	r19	
+                                 	; СЃРѕС…СЂР°РЅСЏРµРј СЃС‚Р°С‚СѓСЃ СЂРµРіРёСЃС‚СЂС‹
+00003b b73f                      	IN		r19, SREG
+00003c 94f8                      	cli ; Р·Р°РїСЂРµС‰Р°РµРј РїСЂРµСЂС‹РІР°РЅРёСЏ
+00003d e020                      	ldi 	r18, byte3(DELAY_DATA_100) ; СЃС‚Р°СЂС€РёР№ Р±Р°Р№С‚ N
+00003e e41e                      	ldi 	r17, high(DELAY_DATA_100) ; СЃСЂРµРґРЅРёР№ Р±Р°Р№С‚ N
+00003f e200                      	ldi 	r16, low(DELAY_DATA_100) ; РјР»Р°РґС€РёР№ Р±Р°Р№С‚ N
+                                 Loop_Delay_100ms: 
+000040 5001                      	subi 	r16, 1 ; Subtract Immediate
+000041 4010                      	sbci 	r17, 0 ; Subtract Immediate with Carry
+000042 4020                      	sbci 	r18, 0
+000043 f7e0                      	brcc 	Loop_Delay_100ms ; Branch if Carry Cleared
+                                 	; РІРѕР·РІСЂР°С‰СЏРµРј СЃС‚Р°С‚СѓСЃ СЂРµРіРёСЃС‚СЂС‹
+000044 bf3f                      	OUT	SREG, r19
+000045 913f                      	pop 	r19
+000046 912f                      	pop 	r18
+000047 911f                      	pop		r17
+000048 910f                      	pop		r16	 
+000049 9508                      ret 
+                                 
+                                 Delay_10ms:
+00004a 930f                      	push	r16
+00004b 931f                      	push	r17
+00004c 932f                      	push	r18
+00004d 933f                      	push	r19	
+                                 	; СЃРѕС…СЂР°РЅСЏРµРј СЃС‚Р°С‚СѓСЃ СЂРµРіРёСЃС‚СЂС‹
+00004e b73f                      	IN		r19, SREG
+00004f 94f8                      	cli ; Р·Р°РїСЂРµС‰Р°РµРј РїСЂРµСЂС‹РІР°РЅРёСЏ
+000050 e020                      	ldi 	r18, byte3(DELAY_DATA_10) ; СЃС‚Р°СЂС€РёР№ Р±Р°Р№С‚ N
+000051 e017                      	ldi 	r17, high(DELAY_DATA_10) ; СЃСЂРµРґРЅРёР№ Р±Р°Р№С‚ N
+000052 ed00                      	ldi 	r16, low(DELAY_DATA_10) ; РјР»Р°РґС€РёР№ Р±Р°Р№С‚ N
+                                 Loop_Delay_10ms: 
+000053 5001                      	subi 	r16, 1 ; Subtract Immediate
+000054 4010                      	sbci 	r17, 0 ; Subtract Immediate with Carry
+000055 4020                      	sbci 	r18, 0
+000056 f7e0                      	brcc 	Loop_Delay_10ms ; Branch if Carry Cleared
+                                 	; РІРѕР·РІСЂР°С‰СЏРµРј СЃС‚Р°С‚СѓСЃ СЂРµРіРёСЃС‚СЂС‹
+000057 bf3f                      	OUT	SREG, r19
+000058 913f                      	pop 	r19
+000059 912f                      	pop 	r18
+00005a 911f                      	pop		r17
+00005b 910f                      	pop		r16
+00005c 9508                      ret 
+                                 
+                                 
+                                 #endif  /* _DELAY_INC_ */
                                  	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\usart.asm"    ; подключение библиотеки USART (ей требуется UBRR)
                                  
                                  #ifndef _USART_ASM_
@@ -752,57 +867,444 @@ E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(5
                                  
                                  ; РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ USART
                                  USART_Init: ; РІ ZH:ZL РѕР¶РёРґР°РµС‚СЃСЏ UBRR
-000016 930f                      	push	R16
+00005d 930f                      	push	R16
                                      ; Set baud rate to UBRR0
-000017 b9fa                          out     UBRRH, ZH
-000018 b9e9                          out     UBRRL, ZL
+00005e b9fa                          out     UBRRH, ZH
+00005f b9e9                          out     UBRRL, ZL
                                      ; Enable receiver and transmitter
-000019 e108                          ldi     r16, (1 << RXEN) | (1 << TXEN)
-00001a b90d                          out     UCSRB, r16
+000060 e108                          ldi     r16, (1 << RXEN) | (1 << TXEN)
+000061 b90d                          out     UCSRB, r16
                                      ; U2X0:вЂЂDouble the USART Transmission Speed
-00001b e002                          ldi     r16, (1 << U2X)
-00001c b90e                          out     UCSRA, r16
-00001d 910f                      	pop		R16
-00001e 9508                      ret
+000062 e002                          ldi     r16, (1 << U2X)
+000063 b90e                          out     UCSRA, r16
+000064 910f                      	pop		R16
+000065 9508                      ret
                                  
                                  ; -- РџРѕРґРїСЂРѕРіСЂР°РјРјР° РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…
                                  USART_Transmit: ; РІ R16 РѕР¶РёРґР°СЋС‚СЃСЏ РґР°РЅРЅС‹РµR16
-00001f 931f                      	push	R17
+000066 931f                      	push	R17
                                  loop_USART_Transmit:
                                      ; Wait for empty transmit buffer
-000020 b11e                          in      r17, UCSRA
-000021 ff15                          sbrs    r17, UDRE
-000022 cffd                          rjmp    loop_USART_Transmit
+000067 b11e                          in      r17, UCSRA
+000068 ff15                          sbrs    r17, UDRE
+000069 cffd                          rjmp    loop_USART_Transmit
                                      ; Put data (r16) into buffer, sends the data
-000023 b908                          out     UDR, r16
-000024 911f                      	pop	    R17
-000025 9508                      ret
+00006a b908                          out     UDR, r16
+00006b 911f                      	pop	    R17
+00006c 9508                      ret
                                  
                                  ; -- РџРѕРґРїСЂРѕРіСЂР°РјРјР° РїСЂРёС‘РјР° РґР°РЅРЅС‹С… -- 
                                  USART_Receive: ; РІРѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ РІ СЂРµРіРёСЃС‚СЂ R16
-000026 931f                      	push	R17
+00006d 931f                      	push	R17
                                  wait_flag_RXC:
                                  	; Wait for data to be received
-000027 b11e                      	in 	    R17, UCSRA
-000028 ff17                      	SBRS 	R17, RXC ; Skip if Bit in Register Set
-000029 cffd                      	RJMP	wait_flag_RXC
+00006e b11e                      	in 	    R17, UCSRA
+00006f ff17                      	SBRS 	R17, RXC ; Skip if Bit in Register Set
+000070 cffd                      	RJMP	wait_flag_RXC
                                  	; РїСЂРёРЅРёРјР°РµРј РґР°РЅРЅС‹Рµ
-00002a b108                      	in 	    R16, UDR
-00002b 911f                      	pop		R17
-00002c 9508                      ret
+000071 b108                      	in 	    R16, UDR
+000072 911f                      	pop		R17
+000073 9508                      ret
                                  
                                  ; -- РџРѕРґРїСЂРѕРіСЂР°РјРјР° РІС‹РІРѕРґР° СЃС‚СЂРѕРєРё РІ РїРѕСЂС‚ -- 
                                  USART_Print_String: ; use macro mSetStr
-00002d 9105                      	LPM		R16, Z+
-00002e 3000                      	CPI		R16, 0
-00002f f011                      	BREQ	End_USART_Print_String
-000030 dfee                      	RCALL 	USART_Transmit
-000031 cffb                      	RJMP	USART_Print_String
+000074 9105                      	LPM		R16, Z+
+000075 3000                      	CPI		R16, 0
+000076 f011                      	BREQ	End_USART_Print_String
+000077 dfee                      	RCALL 	USART_Transmit
+000078 cffb                      	RJMP	USART_Print_String
                                  End_USART_Print_String:
-000032 9508                      ret
+000079 9508                      ret
                                  ;=================================================
                                  
                                  #endif  /* _USART_ASM_ */
+                                 	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c.asm"    	 ; подключение библиотеки I2C (ей требуется I2C_UBRR)
+                                 
+                                 
+                                 #ifndef _I2C_ASM_
+                                 #define _I2C_ASM_
+                                 
+                                 ;#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\tn104def.inc"
+                                 
+                                 /* ---------------------------------------------------------------------------------------
+                                 Р‘РёР±Р»РёРѕС‚РµРєРµ С‚СЂРµР±СѓСЋС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏ:
+                                     I2C_UBRR - РґР»СЏ Р·Р°РґРµСЂР¶РµРє
+                                         I2C_UBRR = F_CPU / I2C_BAUD (I2C_BAUD - 100KHz РёР»Рё 400KHz) 9 600 000 / 100 000 = 96
+                                     R16 - РґР»СЏ РѕС‚РїСЂР°РІРєРё Р±Р°Р№С‚Р°
+                                     R17 - РґР»СЏ РїСЂРёС‘РјР° Р±Р°Р№С‚Р°
+                                 --------------------------------------------------------------------------------------- */
+                                 
+                                 // РїРёРЅС‹
+                                 #ifndef DDR_I2C
+                                 #define DDR_I2C		DDRA
+                                 #define PIN_I2C		PINA
+                                 #define SDA_I2C		PORTA4
+                                 #define SCL_I2C		PORTA5
+                                 #endif
+                                 
+                                 
+                                 
+                                 // СѓРїСЂР°РІР»РµРЅРёРµ Р»РёРЅРёСЏРјРё
+                                 ; #define SDA_1		CBI     DDR_I2C, SDA_I2C
+                                 ; #define SDA_0		SBI     DDR_I2C, SDA_I2C
+                                 ; #define SCL_1		CBI     DDR_I2C, SCL_I2C
+                                 ; #define SCL_0		SBI     DDR_I2C, SCL_I2C
+                                 
+                                 
+                                 ; -- РџРѕРґРїСЂРѕРіСЂР°РјРјР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё I2C -- 
+                                 I2C_Init: ; С‚СЂРµР±СѓРµС‚СЃСЏ Р·РЅР°С‡РµРЅРёРµ I2C_UBRR
+00007a 931f                          push    R17
+                                 	; С‚Р°Р№РјРµСЂ РІРєСЋС‡Р°РµРј РІ СЂРµР¶РёРј CTC
+00007b e012                      	LDI 	R17, (1 << WGM01)
+00007c bd1e                      	OUT 	TCCR0A, R17
+                                 	; РґРµР»РёС‚РµР»СЊ РЅР° 1
+00007d e011                          LDI 	R17, (1 << CS00)
+00007e bd1d                      	OUT 	TCCR0B, R17
+                                 	; СЂРµРіРёСЃС‚СЂ СЃСЂР°РІРЅРµРЅРёСЏ
+00007f e010                        	LDI 	R17, 0
+000080 bd17                      	OUT 	OCR0AH, R17	
+000081 e01a                        	LDI 	R17, I2C_UBRR
+000082 bd16                      	OUT 	OCR0AL, R17	
+000083 911f                          pop     R17
+000084 9508                      ret
+                                 
+                                 ; -- РџРѕРґРїСЂРѕРіСЂР°РјРјР° Р·Р°РґРµСЂР¶РєРё -- 
+                                 I2C_Delay: ; С‚СЂРµР±СѓРµС‚СЃСЏ Р·РЅР°С‡РµРЅРёРµ I2C_UBRR
+000085 933f                          push    R19
+000086 e030                          LDI     R19, 0
+000087 bd39                          OUT     TCNT0H, R19 ; РѕР±РЅСѓР»СЏРµРј СЃС‡С‘С‚С‡РёРє
+000088 bd38                      	OUT     TCNT0L, R19 ; РѕР±РЅСѓР»СЏРµРј СЃС‡С‘С‚С‡РёРє
+                                 loop_I2C_Delay:
+000089 b538                      	IN		R19, TCNT0L
+00008a 303a                      	CPI		R19, I2C_UBRR
+00008b f3e8                      	BRCS	loop_I2C_Delay ; Branch if Carry Set (РµСЃР»Рё TCNT0 < UBRR)
+00008c 913f                          pop     R19
+00008d 9508                      ret
+                                 
+                                 ; -- I2C РєРѕРјР°РЅРґР° РЎРўРђР Рў -- 
+                                 I2C_Start:
+00008e 9a0c                          SBI     DDR_I2C, SDA_I2C ; SDA_0
+00008f dff5                      	RCALL   I2C_Delay
+000090 9a0d                          SBI     DDR_I2C, SCL_I2C ; SCL_0
+000091 9508                      ret
+                                 
+                                 ; -- I2C РєРѕРјР°РЅРґР° РЎРўРћРџ -- 
+                                 I2C_Stop:
+000092 9a0c                      	SBI     DDR_I2C, SDA_I2C ; SDA_0
+000093 dff1                      	RCALL   I2C_Delay
+000094 980d                      	CBI     DDR_I2C, SCL_I2C ; SCL_1
+000095 dfef                      	RCALL   I2C_Delay
+000096 980c                      	CBI     DDR_I2C, SDA_I2C ; SDA_1
+000097 dfed                      	RCALL   I2C_Delay
+000098 9508                      ret
+                                 
+                                 ; -- РџРѕРґРїСЂРѕРіСЂР°РјРјР° РѕС‚РїСЂР°РІРєРё Р±Р°Р№С‚Р° РїРѕ I2C -- 
+                                 I2C_Send: ; data РІ СЂРµРіРёСЃС‚СЂРµ R16, ask РІРµСЂРЅС‘С‚СЃСЏ РІ R17
+                                 ;---------------------------------------------------- 
+                                 ; РїРѕРІС‚РѕСЂРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РЅРµРѕР±С…РѕРґРёРјР° РёР·-Р·Р° USARTР°, С‚Р°Рј РЅР°РїСЂРёРјРµСЂ РґРµР»РёС‚РµР»СЊ РЅР° 8, С‚СѓС‚ РЅР° 1
+                                 	; С‚Р°Р№РјРµСЂ РІРєСЋС‡Р°РµРј РІ СЂРµР¶РёРј CTC
+000099 e012                      	LDI 	R17, (1 << WGM01)
+00009a bd1e                      	OUT 	TCCR0A, R17
+                                 	; РґРµР»РёС‚РµР»СЊ РЅР° 1
+00009b e011                          LDI 	R17, (1 << CS00)
+00009c bd1d                      	OUT 	TCCR0B, R17
+                                 	; СЂРµРіРёСЃС‚СЂ СЃСЂР°РІРЅРµРЅРёСЏ
+00009d e01a                        	LDI 	R17, I2C_UBRR
+00009e bd16                      	OUT 	OCR0AL, R17	
+                                 ;---------------------------------------------------- 
+00009f e018                          LDI     R17, 8 ; i = 8
+                                 repeat_I2C_Send:
+0000a0 9488                          CLC ; clear Carry
+0000a1 1f00                          ROL     R16
+0000a2 f408                          BRCC    set_0_I2C_Send ; Branch if Carry Cleared
+0000a3 f010                          BRCS    set_1_I2C_Send ; Branch if Carry Set
+                                 set_0_I2C_Send:
+0000a4 9a0c                          SBI     DDR_I2C, SDA_I2C ; SDA_0
+0000a5 c002                          RJMP    continue_I2C_Send
+                                 set_1_I2C_Send:
+0000a6 980c                          CBI     DDR_I2C, SDA_I2C ; SDA_1    
+0000a7 c000                          RJMP    continue_I2C_Send
+                                 continue_I2C_Send:
+0000a8 dfdc                      	RCALL   I2C_Delay
+0000a9 980d                      	CBI     DDR_I2C, SCL_I2C ; SCL_1 - С„СЂРѕРЅС‚
+0000aa dfda                      	RCALL   I2C_Delay
+0000ab 9a0d                      	SBI     DDR_I2C, SCL_I2C ; SCL_0 - СЃРїР°Рґ
+0000ac 951a                          DEC     R17
+0000ad f791                          BRNE    repeat_I2C_Send ; if R17 != 0
+                                     
+0000ae 980c                      	CBI     DDR_I2C, SDA_I2C ; SDA_1 - РѕС‚РїСѓСЃС‚РёС‚СЊ РґР°С‚Р°
+0000af dfd5                      	RCALL   I2C_Delay
+0000b0 980d                      	CBI     DDR_I2C, SCL_I2C ; SCL_1 - С„СЂРѕРЅС‚ С‚Р°РєС‚Р°
+0000b1 dfd3                      	RCALL   I2C_Delay
+                                 
+0000b2 b110                          IN      R17, PIN_I2C
+0000b3 7110                      	ANDI    R17, (1 << SDA_I2C) ; С‡РёС‚Р°РµРј Р»РёРЅРёСЋ СЃРґР° (РµСЃР»Рё СѓСЃС‚СЂРѕР№СЃС‚РІРѕ РѕС‚РІРµС‚РёС‚ Ask (R17) Р±СѓРґРµС‚ СЂР°РІРµРЅ 0)
+0000b4 9a0d                      	SBI     DDR_I2C, SCL_I2C ; SCL_0 - СЃРїР°Рґ
+0000b5 9508                      ret
+                                 
+                                 ; -- РџРѕРґРїСЂРѕРіСЂР°РјРјР° РїСЂРёС‘РјР° Р±Р°Р№С‚Р° РїРѕ I2C -- 
+                                 I2C_Read:
+                                 	; СЂРµРіРёСЃС‚СЂ СЃСЂР°РІРЅРµРЅРёСЏ
+0000b6 e01a                        	LDI 	R17, I2C_UBRR
+0000b7 bd16                      	OUT 	OCR0AL, R17	
+                                     ;
+                                     ;
+                                     ;
+0000b8 9508                      ret
+                                 
+                                 
+                                 
+                                 ; // РїРѕР»СѓС‡РµРЅРёРµ Р±Р°Р№С‚Р°
+                                 ; uint8_t i2c_read(uint8_t ack){
+                                 ; 	uint8_t byte=0, i=8;
+                                 ; 	while(i--)
+                                 ; 	{
+                                 ; 		SCL_1;// С„СЂРѕРЅС‚ С‚Р°РєС‚Р°
+                                 ; 		I2C_DELAY;
+                                 ; 		if(SDA_PIN & (1 << SDA)) byte|=(1<<i);// РµСЃР»Рё SDA 1 РІ Рё-С‚С‹Р№ Р±РёС‚ РїРёС€РµРј 1
+                                 ; 		SCL_0;// СЃРїР°Рґ С‚Р°РєС‚Р°
+                                 ; 		I2C_DELAY;
+                                 ; 	}
+                                 ; 	if(ack) SDA_0;// ask РёР»Рё nask
+                                 ; 	else SDA_1;
+                                 	
+                                 ; 	SCL_1;//
+                                 ; 	I2C_DELAY;// С‚Р°РєС‚ РЅР° РїРѕР»СѓС‡РµРЅРёСЏ РѕС‚РІРµС‚Р° РёР»Рё РЅРµРѕС‚РІРµС‚Р°
+                                 ; 	SCL_0;//
+                                 ; 	I2C_DELAY;
+                                 ; 	SDA_1;// РѕС‚РїСѓСЃС‚РёС‚СЊ СЃРґР° РµСЃР»Рё РїСЂРёС‚СЏРЅСѓС‚
+                                 ; 	return byte;
+                                 ; }
+                                 
+                                 
+                                 
+                                 #endif  /* _I2C_ASM_ */
+                                 	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c_scan.asm" ; подключение библиотеки I2C_SCAN (ей требуется библиотека I2C)
+                                 
+                                 #ifndef _I2C_SCAN_ASM_
+                                 #define _I2C_SCAN_ASM_
+                                 
+                                 
+                                 ;=================================================
+                                 ; РїРѕРёСЃРє СѓСЃС‚СЂРѕР№СЃС‚РІР° Рё РІС‹РІРѕРґ Р°РґСЂРµСЃР° РІ РїРѕСЂС‚
+                                 I2C_Scan:
+0000b9 930f                      	push	R16 ; Data
+0000ba 931f                      	push	R17 ; Ask
+0000bb 932f                      	push	R18 ; I2C_Address
+0000bc 933f                      	push	R19 ; Counter
+0000bd 934f                      	push	R20 ; Null
+                                 	
+0000be 2744                      	CLR		R20
+                                 	
+0000bf e038                      	LDI		R19, 8 ; РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РІРѕРґРёРјС‹С… Р±РёС‚
+0000c0 2722                      	CLR		R18 ; I2C_Address = 0x00
+                                 Repeat_I2C_Scan:
+0000c1 dfcc                      	RCALL	I2C_Start ; РєРѕРјР°РЅРґР° РЎРўРђР Рў
+                                 	
+0000c2 2f02                      	MOV		Data, R18
+0000c3 0f00                      	LSL 	Data 
+0000c4 dfd4                      	RCALL	I2C_send ; РїРµСЂРµРґР°С‡Р° Р°РґСЂРµСЃР° Р·Р°РїРёСЃР°РЅРЅРѕРіРѕ РІ R16
+                                 	;------------------------------------
+                                 	; РїСЂРѕРІРµСЂСЏРµРј РѕС‚РІРµС‚Р»Рѕ Р»Рё СѓСЃС‚СЂРѕР№СЃС‚РІРѕ
+0000c5 1714                      	CP	 	R17, R20 ; РµСЃР»Рё СѓСЃС‚СЂРѕР№СЃС‚РІРѕ РѕС‚РІРµС‚РёС‚ (Ask=0)
+0000c6 f039                      	BREQ	AddressOn_send ; РїСЂРµРєСЂР°С‰Р°РµРј СЃРєР°РЅРёСЂРѕРІР°С‚СЊ
+                                 	; РїСЂРѕРґРѕР»Р¶Р°РµРј РµСЃР»Рё СѓСЃС‚СЂРѕР№СЃС‚РІРѕ РЅРµ РѕС‚РІРµС‚РёР»Рѕ
+                                 	;------------------------------------
+0000c7 dfca                      	RCALL	I2C_Stop ; РёРЅР°С‡Рµ РєРѕРјР°РЅРґР° РЎРўРћРџ
+                                 
+0000c8 9523                      	INC 	R18 ; СѓРІРµР»РёС‡РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ
+0000c9 3820                      	CPI		R18, 128 ; TW_MAX_ADDRESS - РјР°РєСЃРёРјР°Р»СЊРЅРѕ РІРѕР·РјРѕР¶РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ Р°РґСЂРµСЃР° СѓСЃС‚СЂРѕР№СЃС‚РІР°
+0000ca f408                      	BRSH	Clear_I2C_Address ; Branch if Same or Higher (>=) РїСЂРѕРїСѓСЃРєР°РµРј СЃС‚СЂРѕРєСѓ РЅРёР¶Рµ РµСЃР»Рё РїРµСЂРІРѕРµ Р·РЅР°С‡РµРЅРёРµ >= РІС‚РѕСЂРѕРјСѓ
+0000cb cff5                      	RJMP	Repeat_I2C_Scan ; РїРѕРІС‚РѕСЂСЏРµРј
+                                 Clear_I2C_Address:
+0000cc 2722                      	CLR		R18
+0000cd c00f                      	RJMP	AddressOff_send
+                                 AddressOn_send:
+0000ce dfc3                      	RCALL	I2C_Stop ; РєРѕРјР°РЅРґР° РЎРўРћРџ
+                                 
+0000cf d032                      	RCALL	AddressOn ; РІС‹РІРѕРґ РІ РїРѕСЂС‚ СЃРѕРѕР±С‰РµРЅРёСЏ
+                                 Loop_I2C_Scan:
+0000d0 9488                      	CLC ; Clear Carry (СЃР±СЂР°СЃС‹РІР°РµРј С„Р»Р°Рі РїРµСЂРµРЅРѕСЃР°)
+0000d1 1f22                      	ROL		R18 ; РєСЂСѓРіРѕРІРѕР№ СЃРґРІРёРі РІР»РµРІРѕ (ROL 0b11110000 = 0b11100001)
+0000d2 f408                      	BRCC	Null_send ; РµСЃР»Рё С„Р»Р°Рі Carry = 0 
+0000d3 c003                      	RJMP	One_send ; РµСЃР»Рё С„Р»Р°Рі Carry = 1 
+                                 Null_send: 
+0000d4 e300                      	LDI		Data, '0'
+0000d5 df90                      	RCALL	USART_Transmit ; РІС‹РІРѕРґРёРј РІ РїРѕСЂС‚ 0
+0000d6 c002                      	RJMP	Decrement_Bit
+                                 One_send:
+0000d7 e301                      	LDI		Data, '1'
+0000d8 df8d                      	RCALL	USART_Transmit ; РІС‹РІРѕРґРёРј РІ РїРѕСЂС‚ 1
+                                 	; RJMP	Decrement_Bit
+                                 Decrement_Bit:
+0000d9 953a                      	DEC		R19 ; РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РІРѕРґРёРјС‹С… Р±РёС‚
+0000da 3030                      	CPI		R19, 0  ; СЃСЂР°РІРЅРёРІР°РµРј СЃ РЅСѓР»С‘Рј
+0000db f011                      	BREQ	End_I2C_Scan
+0000dc cff3                      	RJMP	Loop_I2C_Scan
+                                 AddressOff_send:
+0000dd d04d                      	RCALL	AddressOff ; РІС‹РІРѕРґ РІ РїРѕСЂС‚ СЃРѕРѕР±С‰РµРЅРёСЏ
+                                 End_I2C_Scan:
+0000de d067                      	RCALL	EndSearchDevices ; РІС‹РІРѕРґ РІ РїРѕСЂС‚ СЃРѕРѕР±С‰РµРЅРёСЏ
+                                 	
+0000df 914f                      	pop		R20 ; Null
+0000e0 913f                      	pop		R19 ; Counter
+0000e1 912f                      	pop		R18 ; I2C_Address
+0000e2 911f                      	pop		R17 ; Ask
+0000e3 910f                      	pop		R16 ; Data
+0000e4 9508                      ret
+                                 
+                                 ;
+                                 Hello_W:
+0000e5 930f                      	push	R16 ; Data
+                                 	
+0000e6 e408                      	LDI 	R16, 'H'
+0000e7 df7e                      	RCALL 	USART_Transmit
+0000e8 e605                      	LDI 	R16, 'e'
+0000e9 df7c                      	RCALL 	USART_Transmit
+0000ea e60c                      	LDI 	R16, 'l'
+0000eb df7a                      	RCALL 	USART_Transmit
+0000ec e60c                      	LDI 	R16, 'l'
+0000ed df78                      	RCALL 	USART_Transmit
+0000ee e60f                      	LDI 	R16, 'o'
+0000ef df76                      	RCALL 	USART_Transmit
+0000f0 e200                      	LDI 	R16, ' '
+0000f1 df74                      	RCALL 	USART_Transmit
+                                 			
+0000f2 e507                      	LDI 	R16, 'W'
+0000f3 df72                      	RCALL 	USART_Transmit
+0000f4 e60f                      	LDI 	R16, 'o'
+0000f5 df70                      	RCALL 	USART_Transmit
+0000f6 e702                      	LDI 	R16, 'r'
+0000f7 df6e                      	RCALL 	USART_Transmit
+0000f8 e60c                      	LDI 	R16, 'l'
+0000f9 df6c                      	RCALL 	USART_Transmit
+0000fa e604                      	LDI 	R16, 'd'
+0000fb df6a                      	RCALL 	USART_Transmit
+0000fc e201                      	LDI 	R16, '!'
+0000fd df68                      	RCALL 	USART_Transmit
+0000fe e00a                      	LDI 	R16, '\n'
+0000ff df66                      	RCALL 	USART_Transmit
+                                 	
+000100 910f                      	pop		R16 ; Data
+000101 9508                      RET
+                                 
+                                 ;
+                                 AddressOn: ;.db "РђРґСЂРµСЃ СѓСЃС‚СЂРѕР№СЃС‚РІР°: 0b",0
+000102 930f                      	push	R16 ; Data
+                                 	
+000103 e00a                      	LDI 	R16, '\n'
+000104 df61                      	RCALL 	USART_Transmit
+000105 e401                      	LDI 	R16, 'A'
+000106 df5f                      	RCALL 	USART_Transmit
+000107 e604                      	LDI 	R16, 'd'
+000108 df5d                      	RCALL 	USART_Transmit
+000109 e604                      	LDI 	R16, 'd'
+00010a df5b                      	RCALL 	USART_Transmit
+00010b e702                      	LDI 	R16, 'r'
+00010c df59                      	RCALL 	USART_Transmit
+00010d e605                      	LDI 	R16, 'e'
+00010e df57                      	RCALL 	USART_Transmit
+00010f e703                      	LDI 	R16, 's'
+000110 df55                      	RCALL 	USART_Transmit
+000111 e703                      	LDI 	R16, 's'
+000112 df53                      	RCALL 	USART_Transmit
+000113 e200                      	LDI 	R16, ' '
+000114 df51                      	RCALL 	USART_Transmit
+000115 e604                      	LDI 	R16, 'd'
+000116 df4f                      	RCALL 	USART_Transmit
+000117 e605                      	LDI 	R16, 'e'
+000118 df4d                      	RCALL 	USART_Transmit
+000119 e706                      	LDI 	R16, 'v'
+00011a df4b                      	RCALL 	USART_Transmit			
+00011b e609                      	LDI 	R16, 'i'
+00011c df49                      	RCALL 	USART_Transmit
+00011d e603                      	LDI 	R16, 'c'
+00011e df47                      	RCALL 	USART_Transmit
+00011f e605                      	LDI 	R16, 'e'
+000120 df45                      	RCALL 	USART_Transmit
+000121 e30a                      	LDI 	R16, ':'
+000122 df43                      	RCALL 	USART_Transmit
+000123 e200                      	LDI 	R16, ' '
+000124 df41                      	RCALL 	USART_Transmit
+000125 e300                      	LDI 	R16, '0'
+000126 df3f                      	RCALL 	USART_Transmit
+000127 e602                      	LDI 	R16, 'b'
+000128 df3d                      	RCALL 	USART_Transmit
+                                 	
+000129 910f                      	pop		R16 ; Data
+00012a 9508                      RET
+                                 
+                                 ;
+                                 AddressOff: ;.db "РќРµС‚ РЅР°Р№РґРµРЅРЅС‹С… СѓСЃС‚СЂРѕР№СЃС‚РІ!",0
+00012b 930f                      	push	R16 ; Data
+                                 	
+00012c e00a                      	LDI 	R16, '\n'
+00012d df38                      	RCALL 	USART_Transmit
+00012e e40e                      	LDI 	R16, 'N'
+00012f df36                      	RCALL 	USART_Transmit
+000130 e60f                      	LDI 	R16, 'o'
+000131 df34                      	RCALL 	USART_Transmit
+000132 e200                      	LDI 	R16, ' '
+000133 df32                      	RCALL 	USART_Transmit
+000134 e604                      	LDI 	R16, 'd'
+000135 df30                      	RCALL 	USART_Transmit
+000136 e605                      	LDI 	R16, 'e'
+000137 df2e                      	RCALL 	USART_Transmit
+000138 e706                      	LDI 	R16, 'v'
+000139 df2c                      	RCALL 	USART_Transmit			
+00013a e609                      	LDI 	R16, 'i'
+00013b df2a                      	RCALL 	USART_Transmit
+00013c e603                      	LDI 	R16, 'c'
+00013d df28                      	RCALL 	USART_Transmit
+00013e e605                      	LDI 	R16, 'e'
+00013f df26                      	RCALL 	USART_Transmit
+000140 e703                      	LDI 	R16, 's'
+000141 df24                      	RCALL 	USART_Transmit
+000142 e201                      	LDI 	R16, '!'
+000143 df22                      	RCALL 	USART_Transmit
+                                 	
+000144 910f                      	pop		R16 ; Data
+000145 9508                      RET
+                                 
+                                 ;
+                                 EndSearchDevices: ;.db '\n','\n',"РџРѕРёСЃРє I2C СѓСЃС‚СЂРѕР№СЃС‚РІ Р·Р°РІРµСЂС€С‘РЅ!",'\n','\n',0
+000146 930f                      	push	R16 ; Data
+                                 	
+000147 e00a                      	LDI 	R16, '\n'
+000148 df1d                      	RCALL 	USART_Transmit
+000149 e00a                      	LDI 	R16, '\n'
+00014a df1b                      	RCALL 	USART_Transmit
+00014b e503                      	LDI 	R16, 'S'
+00014c df19                      	RCALL 	USART_Transmit
+00014d e605                      	LDI 	R16, 'e'
+00014e df17                      	RCALL 	USART_Transmit
+00014f e601                      	LDI 	R16, 'a'
+000150 df15                      	RCALL 	USART_Transmit
+000151 e702                      	LDI 	R16, 'r'
+000152 df13                      	RCALL 	USART_Transmit
+000153 e603                      	LDI 	R16, 'c'
+000154 df11                      	RCALL 	USART_Transmit
+000155 e608                      	LDI 	R16, 'h'
+000156 df0f                      	RCALL 	USART_Transmit			
+000157 e200                      	LDI 	R16, ' '
+000158 df0d                      	RCALL 	USART_Transmit
+000159 e605                      	LDI 	R16, 'e'
+00015a df0b                      	RCALL 	USART_Transmit
+00015b e60e                      	LDI 	R16, 'n'
+00015c df09                      	RCALL 	USART_Transmit
+00015d e604                      	LDI 	R16, 'd'
+00015e df07                      	RCALL 	USART_Transmit
+00015f e201                      	LDI 	R16, '!'
+000160 df05                      	RCALL 	USART_Transmit
+000161 e00a                      	LDI 	R16, '\n'
+000162 df03                      	RCALL 	USART_Transmit
+                                 	
+000163 910f                      	pop		R16 ; Data
+000164 9508                      RET
+                                 ;=================================================
+                                 
+                                 #endif  /* _I2C_SCAN_ASM_ */
+                                 
                                  
                                  ;=================================================
                                  ; Прерывание по сбросу, стартовая инициализация 
@@ -810,97 +1312,32 @@ E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\USART\USART\main.asm(5
                                  	
                                  ;==============================================================
                                  	; -- устанавливаем пин 5 порта A на вывод -- 
-000033 9a0d                      	SBI 	DDRA, 5 ;
+000165 9a0d                      	SBI 	DDRA, 5 ;
                                  
                                  	; -- инициализация USART --	
-000034 e0ec                      	LDI 	ZL, LOW(UBRR)
-000035 e0f0                      	LDI 	ZH, HIGH(UBRR)
-000036 dfdf                      	RCALL 	USART_Init 
-                                 	
+000166 e0ec                      	LDI 	ZL, LOW(UBRR)
+000167 e0f0                      	LDI 	ZH, HIGH(UBRR)
+000168 def4                      	RCALL 	USART_Init 
+                                 
                                  	; вывод в порт приветствия
-                                 	;mSetStr	Hello_String
-                                 	;RCALL 	USART_Print_String
+000169 df7b                      	RCALL 	Hello_W
+                                 	
+                                 	; инициализация I2C
+00016a df0f                      	RCALL 	I2C_Init 
+                                 
+                                 	; -- поиск I2C устройств --	
+00016b df4d                      	RCALL 	I2C_Scan
                                  
                                  ;=================================================
                                  ; Основная программа (цикл)
                                  Start:	
-000037 9a15                      	SBI 	PORTA, 5 ;
+00016c 9a15                      	SBI 	PORTA, 5 ;
+00016d deb5                      	RCALL 	Delay_500ms
+00016e 9815                      	CBI 	PORTA, 5 ;
+00016f deb3                      	RCALL 	Delay_500ms
                                  
-000038 e408                      	LDI 	R16, 'H'
-000039 dfe5                      	RCALL 	USART_Transmit
-00003a e605                      	LDI 	R16, 'e'
-00003b dfe3                      	RCALL 	USART_Transmit
-00003c e60c                      	LDI 	R16, 'l'
-00003d dfe1                      	RCALL 	USART_Transmit
-00003e e60c                      	LDI 	R16, 'l'
-00003f dfdf                      	RCALL 	USART_Transmit
-000040 e60f                      	LDI 	R16, 'o'
-000041 dfdd                      	RCALL 	USART_Transmit
-000042 e200                      	LDI 	R16, ' '
-000043 dfdb                      	RCALL 	USART_Transmit
-                                 
-000044 d011                      	RCALL 	Wait
-                                 
-000045 9815                      	CBI 	PORTA, 5 ;
-                                 		
-000046 e507                      	LDI 	R16, 'W'
-000047 dfd7                      	RCALL 	USART_Transmit
-000048 e60f                      	LDI 	R16, 'o'
-000049 dfd5                      	RCALL 	USART_Transmit
-00004a e702                      	LDI 	R16, 'r'
-00004b dfd3                      	RCALL 	USART_Transmit
-00004c e60c                      	LDI 	R16, 'l'
-00004d dfd1                      	RCALL 	USART_Transmit
-00004e e604                      	LDI 	R16, 'd'
-00004f dfcf                      	RCALL 	USART_Transmit
-000050 e201                      	LDI 	R16, '!'
-000051 dfcd                      	RCALL 	USART_Transmit
-000052 e00a                      	LDI 	R16, '\n'
-000053 dfcb                      	RCALL 	USART_Transmit
-                                 
-000054 d001                      	RCALL 	Wait
-                                 
-                                 	;RCALL 	USART_Receive
-                                 	; сравнение пришедших данных с \n и \r
-                                 	;CPI 	USART_Data, 0xa ; NL (\n)
-                                 	;BREQ	Start
-                                 	;CPI 	USART_Data, 0xd ; CR (\r)
-                                 	;BREQ	Start
-                                 	; сравнение пришедших данных с 0 и 1
-                                 	;CPI 	USART_Data, '1'
-                                 	;BREQ	Led_ON
-                                 	;CPI 	USART_Data, '0'
-                                 	;BREQ	Led_OFF
-                                 	;RJMP	Continuation
-                                 ;Led_ON:
-                                 	;SBI 	PORTA, PA5 ; подача на пин PA5 высокого уровня 
-                                 	;mSetStr LedOn
-                                 	;RCALL 	USART_Print_String
-                                 	;RJMP	Continuation
-                                 ;Led_OFF:
-                                 	;CBI 	PORTA, PA5 ; подача на пин PA5 низкого уровня
-                                 	;mSetStr LedOff
-                                 	;RCALL 	USART_Print_String
-                                 ;Continuation:	
-000055 cfe1                      	RJMP Start ; возврат к метке Start, повторяем все в цикле 
+000170 cffb                      	RJMP Start ; возврат к метке Start, повторяем все в цикле 
                                  ;=================================================
-                                 
-                                 
-                                 ;==============================================================
-                                 ; -- подпрограмма задержки по времени -- 
-                                 ; N = Delay*Fcpu/(r+2) // где r — число регистров  
-                                 ; N = D*F/5 // D = 500ms = 0,5s ; F = 1000000 (1 МГц)
-                                 ; N = 100 000 = 0,5 * 1 000 000 / 5    или  500мс * 1000 / 5  
-                                 Wait: ; N = 100000 = 0x0186a0 (500 милисекунд)
-000056 e021                      	LDI 	R18, BYTE3(Number) ; 0x01 ; старший байт N
-000057 e816                      	LDI 	R17, HIGH(Number) ; 0x86 ; средний байт N
-000058 ea00                      	LDI 	R16, LOW(Number) ; 0xa0 ; младший байт N
-                                 Loop_Wait: 
-000059 5001                      	SUBI 	R16, 1 
-00005a 4010                      	SBCI 	R17, 0
-00005b 4020                      	SBCI 	R18, 0
-00005c f7e0                      	BRCC 	Loop_Wait
-00005d 9508                      RET ; возврат из подпрограммы Wait 
                                  
 
 
@@ -921,35 +1358,35 @@ counted separately from r26..r31 here.
 "ATtiny104" register use summary:
 x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  25 r17:  10 r18:   2 r19:   0 r20:   0 
+r13:   0 r14:   0 r15:   0 r16:  99 r17:  49 r18:  24 r19:  28 r20:   4 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   2 r31:   2 
-Registers used: 6 out of 35 (17.1%)
+Registers used: 8 out of 35 (22.9%)
 
 "ATtiny104" instruction use summary:
-.lds.l:   0 .sts.l:   0 adc   :   0 add   :   0 and   :   0 andi  :   0 
-asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 brcc  :   1 
-brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0 brhs  :   0 
-brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 brne  :   0 
-brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 brvs  :   0 
-bset  :   0 bst   :   0 cbi   :   1 cbr   :   0 clc   :   0 clh   :   0 
-cli   :   0 cln   :   0 clr   :   0 cls   :   0 clt   :   0 clv   :   0 
-clz   :   0 com   :   0 cp    :   0 cpc   :   0 cpi   :   1 cpse  :   0 
-dec   :   0 eor   :   0 icall :   0 ijmp  :   0 in    :   3 inc   :   0 
-ld    :   0 ldd   :   0 ldi   :  20 lds   :   0 lpm   :   1 lsl   :   0 
-lsr   :   0 mov   :   0 neg   :   0 nop   :   0 or    :   0 ori   :   0 
-out   :   5 pop   :   3 push  :   3 rcall :  17 ret   :   5 reti  :   0 
-rjmp  :   5 rol   :   0 ror   :   0 sbc   :   0 sbci  :   2 sbi   :   2 
+.lds.l:   0 .sts.l:   0 adc   :   0 add   :   0 and   :   0 andi  :   1 
+asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 brcc  :   6 
+brcs  :   2 break :   0 breq  :   3 brge  :   0 brhc  :   0 brhs  :   0 
+brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 brne  :   1 
+brpl  :   0 brsh  :   1 brtc  :   0 brts  :   0 brvc  :   0 brvs  :   0 
+bset  :   0 bst   :   0 cbi   :   7 cbr   :   0 clc   :   2 clh   :   0 
+cli   :   5 cln   :   0 clr   :   3 cls   :   0 clt   :   0 clv   :   0 
+clz   :   0 com   :   0 cp    :   1 cpc   :   0 cpi   :   4 cpse  :   0 
+dec   :   2 eor   :   0 icall :   0 ijmp  :   0 in    :   9 inc   :   1 
+ld    :   0 ldd   :   0 ldi   :  87 lds   :   0 lpm   :   1 lsl   :   1 
+lsr   :   0 mov   :   1 neg   :   0 nop   :   0 or    :   0 ori   :   0 
+out   :  19 pop   :  30 push  :  30 rcall :  82 ret   :  19 reti  :   0 
+rjmp  :  12 rol   :   2 ror   :   0 sbc   :   0 sbci  :   8 sbi   :   8 
 sbic  :   0 sbis  :   0 sbr   :   0 sbrc  :   0 sbrs  :   2 sec   :   0 
 seh   :   0 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 
 sev   :   0 sez   :   0 sleep :   0 st    :   0 std   :   0 sts   :   0 
-sub   :   0 subi  :   1 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 17 out of 101 (16.8%)
+sub   :   0 subi  :   4 swap  :   0 tst   :   0 wdr   :   0 
+Instructions used: 30 out of 101 (29.7%)
 
 "ATtiny104" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000bc    146     42    188    1024  18.4%
+[.cseg] 0x000000 0x0002e2    708     30    738    1024  72.1%
 [.dseg] 0x000040 0x000060      0      0      0      32   0.0%
 [.eseg] 0x000000 0x000000      0      0      0 9999999   0.0%
 

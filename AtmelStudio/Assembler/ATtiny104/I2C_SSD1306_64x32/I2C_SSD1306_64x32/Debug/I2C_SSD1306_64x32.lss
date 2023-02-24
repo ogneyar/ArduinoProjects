@@ -1,0 +1,1676 @@
+
+AVRASM ver. 2.2.8  E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm Thu Feb 23 15:08:54 2023
+
+[builtin](2): Including file 'E:/Program\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\2.0.368\avrasm\inc\tn104def.inc'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(11): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\macro.inc'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(12): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\defines.inc'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(59): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\delay.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(60): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\usart.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(61): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(62): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c_scan.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(63): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\ssd1306.asm'
+E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\ssd1306.asm(6): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\defines.inc'
+[builtin](2): Including file 'E:/Program\Atmel\Studio\7.0\Packs\Atmel\ATtiny_DFP\2.0.368\avrasm\inc\tn104def.inc'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(11): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\macro.inc'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(12): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\defines.inc'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(59): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\delay.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(60): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\usart.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(61): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(62): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c_scan.asm'
+E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATtiny104\I2C_SSD1306_64x32\I2C_SSD1306_64x32\main.asm(63): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\ssd1306.asm'
+E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\ssd1306.asm(6): Including file 'E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\defines.inc'
+                                 
+                                 ;
+                                 
+                                 
+                                 ;*************************************************************************
+                                 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
+                                 ;*
+                                 ;* Number            : AVR000
+                                 ;* File Name         : tn104def.inc
+                                 ;* Title             : Register/Bit Definitions for the ATtiny104
+                                 ;* Created           : 2022-03-02 14:25
+                                 ;* Version           : 1.00
+                                 ;* Support           : https://microchipsupport.force.com/
+                                 ;* Target MCU        : ATtiny104
+                                 ;*
+                                 ;* DESCRIPTION
+                                 ;* When including this file in the assembly program file, all I/O register
+                                 ;* names and I/O register bit names appearing in the data book can be used.
+                                 ;* In addition, the six registers forming the three data pointers X, Y and
+                                 ;* Z have been assigned names XL - ZH. Highest RAM address for Internal
+                                 ;* SRAM is also defined
+                                 ;*
+                                 ;*************************************************************************
+                                 
+                                 #ifndef _TN104DEF_INC_
+                                 #define _TN104DEF_INC_
+                                 
+                                 
+                                 #pragma partinc 0
+                                 
+                                 ; ***** SPECIFY DEVICE ***************************************************
+                                 .device	ATtiny104
+                                 #pragma AVRPART ADMIN PART_NAME ATtiny104
+                                 .equ	SIGNATURE_000	= 0x1E
+                                 .equ	SIGNATURE_001	= 0x90
+                                 .equ	SIGNATURE_002	= 0x0B
+                                 
+                                 #pragma AVRPART CORE CORE_VERSION AVR8L_0
+                                 
+                                 
+                                 ; ***** I/O REGISTER DEFINITIONS *****************************************
+                                 ; NOTE:
+                                 ; Definitions marked "MEMORY MAPPED" are extended I/O ports
+                                 ; and cannot be used with IN/OUT instructions
+                                 .equ	SREG	= 0x3F ; MEMORY MAPPED
+                                 .equ	SPH	= 0x3E ; MEMORY MAPPED
+                                 .equ	SPL	= 0x3D ; MEMORY MAPPED
+                                 .equ	CCP	= 0x3C ; MEMORY MAPPED
+                                 .equ	RSTFLR	= 0x3B ; MEMORY MAPPED
+                                 .equ	SMCR	= 0x3A ; MEMORY MAPPED
+                                 .equ	OSCCAL	= 0x39 ; MEMORY MAPPED
+                                 .equ	CLKMSR	= 0x37 ; MEMORY MAPPED
+                                 .equ	CLKPSR	= 0x36 ; MEMORY MAPPED
+                                 .equ	PRR	= 0x35 ; MEMORY MAPPED
+                                 .equ	VLMCSR	= 0x34 ; MEMORY MAPPED
+                                 .equ	NVMCMD	= 0x33 ; MEMORY MAPPED
+                                 .equ	NVMCSR	= 0x32 ; MEMORY MAPPED
+                                 .equ	WDTCSR	= 0x31 ; MEMORY MAPPED
+                                 .equ	GTCCR	= 0x2F ; MEMORY MAPPED
+                                 .equ	TCCR0A	= 0x2E ; MEMORY MAPPED
+                                 .equ	TCCR0B	= 0x2D ; MEMORY MAPPED
+                                 .equ	TCCR0C	= 0x2C ; MEMORY MAPPED
+                                 .equ	TIMSK0	= 0x2B ; MEMORY MAPPED
+                                 .equ	TIFR0	= 0x2A ; MEMORY MAPPED
+                                 .equ	TCNT0H	= 0x29 ; MEMORY MAPPED
+                                 .equ	TCNT0L	= 0x28 ; MEMORY MAPPED
+                                 .equ	OCR0AH	= 0x27 ; MEMORY MAPPED
+                                 .equ	OCR0AL	= 0x26 ; MEMORY MAPPED
+                                 .equ	OCR0BH	= 0x25 ; MEMORY MAPPED
+                                 .equ	OCR0BL	= 0x24 ; MEMORY MAPPED
+                                 .equ	ICR0H	= 0x23 ; MEMORY MAPPED
+                                 .equ	ICR0L	= 0x22 ; MEMORY MAPPED
+                                 .equ	ACSRA	= 0x1F ; MEMORY MAPPED
+                                 .equ	ACSRB	= 0x1E ; MEMORY MAPPED
+                                 .equ	ADCSRA	= 0x1D ; MEMORY MAPPED
+                                 .equ	ADCSRB	= 0x1C ; MEMORY MAPPED
+                                 .equ	ADMUX	= 0x1B ; MEMORY MAPPED
+                                 .equ	ADCH	= 0x1A ; MEMORY MAPPED
+                                 .equ	ADCL	= 0x19 ; MEMORY MAPPED
+                                 .equ	DIDR0	= 0x17 ; MEMORY MAPPED
+                                 .equ	PORTCR	= 0x16 ; MEMORY MAPPED
+                                 .equ	EICRA	= 0x15 ; MEMORY MAPPED
+                                 .equ	EIFR	= 0x14 ; MEMORY MAPPED
+                                 .equ	EIMSK	= 0x13 ; MEMORY MAPPED
+                                 .equ	PCICR	= 0x12 ; MEMORY MAPPED
+                                 .equ	PCIFR	= 0x11 ; MEMORY MAPPED
+                                 .equ	PCMSK1	= 0x10 ; MEMORY MAPPED
+                                 .equ	PCMSK0	= 0x0F ; MEMORY MAPPED
+                                 .equ	UCSRA	= 0x0E ; MEMORY MAPPED
+                                 .equ	UCSRB	= 0x0D ; MEMORY MAPPED
+                                 .equ	UCSRC	= 0x0C ; MEMORY MAPPED
+                                 .equ	UCSRD	= 0x0B ; MEMORY MAPPED
+                                 .equ	UBRRH	= 0x0A ; MEMORY MAPPED
+                                 .equ	UBRRL	= 0x09 ; MEMORY MAPPED
+                                 .equ	UDR	= 0x08 ; MEMORY MAPPED
+                                 .equ	PUEB	= 0x07 ; MEMORY MAPPED
+                                 .equ	PORTB	= 0x06 ; MEMORY MAPPED
+                                 .equ	DDRB	= 0x05 ; MEMORY MAPPED
+                                 .equ	PINB	= 0x04 ; MEMORY MAPPED
+                                 .equ	PUEA	= 0x03 ; MEMORY MAPPED
+                                 .equ	PORTA	= 0x02 ; MEMORY MAPPED
+                                 .equ	DDRA	= 0x01 ; MEMORY MAPPED
+                                 .equ	PINA	= 0x00 ; MEMORY MAPPED
+                                 
+                                 
+                                 ; ***** BIT DEFINITIONS **************************************************
+                                 
+                                 ; ***** ADC *****************
+                                 ; ADMUX - The ADC multiplexer Selection Register
+                                 .equ	MUX0	= 0 ; Analog Channel Selection Bits
+                                 .equ	MUX1	= 1 ; Analog Channel Selection Bits
+                                 .equ	MUX2	= 2 ; Analog Channel Selection Bits
+                                 .equ	REFS0	= 6 ; Analog Reference voltage Selection Bits
+                                 .equ	REFS1	= 7 ; Analog Reference voltage Selection Bits
+                                 
+                                 ; ADCL - ADC Data Register Low
+                                 .equ	ADCL0	= 0 ; ADC Data Register Low Bit 0
+                                 .equ	ADCL1	= 1 ; ADC Data Register Low Bit 1
+                                 .equ	ADCL2	= 2 ; ADC Data Register Low Bit 2
+                                 .equ	ADCL3	= 3 ; ADC Data Register Low Bit 3
+                                 .equ	ADCL4	= 4 ; ADC Data Register Low Bit 4
+                                 .equ	ADCL5	= 5 ; ADC Data Register Low Bit 5
+                                 .equ	ADCL6	= 6 ; ADC Data Register Low Bit 6
+                                 .equ	ADCL7	= 7 ; ADC Data Register Low Bit 7
+                                 
+                                 ; ADCH - ADC Data Register High
+                                 .equ	ADCH0	= 0 ; ADC Data Register High Bit 0
+                                 .equ	ADCH1	= 1 ; ADC Data Register High Bit 1
+                                 .equ	ADCH2	= 2 ; ADC Data Register High Bit 2
+                                 .equ	ADCH3	= 3 ; ADC Data Register High Bit 3
+                                 .equ	ADCH4	= 4 ; ADC Data Register High Bit 4
+                                 .equ	ADCH5	= 5 ; ADC Data Register High Bit 5
+                                 .equ	ADCH6	= 6 ; ADC Data Register High Bit 6
+                                 .equ	ADCH7	= 7 ; ADC Data Register High Bit 7
+                                 
+                                 ; ADCSRA - The ADC Control and Status register A
+                                 .equ	ADPS0	= 0 ; ADC  Prescaler Select Bits
+                                 .equ	ADPS1	= 1 ; ADC  Prescaler Select Bits
+                                 .equ	ADPS2	= 2 ; ADC  Prescaler Select Bits
+                                 .equ	ADIE	= 3 ; ADC Interrupt Enable
+                                 .equ	ADIF	= 4 ; ADC Interrupt Flag
+                                 .equ	ADATE	= 5 ; ADC  Auto Trigger Enable
+                                 .equ	ADSC	= 6 ; ADC Start Conversion
+                                 .equ	ADEN	= 7 ; ADC Enable
+                                 
+                                 ; ADCSRB - The ADC Control and Status register B
+                                 .equ	ADTS0	= 0 ; ADC Auto Trigger Source bits
+                                 .equ	ADTS1	= 1 ; ADC Auto Trigger Source bits
+                                 .equ	ADTS2	= 2 ; ADC Auto Trigger Source bits
+                                 .equ	ADLAR	= 7 ; Left Adjustment for ADC Result Readout
+                                 
+                                 ; DIDR0 - Digital Input Disable Register
+                                 .equ	ADC0D	= 0 ; ADC0 Digital Input Disable
+                                 .equ	ADC1D	= 1 ; ADC1 Digital Input Disable
+                                 .equ	ADC2D	= 2 ; ADC2 Digital Input Disable
+                                 .equ	ADC3D	= 3 ; ADC3 Digital Input Disable
+                                 .equ	ADC4D	= 4 ; ADC4 Digital Input Disable
+                                 .equ	ADC5D	= 5 ; ADC5 Digital Input Disable
+                                 .equ	ADC6D	= 6 ; ADC6 Digital Input Disable
+                                 .equ	ADC7D	= 7 ; ADC7 Digital Input Disable
+                                 
+                                 
+                                 ; ***** AC *****************
+                                 ; ACSRA - Analog Comparator Control And Status Register A
+                                 .equ	ACIS0	= 0 ; Analog Comparator Interrupt Mode Select bits
+                                 .equ	ACIS1	= 1 ; Analog Comparator Interrupt Mode Select bits
+                                 .equ	ACIC	= 2 ; Analog Comparator Input Capture  Enable
+                                 .equ	ACIE	= 3 ; Analog Comparator Interrupt Enable
+                                 .equ	ACI	= 4 ; Analog Comparator Interrupt Flag
+                                 .equ	ACO	= 5 ; Analog Compare Output
+                                 .equ	ACBG	= 6 ; Analog Comparator Bandgap enable
+                                 .equ	ACD	= 7 ; Analog Comparator Disable
+                                 
+                                 ; ACSRB - Analog Comparator Control And Status Register B
+                                 .equ	ACPMUX	= 0 ; Analog Comparator positive input selection bit
+                                 .equ	ACOE	= 1 ; Analog Comparator Output Enable
+                                 
+                                 ; DIDR0 - 
+                                 .equ	AIN0D	= 0 ; AIN0 Digital Input Disable
+                                 .equ	AIN1D	= 1 ; AIN1 Digital Input Disable
+                                 
+                                 
+                                 ; ***** CPU *****************
+                                 ; CCP - Configuration Change Protection
+                                 .equ	CCP0	= 0 ; CCP signature
+                                 .equ	CCP1	= 1 ; CCP signature
+                                 .equ	CCP2	= 2 ; CCP signature
+                                 .equ	CCP3	= 3 ; CCP signature
+                                 .equ	CCP4	= 4 ; CCP signature
+                                 .equ	CCP5	= 5 ; CCP signature
+                                 .equ	CCP6	= 6 ; CCP signature
+                                 .equ	CCP7	= 7 ; CCP signature
+                                 
+                                 ; SP - Stack Pointer 
+                                 .equ	SPH0	= 0 ; Stack Pointer  High Bit 8
+                                 .equ	SPH1	= 1 ; Stack Pointer  High Bit 9
+                                 .equ	SPH2	= 2 ; Stack Pointer  High Bit 10
+                                 .equ	SPH3	= 3 ; Stack Pointer  High Bit 11
+                                 .equ	SPH4	= 4 ; Stack Pointer  High Bit 12
+                                 .equ	SPH5	= 5 ; Stack Pointer  High Bit 13
+                                 .equ	SPH6	= 6 ; Stack Pointer  High Bit 14
+                                 .equ	SPH7	= 7 ; Stack Pointer  High Bit 15
+                                 
+                                 .equ	SPL0	= 0 ; Stack Pointer  Low Bit 0
+                                 .equ	SPL1	= 1 ; Stack Pointer  Low Bit 1
+                                 .equ	SPL2	= 2 ; Stack Pointer  Low Bit 2
+                                 .equ	SPL3	= 3 ; Stack Pointer  Low Bit 3
+                                 .equ	SPL4	= 4 ; Stack Pointer  Low Bit 4
+                                 .equ	SPL5	= 5 ; Stack Pointer  Low Bit 5
+                                 .equ	SPL6	= 6 ; Stack Pointer  Low Bit 6
+                                 .equ	SPL7	= 7 ; Stack Pointer  Low Bit 7
+                                 
+                                 ; SREG - Status Register
+                                 .equ	SREG_C	= 0 ; Carry Flag
+                                 .equ	SREG_Z	= 1 ; Zero Flag
+                                 .equ	SREG_N	= 2 ; Negative Flag
+                                 .equ	SREG_V	= 3 ; Two's Complement Overflow Flag
+                                 .equ	SREG_S	= 4 ; Sign Bit
+                                 .equ	SREG_H	= 5 ; Half Carry Flag
+                                 .equ	SREG_T	= 6 ; Bit Copy Storage
+                                 .equ	SREG_I	= 7 ; Global Interrupt Enable
+                                 
+                                 ; CLKMSR - Clock Main Settings Register
+                                 .equ	CLKMS0	= 0 ; Clock Main Select Bits
+                                 .equ	CLKMS1	= 1 ; Clock Main Select Bits
+                                 
+                                 ; CLKPSR - Clock Prescale Register
+                                 .equ	CLKPS0	= 0 ; Clock Prescaler Select Bits
+                                 .equ	CLKPS1	= 1 ; Clock Prescaler Select Bits
+                                 .equ	CLKPS2	= 2 ; Clock Prescaler Select Bits
+                                 .equ	CLKPS3	= 3 ; Clock Prescaler Select Bits
+                                 
+                                 ; OSCCAL - Oscillator Calibration Value
+                                 .equ	OSCCAL0	= 0 ; Oscillator Calibration Value Bit 0
+                                 .equ	OSCCAL1	= 1 ; Oscillator Calibration Value Bit 1
+                                 .equ	OSCCAL2	= 2 ; Oscillator Calibration Value Bit 2
+                                 .equ	OSCCAL3	= 3 ; Oscillator Calibration Value Bit 3
+                                 .equ	OSCCAL4	= 4 ; Oscillator Calibration Value Bit 4
+                                 .equ	OSCCAL5	= 5 ; Oscillator Calibration Value Bit 5
+                                 .equ	OSCCAL6	= 6 ; Oscillator Calibration Value Bit 6
+                                 .equ	OSCCAL7	= 7 ; Oscillator Calibration Value Bit 7
+                                 
+                                 ; SMCR - Sleep Mode Control Register
+                                 .equ	SE	= 0 ; Sleep Enable
+                                 .equ	SM0	= 1 ; Sleep Mode Select Bits
+                                 .equ	SM1	= 2 ; Sleep Mode Select Bits
+                                 .equ	SM2	= 3 ; Sleep Mode Select Bits
+                                 
+                                 ; PRR - Power Reduction Register
+                                 .equ	PRTIM0	= 0 ; Power Reduction Timer/Counter0
+                                 .equ	PRADC	= 1 ; Power Reduction ADC
+                                 .equ	PRUSART	= 2 ; Power Reduction USART
+                                 
+                                 ; VLMCSR - Vcc Level Monitoring Control and Status Register
+                                 .equ	VLM0	= 0 ; Trigger Level of Voltage Level Monitor bits
+                                 .equ	VLM1	= 1 ; Trigger Level of Voltage Level Monitor bits
+                                 .equ	VLM2	= 2 ; Trigger Level of Voltage Level Monitor bits
+                                 .equ	VLMIE	= 6 ; VLM Interrupt Enable
+                                 .equ	VLMF	= 7 ; VLM Flag
+                                 
+                                 ; RSTFLR - Reset Flag Register
+                                 .equ	PORF	= 0 ; Power-on Reset Flag
+                                 .equ	EXTRF	= 1 ; External Reset Flag
+                                 .equ	WDRF	= 3 ; Watchdog Reset Flag
+                                 
+                                 ; NVMCSR - Non-Volatile Memory Control and Status Register
+                                 .equ	NVMBSY	= 7 ; Non-Volatile Memory Busy
+                                 
+                                 ; NVMCMD - Non-Volatile Memory Command
+                                 .equ	NVMCMD0	= 0 ; Non-Volatile Memory Command Bit 0
+                                 .equ	NVMCMD1	= 1 ; Non-Volatile Memory Command Bit 1
+                                 .equ	NVMCMD2	= 2 ; Non-Volatile Memory Command Bit 2
+                                 .equ	NVMCMD3	= 3 ; Non-Volatile Memory Command Bit 3
+                                 .equ	NVMCMD4	= 4 ; Non-Volatile Memory Command Bit 4
+                                 .equ	NVMCMD5	= 5 ; Non-Volatile Memory Command Bit 5
+                                 
+                                 
+                                 ; ***** PORTA *****************
+                                 ; PORTCR - Port Control Register
+                                 .equ	BBMA	= 0 ; Break-Before-Make Mode Enable for PORTA
+                                 
+                                 ; PUEA - Pull-up Enable Control Register for PORTA
+                                 .equ	PUEA0	= 0 ; Pull-up Enable Control Register for PORTA Bit 0
+                                 .equ	PUEA1	= 1 ; Pull-up Enable Control Register for PORTA Bit 1
+                                 .equ	PUEA2	= 2 ; Pull-up Enable Control Register for PORTA Bit 2
+                                 .equ	PUEA3	= 3 ; Pull-up Enable Control Register for PORTA Bit 3
+                                 .equ	PUEA4	= 4 ; Pull-up Enable Control Register for PORTA Bit 4
+                                 .equ	PUEA5	= 5 ; Pull-up Enable Control Register for PORTA Bit 5
+                                 .equ	PUEA6	= 6 ; Pull-up Enable Control Register for PORTA Bit 6
+                                 .equ	PUEA7	= 7 ; Pull-up Enable Control Register for PORTA Bit 7
+                                 
+                                 ; DDRA - Data Direction Register, Port A
+                                 .equ	DDRA0	= 0 ; Data Direction Register, Port A Bit 0
+                                 .equ	DDRA1	= 1 ; Data Direction Register, Port A Bit 1
+                                 .equ	DDRA2	= 2 ; Data Direction Register, Port A Bit 2
+                                 .equ	DDRA3	= 3 ; Data Direction Register, Port A Bit 3
+                                 .equ	DDRA4	= 4 ; Data Direction Register, Port A Bit 4
+                                 .equ	DDRA5	= 5 ; Data Direction Register, Port A Bit 5
+                                 .equ	DDRA6	= 6 ; Data Direction Register, Port A Bit 6
+                                 .equ	DDRA7	= 7 ; Data Direction Register, Port A Bit 7
+                                 
+                                 ; PINA - Input Pins, Port A
+                                 .equ	PINA0	= 0 ; Input Pins, Port A Bit 0
+                                 .equ	PINA1	= 1 ; Input Pins, Port A Bit 1
+                                 .equ	PINA2	= 2 ; Input Pins, Port A Bit 2
+                                 .equ	PINA3	= 3 ; Input Pins, Port A Bit 3
+                                 .equ	PINA4	= 4 ; Input Pins, Port A Bit 4
+                                 .equ	PINA5	= 5 ; Input Pins, Port A Bit 5
+                                 .equ	PINA6	= 6 ; Input Pins, Port A Bit 6
+                                 .equ	PINA7	= 7 ; Input Pins, Port A Bit 7
+                                 
+                                 ; PORTA - Port A Data register
+                                 .equ	PORTA0	= 0 ; Port A Data register Bit 0
+                                 .equ	PORTA1	= 1 ; Port A Data register Bit 1
+                                 .equ	PORTA2	= 2 ; Port A Data register Bit 2
+                                 .equ	PORTA3	= 3 ; Port A Data register Bit 3
+                                 .equ	PORTA4	= 4 ; Port A Data register Bit 4
+                                 .equ	PORTA5	= 5 ; Port A Data register Bit 5
+                                 .equ	PORTA6	= 6 ; Port A Data register Bit 6
+                                 .equ	PORTA7	= 7 ; Port A Data register Bit 7
+                                 
+                                 
+                                 ; ***** PORTB *****************
+                                 ; PORTCR - Port Control Register
+                                 .equ	BBMB	= 1 ; Break-Before-Make Mode Enable for PORTB
+                                 
+                                 ; PUEB - Pull-up Enable Control Register for PORTB
+                                 .equ	PUEB0	= 0 ; Pull-up Enable Control Register for PORTB Bit 0
+                                 .equ	PUEB1	= 1 ; Pull-up Enable Control Register for PORTB Bit 1
+                                 .equ	PUEB2	= 2 ; Pull-up Enable Control Register for PORTB Bit 2
+                                 .equ	PUEB3	= 3 ; Pull-up Enable Control Register for PORTB Bit 3
+                                 
+                                 ; DDRB - Data Direction Register, Port B
+                                 .equ	DDRB0	= 0 ; Data Direction Register, Port B Bit 0
+                                 .equ	DDRB1	= 1 ; Data Direction Register, Port B Bit 1
+                                 .equ	DDRB2	= 2 ; Data Direction Register, Port B Bit 2
+                                 .equ	DDRB3	= 3 ; Data Direction Register, Port B Bit 3
+                                 
+                                 ; PINB - Input Pins, Port B
+                                 .equ	PINB0	= 0 ; Input Pins, Port B Bit 0
+                                 .equ	PINB1	= 1 ; Input Pins, Port B Bit 1
+                                 .equ	PINB2	= 2 ; Input Pins, Port B Bit 2
+                                 .equ	PINB3	= 3 ; Input Pins, Port B Bit 3
+                                 
+                                 ; PORTB - Port B Data register
+                                 .equ	PORTB0	= 0 ; Port B Data register Bit 0
+                                 .equ	PORTB1	= 1 ; Port B Data register Bit 1
+                                 .equ	PORTB2	= 2 ; Port B Data register Bit 2
+                                 .equ	PORTB3	= 3 ; Port B Data register Bit 3
+                                 
+                                 
+                                 ; ***** EXINT *****************
+                                 ; EICRA - External Interrupt Control Register A
+                                 .equ	ISC00	= 0 ; Interrupt Sense Control 0 Bit 0
+                                 .equ	ISC01	= 1 ; Interrupt Sense Control 0 Bit 1
+                                 
+                                 ; EIMSK - External Interrupt Mask register
+                                 .equ	INT0	= 0 ; External Interrupt Request 0 Enable
+                                 
+                                 ; EIFR - External Interrupt Flag register
+                                 .equ	INTF0	= 0 ; External Interrupt Flag 0
+                                 
+                                 ; PCICR - Pin Change Interrupt Control Register
+                                 .equ	PCIE0	= 0 ; Pin Change Interrupt Enable 0
+                                 .equ	PCIE1	= 1 ; Pin Change Interrupt Enable 1
+                                 
+                                 ; PCIFR - Pin Change Interrupt Flag Register
+                                 .equ	PCIF0	= 0 ; Pin Change Interrupt Flag 0
+                                 .equ	PCIF1	= 1 ; Pin Change Interrupt Flag 1
+                                 
+                                 ; PCMSK1 - Pin Change Mask Register 1
+                                 .equ	PCINT8	= 0 ; Pin Change Enable Mask 1 Bit 0
+                                 .equ	PCINT9	= 1 ; Pin Change Enable Mask 1 Bit 1
+                                 .equ	PCINT10	= 2 ; Pin Change Enable Mask 1 Bit 2
+                                 .equ	PCINT11	= 3 ; Pin Change Enable Mask 1 Bit 3
+                                 
+                                 ; PCMSK0 - Pin Change Mask Register 0
+                                 .equ	PCINT0	= 0 ; Pin Change Enable Mask 0 Bit 0
+                                 .equ	PCINT1	= 1 ; Pin Change Enable Mask 0 Bit 1
+                                 .equ	PCINT2	= 2 ; Pin Change Enable Mask 0 Bit 2
+                                 .equ	PCINT3	= 3 ; Pin Change Enable Mask 0 Bit 3
+                                 .equ	PCINT4	= 4 ; Pin Change Enable Mask 0 Bit 4
+                                 .equ	PCINT5	= 5 ; Pin Change Enable Mask 0 Bit 5
+                                 .equ	PCINT6	= 6 ; Pin Change Enable Mask 0 Bit 6
+                                 .equ	PCINT7	= 7 ; Pin Change Enable Mask 0 Bit 7
+                                 
+                                 
+                                 ; ***** TC0 *****************
+                                 ; TCCR0A - Timer/Counter 0 Control Register A
+                                 .equ	WGM00	= 0 ; Waveform Generation Mode
+                                 .equ	WGM01	= 1 ; Waveform Generation Mode
+                                 .equ	COM0B0	= 4 ; Compare Output Mode for Channel B bits
+                                 .equ	COM0B1	= 5 ; Compare Output Mode for Channel B bits
+                                 .equ	COM0A0	= 6 ; Compare Output Mode for Channel A bits
+                                 .equ	COM0A1	= 7 ; Compare Output Mode for Channel A bits
+                                 
+                                 ; TCCR0B - Timer/Counter 0 Control Register B
+                                 .equ	CS00	= 0 ; Clock Select
+                                 .equ	CS01	= 1 ; Clock Select
+                                 .equ	CS02	= 2 ; Clock Select
+                                 .equ	WGM02	= 3 ; Waveform Generation Mode
+                                 .equ	WGM03	= 4 ; Waveform Generation Mode
+                                 .equ	ICES0	= 6 ; Input Capture Edge Select
+                                 .equ	ICNC0	= 7 ; Input Capture Noise Canceler
+                                 
+                                 ; TCCR0C - Timer/Counter 0 Control Register C
+                                 .equ	FOC0B	= 6 ; Force Output Compare for Channel B
+                                 .equ	FOC0A	= 7 ; Force Output Compare for Channel A
+                                 
+                                 ; TCNT0 - Timer/Counter0 
+                                 .equ	TCNT0H0	= 0 ; Timer/Counter0  High Bit 8
+                                 .equ	TCNT0H1	= 1 ; Timer/Counter0  High Bit 9
+                                 .equ	TCNT0H2	= 2 ; Timer/Counter0  High Bit 10
+                                 .equ	TCNT0H3	= 3 ; Timer/Counter0  High Bit 11
+                                 .equ	TCNT0H4	= 4 ; Timer/Counter0  High Bit 12
+                                 .equ	TCNT0H5	= 5 ; Timer/Counter0  High Bit 13
+                                 .equ	TCNT0H6	= 6 ; Timer/Counter0  High Bit 14
+                                 .equ	TCNT0H7	= 7 ; Timer/Counter0  High Bit 15
+                                 
+                                 .equ	TCNT0L0	= 0 ; Timer/Counter0  Low Bit 0
+                                 .equ	TCNT0L1	= 1 ; Timer/Counter0  Low Bit 1
+                                 .equ	TCNT0L2	= 2 ; Timer/Counter0  Low Bit 2
+                                 .equ	TCNT0L3	= 3 ; Timer/Counter0  Low Bit 3
+                                 .equ	TCNT0L4	= 4 ; Timer/Counter0  Low Bit 4
+                                 .equ	TCNT0L5	= 5 ; Timer/Counter0  Low Bit 5
+                                 .equ	TCNT0L6	= 6 ; Timer/Counter0  Low Bit 6
+                                 .equ	TCNT0L7	= 7 ; Timer/Counter0  Low Bit 7
+                                 
+                                 ; OCR0A - Timer/Counter 0 Output Compare Register A 
+                                 .equ	OCR0AH0	= 0 ; Timer/Counter 0 Output Compare Register A  High Bit 8
+                                 .equ	OCR0AH1	= 1 ; Timer/Counter 0 Output Compare Register A  High Bit 9
+                                 .equ	OCR0AH2	= 2 ; Timer/Counter 0 Output Compare Register A  High Bit 10
+                                 .equ	OCR0AH3	= 3 ; Timer/Counter 0 Output Compare Register A  High Bit 11
+                                 .equ	OCR0AH4	= 4 ; Timer/Counter 0 Output Compare Register A  High Bit 12
+                                 .equ	OCR0AH5	= 5 ; Timer/Counter 0 Output Compare Register A  High Bit 13
+                                 .equ	OCR0AH6	= 6 ; Timer/Counter 0 Output Compare Register A  High Bit 14
+                                 .equ	OCR0AH7	= 7 ; Timer/Counter 0 Output Compare Register A  High Bit 15
+                                 
+                                 .equ	OCR0AL0	= 0 ; Timer/Counter 0 Output Compare Register A  Low Bit 0
+                                 .equ	OCR0AL1	= 1 ; Timer/Counter 0 Output Compare Register A  Low Bit 1
+                                 .equ	OCR0AL2	= 2 ; Timer/Counter 0 Output Compare Register A  Low Bit 2
+                                 .equ	OCR0AL3	= 3 ; Timer/Counter 0 Output Compare Register A  Low Bit 3
+                                 .equ	OCR0AL4	= 4 ; Timer/Counter 0 Output Compare Register A  Low Bit 4
+                                 .equ	OCR0AL5	= 5 ; Timer/Counter 0 Output Compare Register A  Low Bit 5
+                                 .equ	OCR0AL6	= 6 ; Timer/Counter 0 Output Compare Register A  Low Bit 6
+                                 .equ	OCR0AL7	= 7 ; Timer/Counter 0 Output Compare Register A  Low Bit 7
+                                 
+                                 ; OCR0B - Timer/Counter0 Output Compare Register B 
+                                 .equ	OCR0BH0	= 0 ; Timer/Counter0 Output Compare Register B  High Bit 8
+                                 .equ	OCR0BH1	= 1 ; Timer/Counter0 Output Compare Register B  High Bit 9
+                                 .equ	OCR0BH2	= 2 ; Timer/Counter0 Output Compare Register B  High Bit 10
+                                 .equ	OCR0BH3	= 3 ; Timer/Counter0 Output Compare Register B  High Bit 11
+                                 .equ	OCR0BH4	= 4 ; Timer/Counter0 Output Compare Register B  High Bit 12
+                                 .equ	OCR0BH5	= 5 ; Timer/Counter0 Output Compare Register B  High Bit 13
+                                 .equ	OCR0BH6	= 6 ; Timer/Counter0 Output Compare Register B  High Bit 14
+                                 .equ	OCR0BH7	= 7 ; Timer/Counter0 Output Compare Register B  High Bit 15
+                                 
+                                 .equ	OCR0BL0	= 0 ; Timer/Counter0 Output Compare Register B  Low Bit 0
+                                 .equ	OCR0BL1	= 1 ; Timer/Counter0 Output Compare Register B  Low Bit 1
+                                 .equ	OCR0BL2	= 2 ; Timer/Counter0 Output Compare Register B  Low Bit 2
+                                 .equ	OCR0BL3	= 3 ; Timer/Counter0 Output Compare Register B  Low Bit 3
+                                 .equ	OCR0BL4	= 4 ; Timer/Counter0 Output Compare Register B  Low Bit 4
+                                 .equ	OCR0BL5	= 5 ; Timer/Counter0 Output Compare Register B  Low Bit 5
+                                 .equ	OCR0BL6	= 6 ; Timer/Counter0 Output Compare Register B  Low Bit 6
+                                 .equ	OCR0BL7	= 7 ; Timer/Counter0 Output Compare Register B  Low Bit 7
+                                 
+                                 ; ICR0 - Input Capture Register  Bytes
+                                 .equ	ICR0H0	= 0 ; Input Capture Register  Bytes High Bit 8
+                                 .equ	ICR0H1	= 1 ; Input Capture Register  Bytes High Bit 9
+                                 .equ	ICR0H2	= 2 ; Input Capture Register  Bytes High Bit 10
+                                 .equ	ICR0H3	= 3 ; Input Capture Register  Bytes High Bit 11
+                                 .equ	ICR0H4	= 4 ; Input Capture Register  Bytes High Bit 12
+                                 .equ	ICR0H5	= 5 ; Input Capture Register  Bytes High Bit 13
+                                 .equ	ICR0H6	= 6 ; Input Capture Register  Bytes High Bit 14
+                                 .equ	ICR0H7	= 7 ; Input Capture Register  Bytes High Bit 15
+                                 
+                                 .equ	ICR0L0	= 0 ; Input Capture Register  Bytes Low Bit 0
+                                 .equ	ICR0L1	= 1 ; Input Capture Register  Bytes Low Bit 1
+                                 .equ	ICR0L2	= 2 ; Input Capture Register  Bytes Low Bit 2
+                                 .equ	ICR0L3	= 3 ; Input Capture Register  Bytes Low Bit 3
+                                 .equ	ICR0L4	= 4 ; Input Capture Register  Bytes Low Bit 4
+                                 .equ	ICR0L5	= 5 ; Input Capture Register  Bytes Low Bit 5
+                                 .equ	ICR0L6	= 6 ; Input Capture Register  Bytes Low Bit 6
+                                 .equ	ICR0L7	= 7 ; Input Capture Register  Bytes Low Bit 7
+                                 
+                                 ; TIMSK0 - Timer Interrupt Mask Register 0
+                                 .equ	TOIE0	= 0 ; Overflow Interrupt Enable
+                                 .equ	OCIE0A	= 1 ; Output Compare A Match Interrupt Enable
+                                 .equ	OCIE0B	= 2 ; Output Compare B Match Interrupt Enable
+                                 .equ	ICIE0	= 5 ; Input Capture Interrupt Enable
+                                 
+                                 ; TIFR0 - Overflow Interrupt Enable
+                                 .equ	TOV0	= 0 ; Timer Overflow Flag
+                                 .equ	OCF0A	= 1 ; Timer Output Compare Flag 0A
+                                 .equ	OCF0B	= 2 ; Timer Output Compare Flag 0B
+                                 .equ	ICF0	= 5 ; Input Capture Flag
+                                 
+                                 ; GTCCR - General Timer/Counter Control Register
+                                 .equ	PSR	= 0 ; Prescaler Reset
+                                 .equ	REMAP	= 1 ; Remap Bit for 14 pin part only
+                                 .equ	TSM	= 7 ; Timer Synchronization Mode
+                                 
+                                 
+                                 ; ***** WDT *****************
+                                 ; WDTCSR - Watchdog Timer Control and Status Register
+                                 .equ	WDE	= 3 ; Watch Dog Enable
+                                 .equ	WDP0	= 0 ; Watchdog Timer Prescaler Bits
+                                 .equ	WDP1	= 1 ; Watchdog Timer Prescaler Bits
+                                 .equ	WDP2	= 2 ; Watchdog Timer Prescaler Bits
+                                 .equ	WDP3	= 5 ; Watchdog Timer Prescaler Bits
+                                 .equ	WDIE	= 6 ; Watchdog Timer Interrupt Enable
+                                 .equ	WDIF	= 7 ; Watchdog Timer Interrupt Flag
+                                 
+                                 
+                                 ; ***** FUSE *****************
+                                 ; BYTE0 - 
+                                 .equ	RSTDISBL	= 0 ; Disable external reset
+                                 .equ	WDTON	= 1 ; Watch dog timer always on
+                                 .equ	CKOUT	= 2 ; Output external clock
+                                 .equ	SELFPROGEN	= 3 ; Self programming enable
+                                 
+                                 
+                                 ; ***** LOCKBIT *****************
+                                 ; LOCKBIT - 
+                                 .equ	LB1	= 0 ; Memory Lock
+                                 .equ	LB2	= 1 ; Memory Lock
+                                 
+                                 
+                                 ; ***** USART *****************
+                                 ; UDR - USART I/O Data Register
+                                 .equ	UDR0	= 0 ; USART I/O Data Register Bit 0
+                                 .equ	UDR1	= 1 ; USART I/O Data Register Bit 1
+                                 .equ	UDR2	= 2 ; USART I/O Data Register Bit 2
+                                 .equ	UDR3	= 3 ; USART I/O Data Register Bit 3
+                                 .equ	UDR4	= 4 ; USART I/O Data Register Bit 4
+                                 .equ	UDR5	= 5 ; USART I/O Data Register Bit 5
+                                 .equ	UDR6	= 6 ; USART I/O Data Register Bit 6
+                                 .equ	UDR7	= 7 ; USART I/O Data Register Bit 7
+                                 
+                                 ; UCSRA - USART Control and Status Register A
+                                 .equ	MPCM	= 0 ; Multi-processor Communication Mode
+                                 .equ	U2X	= 1 ; Double the USART transmission speed
+                                 .equ	UPE	= 2 ; Parity Error
+                                 .equ	DOR	= 3 ; Data overRun
+                                 .equ	FE	= 4 ; Framing Error
+                                 .equ	UDRE	= 5 ; USART Data Register Empty
+                                 .equ	TXC	= 6 ; USART Transmitt Complete
+                                 .equ	RXC	= 7 ; USART Receive Complete
+                                 
+                                 ; UCSRB - USART Control and Status Register B
+                                 .equ	TXB8	= 0 ; Transmit Data Bit 8
+                                 .equ	RXB8	= 1 ; Receive Data Bit 8
+                                 .equ	UCSZ2	= 2 ; Character Size
+                                 .equ	TXEN	= 3 ; Transmitter Enable
+                                 .equ	RXEN	= 4 ; Receiver Enable
+                                 .equ	UDRIE	= 5 ; USART Data register Empty Interrupt Enable
+                                 .equ	TXCIE	= 6 ; TX Complete Interrupt Enable
+                                 .equ	RXCIE	= 7 ; RX Complete Interrupt Enable
+                                 
+                                 ; UCSRC - USART Control and Status Register C
+                                 .equ	UCPOL	= 0 ; Clock Polarity
+                                 .equ	UCSZ0	= 1 ; Character Size
+                                 .equ	UCSZ1	= 2 ; Character Size
+                                 .equ	USBS	= 3 ; Stop Bit Select
+                                 .equ	UPM0	= 4 ; Parity Mode Bits
+                                 .equ	UPM1	= 5 ; Parity Mode Bits
+                                 .equ	UMSEL0	= 6 ; USART Mode Select
+                                 .equ	UMSEL1	= 7 ; USART Mode Select
+                                 
+                                 ; UCSRD - USART Control and Status Register D
+                                 .equ	SFDE	= 5 ; Start frame detection enable
+                                 .equ	RXS	= 6 ; USART RX Start Flag
+                                 .equ	RXSIE	= 7 ; USART RX Start Interrupt Enable
+                                 
+                                 ; UBRR - USART Baud Rate Register  Bytes
+                                 .equ	UBRRH0	= 0 ; USART Baud Rate Register  Bytes High Bit 8
+                                 .equ	UBRRH1	= 1 ; USART Baud Rate Register  Bytes High Bit 9
+                                 .equ	UBRRH2	= 2 ; USART Baud Rate Register  Bytes High Bit 10
+                                 .equ	UBRRH3	= 3 ; USART Baud Rate Register  Bytes High Bit 11
+                                 
+                                 .equ	UBRRL0	= 0 ; USART Baud Rate Register  Bytes Low Bit 0
+                                 .equ	UBRRL1	= 1 ; USART Baud Rate Register  Bytes Low Bit 1
+                                 .equ	UBRRL2	= 2 ; USART Baud Rate Register  Bytes Low Bit 2
+                                 .equ	UBRRL3	= 3 ; USART Baud Rate Register  Bytes Low Bit 3
+                                 .equ	UBRRL4	= 4 ; USART Baud Rate Register  Bytes Low Bit 4
+                                 .equ	UBRRL5	= 5 ; USART Baud Rate Register  Bytes Low Bit 5
+                                 .equ	UBRRL6	= 6 ; USART Baud Rate Register  Bytes Low Bit 6
+                                 .equ	UBRRL7	= 7 ; USART Baud Rate Register  Bytes Low Bit 7
+                                 
+                                 ; ***** CPU REGISTER DEFINITIONS *****************************************
+                                 .def	XH	= r27
+                                 .def	XL	= r26
+                                 .def	YH	= r29
+                                 .def	YL	= r28
+                                 .def	ZH	= r31
+                                 .def	ZL	= r30
+                                 
+                                 ; ***** DATA MEMORY DECLARATIONS *****************************************
+                                 .equ	FLASHSTART	= 0x0000 ; Note: Word address
+                                 .equ	FLASHEND	= 0x01FF ; Note: Word address
+                                 .equ	FLASHPAGESIZE	= 0x0040 ; Note: Size in words
+                                 
+                                 .equ	SRAM_START	= 0x0040
+                                 .equ	SRAM_SIZE	= 32
+                                 .equ	RAMEND	= 0x005F
+                                 
+                                 .equ	XRAMEND	= 0x0000
+                                 
+                                 #pragma AVRPART MEMORY PROG_FLASH 1024
+                                 #pragma AVRPART MEMORY INT_SRAM SIZE 32
+                                 #pragma AVRPART MEMORY INT_SRAM START_ADDR 0x40
+                                 
+                                 
+                                 ; ***** BOOTLOADER DECLARATIONS ******************************************
+                                  ; No bootloader declariations; ***** INTERRUPT VECTORS ************************************************
+                                 .equ	INT0addr	 = 0x0001 ; External Interrupt Request 0
+                                 .equ	PCINT0addr	 = 0x0002 ; Pin Change Interrupt Request 0
+                                 .equ	PCINT1addr	 = 0x0003 ; Pin Change Interrupt Request 1
+                                 .equ	TIM0_CAPTaddr	 = 0x0004 ; Timer/Counter0 Input Capture
+                                 .equ	TIM0_OVFaddr	 = 0x0005 ; Timer/Counter0 Overflow
+                                 .equ	TIM0_COMPAaddr	 = 0x0006 ; Timer/Counter Compare Match A
+                                 .equ	TIM0_COMPBaddr	 = 0x0007 ; Timer/Counter Compare Match B
+                                 .equ	ANA_COMPaddr	 = 0x0008 ; Analog Comparator
+                                 .equ	WDTaddr	 = 0x0009 ; Watchdog Time-out
+                                 .equ	VLMaddr	 = 0x000A ; Vcc Voltage Level Monitor
+                                 .equ	ADCaddr	 = 0x000B ; ADC Conversion complete
+                                 .equ	USART_RXSaddr	 = 0x000C ; USART RX Start
+                                 .equ	USART_RXCaddr	 = 0x000D ; USART RX Complete
+                                 .equ	USART_DREaddr	 = 0x000E ; USART Data register empty
+                                 .equ	USART_TXCaddr	 = 0x000F ; USART Tx Complete
+                                 
+                                 .equ	INT_VECTORS_SIZE	= 16 ; size in words
+                                 
+                                 #endif /* _TN104DEF_INC_ */
+                                 
+                                 ; ***** END OF FILE ******************************************************
+                                 
+                                 
+                                 
+                                 
+                                 ; I2C_SSD1306_64x32.asm
+                                 ;
+                                 ; Created: 19.02.2023 11:32:07
+                                 ; Author : Ogneyar
+                                 ;
+                                 ; ������������ SSD1306 �� ���������������� ATtiny104
+                                 
+                                 ;#pragma AVRPART CORE NEW_INSTRUCTIONS lpm rd,z+
+                                 
+                                 #include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\macro.inc" ; ����������� ����� � ���������
+                                 
+                                 #ifndef _MACRO_INC_
+                                 #define _MACRO_INC_
+                                 
+                                 
+                                 .macro mOUT
+                                    .if @0<0x40
+                                        OUT @0,@1
+                                    .else
+                                        STS @0,@1
+                                    .endif
+                                 .endm
+                                 .macro mIN
+                                    .if @1<0x40
+                                        IN @0,@1
+                                    .else
+                                        LDS @0,@1
+                                    .endif
+                                 .endm
+                                 
+                                 .macro mSetStr
+                                     LDI 	ZL, LOW(@0*2)   
+                                 	LDI 	ZH, HIGH(@0*2)
+                                 .endm
+                                 
+                                 
+                                 #endif  /* _MACRO_INC_ */
+                                 #include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\defines.inc"  ; ����������� ����� '�����������'
+                                 
+                                 #ifndef _DEFINES_INC_
+                                 #define _DEFINES_INC_
+                                 
+                                 ;=============================================================
+                                 ; defines OLED SSD1306
+                                 ;=============================================================
+                                 #define OLED_WIDTH              128
+                                 #define OLED_HEIGHT_32          0x02
+                                 #define OLED_HEIGHT_64          0x12
+                                 #define OLED_64                 0x3F
+                                 #define OLED_32                 0x1F
+                                 
+                                 #define OLED_DISPLAY_OFF        0xAE
+                                 #define OLED_DISPLAY_ON         0xAF
+                                 
+                                 #define OLED_COMMAND_MODE       0x00
+                                 #define OLED_ONE_COMMAND_MODE   0x80
+                                 #define OLED_DATA_MODE          0x40
+                                 #define OLED_ONE_DATA_MODE      0xC0
+                                 
+                                 #define OLED_ADDRESSING_MODE    0x20
+                                 #define OLED_HORIZONTAL         0x00
+                                 #define OLED_VERTICAL           0x01
+                                 
+                                 #define OLED_NORMAL_V           0xC8
+                                 #define OLED_FLIP_V             0xC0
+                                 #define OLED_NORMAL_H           0xA1
+                                 #define OLED_FLIP_H             0xA0
+                                 
+                                 #define OLED_CONTRAST           0x81
+                                 #define OLED_SETCOMPINS         0xDA
+                                 #define OLED_SETVCOMDETECT      0xDB
+                                 #define OLED_CLOCKDIV           0xD5
+                                 #define OLED_SETMULTIPLEX       0xA8
+                                 #define OLED_COLUMNADDR         0x21
+                                 #define OLED_PAGEADDR           0x22
+                                 #define OLED_CHARGEPUMP         0x8D
+                                 
+                                 #define OLED_NORMALDISPLAY      0xA6
+                                 #define OLED_INVERTDISPLAY      0xA7
+                                 ;=============================================================
+                                 
+                                 
+                                 #endif  /* _DEFINES_INC_ */
+                                 
+                                 ;=================================================
+                                 ; ����� ���������, � ����� ��������� ���������
+                                 	.equ 	F_CPU 					= 1000000		; ������� �� ATtiny104
+                                 	.equ 	DIVIDER					= 8				; 8 ��� U2X = 1, 16 ��� U2X = 0
+                                 	.equ 	BAUD 					= 9600			; �������� ������ �� UART
+                                 	.equ 	UBRR 					= F_CPU / DIVIDER / BAUD - 1
+                                 	
+                                 	.equ 	I2C_DIVIDER				= 1				; ��������
+                                 	.equ 	I2C_BAUD 				= 800000		; �������� ������ �� I2C
+                                 	.equ 	I2C_UBRR				= F_CPU / I2C_DIVIDER / I2C_BAUD ; ���������� ����� � 10 ��� (1�������/100 000) ����� 100 KHz
+                                 	
+                                 	.equ 	I2C_Address_Device		= 0x3c							; ����� ���������� 
+                                 	.equ 	I2C_Address_Write		= (I2C_Address_Device << 1)		; ����� ���������� �� ������
+                                 	.equ 	I2C_Address_Read		= (I2C_Address_Write & 0x01)	; ����� ���������� �� ������
+                                 
+                                 	.equ 	eDelay 					= 500
+                                 	.equ 	eNumber 				= eDelay * F_CPU / 1000 / 5
+                                 
+                                 ;=================================================
+                                 	.def 	Data					= R16			; ������� ������ USART
+                                 	.def 	Ask						= R17			; ������� ������
+                                 	.def 	I2C_Address				= R18			; ������� ������
+                                 	;.def 	I2C_Payload				= R18			; ������� ������
+                                 	.def 	Counter					= R19			; ������� �������
+                                 	.def 	Flag					= R20			; ������� ��� �����
+                                 	.def 	Delay 					= R22			; ������� ��������
+                                 	.def 	Null 					= R23 			; ������� ��� �����
+                                 
+                                 ;=================================================
+                                 ; ������� SRAM ������
+                                 .DSEG	
+                                 ;=================================================
+                                 ; ������� FLASH ������
+                                 .CSEG
+                                 ;=================================================
+                                 ; ������� ����������
+                                 	.ORG 0x00
+000000 c1d6                      		RJMP	RESET
+                                 
+                                 ;=================================================
+                                 	; ���������� �� ���� ������		
+000001 4c4f
+000002 4445
+000003 5320
+000004 4453
+000005 3331
+000006 3630
+000007 4920
+000008 4332
+000009 6f20
+00000a 206e
+00000b 5441
+00000c 6974
+00000d 796e
+00000e 3031
+00000f 0034                      	Program_name: .db "OLED SSD1306 I2C on ATtiny104",0
+                                 
+                                 ;=================================================
+                                 	; ����������� ���������
+                                 	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\delay.asm"    ; ����������� ����� '��������'
+                                 
+                                 #ifndef _DELAY_INC_
+                                 #define _DELAY_INC_
+                                 
+                                 #ifndef F_CPU
+                                 #define F_CPU 1000000
+                                 #endif
+                                 
+                                 #define DELAY_DATA_1000 F_CPU/5 ; ( ( _delay_ms / 1000 ) * F_CPU / 5 )
+                                 #define DELAY_DATA_500 F_CPU/10
+                                 #define DELAY_DATA_100 F_CPU/50
+                                 #define DELAY_DATA_10 F_CPU/500
+                                 
+                                 ; N = Time*Fcpu/(r+2) // где r — число регистров 
+                                 ; N = T*F/5 // T = 500ms = 0,5s // N = 120 000 при 1,2 МГц
+                                 ; 120 000 = 0,5 * 1 200 000 / 5
+                                 
+                                 Delay_1000ms:
+000010 930f                      	push	r16
+000011 931f                      	push	r17
+000012 932f                      	push	r18
+000013 933f                      	push	r19	
+                                 	; сохраняем статус регистры
+000014 b73f                      	IN		r19, SREG
+000015 94f8                      	cli ; запрещаем прерывания
+000016 e023                      	ldi 	r18, byte3(DELAY_DATA_1000) ; старший байт N
+000017 e01d                      	ldi 	r17, high(DELAY_DATA_1000) ; средний байт N
+000018 e400                      	ldi 	r16, low(DELAY_DATA_1000) ; младший байт N
+                                 Loop_Delay_1000ms: 
+000019 5001                      	subi 	r16, 1 ; Subtract Immediate
+00001a 4010                      	sbci 	r17, 0 ; Subtract Immediate with Carry
+00001b 4020                      	sbci 	r18, 0
+00001c f7e0                      	brcc 	Loop_Delay_1000ms ; Branch if Carry Cleared
+                                 	; возвращяем статус регистры
+00001d bf3f                      	OUT	SREG, r19
+00001e 913f                      	pop 	r19
+00001f 912f                      	pop 	r18
+000020 911f                      	pop		r17
+000021 910f                      	pop		r16 
+000022 9508                      ret
+                                 
+                                 Delay_500ms:
+000023 94f8                      	cli ; запрещаем прерывания
+000024 930f                      	push	r16
+000025 931f                      	push	r17
+000026 932f                      	push	r18
+000027 933f                      	push	r19	
+                                 	; сохраняем статус регистры
+000028 b73f                      	IN		r19, SREG
+000029 94f8                      	cli ; запрещаем прерывания
+00002a e021                      	ldi 	r18, byte3(DELAY_DATA_500) ; старший байт N
+00002b e816                      	ldi 	r17, high(DELAY_DATA_500) ; средний байт N
+00002c ea00                      	ldi 	r16, low(DELAY_DATA_500) ; младший байт N
+                                 Loop_Delay_500ms: 
+00002d 5001                      	subi 	r16, 1 ; Subtract Immediate
+00002e 4010                      	sbci 	r17, 0 ; Subtract Immediate with Carry
+00002f 4020                      	sbci 	r18, 0
+000030 f7e0                      	brcc 	Loop_Delay_500ms ; Branch if Carry Cleared
+                                 	; возвращяем статус регистры
+000031 bf3f                      	OUT	SREG, r19
+000032 913f                      	pop 	r19
+000033 912f                      	pop 	r18
+000034 911f                      	pop		r17
+000035 910f                      	pop		r16 
+000036 9508                      ret
+                                 
+                                 Delay_100ms:
+000037 930f                      	push	r16
+000038 931f                      	push	r17
+000039 932f                      	push	r18
+00003a 933f                      	push	r19	
+                                 	; сохраняем статус регистры
+00003b b73f                      	IN		r19, SREG
+00003c 94f8                      	cli ; запрещаем прерывания
+00003d e020                      	ldi 	r18, byte3(DELAY_DATA_100) ; старший байт N
+00003e e41e                      	ldi 	r17, high(DELAY_DATA_100) ; средний байт N
+00003f e200                      	ldi 	r16, low(DELAY_DATA_100) ; младший байт N
+                                 Loop_Delay_100ms: 
+000040 5001                      	subi 	r16, 1 ; Subtract Immediate
+000041 4010                      	sbci 	r17, 0 ; Subtract Immediate with Carry
+000042 4020                      	sbci 	r18, 0
+000043 f7e0                      	brcc 	Loop_Delay_100ms ; Branch if Carry Cleared
+                                 	; возвращяем статус регистры
+000044 bf3f                      	OUT	SREG, r19
+000045 913f                      	pop 	r19
+000046 912f                      	pop 	r18
+000047 911f                      	pop		r17
+000048 910f                      	pop		r16	 
+000049 9508                      ret 
+                                 
+                                 Delay_10ms:
+00004a 930f                      	push	r16
+00004b 931f                      	push	r17
+00004c 932f                      	push	r18
+00004d 933f                      	push	r19	
+                                 	; сохраняем статус регистры
+00004e b73f                      	IN		r19, SREG
+00004f 94f8                      	cli ; запрещаем прерывания
+000050 e020                      	ldi 	r18, byte3(DELAY_DATA_10) ; старший байт N
+000051 e017                      	ldi 	r17, high(DELAY_DATA_10) ; средний байт N
+000052 ed00                      	ldi 	r16, low(DELAY_DATA_10) ; младший байт N
+                                 Loop_Delay_10ms: 
+000053 5001                      	subi 	r16, 1 ; Subtract Immediate
+000054 4010                      	sbci 	r17, 0 ; Subtract Immediate with Carry
+000055 4020                      	sbci 	r18, 0
+000056 f7e0                      	brcc 	Loop_Delay_10ms ; Branch if Carry Cleared
+                                 	; возвращяем статус регистры
+000057 bf3f                      	OUT	SREG, r19
+000058 913f                      	pop 	r19
+000059 912f                      	pop 	r18
+00005a 911f                      	pop		r17
+00005b 910f                      	pop		r16
+00005c 9508                      ret 
+                                 
+                                 
+                                 #endif  /* _DELAY_INC_ */
+                                 	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\usart.asm"    ; ����������� ���������� USART (�� ��������� UBRR)
+                                 
+                                 #ifndef _USART_ASM_
+                                 #define _USART_ASM_
+                                 
+                                 #pragma AVRPART CORE NEW_INSTRUCTIONS lpm rd,z+
+                                 
+                                 ; Инициализация USART
+                                 USART_Init: ; в ZH:ZL ожидается UBRR
+00005d 930f                      	push	R16
+                                     ; Set baud rate to UBRR0
+00005e b9fa                          out     UBRRH, ZH
+00005f b9e9                          out     UBRRL, ZL
+                                     ; Enable receiver and transmitter
+000060 e108                          ldi     r16, (1 << RXEN) | (1 << TXEN)
+000061 b90d                          out     UCSRB, r16
+                                     ; U2X0: Double the USART Transmission Speed
+000062 e002                          ldi     r16, (1 << U2X)
+000063 b90e                          out     UCSRA, r16
+000064 910f                      	pop		R16
+000065 9508                      ret
+                                 
+                                 ; -- Подпрограмма передачи данных
+                                 USART_Transmit: ; в R16 ожидаются данныеR16
+000066 931f                      	push	R17
+                                 loop_USART_Transmit:
+                                     ; Wait for empty transmit buffer
+000067 b11e                          in      r17, UCSRA
+000068 ff15                          sbrs    r17, UDRE
+000069 cffd                          rjmp    loop_USART_Transmit
+                                     ; Put data (r16) into buffer, sends the data
+00006a b908                          out     UDR, r16
+00006b 911f                      	pop	    R17
+00006c 9508                      ret
+                                 
+                                 ; -- Подпрограмма приёма данных -- 
+                                 USART_Receive: ; возвращает данные в регистр R16
+00006d 931f                      	push	R17
+                                 wait_flag_RXC:
+                                 	; Wait for data to be received
+00006e b11e                      	in 	    R17, UCSRA
+00006f ff17                      	SBRS 	R17, RXC ; Skip if Bit in Register Set
+000070 cffd                      	RJMP	wait_flag_RXC
+                                 	; принимаем данные
+000071 b108                      	in 	    R16, UDR
+000072 911f                      	pop		R17
+000073 9508                      ret
+                                 
+                                 ; -- Подпрограмма вывода строки в порт -- 
+                                 USART_Print_String: ; use macro mSetStr
+000074 9105                      	LPM		R16, Z+
+000075 3000                      	CPI		R16, 0
+000076 f011                      	BREQ	End_USART_Print_String
+000077 dfee                      	RCALL 	USART_Transmit
+000078 cffb                      	RJMP	USART_Print_String
+                                 End_USART_Print_String:
+000079 9508                      ret
+                                 ;=================================================
+                                 
+                                 #endif  /* _USART_ASM_ */
+                                 	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c.asm"    	 ; ����������� ���������� I2C (�� ��������� I2C_UBRR)
+                                 
+                                 
+                                 #ifndef _I2C_ASM_
+                                 #define _I2C_ASM_
+                                 
+                                 ;#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\tn104def.inc"
+                                 
+                                 /* ---------------------------------------------------------------------------------------
+                                 Библиотеке требуются значения:
+                                     I2C_UBRR - для задержек
+                                         I2C_UBRR = F_CPU / I2C_BAUD (I2C_BAUD - 100KHz или 400KHz) 9 600 000 / 100 000 = 96
+                                     R16 - для отправки байта
+                                     R17 - для приёма байта
+                                 --------------------------------------------------------------------------------------- */
+                                 
+                                 // пины
+                                 #ifndef DDR_I2C
+                                 #define DDR_I2C		DDRA
+                                 #define PIN_I2C		PINA
+                                 #define SDA_I2C		PORTA4
+                                 #define SCL_I2C		PORTA5
+                                 #endif
+                                 
+                                 
+                                 
+                                 // управление линиями
+                                 ; #define SDA_1		CBI     DDR_I2C, SDA_I2C
+                                 ; #define SDA_0		SBI     DDR_I2C, SDA_I2C
+                                 ; #define SCL_1		CBI     DDR_I2C, SCL_I2C
+                                 ; #define SCL_0		SBI     DDR_I2C, SCL_I2C
+                                 
+                                 
+                                 ; -- Подпрограмма инициализации I2C -- 
+                                 I2C_Init: ; требуется значение I2C_UBRR
+00007a 931f                          push    R17
+                                 	; таймер вкючаем в режим CTC
+00007b e012                      	LDI 	R17, (1 << WGM01)
+00007c bd1e                      	OUT 	TCCR0A, R17
+                                 	; делитель на 1
+00007d e011                          LDI 	R17, (1 << CS00)
+00007e bd1d                      	OUT 	TCCR0B, R17
+                                 	; регистр сравнения
+00007f e010                        	LDI 	R17, 0
+000080 bd17                      	OUT 	OCR0AH, R17	
+000081 e011                        	LDI 	R17, I2C_UBRR
+000082 bd16                      	OUT 	OCR0AL, R17	
+000083 911f                          pop     R17
+000084 9508                      ret
+                                 
+                                 ; -- Подпрограмма задержки -- 
+                                 I2C_Delay: ; требуется значение I2C_UBRR
+000085 933f                          push    R19
+000086 e030                          LDI     R19, 0
+000087 bd39                          OUT     TCNT0H, R19 ; обнуляем счётчик
+000088 bd38                      	OUT     TCNT0L, R19 ; обнуляем счётчик
+                                 loop_I2C_Delay:
+000089 b538                      	IN		R19, TCNT0L
+00008a 3031                      	CPI		R19, I2C_UBRR
+00008b f3e8                      	BRCS	loop_I2C_Delay ; Branch if Carry Set (если TCNT0 < UBRR)
+00008c 913f                          pop     R19
+00008d 9508                      ret
+                                 
+                                 ; -- I2C команда СТАРТ -- 
+                                 I2C_Start:
+00008e 9a0c                          SBI     DDR_I2C, SDA_I2C ; SDA_0
+00008f dff5                      	RCALL   I2C_Delay
+000090 9a0d                          SBI     DDR_I2C, SCL_I2C ; SCL_0
+000091 9508                      ret
+                                 
+                                 ; -- I2C команда СТОП -- 
+                                 I2C_Stop:
+000092 9a0c                      	SBI     DDR_I2C, SDA_I2C ; SDA_0
+000093 dff1                      	RCALL   I2C_Delay
+000094 980d                      	CBI     DDR_I2C, SCL_I2C ; SCL_1
+000095 dfef                      	RCALL   I2C_Delay
+000096 980c                      	CBI     DDR_I2C, SDA_I2C ; SDA_1
+000097 dfed                      	RCALL   I2C_Delay
+000098 9508                      ret
+                                 
+                                 ; -- Подпрограмма отправки байта по I2C -- 
+                                 I2C_Send: ; data в регистре R16, ask вернётся в R17
+                                 ;---------------------------------------------------- 
+                                 ; повторная инициализация необходима из-за USARTа, там например делитель на 8, тут на 1
+                                 	; таймер вкючаем в режим CTC
+000099 e012                      	LDI 	R17, (1 << WGM01)
+00009a bd1e                      	OUT 	TCCR0A, R17
+                                 	; делитель на 1
+00009b e011                          LDI 	R17, (1 << CS00)
+00009c bd1d                      	OUT 	TCCR0B, R17
+                                 	; регистр сравнения
+00009d e011                        	LDI 	R17, I2C_UBRR
+00009e bd16                      	OUT 	OCR0AL, R17	
+                                 ;---------------------------------------------------- 
+00009f e018                          LDI     R17, 8 ; i = 8
+                                 repeat_I2C_Send:
+0000a0 9488                          CLC ; clear Carry
+0000a1 1f00                          ROL     R16
+0000a2 f408                          BRCC    set_0_I2C_Send ; Branch if Carry Cleared
+0000a3 f010                          BRCS    set_1_I2C_Send ; Branch if Carry Set
+                                 set_0_I2C_Send:
+0000a4 9a0c                          SBI     DDR_I2C, SDA_I2C ; SDA_0
+0000a5 c002                          RJMP    continue_I2C_Send
+                                 set_1_I2C_Send:
+0000a6 980c                          CBI     DDR_I2C, SDA_I2C ; SDA_1    
+0000a7 c000                          RJMP    continue_I2C_Send
+                                 continue_I2C_Send:
+0000a8 dfdc                      	RCALL   I2C_Delay
+0000a9 980d                      	CBI     DDR_I2C, SCL_I2C ; SCL_1 - фронт
+0000aa dfda                      	RCALL   I2C_Delay
+0000ab 9a0d                      	SBI     DDR_I2C, SCL_I2C ; SCL_0 - спад
+0000ac 951a                          DEC     R17
+0000ad f791                          BRNE    repeat_I2C_Send ; if R17 != 0
+                                     
+0000ae 980c                      	CBI     DDR_I2C, SDA_I2C ; SDA_1 - отпустить дата
+0000af dfd5                      	RCALL   I2C_Delay
+0000b0 980d                      	CBI     DDR_I2C, SCL_I2C ; SCL_1 - фронт такта
+0000b1 dfd3                      	RCALL   I2C_Delay
+                                 
+0000b2 b110                          IN      R17, PIN_I2C
+0000b3 7110                      	ANDI    R17, (1 << SDA_I2C) ; читаем линию сда (если устройство ответит Ask (R17) будет равен 0)
+0000b4 9a0d                      	SBI     DDR_I2C, SCL_I2C ; SCL_0 - спад
+0000b5 9508                      ret
+                                 
+                                 ; -- Подпрограмма приёма байта по I2C -- 
+                                 I2C_Read:
+                                 	; регистр сравнения
+0000b6 e011                        	LDI 	R17, I2C_UBRR
+0000b7 bd16                      	OUT 	OCR0AL, R17	
+                                     ;
+                                     ;
+                                     ;
+0000b8 9508                      ret
+                                 
+                                 
+                                 
+                                 ; // получение байта
+                                 ; uint8_t i2c_read(uint8_t ack){
+                                 ; 	uint8_t byte=0, i=8;
+                                 ; 	while(i--)
+                                 ; 	{
+                                 ; 		SCL_1;// фронт такта
+                                 ; 		I2C_DELAY;
+                                 ; 		if(SDA_PIN & (1 << SDA)) byte|=(1<<i);// если SDA 1 в и-тый бит пишем 1
+                                 ; 		SCL_0;// спад такта
+                                 ; 		I2C_DELAY;
+                                 ; 	}
+                                 ; 	if(ack) SDA_0;// ask или nask
+                                 ; 	else SDA_1;
+                                 	
+                                 ; 	SCL_1;//
+                                 ; 	I2C_DELAY;// такт на получения ответа или неответа
+                                 ; 	SCL_0;//
+                                 ; 	I2C_DELAY;
+                                 ; 	SDA_1;// отпустить сда если притянут
+                                 ; 	return byte;
+                                 ; }
+                                 
+                                 
+                                 
+                                 #endif  /* _I2C_ASM_ */
+                                 	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\i2c_scan.asm" ; ����������� ���������� I2C_SCAN (�� ��������� ���������� I2C)
+                                 
+                                 #ifndef _I2C_SCAN_ASM_
+                                 #define _I2C_SCAN_ASM_
+                                 
+                                 
+                                 ;=================================================
+                                 ; поиск устройства и вывод адреса в порт
+                                 I2C_Scan:
+0000b9 930f                      	push	R16 ; Data
+0000ba 931f                      	push	R17 ; Ask
+0000bb 932f                      	push	R18 ; I2C_Address
+0000bc 933f                      	push	R19 ; Counter
+0000bd 934f                      	push	R20 ; Null
+                                 	
+0000be 2744                      	CLR		R20
+                                 	
+0000bf e038                      	LDI		R19, 8 ; количество выводимых бит
+0000c0 2722                      	CLR		R18 ; I2C_Address = 0x00
+                                 Repeat_I2C_Scan:
+0000c1 dfcc                      	RCALL	I2C_Start ; команда СТАРТ
+                                 	
+0000c2 2f02                      	MOV		Data, R18
+0000c3 0f00                      	LSL 	Data 
+0000c4 dfd4                      	RCALL	I2C_send ; передача адреса записанного в R16
+                                 	;------------------------------------
+                                 	; проверяем ответло ли устройство
+0000c5 1714                      	CP	 	R17, R20 ; если устройство ответит (Ask=0)
+0000c6 f039                      	BREQ	AddressOn_send ; прекращаем сканировать
+                                 	; продолжаем если устройство не ответило
+                                 	;------------------------------------
+0000c7 dfca                      	RCALL	I2C_Stop ; иначе команда СТОП
+                                 
+0000c8 9523                      	INC 	R18 ; увеличиваем значение
+0000c9 3820                      	CPI		R18, 128 ; TW_MAX_ADDRESS - максимально возможное значение адреса устройства
+0000ca f408                      	BRSH	Clear_I2C_Address ; Branch if Same or Higher (>=) пропускаем строку ниже если первое значение >= второму
+0000cb cff5                      	RJMP	Repeat_I2C_Scan ; повторяем
+                                 Clear_I2C_Address:
+0000cc 2722                      	CLR		R18
+0000cd c00f                      	RJMP	AddressOff_send
+                                 AddressOn_send:
+0000ce dfc3                      	RCALL	I2C_Stop ; команда СТОП
+                                 
+0000cf d032                      	RCALL	AddressOn ; вывод в порт сообщения
+                                 Loop_I2C_Scan:
+0000d0 9488                      	CLC ; Clear Carry (сбрасываем флаг переноса)
+0000d1 1f22                      	ROL		R18 ; круговой сдвиг влево (ROL 0b11110000 = 0b11100001)
+0000d2 f408                      	BRCC	Null_send ; если флаг Carry = 0 
+0000d3 c003                      	RJMP	One_send ; если флаг Carry = 1 
+                                 Null_send: 
+0000d4 e300                      	LDI		Data, '0'
+0000d5 df90                      	RCALL	USART_Transmit ; выводим в порт 0
+0000d6 c002                      	RJMP	Decrement_Bit
+                                 One_send:
+0000d7 e301                      	LDI		Data, '1'
+0000d8 df8d                      	RCALL	USART_Transmit ; выводим в порт 1
+                                 	; RJMP	Decrement_Bit
+                                 Decrement_Bit:
+0000d9 953a                      	DEC		R19 ; количество выводимых бит
+0000da 3030                      	CPI		R19, 0  ; сравниваем с нулём
+0000db f011                      	BREQ	End_I2C_Scan
+0000dc cff3                      	RJMP	Loop_I2C_Scan
+                                 AddressOff_send:
+0000dd d04d                      	RCALL	AddressOff ; вывод в порт сообщения
+                                 End_I2C_Scan:
+0000de d067                      	RCALL	EndSearchDevices ; вывод в порт сообщения
+                                 	
+0000df 914f                      	pop		R20 ; Null
+0000e0 913f                      	pop		R19 ; Counter
+0000e1 912f                      	pop		R18 ; I2C_Address
+0000e2 911f                      	pop		R17 ; Ask
+0000e3 910f                      	pop		R16 ; Data
+0000e4 9508                      ret
+                                 
+                                 ;
+                                 Hello_W:
+0000e5 930f                      	push	R16 ; Data
+                                 	
+0000e6 e408                      	LDI 	R16, 'H'
+0000e7 df7e                      	RCALL 	USART_Transmit
+0000e8 e605                      	LDI 	R16, 'e'
+0000e9 df7c                      	RCALL 	USART_Transmit
+0000ea e60c                      	LDI 	R16, 'l'
+0000eb df7a                      	RCALL 	USART_Transmit
+0000ec e60c                      	LDI 	R16, 'l'
+0000ed df78                      	RCALL 	USART_Transmit
+0000ee e60f                      	LDI 	R16, 'o'
+0000ef df76                      	RCALL 	USART_Transmit
+0000f0 e200                      	LDI 	R16, ' '
+0000f1 df74                      	RCALL 	USART_Transmit
+                                 			
+0000f2 e507                      	LDI 	R16, 'W'
+0000f3 df72                      	RCALL 	USART_Transmit
+0000f4 e60f                      	LDI 	R16, 'o'
+0000f5 df70                      	RCALL 	USART_Transmit
+0000f6 e702                      	LDI 	R16, 'r'
+0000f7 df6e                      	RCALL 	USART_Transmit
+0000f8 e60c                      	LDI 	R16, 'l'
+0000f9 df6c                      	RCALL 	USART_Transmit
+0000fa e604                      	LDI 	R16, 'd'
+0000fb df6a                      	RCALL 	USART_Transmit
+0000fc e201                      	LDI 	R16, '!'
+0000fd df68                      	RCALL 	USART_Transmit
+0000fe e00a                      	LDI 	R16, '\n'
+0000ff df66                      	RCALL 	USART_Transmit
+                                 	
+000100 910f                      	pop		R16 ; Data
+000101 9508                      RET
+                                 
+                                 ;
+                                 AddressOn: ;.db "Адрес устройства: 0b",0
+000102 930f                      	push	R16 ; Data
+                                 	
+000103 e00a                      	LDI 	R16, '\n'
+000104 df61                      	RCALL 	USART_Transmit
+000105 e401                      	LDI 	R16, 'A'
+000106 df5f                      	RCALL 	USART_Transmit
+000107 e604                      	LDI 	R16, 'd'
+000108 df5d                      	RCALL 	USART_Transmit
+000109 e604                      	LDI 	R16, 'd'
+00010a df5b                      	RCALL 	USART_Transmit
+00010b e702                      	LDI 	R16, 'r'
+00010c df59                      	RCALL 	USART_Transmit
+00010d e605                      	LDI 	R16, 'e'
+00010e df57                      	RCALL 	USART_Transmit
+00010f e703                      	LDI 	R16, 's'
+000110 df55                      	RCALL 	USART_Transmit
+000111 e703                      	LDI 	R16, 's'
+000112 df53                      	RCALL 	USART_Transmit
+000113 e200                      	LDI 	R16, ' '
+000114 df51                      	RCALL 	USART_Transmit
+000115 e604                      	LDI 	R16, 'd'
+000116 df4f                      	RCALL 	USART_Transmit
+000117 e605                      	LDI 	R16, 'e'
+000118 df4d                      	RCALL 	USART_Transmit
+000119 e706                      	LDI 	R16, 'v'
+00011a df4b                      	RCALL 	USART_Transmit			
+00011b e609                      	LDI 	R16, 'i'
+00011c df49                      	RCALL 	USART_Transmit
+00011d e603                      	LDI 	R16, 'c'
+00011e df47                      	RCALL 	USART_Transmit
+00011f e605                      	LDI 	R16, 'e'
+000120 df45                      	RCALL 	USART_Transmit
+000121 e30a                      	LDI 	R16, ':'
+000122 df43                      	RCALL 	USART_Transmit
+000123 e200                      	LDI 	R16, ' '
+000124 df41                      	RCALL 	USART_Transmit
+000125 e300                      	LDI 	R16, '0'
+000126 df3f                      	RCALL 	USART_Transmit
+000127 e602                      	LDI 	R16, 'b'
+000128 df3d                      	RCALL 	USART_Transmit
+                                 	
+000129 910f                      	pop		R16 ; Data
+00012a 9508                      RET
+                                 
+                                 ;
+                                 AddressOff: ;.db "Нет найденных устройств!",0
+00012b 930f                      	push	R16 ; Data
+                                 	
+00012c e00a                      	LDI 	R16, '\n'
+00012d df38                      	RCALL 	USART_Transmit
+00012e e40e                      	LDI 	R16, 'N'
+00012f df36                      	RCALL 	USART_Transmit
+000130 e60f                      	LDI 	R16, 'o'
+000131 df34                      	RCALL 	USART_Transmit
+000132 e200                      	LDI 	R16, ' '
+000133 df32                      	RCALL 	USART_Transmit
+000134 e604                      	LDI 	R16, 'd'
+000135 df30                      	RCALL 	USART_Transmit
+000136 e605                      	LDI 	R16, 'e'
+000137 df2e                      	RCALL 	USART_Transmit
+000138 e706                      	LDI 	R16, 'v'
+000139 df2c                      	RCALL 	USART_Transmit			
+00013a e609                      	LDI 	R16, 'i'
+00013b df2a                      	RCALL 	USART_Transmit
+00013c e603                      	LDI 	R16, 'c'
+00013d df28                      	RCALL 	USART_Transmit
+00013e e605                      	LDI 	R16, 'e'
+00013f df26                      	RCALL 	USART_Transmit
+000140 e703                      	LDI 	R16, 's'
+000141 df24                      	RCALL 	USART_Transmit
+000142 e201                      	LDI 	R16, '!'
+000143 df22                      	RCALL 	USART_Transmit
+                                 	
+000144 910f                      	pop		R16 ; Data
+000145 9508                      RET
+                                 
+                                 ;
+                                 EndSearchDevices: ;.db '\n','\n',"Поиск I2C устройств завершён!",'\n','\n',0
+000146 930f                      	push	R16 ; Data
+                                 	
+000147 e00a                      	LDI 	R16, '\n'
+000148 df1d                      	RCALL 	USART_Transmit
+000149 e00a                      	LDI 	R16, '\n'
+00014a df1b                      	RCALL 	USART_Transmit
+00014b e503                      	LDI 	R16, 'S'
+00014c df19                      	RCALL 	USART_Transmit
+00014d e605                      	LDI 	R16, 'e'
+00014e df17                      	RCALL 	USART_Transmit
+00014f e601                      	LDI 	R16, 'a'
+000150 df15                      	RCALL 	USART_Transmit
+000151 e702                      	LDI 	R16, 'r'
+000152 df13                      	RCALL 	USART_Transmit
+000153 e603                      	LDI 	R16, 'c'
+000154 df11                      	RCALL 	USART_Transmit
+000155 e608                      	LDI 	R16, 'h'
+000156 df0f                      	RCALL 	USART_Transmit			
+000157 e200                      	LDI 	R16, ' '
+000158 df0d                      	RCALL 	USART_Transmit
+000159 e605                      	LDI 	R16, 'e'
+00015a df0b                      	RCALL 	USART_Transmit
+00015b e60e                      	LDI 	R16, 'n'
+00015c df09                      	RCALL 	USART_Transmit
+00015d e604                      	LDI 	R16, 'd'
+00015e df07                      	RCALL 	USART_Transmit
+00015f e201                      	LDI 	R16, '!'
+000160 df05                      	RCALL 	USART_Transmit
+000161 e00a                      	LDI 	R16, '\n'
+000162 df03                      	RCALL 	USART_Transmit
+                                 	
+000163 910f                      	pop		R16 ; Data
+000164 9508                      RET
+                                 ;=================================================
+                                 
+                                 #endif  /* _I2C_SCAN_ASM_ */
+                                 
+                                 	#include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\ssd1306.asm"  ; ����������� ���������� ssd1306 (�� ��������� ���������� I2C)
+                                 
+                                 #ifndef _SSD1306_ASM_
+                                 #define _SSD1306_ASM_
+                                 
+                                 
+                                 #include "E:\VSCode\AsmStudy\AVRasm\ATtiny104\libs\defines.inc"  ; подключение файла 'определений'
+                                 
+                                 #ifndef _DEFINES_INC_
+                                 #endif  /* _DEFINES_INC_ */
+                                 
+                                 
+                                 ; Подпрограмма инициализации OLED экрана
+                                 SSD1306_Init:
+000165 932f                      	push	R18 ; I2C_Payload
+                                 	; for (uint8_t i = 0; i < 15; i++) sendByte(pgm_read_byte(&_oled_init[i]));		
+                                 	; OLED_DISPLAY_OFF
+000166 ea2e                      	LDI 	R18, OLED_DISPLAY_OFF
+000167 d059                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_CLOCKDIV
+000168 ed25                      	LDI 	R18, OLED_CLOCKDIV
+000169 d057                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                     ; value
+00016a e820                      	LDI 	R18, 0x80
+00016b d055                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_CHARGEPUMP
+00016c e82d                      	LDI 	R18, OLED_CHARGEPUMP
+00016d d053                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; value
+00016e e124                      	LDI 	R18, 0x14
+00016f d051                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_ADDRESSING_MODE
+000170 e220                      	LDI 	R18, OLED_ADDRESSING_MODE
+000171 d04f                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_HORIZONTAL or OLED_VERTICAL
+000172 e021                      	LDI 	R18, OLED_VERTICAL
+000173 d04d                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_NORMAL_H
+000174 ea21                      	LDI 	R18, OLED_NORMAL_H
+000175 d04b                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_NORMAL_V
+000176 ec28                      	LDI 	R18, OLED_NORMAL_V
+000177 d049                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_CONTRAST
+000178 e821                      	LDI 	R18, OLED_CONTRAST
+000179 d047                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; value
+00017a e72f                      	LDI 	R18, 0x7F
+00017b d045                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_SETVCOMDETECT
+00017c ed2b                      	LDI 	R18, OLED_SETVCOMDETECT
+00017d d043                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; value
+00017e e420                      	LDI 	R18, 0x40
+00017f d041                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_NORMALDISPLAY
+000180 ea26                      	LDI 	R18, OLED_NORMALDISPLAY
+000181 d03f                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	;---------------------------------------
+                                 	; OLED_SETCOMPINS
+000182 ed2a                      	LDI 	R18, OLED_SETCOMPINS
+000183 d03d                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_HEIGHT_32 or OLED_HEIGHT_64
+000184 e122                      	LDI 	R18, OLED_HEIGHT_64
+000185 d03b                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	;---------------------------------------
+                                 	; OLED_SETMULTIPLEX
+000186 ea28                      	LDI 	R18, OLED_SETMULTIPLEX
+000187 d039                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; OLED_32 or OLED_64
+000188 e12f                      	LDI 	R18, OLED_32
+000189 d037                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	;---------------------------------------
+                                 	; OLED_DISPLAY_ON
+00018a ea2f                      	LDI 	R18, OLED_DISPLAY_ON
+00018b d035                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+00018c 912f                      	pop		R18 ; I2C_Payload
+00018d 9508                      ret
+                                 
+                                 
+                                 ; Подпрограмма установки колонок и строк
+                                 SSD1306_SetColumnAndPage:
+00018e 932f                      	push	R18 ; I2C_Payload
+                                 
+                                 	; Установка столбца
+00018f e221                      	LDI 	R18, OLED_COLUMNADDR
+000190 d030                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C	
+                                 	; Начальный адрес
+000191 e020                      	LDI 	R18, 0
+000192 d02e                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; Конечный адрес
+000193 e72f                      	LDI 	R18, 127
+000194 d02c                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                     
+                                 	; Установка строки
+000195 e222                      	LDI 	R18, OLED_PAGEADDR
+000196 d02a                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C
+                                 	; Начальный адрес
+000197 e020                      	LDI 	R18, 0
+000198 d028                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C	
+                                 	; Конечный адрес
+000199 e023                      	LDI 	R18, 3
+00019a d026                      	RCALL 	SSD1306_Write_Command ; передача байта по I2C	
+                                 
+00019b 912f                      	pop		R18 ; I2C_Payload
+00019c 9508                      ret
+                                 
+                                 
+                                 ; Подпрограмма отправки данных на OLED экран
+                                 SSD1306_Send_Data: ; data in R16
+00019d 932f                      	push	R18 ; I2C_Payload
+00019e 934f                      	push	R20 ; Flag
+                                     
+00019f dfee                      	RCALL	SSD1306_SetColumnAndPage
+                                 
+                                     ; Вывод всех пикселей на экран
+0001a0 ef4f                      	LDI		Flag, 0xff
+0001a1 2f20                      	MOV 	R18, R16
+0001a2 d029                      	RCALL 	SSD1306_Write_Data ; передача байта по I2C
+                                 send_0xff_256_pcs_1:
+0001a3 d028                      	RCALL 	SSD1306_Write_Data ; передача байта по I2C
+0001a4 954a                      	DEC		Flag ; Flag--
+0001a5 f7e9                      	BRNE	send_0xff_256_pcs_1
+                                 	
+0001a6 ef4f                      	LDI		Flag, 0xff
+0001a7 2f20                      	MOV 	R18, R16
+0001a8 d023                      	RCALL 	SSD1306_Write_Data ; передача байта по I2C
+                                 send_0xff_256_pcs_2:
+0001a9 d022                      	RCALL 	SSD1306_Write_Data ; передача байта по I2C
+0001aa 954a                      	DEC		Flag ; Flag--
+0001ab f7e9                      	BRNE	send_0xff_256_pcs_2
+                                 	
+0001ac 914f                      	pop		R20 ; Flag
+0001ad 912f                      	pop		R18 ; I2C_Payload
+0001ae 9508                      ret
+                                 
+                                 ; Подпрограмма очистки экрана
+                                 SSD1306_Clear:
+0001af 932f                      	push	R18 ; I2C_Payload
+0001b0 934f                      	push	R20 ; Flag
+                                     
+0001b1 dfdc                      	RCALL	SSD1306_SetColumnAndPage
+                                 
+                                     ; Вывод всех пикселей на экран
+0001b2 ef4f                      	LDI		Flag, 0xff
+0001b3 e020                      	LDI 	R18, 0x00
+0001b4 d017                      	RCALL 	SSD1306_Write_Data ; передача байта по I2C
+                                 loop_SSD1306_Clear:
+0001b5 d016                      	RCALL 	SSD1306_Write_Data ; передача байта по I2C
+0001b6 954a                      	DEC		Flag ; Flag--
+0001b7 f7e9                      	BRNE	loop_SSD1306_Clear
+                                 	
+                                     ; Вывод всех пикселей на экран
+0001b8 ef4f                      	LDI		Flag, 0xff
+0001b9 e020                      	LDI 	R18, 0x00
+0001ba d011                      	RCALL 	SSD1306_Write_Data ; передача байта по I2C
+                                 loop_2_SSD1306_Clear:
+0001bb d010                      	RCALL 	SSD1306_Write_Data ; передача байта по I2C
+0001bc 954a                      	DEC		Flag ; Flag--
+0001bd f7e9                      	BRNE	loop_2_SSD1306_Clear
+                                 	
+0001be 914f                      	pop		R20 ; Flag
+0001bf 912f                      	pop		R18 ; I2C_Payload
+0001c0 9508                      ret
+                                 
+                                 ; Подпрограмма передачи команд
+                                 SSD1306_Write_Command: ; в регистре R18 ожидается байт данных (payload)
+0001c1 930f                      	push	R16 ; Data
+0001c2 decb                      	RCALL 	I2C_Start
+0001c3 e708                      	LDI		R16, I2C_Address_Write
+0001c4 ded4                      	RCALL 	I2C_Send
+0001c5 e000                      	LDI		R16, OLED_COMMAND_MODE ; send command
+0001c6 ded2                      	RCALL 	I2C_Send
+0001c7 2f02                      	MOV		R16, R18 ; R18 - payload
+0001c8 ded0                      	RCALL 	I2C_Send
+0001c9 dec8                      	RCALL 	I2C_Stop
+0001ca 910f                      	pop		R16 ; Data
+0001cb 9508                      ret
+                                 
+                                 ; Подпрограмма передачи данных
+                                 SSD1306_Write_Data: ; в регистре R18 ожидается байт данных (payload)
+0001cc 930f                      	push	R16 ; Data
+0001cd dec0                      	RCALL 	I2C_Start
+0001ce e708                      	LDI		R16, I2C_Address_Write
+0001cf dec9                      	RCALL 	I2C_Send
+0001d0 e400                      	LDI		R16, OLED_DATA_MODE ; send data
+0001d1 dec7                      	RCALL 	I2C_Send
+0001d2 2f02                      	MOV		R16, R18 ; R18 - payload
+0001d3 dec5                      	RCALL 	I2C_Send
+0001d4 debd                      	RCALL 	I2C_Stop
+0001d5 910f                      	pop		R16 ; Data
+0001d6 9508                      ret
+                                 ;=============================================================
+                                 
+                                 
+                                 #endif  /* _SSD1306_ASM_ */
+                                 
+                                 
+                                 
+                                 ;=================================================
+                                 ; ���������� �� ������, ��������� ������������� 
+                                 RESET:	
+                                 	
+                                 ;==============================================================
+                                 	; -- ������������� USART --	
+0001d7 e0ec                      	LDI 	ZL, LOW(UBRR)
+0001d8 e0f0                      	LDI 	ZH, HIGH(UBRR)
+0001d9 de83                      	RCALL 	USART_Init 
+                                 
+                                 	; ����� � ���� �����������
+0001da df0a                      	RCALL 	Hello_W
+                                 	
+                                 	; ������������� I2C
+0001db de9e                      	RCALL 	I2C_Init 
+                                 
+                                 	; -- ����� I2C ��������� --	
+0001dc dedc                      	RCALL 	I2C_Scan
+                                 		
+                                 	; ������������� SSD1306
+0001dd df87                      	RCALL 	SSD1306_Init
+                                 
+                                 	; ������� ������
+0001de dfd0                      	RCALL	SSD1306_Clear
+                                 	
+0001df de43                      	RCALL 	Delay_500ms
+                                 
+                                 	; ����� ������ �� �����
+0001e0 ef0f                      	LDI 	R16, 0xff
+0001e1 dfbb                      	RCALL 	SSD1306_Send_Data
+                                 
+0001e2 de2d                      	RCALL 	Delay_1000ms
+                                 
+                                 	; ������� ������
+0001e3 dfcb                      	RCALL	SSD1306_Clear
+                                 	
+0001e4 de3e                      	RCALL 	Delay_500ms
+                                 
+                                 	; ����� ������ �� �����
+0001e5 e505                      	LDI 	R16, 0x55
+0001e6 dfb6                      	RCALL 	SSD1306_Send_Data
+                                 
+                                 	; -- ������������� ��� 5 ����� A �� ����� -- 
+0001e7 9a0d                      	SBI 	DDRA, 5 ;
+                                 
+                                 ;=================================================
+                                 ; �������� ��������� (����)
+                                 Start:	
+0001e8 9a15                      	SBI 	PORTA, 5 ;
+0001e9 de39                      	RCALL 	Delay_500ms
+0001ea 9815                      	CBI 	PORTA, 5 ;
+0001eb de37                      	RCALL 	Delay_500ms
+                                 
+0001ec cffb                      	RJMP Start ; ������� � ����� Start, ��������� ��� � ����� 
+                                 ;=================================================
+                                 
+                                 
+
+
+RESOURCE USE INFORMATION
+------------------------
+
+Notice:
+The register and instruction counts are symbol table hit counts,
+and hence implicitly used resources are not counted, eg, the
+'lpm' instruction without operands implicitly uses r0 and z,
+none of which are counted.
+
+x,y,z are separate entities in the symbol table and are
+counted separately from r26..r31 here.
+
+.dseg memory usage only counts static data declared with .byte
+
+"ATtiny104" register use summary:
+x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
+r13:   0 r14:   0 r15:   0 r16: 113 r17:  49 r18:  63 r19:  28 r20:  16 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   2 r31:   2 
+Registers used: 8 out of 35 (22.9%)
+
+"ATtiny104" instruction use summary:
+.lds.l:   0 .sts.l:   0 adc   :   0 add   :   0 and   :   0 andi  :   1 
+asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 brcc  :   6 
+brcs  :   2 break :   0 breq  :   3 brge  :   0 brhc  :   0 brhs  :   0 
+brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 brne  :   5 
+brpl  :   0 brsh  :   1 brtc  :   0 brts  :   0 brvc  :   0 brvs  :   0 
+bset  :   0 bst   :   0 cbi   :   7 cbr   :   0 clc   :   2 clh   :   0 
+cli   :   5 cln   :   0 clr   :   3 cls   :   0 clt   :   0 clv   :   0 
+clz   :   0 com   :   0 cp    :   1 cpc   :   0 cpi   :   4 cpse  :   0 
+dec   :   6 eor   :   0 icall :   0 ijmp  :   0 in    :   9 inc   :   1 
+ld    :   0 ldd   :   0 ldi   : 124 lds   :   0 lpm   :   1 lsl   :   1 
+lsr   :   0 mov   :   5 neg   :   0 nop   :   0 or    :   0 ori   :   0 
+out   :  19 pop   :  38 push  :  38 rcall : 135 ret   :  25 reti  :   0 
+rjmp  :  12 rol   :   2 ror   :   0 sbc   :   0 sbci  :   8 sbi   :   8 
+sbic  :   0 sbis  :   0 sbr   :   0 sbrc  :   0 sbrs  :   2 sec   :   0 
+seh   :   0 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 
+sev   :   0 sez   :   0 sleep :   0 st    :   0 std   :   0 sts   :   0 
+sub   :   0 subi  :   4 swap  :   0 tst   :   0 wdr   :   0 
+Instructions used: 30 out of 101 (29.7%)
+
+"ATtiny104" memory use summary [bytes]:
+Segment   Begin    End      Code   Data   Used    Size   Use%
+---------------------------------------------------------------
+[.cseg] 0x000000 0x0003da    956     30    986    1024  96.3%
+[.dseg] 0x000040 0x000060      0      0      0      32   0.0%
+[.eseg] 0x000000 0x000000      0      0      0 9999999   0.0%
+
+Assembly complete, 0 errors, 0 warnings
