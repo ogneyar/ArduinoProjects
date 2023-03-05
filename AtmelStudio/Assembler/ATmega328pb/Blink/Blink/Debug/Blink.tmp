@@ -1,0 +1,27 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328PB"</DEVICE>
+ <WORKING_DIR>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATmega328pb\Blink\Blink\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>E:/Program\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>E:\Program\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATmega328pb\Blink\Blink\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>E:/Program\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATmega328pb\Blink\Blink\Debug\Blink.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Blink.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Blink.map</FILE>
+  <FILE>Blink.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <start><FILE>E:\VSCode\ArduinoProjects\AtmelStudio\Assembler\ATmega328pb\Blink\Blink\main.asm</FILE><LINE>10</LINE></start>
+ </LABELS>
+</ASSEMBLER_INFO>

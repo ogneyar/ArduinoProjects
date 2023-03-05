@@ -2,8 +2,9 @@
 # PROGRAMMER	:= avrisp -P com6
 PROGRAMMER	:= usbasp
 
-# TARGET_MCU	:= atmega8
-TARGET_MCU	:= attiny13
+TARGET_MCU	:= atmega8
+# TARGET_MCU	:= attiny13
+# TARGET_MCU	:= m328pb -B 125kHz
 TARGET_FCPU	:= 16000000
 
 OUTPUT_NAME	:= AVR_makefile
@@ -35,5 +36,6 @@ upload: $(HEX)
 	@echo Program $(TARGET_MCU)
 	@avrdude -p $(TARGET_MCU) -c $(PROGRAMMER) -b 19200 -U flash:w:$(HEX):a
 	
-	
+#avrdude.exe -p m328pb -B 125kHz -c usbasp -P usb -U calibration:r:calibration.hex:r
+#avrdude.exe -p m328pb -B 125kHz -c usbasp -P usb -U flash:w:firmware_1_3.hex:a
 
