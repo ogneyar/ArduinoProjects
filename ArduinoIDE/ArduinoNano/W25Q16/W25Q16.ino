@@ -39,7 +39,7 @@ void setup() {
   //put the flash in lowest power state
   flash.powerDown(); 
   
-  delay(500);
+  delay(2000);
 }
 
 void loop() {
