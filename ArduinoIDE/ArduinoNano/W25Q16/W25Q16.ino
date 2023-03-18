@@ -22,6 +22,7 @@ unsigned int endPageAddress = 0;
 byte data = 255;
 
 void setup() {
+  // PORTB |= (1 << PB4);  
   Serial.begin(9600);
   
   //initialize the pcf2127
@@ -37,6 +38,8 @@ void setup() {
   Serial.println(manID,HEX);
   //put the flash in lowest power state
   flash.powerDown(); 
+  
+  delay(500);
 }
 
 void loop() {
