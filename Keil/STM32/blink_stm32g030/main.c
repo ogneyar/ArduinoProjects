@@ -3,7 +3,7 @@
 
 // all functions
 void GPIO_Init(void);
-void delay(uint16_t inter);
+void delay(uint16_t inter = 100);
 //void delay(uint32_t dly);
 
 

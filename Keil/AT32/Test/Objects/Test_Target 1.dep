@@ -1,0 +1,118 @@
+Dependencies for Project 'Test', Target 'Target 1': (DO NOT MODIFY !)
+CompilerVersion: 6180000::V6.18::ARMCLANG
+F (.\main.c)(0x640D7FD0)(-xc -std=gnu99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/-AT32F403ACGU7-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Firmware/Peripherals/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F403ACGU7 -D_RTE_-o ./objects/main.o -MD)
+F (RTE/Device/-AT32F403ACGU7/at32f403a_407_conf.h)(0x6246DA26)()
+F (RTE/Device/-AT32F403ACGU7/at32f403a_407_crm.c)(0x6246DA82)(-xc -std=gnu99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/-AT32F403ACGU7-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Firmware/Peripherals/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F403ACGU7 -D_RTE_-o ./objects/at32f403a_407_crm.o -MD)
+I (RTE\Device\-AT32F403ACGU7\at32f403a_407_conf.h)(0x6246DA26)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_crm.h)(0x6246DA46)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\at32f403a_407.h)(0x6246DA24)
+I (RTE\_Target_1\RTE_Components.h)(0x640D7F23)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\system_at32f403a_407.h)(0x6246DA2E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_def.h)(0x6246DA4E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\at32f403a_407_conf.h)(0x6246DA26)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_tmr.h)(0x6246DA68)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_rtc.h)(0x6246DA62)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_bpr.h)(0x6246DA40)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_gpio.h)(0x6246DA58)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_i2c.h)(0x6246DA5A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_usart.h)(0x6246DA6A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_pwc.h)(0x6246DA60)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_can.h)(0x6246DA42)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_adc.h)(0x6246DA3E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_dac.h)(0x6246DA48)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_spi.h)(0x6246DA66)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_dma.h)(0x6246DA50)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_debug.h)(0x6246DA4A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_flash.h)(0x6246DA56)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_crc.h)(0x6246DA44)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_wwdt.h)(0x6246DA72)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_wdt.h)(0x6246DA70)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_exint.h)(0x6246DA54)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_sdio.h)(0x6246DA64)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_xmc.h)(0x6246DA74)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_acc.h)(0x6246DA3C)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_misc.h)(0x6246DA5E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_usb.h)(0x6246DA6C)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_emac.h)(0x6246DA52)
+F (RTE/Device/-AT32F403ACGU7/at32f403a_407_misc.c)(0x6246DA96)(-xc -std=gnu99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/-AT32F403ACGU7-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Firmware/Peripherals/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F403ACGU7 -D_RTE_-o ./objects/at32f403a_407_misc.o -MD)
+I (RTE\Device\-AT32F403ACGU7\at32f403a_407_conf.h)(0x6246DA26)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_crm.h)(0x6246DA46)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\at32f403a_407.h)(0x6246DA24)
+I (RTE\_Target_1\RTE_Components.h)(0x640D7F23)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\system_at32f403a_407.h)(0x6246DA2E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_def.h)(0x6246DA4E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\at32f403a_407_conf.h)(0x6246DA26)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_tmr.h)(0x6246DA68)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_rtc.h)(0x6246DA62)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_bpr.h)(0x6246DA40)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_gpio.h)(0x6246DA58)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_i2c.h)(0x6246DA5A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_usart.h)(0x6246DA6A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_pwc.h)(0x6246DA60)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_can.h)(0x6246DA42)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_adc.h)(0x6246DA3E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_dac.h)(0x6246DA48)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_spi.h)(0x6246DA66)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_dma.h)(0x6246DA50)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_debug.h)(0x6246DA4A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_flash.h)(0x6246DA56)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_crc.h)(0x6246DA44)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_wwdt.h)(0x6246DA72)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_wdt.h)(0x6246DA70)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_exint.h)(0x6246DA54)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_sdio.h)(0x6246DA64)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_xmc.h)(0x6246DA74)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_acc.h)(0x6246DA3C)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_misc.h)(0x6246DA5E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_usb.h)(0x6246DA6C)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_emac.h)(0x6246DA52)
+F (RTE/Device/-AT32F403ACGU7/startup_at32f403a_407.s)(0x6246EF8E)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto -c-gdwarf-4 -Wa,armasm,--pd,"__EVAL SETA 1"-I./RTE/Device/-AT32F403ACGU7-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Firmware/Peripherals/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 538" -Wa,armasm,--pd,"_RTE_ SETA 1" -Wa,armasm,--pd,"AT32F403ACGU7 SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o ./objects/startup_at32f403a_407.o)
+F (RTE/Device/-AT32F403ACGU7/system_at32f403a_407.c)(0x6246DA2C)(-xc -std=gnu99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/-AT32F403ACGU7-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Firmware/Peripherals/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/ArteryTek/AT32F403A_407_DFP/2.0.8/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F403ACGU7 -D_RTE_-o ./objects/system_at32f403a_407.o -MD)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\at32f403a_407.h)(0x6246DA24)
+I (RTE\_Target_1\RTE_Components.h)(0x640D7F23)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626F912E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\system_at32f403a_407.h)(0x6246DA2E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_def.h)(0x6246DA4E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Include\at32f403a_407_conf.h)(0x6246DA26)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_crm.h)(0x6246DA46)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_tmr.h)(0x6246DA68)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_rtc.h)(0x6246DA62)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_bpr.h)(0x6246DA40)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_gpio.h)(0x6246DA58)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_i2c.h)(0x6246DA5A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_usart.h)(0x6246DA6A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_pwc.h)(0x6246DA60)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_can.h)(0x6246DA42)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_adc.h)(0x6246DA3E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_dac.h)(0x6246DA48)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_spi.h)(0x6246DA66)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_dma.h)(0x6246DA50)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_debug.h)(0x6246DA4A)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_flash.h)(0x6246DA56)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_crc.h)(0x6246DA44)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_wwdt.h)(0x6246DA72)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_wdt.h)(0x6246DA70)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_exint.h)(0x6246DA54)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_sdio.h)(0x6246DA64)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_xmc.h)(0x6246DA74)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_acc.h)(0x6246DA3C)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_misc.h)(0x6246DA5E)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_usb.h)(0x6246DA6C)
+I (C:\Users\ogney\AppData\Local\Arm\Packs\ArteryTek\AT32F403A_407_DFP\2.0.8\Device\Firmware\Peripherals\inc\at32f403a_407_emac.h)(0x6246DA52)
