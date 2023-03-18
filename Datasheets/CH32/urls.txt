@@ -1,0 +1,12 @@
+
+【CH32V003F4P6-EVT-R0】
+CH32V003 Datasheet: CH32V003DS0.PDF http://www.wch-ic.com/downloads/CH32V003DS0_PDF.html
+CH32V003 Reference Manual: CH32V003RM.PDF http://www.wch-ic.com/downloads/CH32V003RM_PDF.html
+CH32V003 Official Routines: CH32V003EVT.ZIP https://www.wch.cn/downloads/CH32V003EVT_ZIP.html
+
+【CH32V203C8T6-EVT-R0】
+CH32V203 Datasheet: CH32V20x_30xDS0.PDF http://www.wch-ic.com/downloads/CH32V20x_30xDS0_PDF.html
+CH32V203 Reference Manual: CH32FV2x_V3xRM.PDF http://www.wch-ic.com/downloads/CH32FV2x_V3xRM_PDF.html
+CH32V203 Official Routines: CH32V20xEVT.ZIP https://www.wch.cn/downloads/CH32V20xEVT_ZIP.html
+
+WCH-Link usage instructions: http://www.wch-ic.com/products/WCH‐Link.html
