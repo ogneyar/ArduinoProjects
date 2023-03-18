@@ -9,7 +9,7 @@
 #include <ESP8266HTTPUpdateServer.h>
 
 #ifndef STASSID
-#define STASSID "Redmi9T"
+#define STASSID "RedMi9T"
 #define STAPSK  "11111111"
 #endif
 
@@ -40,6 +40,10 @@ void setup(void) {
 
   httpUpdater.setup(&httpServer);
   httpServer.begin();
+  
+  httpServer.on("/", [](){
+    httpServer.send(200, "text/html", webPage());
+  });
 
   MDNS.addService("http", "tcp", 80);
   
@@ -58,7 +62,38 @@ void loop(void) {
   MDNS.update();
   
   digitalWrite(LED1, HIGH);
-  delay(1000);
+  delay(500);
   digitalWrite(LED1, LOW);
-  delay(50);
+  delay(500);
 }
+
+// ---------------- функция формирования страницы --------------------------------------
+String webPage()
+{
+  String web = "<html>"
+    "<head>"
+      "<meta name='viewport' content='width=device-width, initial-scale=1'>"
+      "<meta charset='utf-8'>"
+      "<title>титл</title>"
+      "<style>button{color:black;padding:10px 27px;}</style>"
+    "</head>"
+    "<body style='text-align:center;width:100%;'>"
+      "<h1 style='text-align:center;font-family:Open sans;font-weight:700;font-size:20px;margin:0 auto;'>Добро пожаловать!</h1>"
+      "<br/>"
+      "<div style='text-align:center;width:100%;'>"
+        "<div style='text-align:center;width:98px;color:white;padding:10px 30px;background-color:#ec1212;margin:0 20px;'>"
+          "<div style='text-align:center;margin:5px 0px;'>"
+            "<a href='update'>"
+              "<button>Обновить прошивку</button>"
+            "</a>"
+          "</div>"
+        "</div>"
+      "</div>"        
+//      "<br/>"
+    "</body>"
+  "</html>";
+
+  return(web);
+}
+//------------------------------------------------------------------------------------------
+

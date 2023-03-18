@@ -1,19 +1,22 @@
 
-# PROGRAMMER	:= avrisp -P com6
-PROGRAMMER	:= usbasp
+# PROGRAMMER	:= usbasp
+# TARGET_MCU	:= atmega8
+# BAUD 			:= 19200
+# PORT			:= usb
 
-TARGET_MCU	:= atmega8
-# TARGET_MCU	:= attiny13
-# TARGET_MCU	:= m328pb -B 125kHz
-TARGET_FCPU	:= 16000000
+PROGRAMMER		:= arduino
+TARGET_MCU		:= atmega328p
+BAUD 			:= 115200
+PORT			:= com8
 
-OUTPUT_NAME	:= AVR_makefile
-HEX_NAME	:= firmware_1_3
-ELF			:= $(OUTPUT_NAME).elf
-HEX			:= $(HEX_NAME).hex
+TARGET_FCPU		:= 16000000
 
-GXX_TARGET	:= -mmcu=$(TARGET_MCU) -DF_CPU=$(TARGET_FCPU)UL
-GXX_FLAGS	:= -Wall -g2 -gstabs -O1 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -c
+NAME			:= Blink
+ELF				:= $(NAME).elf
+HEX				:= $(NAME).hex
+
+GXX_TARGET		:= -mmcu=$(TARGET_MCU) -DF_CPU=$(TARGET_FCPU)UL
+GXX_FLAGS		:= -Wall -g2 -gstabs -O1 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -c
 
 all: upload
 	@avr-size --format=berkeley $(ELF)
@@ -34,8 +37,9 @@ $(HEX): $(ELF)
 	
 upload: $(HEX)
 	@echo Program $(TARGET_MCU)
-	@avrdude -p $(TARGET_MCU) -c $(PROGRAMMER) -b 19200 -U flash:w:$(HEX):a
+	@avrdude -p $(TARGET_MCU) -c $(PROGRAMMER) -b $(BAUD) -P $(PORT) -U flash:w:$(HEX):a
 	
-#avrdude.exe -p m328pb -B 125kHz -c usbasp -P usb -U calibration:r:calibration.hex:r
-#avrdude.exe -p m328pb -B 125kHz -c usbasp -P usb -U flash:w:firmware_1_3.hex:a
+	
+	
+	
 

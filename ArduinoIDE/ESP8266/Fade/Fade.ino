@@ -1,7 +1,7 @@
 
 // Wemos D1 mini
 
-int led = 4;           // 
+int led = 2;           // 
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
 
