@@ -1,6 +1,8 @@
 
 // Nano, LGT8F328, ProMini
 
+// #include <avr/delay>
+
 //byte LED1 = 13; // PB5
   
 void setup() {
@@ -15,7 +17,7 @@ void loop() {
 //  delay(500);
 
   // PORTB ^= (1 << 5);
-  // _delay_us(100000);
+  // _delay_ms(100);
   
   PORTB |= (1 << 5);
   _delay_us(100000);

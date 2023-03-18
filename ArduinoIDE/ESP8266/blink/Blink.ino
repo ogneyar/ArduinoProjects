@@ -14,7 +14,7 @@ void setup() {
 void loop() {
   Serial.println("go");
   digitalWrite(LED1, HIGH);
-  delay(500);
+  delay(1000);
   digitalWrite(LED1, LOW);
-  delay(500);
+  delay(1000);
 }
