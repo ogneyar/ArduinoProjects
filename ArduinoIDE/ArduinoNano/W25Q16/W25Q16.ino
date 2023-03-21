@@ -3,7 +3,7 @@
 /*W25Q16 Connections:
  pin 1 to Arduino pin 10 or Atmega328 pin 15 (Chip Select)
  pin 2 to Arduino pin 12 or Atmega328 pin 18 (Master In Slave Out)
- pin 3 to 3.3V (Vdd)
+ pin 3 to GND
  pin 4 to GND (Vss)
  pin 5 to Arduino pin 11 or Atmega328 pin 17 (Slave in Master Out)
  pin 6 to Arduino pin 13 or Atmega328 pin 19 (Clock)
@@ -24,6 +24,7 @@ byte data = 255;
 void setup() {
   // PORTB |= (1 << PB4);  
   Serial.begin(9600);
+  Serial.println("Start");
   
   //initialize the pcf2127
   flash.init(10); 
@@ -50,7 +51,7 @@ void loop() {
   while(i<3) {
     // flash.write(endPage,(byte)endPageAddress,(byte)random(256));
     // flash.write(endPage,(byte)endPageAddress,(byte)dataMinus());
-    flash.write(endPage,(byte)endPageAddress,0xaa);
+    flash.write(endPage,(byte)endPageAddress,0x00);
     
     //increment the page address
     endPageAddress++; 
