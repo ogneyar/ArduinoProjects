@@ -1,5 +1,5 @@
 
-// Mega
+// Mega, Uno
 
 // the regular Adafruit "TouchScreen.h" library only works on AVRs
 

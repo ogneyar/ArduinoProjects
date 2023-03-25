@@ -1,0 +1,43 @@
+; всем всё разрешить
+chmod ugo+rwx file.name
+
+; всем всё запретить
+chmod ugo-rwx file.name
+
+; user'ам всё разрешить
+chmod u+rwx file.name
+; user'ам разрешить чтение
+chmod u+r file.name
+; user'ам разрешить запись
+chmod u+w file.name
+; user'ам разрешить исполнение
+chmod u+x file.name
+
+; group'ам всё разрешить
+chmod g+rwx file.name
+; group'ам разрешить чтение
+chmod g+r file.name
+; group'ам разрешить запись
+chmod g+w file.name
+; group'ам разрешить исполнение
+chmod g+x file.name
+
+; others'ам всё разрешить
+chmod o+rwx file.name
+; others'ам разрешить чтение
+chmod o+r file.name
+; others'ам разрешить запись
+chmod o+w file.name
+; others'ам разрешить исполнение
+chmod o+x file.name
+
+; user'ам всё запретить
+chmod u-rwx file.name
+; group'ам всё запретить
+chmod g-rwx file.name
+; others'ам всё запретить
+chmod o-rwx file.name
+
+; и так далее
+
+

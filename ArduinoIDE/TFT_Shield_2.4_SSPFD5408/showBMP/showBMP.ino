@@ -1,5 +1,5 @@
 
-// Mega
+// Mega, Uno
 
 // Simple BMP display on Uno
 // library:      320x240x24 180x180x24 320x240x16             
