@@ -1,28 +1,10 @@
 
 // Mega, Uno
 
-// Simple BMP display on Uno
-// library:      320x240x24 180x180x24 320x240x16             
-// SDfat (SPI)       2146ms      845ms     1735ms
-// SDfat (soft)      4095ms     1730ms     3241ms
-// SD    (SPI)       3046ms     1263ms     2441ms (7)
-// SD    (AS7)      16398ms     7384ms    12491ms (7)
-//
-//Demo for TFT LCD Shield 2.8"
-//by Open-Smart Team and Catalex Team
-//catalex_inc@163.com
-//Store:   http://dx.com
-//Demo Function: Display bmp file from TF card
-//Arduino IDE: 1.6.5
-// Board: Arduino UNO R3, Arduino Mega2560
+// #define __DEBUG 1
 
 #include <SPI.h>          // f.k. for Arduino-1.5.2
-//#define USE_SDFAT
 #include <SD.h>
-//#include <SdFat.h>           // Use the SdFat library
-//SdFat SD;                    // Use hardware SPI (or UNO with SD_SPI_CONFIGURATION==2)
-//SdFatSoftSpi<12, 11, 13> SD; //Bit-Bang SD_SPI_CONFIGURATION==3
-
 #include <Adafruit_GFX.h> // Hardware-specific library
 
 #include <MCUFRIEND_kbv.h>
@@ -55,17 +37,19 @@ uint8_t         spi_save;
 
 void setup()
 {
-
+#ifdef __DEBUG
     Serial.begin(9600);
     Serial.print("Show BMP files on TFT with ID:0x");
+#endif      
+        
+    tft.begin(0x9320); // SPFD5408 can use ILI9320 driver
+    tft.fillScreen(0xf0f0);
     
-    tft.begin(0x9320);//SPFD5408 can use ILI9320 driver
-    tft.fillScreen(0x0000);
-  /*  if (tft.height() > tft.width()) tft.setRotation(1);    //LANDSCAPE
-    tft.setTextColor(0xFFFF, 0x0000);*/
     bool good = SD.begin(SD_CS);
     if (!good) {
+#ifdef __DEBUG
         Serial.print(F("cannot start SD"));
+#endif      
         return;
     }
  }
@@ -76,39 +60,22 @@ void setup()
    tft.setRotation(4); // 1 - горизонт, 2 - обзор слева, 3 - кверх ногами, 4 - обзор справа
 
    bmpDraw("01.bmp", 0, 0);//
-   delay(1000);
-   tft.fillScreen(0);
+   delay(3000);
+  //  tft.fillScreen(0);
   
-   bmpDraw("02.bmp", 0, 0);//show a beautiful girl photo in the folder \libraries\OPENSMART_TFT\bitmaps
-   delay(1000);
-   tft.fillScreen(0);
+   bmpDraw("02.bmp", 0, 0);
+   delay(3000);
+  //  tft.fillScreen(0);
    
-   bmpDraw("03.bmp", 0, 0);//show a beautiful girl photo in the folder \libraries\OPENSMART_TFT\bitmaps
-   delay(1000);
-   tft.fillScreen(0);
-
-/*  for(int i = 0; i<4; i++) {
-   	tft.fillScreen(0);
-	 tft.setRotation(i);
-	 
-	 for(int j=0; j <= 200; j += 50) {
-	   bmpDraw("miniwoof.bmp", j, j);
-	 }
-	 delay(1000);
-   }*/
+   bmpDraw("03.bmp", 0, 0);
+   delay(3000);
+  //  tft.fillScreen(0);
  }
  
- // This function opens a Windows Bitmap (BMP) file and
- // displays it at the given coordinates.  It's sped up
- // by reading many pixels worth of data at a time
- // (rather than pixel by pixel).  Increasing the buffer
- // size takes more of the Arduino's precious RAM but
- // makes loading a little faster.	20 pixels seems a
- // good balance.
  
 #define BUFFPIXEL 20
  
- void bmpDraw(char *filename, int x, int y) {
+void bmpDraw(char *filename, int x, int y) {
    File 	bmpFile;
    int		bmpWidth, bmpHeight;   // W+H in pixels
    uint8_t	bmpDepth;			   // Bit depth (currently must be 24)
@@ -126,38 +93,54 @@ void setup()
    boolean	first = true;
  
    if((x >= tft.width()) || (y >= tft.height())) return;
- 
+
+#ifdef __DEBUG
    Serial.println();
    Serial.print("Loading image '");
    Serial.print(filename);
    Serial.println('\'');
+#endif
    // Open requested file on SD card
    SPCR = spi_save;
    if ((bmpFile = SD.open(filename)) == NULL) {
+#ifdef __DEBUG
 	 Serial.print("File not found");
+#endif
 	 return;
    }
  
    // Parse BMP header
    if(read16(bmpFile) == 0x4D42) { // BMP signature
+#ifdef __DEBUG
 	 Serial.print(F("File size: ")); Serial.println(read32(bmpFile));
+#else
+    (void)read32(bmpFile);
+#endif
 	 (void)read32(bmpFile); // Read & ignore creator bytes
 	 bmpImageoffset = read32(bmpFile); // Start of image data
+#ifdef __DEBUG
 	 Serial.print(F("Image Offset: ")); Serial.println(bmpImageoffset, DEC);
 	 // Read DIB header
 	 Serial.print(F("Header size: ")); Serial.println(read32(bmpFile));
+#else
+    (void)read32(bmpFile);
+#endif
 	 bmpWidth  = read32(bmpFile);
 	 bmpHeight = read32(bmpFile);
 	 if(read16(bmpFile) == 1) { // # planes -- must be '1'
 	   bmpDepth = read16(bmpFile); // bits per pixel
+#ifdef __DEBUG
 	   Serial.print(F("Bit Depth: ")); Serial.println(bmpDepth);
+#endif
 	   if((bmpDepth == 24) && (read32(bmpFile) == 0)) { // 0 = uncompressed
  
 		 goodBmp = true; // Supported BMP format -- proceed!
+#ifdef __DEBUG
 		 Serial.print(F("Image size: "));
 		 Serial.print(bmpWidth);
 		 Serial.print('x');
 		 Serial.println(bmpHeight);
+#endif
  
 		 // BMP rows are padded (if needed) to 4-byte boundary
 		 rowSize = (bmpWidth * 3 + 3) & ~3;
@@ -222,16 +205,20 @@ void setup()
 		 if(lcdidx > 0) {
 		   SPCR = 0;
 		   tft.pushColors(lcdbuffer, lcdidx, first);
-		 } 
+		 }
+#ifdef __DEBUG
 		 Serial.print(F("Loaded in "));
 		 Serial.print(millis() - startTime);
 		 Serial.println(" ms");
+#endif
 	   } // end goodBmp
 	 }
    }
  
    bmpFile.close();
+#ifdef __DEBUG
    if(!goodBmp) Serial.println("BMP format not recognized.");
+#endif
  }
  
  // These read 16- and 32-bit types from the SD card file.
