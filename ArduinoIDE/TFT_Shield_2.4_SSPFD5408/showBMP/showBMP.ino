@@ -1,7 +1,7 @@
 
 // Mega, Uno
 
-// #define __DEBUG 1
+#define __DEBUG 1
 
 #include <SPI.h>          // f.k. for Arduino-1.5.2
 #include <SD.h>

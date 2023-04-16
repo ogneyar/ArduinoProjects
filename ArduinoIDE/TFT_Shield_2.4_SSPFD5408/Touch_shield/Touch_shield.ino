@@ -38,10 +38,10 @@ MCUFRIEND_kbv tft;       // hard-wired for UNO shields anyway.
 // DB6                -- 6
 // DB7                -- 7
 // most mcufriend shields use these pins and Portrait mode:
-uint8_t YP = A1;  // must be an analog pin, use "An" notation!
-uint8_t XM = A2;  // must be an analog pin, use "An" notation!
-uint8_t YM = 7;   // can be a digital pin
-uint8_t XP = 6;   // can be a digital pin
+uint8_t YP = A1;  // must be an analog pin, use "An" notation! (WR)
+uint8_t XM = A2;  // must be an analog pin, use "An" notation! (RS)
+uint8_t YM = 7;   // can be a digital pin (D7)
+uint8_t XP = 6;   // can be a digital pin (D6)
 uint8_t SwapXY = 0;
 
 uint16_t TS_LEFT = 940;

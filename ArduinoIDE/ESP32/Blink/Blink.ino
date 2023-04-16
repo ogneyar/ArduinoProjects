@@ -6,7 +6,7 @@
 // ESP32_Lite(ESP32_Dev_Module) (LED_BUILTIN 8)
 
 #ifndef LED_BUILTIN
-#define LED_BUILTIN 8
+#define LED_BUILTIN 15
 #endif
 
 void setup() {
