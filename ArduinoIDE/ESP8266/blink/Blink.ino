@@ -3,7 +3,7 @@
 // NodeMCU
 // Generic ESP8266 Module (модуль ESP12-F или ESP01)
 
-byte LED1 = 2; // у ESP01 LED на Tx
+byte LED1 = 2; // у ESP01 LED на Tx (1)
   
 void setup() {
   Serial.begin(115200);
