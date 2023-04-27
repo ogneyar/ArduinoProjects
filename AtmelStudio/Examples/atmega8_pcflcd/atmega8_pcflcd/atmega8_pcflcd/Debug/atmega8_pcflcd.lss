@@ -1,0 +1,715 @@
+
+atmega8_pcflcd.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000310  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000028  00800060  00000310  000003a4  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000001  00800088  00800088  000003cc  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000003cc  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000003fc  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000e0  00000000  00000000  00000438  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000010c7  00000000  00000000  00000518  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000008c7  00000000  00000000  000015df  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000771  00000000  00000000  00001ea6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000001bc  00000000  00000000  00002618  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003e9  00000000  00000000  000027d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000805  00000000  00000000  00002bbd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000a0  00000000  00000000  000033c2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e0 e1       	ldi	r30, 0x10	; 16
+  3a:	f3 e0       	ldi	r31, 0x03	; 3
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	a8 38       	cpi	r26, 0x88	; 136
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	a8 e8       	ldi	r26, 0x88	; 136
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a9 38       	cpi	r26, 0x89	; 137
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	12 d1       	rcall	.+548    	; 0x27e <main>
+  5a:	58 c1       	rjmp	.+688    	; 0x30c <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <i2c_wait>:
+	TWBR=32;
+}
+
+//ожидание завершени€ задани€
+void i2c_wait(void){
+	while (!(TWCR & (1<<TWINT)));
+  5e:	06 b6       	in	r0, 0x36	; 54
+  60:	07 fe       	sbrs	r0, 7
+  62:	fd cf       	rjmp	.-6      	; 0x5e <i2c_wait>
+}
+  64:	08 95       	ret
+
+00000066 <i2c_start>:
+
+// условие старт
+void i2c_start(void) {
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+  66:	84 ea       	ldi	r24, 0xA4	; 164
+  68:	86 bf       	out	0x36, r24	; 54
+	i2c_wait();
+  6a:	f9 df       	rcall	.-14     	; 0x5e <i2c_wait>
+  6c:	08 95       	ret
+
+0000006e <i2c_stop>:
+}
+
+// условие стоп
+void i2c_stop(void) {
+	TWCR = (1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
+  6e:	84 e9       	ldi	r24, 0x94	; 148
+  70:	86 bf       	out	0x36, r24	; 54
+  72:	08 95       	ret
+
+00000074 <i2c_write>:
+}
+
+// запись байта
+void i2c_write(uint8_t byte) {
+	TWDR = byte;
+  74:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT)|(1<<TWEN);
+  76:	84 e8       	ldi	r24, 0x84	; 132
+  78:	86 bf       	out	0x36, r24	; 54
+	i2c_wait();
+  7a:	f1 df       	rcall	.-30     	; 0x5e <i2c_wait>
+  7c:	08 95       	ret
+
+0000007e <write>:
+#include "lcd.h"
+
+#define E		2
+#define RS		0
+
+void write(uint8_t n){
+  7e:	cf 93       	push	r28
+  80:	c8 2f       	mov	r28, r24
+	n|=(1<<E);
+	pcf_write(n);
+  82:	84 60       	ori	r24, 0x04	; 4
+  84:	10 d1       	rcall	.+544    	; 0x2a6 <pcf_write>
+	n&=~(1<<E);
+	pcf_write(n);
+  86:	8c 2f       	mov	r24, r28
+  88:	8b 7f       	andi	r24, 0xFB	; 251
+  8a:	0d d1       	rcall	.+538    	; 0x2a6 <pcf_write>
+}
+  8c:	cf 91       	pop	r28
+  8e:	08 95       	ret
+
+00000090 <send_byte>:
+
+
+void send_byte(uint8_t byte, uint8_t tip){
+  90:	cf 93       	push	r28
+  92:	df 93       	push	r29
+  94:	c8 2f       	mov	r28, r24
+	uint8_t data=0;
+	if(tip) data|=(1<<RS); // если тип данные - на линии RS 1
+	
+	write(data|(byte&0xF0));// передача старшего полубайта
+  96:	d1 e0       	ldi	r29, 0x01	; 1
+  98:	61 11       	cpse	r22, r1
+  9a:	01 c0       	rjmp	.+2      	; 0x9e <send_byte+0xe>
+  9c:	d0 e0       	ldi	r29, 0x00	; 0
+  9e:	8c 2f       	mov	r24, r28
+  a0:	80 7f       	andi	r24, 0xF0	; 240
+  a2:	8d 2b       	or	r24, r29
+  a4:	ec df       	rcall	.-40     	; 0x7e <write>
+	write(data|(byte<<4));// передача младшего полубайта
+  a6:	20 e1       	ldi	r18, 0x10	; 16
+  a8:	c2 9f       	mul	r28, r18
+  aa:	c0 01       	movw	r24, r0
+  ac:	11 24       	eor	r1, r1
+  ae:	8d 2b       	or	r24, r29
+  b0:	e6 df       	rcall	.-52     	; 0x7e <write>
+}
+  b2:	df 91       	pop	r29
+  b4:	cf 91       	pop	r28
+  b6:	08 95       	ret
+
+000000b8 <lcd_str>:
+	// -----------маска всЄ----------------------------------------------
+}
+
+
+// вывод строки на индикацию
+void lcd_str(char* str){
+  b8:	0f 93       	push	r16
+  ba:	1f 93       	push	r17
+  bc:	cf 93       	push	r28
+  be:	fc 01       	movw	r30, r24
+	uint8_t n=0;// счетчик 
+	while(str[n])// пока н-ный символ не 0 работает цикл
+  c0:	80 81       	ld	r24, Z
+  c2:	88 23       	and	r24, r24
+  c4:	59 f0       	breq	.+22     	; 0xdc <lcd_str+0x24>
+  c6:	8f 01       	movw	r16, r30
+  c8:	c0 e0       	ldi	r28, 0x00	; 0
+	{
+		send_byte(str[n],1);// выводим н-ный символна индикацию
+  ca:	61 e0       	ldi	r22, 0x01	; 1
+  cc:	e1 df       	rcall	.-62     	; 0x90 <send_byte>
+		n++;// мен€ем номер символа 
+  ce:	cf 5f       	subi	r28, 0xFF	; 255
+
+
+// вывод строки на индикацию
+void lcd_str(char* str){
+	uint8_t n=0;// счетчик 
+	while(str[n])// пока н-ный символ не 0 работает цикл
+  d0:	f8 01       	movw	r30, r16
+  d2:	ec 0f       	add	r30, r28
+  d4:	f1 1d       	adc	r31, r1
+  d6:	80 81       	ld	r24, Z
+  d8:	81 11       	cpse	r24, r1
+  da:	f7 cf       	rjmp	.-18     	; 0xca <lcd_str+0x12>
+	{
+		send_byte(str[n],1);// выводим н-ный символна индикацию
+		n++;// мен€ем номер символа 
+	}
+}
+  dc:	cf 91       	pop	r28
+  de:	1f 91       	pop	r17
+  e0:	0f 91       	pop	r16
+  e2:	08 95       	ret
+
+000000e4 <lcd_pos>:
+
+// смена активной €чейки видео пам€ти (позици€ курсора)
+void lcd_pos(uint8_t line, uint8_t pos){
+	uint8_t adress=(line*0x40+pos)|0x80;// вычисл€ем адрес и приводим значение в вид команды
+	send_byte(adress,0);// отправка команды
+  e4:	90 e4       	ldi	r25, 0x40	; 64
+  e6:	89 9f       	mul	r24, r25
+  e8:	60 0d       	add	r22, r0
+  ea:	11 24       	eor	r1, r1
+  ec:	86 2f       	mov	r24, r22
+  ee:	60 e0       	ldi	r22, 0x00	; 0
+  f0:	80 68       	ori	r24, 0x80	; 128
+  f2:	ce df       	rcall	.-100    	; 0x90 <send_byte>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  f4:	85 e8       	ldi	r24, 0x85	; 133
+  f6:	8a 95       	dec	r24
+  f8:	f1 f7       	brne	.-4      	; 0xf6 <lcd_pos+0x12>
+  fa:	00 00       	nop
+  fc:	08 95       	ret
+
+000000fe <mychar>:
+	write(data|(byte&0xF0));// передача старшего полубайта
+	write(data|(byte<<4));// передача младшего полубайта
+}
+
+// загрузка своих символов
+void mychar(void){
+  fe:	ef 92       	push	r14
+ 100:	ff 92       	push	r15
+ 102:	0f 93       	push	r16
+ 104:	1f 93       	push	r17
+ 106:	cf 93       	push	r28
+ 108:	df 93       	push	r29
+ 10a:	cd b7       	in	r28, 0x3d	; 61
+ 10c:	de b7       	in	r29, 0x3e	; 62
+ 10e:	60 97       	sbiw	r28, 0x10	; 16
+ 110:	0f b6       	in	r0, 0x3f	; 63
+ 112:	f8 94       	cli
+ 114:	de bf       	out	0x3e, r29	; 62
+ 116:	0f be       	out	0x3f, r0	; 63
+ 118:	cd bf       	out	0x3d, r28	; 61
+	
+	// массив с двум€ символами
+	uint8_t simvol[16]={
+ 11a:	80 e1       	ldi	r24, 0x10	; 16
+ 11c:	e0 e6       	ldi	r30, 0x60	; 96
+ 11e:	f0 e0       	ldi	r31, 0x00	; 0
+ 120:	de 01       	movw	r26, r28
+ 122:	11 96       	adiw	r26, 0x01	; 1
+ 124:	01 90       	ld	r0, Z+
+ 126:	0d 92       	st	X+, r0
+ 128:	8a 95       	dec	r24
+ 12a:	e1 f7       	brne	.-8      	; 0x124 <mychar+0x26>
+		0x04,
+		0x0A,
+		0x0A,
+		0x00
+	};
+	send_byte(64,0); // перейти в €чейку 0 CGRAM пам€ти
+ 12c:	60 e0       	ldi	r22, 0x00	; 0
+ 12e:	80 e4       	ldi	r24, 0x40	; 64
+ 130:	af df       	rcall	.-162    	; 0x90 <send_byte>
+ 132:	8e 01       	movw	r16, r28
+ 134:	0f 5f       	subi	r16, 0xFF	; 255
+ 136:	1f 4f       	sbci	r17, 0xFF	; 255
+ 138:	7e 01       	movw	r14, r28
+ 13a:	81 e1       	ldi	r24, 0x11	; 17
+ 13c:	e8 0e       	add	r14, r24
+ 13e:	f1 1c       	adc	r15, r1
+	
+	// загрузить массив с символами в пам€ть CGRAM
+	for (uint8_t i=0; i<16; i++)
+	{
+		send_byte(simvol[i], 1);
+ 140:	61 e0       	ldi	r22, 0x01	; 1
+ 142:	f8 01       	movw	r30, r16
+ 144:	81 91       	ld	r24, Z+
+ 146:	8f 01       	movw	r16, r30
+ 148:	a3 df       	rcall	.-186    	; 0x90 <send_byte>
+		0x00
+	};
+	send_byte(64,0); // перейти в €чейку 0 CGRAM пам€ти
+	
+	// загрузить массив с символами в пам€ть CGRAM
+	for (uint8_t i=0; i<16; i++)
+ 14a:	0e 15       	cp	r16, r14
+ 14c:	1f 05       	cpc	r17, r15
+ 14e:	c1 f7       	brne	.-16     	; 0x140 <mychar+0x42>
+	{
+		send_byte(simvol[i], 1);
+	}
+	
+	// перейти обратно в видео пам€ть
+	lcd_pos(0,0);
+ 150:	60 e0       	ldi	r22, 0x00	; 0
+ 152:	80 e0       	ldi	r24, 0x00	; 0
+ 154:	c7 df       	rcall	.-114    	; 0xe4 <lcd_pos>
+}
+ 156:	60 96       	adiw	r28, 0x10	; 16
+ 158:	0f b6       	in	r0, 0x3f	; 63
+ 15a:	f8 94       	cli
+ 15c:	de bf       	out	0x3e, r29	; 62
+ 15e:	0f be       	out	0x3f, r0	; 63
+ 160:	cd bf       	out	0x3d, r28	; 61
+ 162:	df 91       	pop	r29
+ 164:	cf 91       	pop	r28
+ 166:	1f 91       	pop	r17
+ 168:	0f 91       	pop	r16
+ 16a:	ff 90       	pop	r15
+ 16c:	ef 90       	pop	r14
+ 16e:	08 95       	ret
+
+00000170 <lcd_ini>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 170:	2f ef       	ldi	r18, 0xFF	; 255
+ 172:	89 ef       	ldi	r24, 0xF9	; 249
+ 174:	90 e0       	ldi	r25, 0x00	; 0
+ 176:	21 50       	subi	r18, 0x01	; 1
+ 178:	80 40       	sbci	r24, 0x00	; 0
+ 17a:	90 40       	sbci	r25, 0x00	; 0
+ 17c:	e1 f7       	brne	.-8      	; 0x176 <lcd_ini+0x6>
+ 17e:	00 c0       	rjmp	.+0      	; 0x180 <lcd_ini+0x10>
+ 180:	00 00       	nop
+	
+	//----------- магические действи€ инциализации----------------
+	
+	_delay_ms(40);// ждем 40 мс стабилизации питани€
+
+	write(3<<4);
+ 182:	80 e3       	ldi	r24, 0x30	; 48
+ 184:	7c df       	rcall	.-264    	; 0x7e <write>
+ 186:	8f e0       	ldi	r24, 0x0F	; 15
+ 188:	97 e2       	ldi	r25, 0x27	; 39
+ 18a:	01 97       	sbiw	r24, 0x01	; 1
+ 18c:	f1 f7       	brne	.-4      	; 0x18a <lcd_ini+0x1a>
+ 18e:	00 c0       	rjmp	.+0      	; 0x190 <lcd_ini+0x20>
+ 190:	00 00       	nop
+	_delay_ms(5);
+	write(3<<4);
+ 192:	80 e3       	ldi	r24, 0x30	; 48
+ 194:	74 df       	rcall	.-280    	; 0x7e <write>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 196:	8b e2       	ldi	r24, 0x2B	; 43
+ 198:	91 e0       	ldi	r25, 0x01	; 1
+ 19a:	01 97       	sbiw	r24, 0x01	; 1
+ 19c:	f1 f7       	brne	.-4      	; 0x19a <lcd_ini+0x2a>
+ 19e:	00 c0       	rjmp	.+0      	; 0x1a0 <lcd_ini+0x30>
+ 1a0:	00 00       	nop
+	_delay_us(150);
+	write(3<<4);
+ 1a2:	80 e3       	ldi	r24, 0x30	; 48
+ 1a4:	6c df       	rcall	.-296    	; 0x7e <write>
+ 1a6:	95 e8       	ldi	r25, 0x85	; 133
+ 1a8:	9a 95       	dec	r25
+ 1aa:	f1 f7       	brne	.-4      	; 0x1a8 <lcd_ini+0x38>
+ 1ac:	00 00       	nop
+	_delay_us(50);// минимальное врем€ выполнени€ команды
+	write(2<<4);
+ 1ae:	80 e2       	ldi	r24, 0x20	; 32
+ 1b0:	66 df       	rcall	.-308    	; 0x7e <write>
+ 1b2:	25 e8       	ldi	r18, 0x85	; 133
+ 1b4:	2a 95       	dec	r18
+ 1b6:	f1 f7       	brne	.-4      	; 0x1b4 <lcd_ini+0x44>
+ 1b8:	00 00       	nop
+	
+	// ---------------------- маги€ всЄ------------------------------
+	
+	// -----------команды инициализации--------------------
+	
+	send_byte(40,0);// команда Function Set 001_DL_N_F_X_X
+ 1ba:	60 e0       	ldi	r22, 0x00	; 0
+ 1bc:	88 e2       	ldi	r24, 0x28	; 40
+ 1be:	68 df       	rcall	.-304    	; 0x90 <send_byte>
+ 1c0:	85 e8       	ldi	r24, 0x85	; 133
+ 1c2:	8a 95       	dec	r24
+ 1c4:	f1 f7       	brne	.-4      	; 0x1c2 <lcd_ini+0x52>
+ 1c6:	00 00       	nop
+	// DL 0/1 -4bit/8bit
+	// N 0/1 -1/2 строки
+	// F 0/1 -5x7/5x11 шрифт
+	_delay_us(50);
+
+	send_byte(12,0);// команда DISPLAY SWITCH 00001_D_C_B
+ 1c8:	60 e0       	ldi	r22, 0x00	; 0
+ 1ca:	8c e0       	ldi	r24, 0x0C	; 12
+ 1cc:	61 df       	rcall	.-318    	; 0x90 <send_byte>
+ 1ce:	95 e8       	ldi	r25, 0x85	; 133
+ 1d0:	9a 95       	dec	r25
+ 1d2:	f1 f7       	brne	.-4      	; 0x1d0 <lcd_ini+0x60>
+ 1d4:	00 00       	nop
+	// C 0/1 - off/on cursor
+	// B 0/1 - off/on blink
+	
+	_delay_us(50);
+	
+	send_byte(1,0);// команда очистка диспле€ (без параметров)
+ 1d6:	60 e0       	ldi	r22, 0x00	; 0
+ 1d8:	81 e0       	ldi	r24, 0x01	; 1
+ 1da:	5a df       	rcall	.-332    	; 0x90 <send_byte>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1dc:	8f e9       	ldi	r24, 0x9F	; 159
+ 1de:	9f e0       	ldi	r25, 0x0F	; 15
+ 1e0:	01 97       	sbiw	r24, 0x01	; 1
+ 1e2:	f1 f7       	brne	.-4      	; 0x1e0 <lcd_ini+0x70>
+ 1e4:	00 c0       	rjmp	.+0      	; 0x1e6 <lcd_ini+0x76>
+ 1e6:	00 00       	nop
+	_delay_ms(2);
+	
+	send_byte(6,0);// команда INPUT SET 000001_ID_S
+ 1e8:	60 e0       	ldi	r22, 0x00	; 0
+ 1ea:	86 e0       	ldi	r24, 0x06	; 6
+ 1ec:	51 df       	rcall	.-350    	; 0x90 <send_byte>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1ee:	95 e8       	ldi	r25, 0x85	; 133
+ 1f0:	9a 95       	dec	r25
+ 1f2:	f1 f7       	brne	.-4      	; 0x1f0 <lcd_ini+0x80>
+ 1f4:	00 00       	nop
+	_delay_us(50);
+	
+	//--------------- команды всЄ ------------------------------------
+	
+	
+	mychar();// загрузка своих символов
+ 1f6:	83 df       	rcall	.-250    	; 0xfe <mychar>
+
+	//---------------маска индикации ----------------------------------
+	lcd_str("count=");
+ 1f8:	80 e7       	ldi	r24, 0x70	; 112
+ 1fa:	90 e0       	ldi	r25, 0x00	; 0
+ 1fc:	5d df       	rcall	.-326    	; 0xb8 <lcd_str>
+	lcd_pos(1,2);
+ 1fe:	62 e0       	ldi	r22, 0x02	; 2
+ 200:	81 e0       	ldi	r24, 0x01	; 1
+ 202:	70 df       	rcall	.-288    	; 0xe4 <lcd_pos>
+	lcd_str("HOLa Amigos!");
+ 204:	87 e7       	ldi	r24, 0x77	; 119
+ 206:	90 e0       	ldi	r25, 0x00	; 0
+ 208:	57 df       	rcall	.-338    	; 0xb8 <lcd_str>
+ 20a:	08 95       	ret
+
+0000020c <lcd_num>:
+	send_byte(adress,0);// отправка команды
+	_delay_us(50);
+}
+
+// вывод 8 битного значени€ на индикацию
+void lcd_num(uint8_t num, uint8_t line, uint8_t pos) {
+ 20c:	0f 93       	push	r16
+ 20e:	1f 93       	push	r17
+ 210:	cf 93       	push	r28
+ 212:	df 93       	push	r29
+ 214:	00 d0       	rcall	.+0      	; 0x216 <lcd_num+0xa>
+ 216:	00 d0       	rcall	.+0      	; 0x218 <lcd_num+0xc>
+ 218:	cd b7       	in	r28, 0x3d	; 61
+ 21a:	de b7       	in	r29, 0x3e	; 62
+ 21c:	16 2f       	mov	r17, r22
+ 21e:	04 2f       	mov	r16, r20
+    } else if (__radix < 2 || __radix > 36) {
+	*__s = 0;
+	return __s;
+    } else {
+	extern char *__utoa_ncheck (unsigned int, char *, unsigned char);
+	return __utoa_ncheck (__val, __s, __radix);
+ 220:	4a e0       	ldi	r20, 0x0A	; 10
+ 222:	be 01       	movw	r22, r28
+ 224:	6f 5f       	subi	r22, 0xFF	; 255
+ 226:	7f 4f       	sbci	r23, 0xFF	; 255
+ 228:	90 e0       	ldi	r25, 0x00	; 0
+ 22a:	47 d0       	rcall	.+142    	; 0x2ba <__utoa_ncheck>
+	char buf[4];// буфер на 4 символа
+	
+	utoa(num, buf, 10);// конвертаци€ значени€ num в строку в массиве buf
+	lcd_pos(line, pos);// смена позиции курсора 
+ 22c:	60 2f       	mov	r22, r16
+ 22e:	81 2f       	mov	r24, r17
+ 230:	59 df       	rcall	.-334    	; 0xe4 <lcd_pos>
+	lcd_str("   ");// затираем три знакоместа пробелами
+ 232:	84 e8       	ldi	r24, 0x84	; 132
+ 234:	90 e0       	ldi	r25, 0x00	; 0
+ 236:	40 df       	rcall	.-384    	; 0xb8 <lcd_str>
+	lcd_pos(line, pos);//  смена позиции курсора 
+ 238:	60 2f       	mov	r22, r16
+ 23a:	81 2f       	mov	r24, r17
+ 23c:	53 df       	rcall	.-346    	; 0xe4 <lcd_pos>
+	lcd_str(buf);// выводим строку
+ 23e:	ce 01       	movw	r24, r28
+ 240:	01 96       	adiw	r24, 0x01	; 1
+ 242:	3a df       	rcall	.-396    	; 0xb8 <lcd_str>
+}
+ 244:	0f 90       	pop	r0
+ 246:	0f 90       	pop	r0
+ 248:	0f 90       	pop	r0
+ 24a:	0f 90       	pop	r0
+ 24c:	df 91       	pop	r29
+ 24e:	cf 91       	pop	r28
+ 250:	1f 91       	pop	r17
+ 252:	0f 91       	pop	r16
+ 254:	08 95       	ret
+
+00000256 <lcd_animation>:
+
+// анимаци€
+void lcd_animation(void){
+	static uint8_t status;
+	lcd_pos(1,15);
+ 256:	6f e0       	ldi	r22, 0x0F	; 15
+ 258:	81 e0       	ldi	r24, 0x01	; 1
+ 25a:	44 df       	rcall	.-376    	; 0xe4 <lcd_pos>
+	
+	if (status)
+ 25c:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <__data_end>
+ 260:	88 23       	and	r24, r24
+ 262:	31 f0       	breq	.+12     	; 0x270 <lcd_animation+0x1a>
+	{
+		send_byte(0,1);//  символ с кодом 0
+ 264:	61 e0       	ldi	r22, 0x01	; 1
+ 266:	80 e0       	ldi	r24, 0x00	; 0
+ 268:	13 df       	rcall	.-474    	; 0x90 <send_byte>
+		status=0;
+ 26a:	10 92 88 00 	sts	0x0088, r1	; 0x800088 <__data_end>
+ 26e:	08 95       	ret
+	} 
+	else
+	{
+		send_byte(1,1);// символ с кодом 1
+ 270:	61 e0       	ldi	r22, 0x01	; 1
+ 272:	81 e0       	ldi	r24, 0x01	; 1
+ 274:	0d df       	rcall	.-486    	; 0x90 <send_byte>
+		status=1;
+ 276:	81 e0       	ldi	r24, 0x01	; 1
+ 278:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__data_end>
+ 27c:	08 95       	ret
+
+0000027e <main>:
+#include "main.h"
+
+
+int main(void)
+{
+	lcd_ini();
+ 27e:	78 df       	rcall	.-272    	; 0x170 <lcd_ini>
+	pcf_write(1);
+ 280:	81 e0       	ldi	r24, 0x01	; 1
+ 282:	11 d0       	rcall	.+34     	; 0x2a6 <pcf_write>
+	uint8_t count=250;
+ 284:	ca ef       	ldi	r28, 0xFA	; 250
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 286:	2f ef       	ldi	r18, 0xFF	; 255
+ 288:	84 e3       	ldi	r24, 0x34	; 52
+ 28a:	9c e0       	ldi	r25, 0x0C	; 12
+ 28c:	21 50       	subi	r18, 0x01	; 1
+ 28e:	80 40       	sbci	r24, 0x00	; 0
+ 290:	90 40       	sbci	r25, 0x00	; 0
+ 292:	e1 f7       	brne	.-8      	; 0x28c <main+0xe>
+ 294:	00 c0       	rjmp	.+0      	; 0x296 <main+0x18>
+ 296:	00 00       	nop
+    while (1)
+    {
+		_delay_ms(500);
+		count++;
+ 298:	cf 5f       	subi	r28, 0xFF	; 255
+		lcd_num(count, 0,6);// выводим значение count в 0 строке с 6-го знакоместа
+ 29a:	46 e0       	ldi	r20, 0x06	; 6
+ 29c:	60 e0       	ldi	r22, 0x00	; 0
+ 29e:	8c 2f       	mov	r24, r28
+ 2a0:	b5 df       	rcall	.-150    	; 0x20c <lcd_num>
+		lcd_animation();// анимаци€ 
+ 2a2:	d9 df       	rcall	.-78     	; 0x256 <lcd_animation>
+ 2a4:	f0 cf       	rjmp	.-32     	; 0x286 <main+0x8>
+
+000002a6 <pcf_write>:
+#include "pcf.h"
+
+
+void pcf_write(uint8_t byte){
+ 2a6:	cf 93       	push	r28
+ 2a8:	c8 2f       	mov	r28, r24
+	i2c_start();
+ 2aa:	dd de       	rcall	.-582    	; 0x66 <i2c_start>
+	i2c_write(0x40);// адрес на запись
+ 2ac:	80 e4       	ldi	r24, 0x40	; 64
+ 2ae:	e2 de       	rcall	.-572    	; 0x74 <i2c_write>
+	i2c_write(byte);
+ 2b0:	8c 2f       	mov	r24, r28
+ 2b2:	e0 de       	rcall	.-576    	; 0x74 <i2c_write>
+	i2c_stop();
+ 2b4:	dc de       	rcall	.-584    	; 0x6e <i2c_stop>
+ 2b6:	cf 91       	pop	r28
+ 2b8:	08 95       	ret
+
+000002ba <__utoa_ncheck>:
+ 2ba:	bb 27       	eor	r27, r27
+
+000002bc <__utoa_common>:
+ 2bc:	fb 01       	movw	r30, r22
+ 2be:	55 27       	eor	r21, r21
+ 2c0:	aa 27       	eor	r26, r26
+ 2c2:	88 0f       	add	r24, r24
+ 2c4:	99 1f       	adc	r25, r25
+ 2c6:	aa 1f       	adc	r26, r26
+ 2c8:	a4 17       	cp	r26, r20
+ 2ca:	10 f0       	brcs	.+4      	; 0x2d0 <__utoa_common+0x14>
+ 2cc:	a4 1b       	sub	r26, r20
+ 2ce:	83 95       	inc	r24
+ 2d0:	50 51       	subi	r21, 0x10	; 16
+ 2d2:	b9 f7       	brne	.-18     	; 0x2c2 <__utoa_common+0x6>
+ 2d4:	a0 5d       	subi	r26, 0xD0	; 208
+ 2d6:	aa 33       	cpi	r26, 0x3A	; 58
+ 2d8:	08 f0       	brcs	.+2      	; 0x2dc <__utoa_common+0x20>
+ 2da:	a9 5d       	subi	r26, 0xD9	; 217
+ 2dc:	a1 93       	st	Z+, r26
+ 2de:	00 97       	sbiw	r24, 0x00	; 0
+ 2e0:	79 f7       	brne	.-34     	; 0x2c0 <__utoa_common+0x4>
+ 2e2:	b1 11       	cpse	r27, r1
+ 2e4:	b1 93       	st	Z+, r27
+ 2e6:	11 92       	st	Z+, r1
+ 2e8:	cb 01       	movw	r24, r22
+ 2ea:	00 c0       	rjmp	.+0      	; 0x2ec <strrev>
+
+000002ec <strrev>:
+ 2ec:	dc 01       	movw	r26, r24
+ 2ee:	fc 01       	movw	r30, r24
+ 2f0:	67 2f       	mov	r22, r23
+ 2f2:	71 91       	ld	r23, Z+
+ 2f4:	77 23       	and	r23, r23
+ 2f6:	e1 f7       	brne	.-8      	; 0x2f0 <strrev+0x4>
+ 2f8:	32 97       	sbiw	r30, 0x02	; 2
+ 2fa:	04 c0       	rjmp	.+8      	; 0x304 <strrev+0x18>
+ 2fc:	7c 91       	ld	r23, X
+ 2fe:	6d 93       	st	X+, r22
+ 300:	70 83       	st	Z, r23
+ 302:	62 91       	ld	r22, -Z
+ 304:	ae 17       	cp	r26, r30
+ 306:	bf 07       	cpc	r27, r31
+ 308:	c8 f3       	brcs	.-14     	; 0x2fc <strrev+0x10>
+ 30a:	08 95       	ret
+
+0000030c <_exit>:
+ 30c:	f8 94       	cli
+
+0000030e <__stop_program>:
+ 30e:	ff cf       	rjmp	.-2      	; 0x30e <__stop_program>

@@ -6,9 +6,6 @@
 #include "defines.h"
 #include "tft.h"
 
-#include <TouchScreen.h>
-#include <SPI.h>
-#include <SD.h>
 
 uint8_t YP = A1;  // must be an analog pin, use "An" notation! (WR)
 uint8_t XM = A2;  // must be an analog pin, use "An" notation! (RS)
@@ -31,7 +28,7 @@ TSPoint tp;
 #define SWAP(a, b) {uint16_t tmp = a; a = b; b = tmp;}
 
 int16_t BOXSIZE;
-int16_t PENRADIUS = 5;
+int16_t PENRADIUS = 3;
 uint16_t identifier, oldcolor, currentcolor;
 uint8_t Orientation = 0;    //PORTRAIT
 
@@ -162,8 +159,9 @@ void loop()
     }
     // 
     if ((ypos > _height - 40) && (xpos) < 60) { 
-      
-      bool good = SD.begin(SD_CS);
+//------------------------------------------------------------------------- begin SD card      
+      bool good = SD.begin(8000000, SD_CS);
+//-------------------------------------------------------------------------
       if (!good) {
 #ifdef __DEBUG
         Serial.print(F("cannot start SD"));
@@ -172,7 +170,7 @@ void loop()
       }
       spi_save = SPCR;
 
-      uint8_t del = 10;
+      uint8_t del = 0;
       SPCR = 0;
       fill(0xf800);
       

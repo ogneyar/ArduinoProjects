@@ -3,6 +3,7 @@
 #define _TFT_H_
 
 
+#include <TouchScreen.h>
 #include <SPI.h>
 #include <SD.h>
 
@@ -54,7 +55,7 @@ uint8_t spi_save;
 
 //
 void begin(void)
-{
+{  
   _width = WIDTH; // 240;
   _height = HEIGHT; // 320;
   reset();
@@ -285,7 +286,7 @@ uint16_t color565(uint8_t r, uint8_t g, uint8_t b)
 }
 
 
-#define BUFFPIXEL 60
+#define BUFFPIXEL 80
 //
 void bmpDraw(char *filename, int x, int y)
 {
@@ -301,7 +302,8 @@ void bmpDraw(char *filename, int x, int y)
   boolean	flip	= true; 	   // BMP is stored bottom-to-top
   int		w, h, row, col;
   uint8_t	r, g, b;
-  uint32_t pos = 0, startTime = millis();
+  uint32_t pos = 0, startTime = 0;
+  uint32_t startTimeRead = 0, endTimeRead = 0;
   uint8_t	lcdidx = 0;
   boolean	first = true;
  
@@ -376,7 +378,10 @@ void bmpDraw(char *filename, int x, int y)
         // Set TFT address window to clipped image bounds
         SPCR = 0;
         setAddrWindow(x, y, x+w-1, y+h-1);
- 
+
+        // начало прорисовки изображения
+        startTime = millis();
+
 		    for (row=0; row<h; row++) { 
        
 		      if(flip) pos = bmpImageoffset + (bmpHeight - 1 - row) * rowSize;
@@ -399,7 +404,13 @@ void bmpDraw(char *filename, int x, int y)
 				        first	= false;
 			        }
 			        SPCR = spi_save;
+
+              if ( ! startTimeRead ) startTimeRead =  millis();
+
 			        bmpFile.read(sdbuffer, sizeof(sdbuffer));
+              
+              if ( ! endTimeRead ) endTimeRead =  millis();
+
 			        buffidx = 0; // Set index to beginning
 			      }
  
@@ -408,9 +419,21 @@ void bmpDraw(char *filename, int x, int y)
             g = sdbuffer[buffidx++];
             r = sdbuffer[buffidx++];
             lcdbuffer[lcdidx++] = color565(r,g,b);
+
+            // SPCR	= 0;
+            // CS_ACTIVE;
+            // if (first) {
+            //   WriteCmd(_MW);
+            // }  
+            // CD_DATA;
+            // write16(color565(r,g,b));
+            // CS_IDLE;
+				    // first	= false;
+
+
 		      } // end pixel
 		    } // end scanline
-		    // Write any remaining data to LCD
+		    // вывод оставшихся данных на экран
 		    if(lcdidx > 0) {
 		      SPCR = 0;
 		      pushColors(lcdbuffer, lcdidx, first);
@@ -418,6 +441,12 @@ void bmpDraw(char *filename, int x, int y)
 #ifdef __DEBUG
         Serial.print(F("Loaded in "));
         Serial.print(millis() - startTime);
+        Serial.println(" ms");
+        
+        Serial.print(F("Buffer length: "));
+        Serial.println(sizeof(sdbuffer));
+        Serial.print(F("Read time buffer in "));
+        Serial.print(endTimeRead - startTimeRead);
         Serial.println(" ms");
 #endif
 	    } // end goodBmp

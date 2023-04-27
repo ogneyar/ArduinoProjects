@@ -1,5 +1,5 @@
 
-// Samd21
+// Zero(Samd21)
 
 
 void setup() {
@@ -9,7 +9,7 @@ void setup() {
 
 void loop() {
   digitalWrite(LED_BUILTIN, HIGH);
-  delay(100);
+  delay(500);
   digitalWrite(LED_BUILTIN, LOW);
-  delay(100);
+  delay(500);
 }

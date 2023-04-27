@@ -1,7 +1,7 @@
 
 // Uno, Mega
 
-#define __DEBUG 1
+// #define __DEBUG 1
 
 #include "defines.h"
 #include "tft.h"

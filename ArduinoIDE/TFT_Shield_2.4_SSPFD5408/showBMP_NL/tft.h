@@ -275,7 +275,7 @@ uint16_t color565(uint8_t r, uint8_t g, uint8_t b)
 }
 
 
-#define BUFFPIXEL 60
+#define BUFFPIXEL 20
 //
 void bmpDraw(char *filename, int x, int y)
 {
