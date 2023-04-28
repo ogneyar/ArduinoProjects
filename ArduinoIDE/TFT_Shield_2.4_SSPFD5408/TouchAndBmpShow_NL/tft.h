@@ -228,9 +228,30 @@ void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
   CD_DATA;
   while (h-- > 0) {
     end = w;
+#if USING_16BIT_BUS
+#define STROBE_16BIT {WR_ACTIVE; WR_IDLE;}
+        write16(color);        //we could just do the strobe 
+        lo = end & 7;
+        hi = end >> 3;
+        if (hi)
+            do {
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+            } while (--hi > 0);
+        while (lo-- > 0) {
+            STROBE_16BIT;
+        }
+#else
     do {
       write16(color);
     } while (--end != 0);
+#endif
   }
   CS_IDLE;
 }
