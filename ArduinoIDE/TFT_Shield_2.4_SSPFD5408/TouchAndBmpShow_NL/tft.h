@@ -52,7 +52,6 @@ uint8_t spi_save;
 
 #define SD_CS 5
 
-
 //
 void begin(void)
 {  
@@ -441,17 +440,6 @@ void bmpDraw(char *filename, int x, int y)
             r = sdbuffer[buffidx++];
             lcdbuffer[lcdidx++] = color565(r,g,b);
 
-            // SPCR	= 0;
-            // CS_ACTIVE;
-            // if (first) {
-            //   WriteCmd(_MW);
-            // }  
-            // CD_DATA;
-            // write16(color565(r,g,b));
-            // CS_IDLE;
-				    // first	= false;
-
-
 		      } // end pixel
 		    } // end scanline
 		    // вывод оставшихся данных на экран
@@ -640,9 +628,9 @@ void print(uint8_t ch)
 }
 
 //
-void print(const char *ch)
+void print(const char * ch)
 {
-  uint8_t * ptrCh = ch;
+  const char * ptrCh = ch;
   while(*ptrCh != '\0') {
     print(*ptrCh);
     ptrCh++;
@@ -652,7 +640,7 @@ void print(const char *ch)
 //
 void drawChar(int16_t x, int16_t y, unsigned char c, uint16_t color, uint16_t bg, uint8_t size_x, uint8_t size_y)
 {
-  GFXfont *gfxFont = &font;
+  const GFXfont *gfxFont = &font;
 
   c -= (uint8_t)pgm_read_byte(&gfxFont->first);
   GFXglyph *glyph = pgm_read_glyph_ptr(gfxFont, c);

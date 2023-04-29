@@ -1,15 +1,24 @@
 
+
+#define __DEBUG 1
+
+// #define ARDUINO_SAMD_ZERO
+// #define __SAMD21G18A__
+// #define USING_16BIT_BUS 1
+
+
+#ifndef F_CPU
+  #ifdef __SAMD21G18A__
+    #define F_CPU 48000000UL
+  #else
+    #define F_CPU 16000000UL
+  #endif
+#endif
+
+
 #define TFTLCD_DELAY 0xFFFF
 #define WIDTH 240
 #define HEIGHT 320
-
-
-// #if defined(__AVR_ATmega2560__)
-//   #define USING_16BIT_BUS 1
-//   #define STROBE_16BIT {WR_ACTIVE; WR_IDLE;}
-// #else
-//   #define USING_16BIT_BUS 0
-// #endif
 
 
 #define	BLACK   0x0000
@@ -43,6 +52,16 @@
   #define read_8() (PIND & B11010000) | (PINB & B00101111)    
   #define setWriteDir() { DDRD |=  B11010000; DDRB |=  B00101111; }
   #define setReadDir()  { DDRD &= ~B11010000; DDRB &= ~B00101111; }
+  
+  #define write8(x)     { write_8(x); WR_STROBE; }
+  #define write16(x)    { uint8_t h = (x)>>8, l = x; write8(h); write8(l); }
+
+  #define READ_8(dst)   { RD_STROBE; dst = read_8(); RD_IDLE; }
+  #define READ_16(dst)  { uint8_t hi; READ_8(hi); READ_8(dst); dst |= (hi << 8); }
+
+  #define PIN_LOW(p, b)        (p) &= ~(1<<(b))
+  #define PIN_HIGH(p, b)       (p) |= (1<<(b))
+  #define PIN_OUTPUT(p, b)     *(&p-1) |= (1<<(b))
 // ---------------------------------
 
 #elif (defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__))       //regular UNO shield on MEGA2560
@@ -70,19 +89,76 @@
     DDRH |=  B01111000; DDRB |=  B10110000; DDRG |=  B00100000; }
   #define setReadDir()  {                                   \
     DDRH &= ~B01111000; DDRB &= ~B10110000; DDRG &= ~B00100000; }
+    
+  #define write8(x)     { write_8(x); WR_STROBE; }
+  #define write16(x)    { uint8_t h = (x)>>8, l = x; write8(h); write8(l); }
+
+  #define READ_8(dst)   { RD_STROBE; dst = read_8(); RD_IDLE; }
+  #define READ_16(dst)  { uint8_t hi; READ_8(hi); READ_8(dst); dst |= (hi << 8); }
+
+  #define PIN_LOW(p, b)        (p) &= ~(1<<(b))
+  #define PIN_HIGH(p, b)       (p) |= (1<<(b))
+  #define PIN_OUTPUT(p, b)     *(&p-1) |= (1<<(b))
 // ---------------------------------
+
+#elif defined(__SAMD21G18A__)   //regular UNO shield on ZERO or M0_PRO
+
+  #include "sam.h"
+
+  // configure macros for the control pins
+  #define RD_PORT PORT->Group[0]
+  #define RD_PIN  2
+  #define WR_PORT PORT->Group[1]
+  #define WR_PIN  8  
+  #define CD_PORT PORT->Group[1]
+  #define CD_PIN  9
+  #define CS_PORT PORT->Group[0]
+  #define CS_PIN  4
+  #define RESET_PORT PORT->Group[0]
+  #define RESET_PIN  5
+  // configure macros for data bus
+  #define DMASK 0x003701C0 // 0000 0000 0011 0111 0000 0001 1100 0000
+  // 6 7 18 16 8 17 20 21 - очерёдность битов 0 1 2 3 4 5 6 7
+  #define write_8(x) {\ 
+      PORT->Group[0].OUTCLR.reg = DMASK;\
+      PORT->Group[0].OUTSET.reg = ( ((x) & 0x01) << 6)\
+                                  |(((x) & 0x02) << 7)\
+                                  |(((x) & 0x04) << 18)\
+                                  |(((x) & 0x08) << 16)\
+                                  |(((x) & 0x10) << 8)\
+                                  |(((x) & 0x20) << 17)\
+                                  |(((x) & 0x40) << 20)\
+                                  |(((x) & 0x80) << 21);\
+                      }
+  #define read_8() ( ( (PORT->Group[0].IN.reg >> 6)  & 0x01) \
+                    | ((PORT->Group[0].IN.reg >> 7)  & 0x02) \
+                    | ((PORT->Group[0].IN.reg >> 18) & 0x04) \
+                    | ((PORT->Group[0].IN.reg >> 16) & 0x08) \
+                    | ((PORT->Group[0].IN.reg >> 8)  & 0x10) \
+                    | ((PORT->Group[0].IN.reg >> 17) & 0x20) \
+                    | ((PORT->Group[0].IN.reg >> 20) & 0x40) \
+                    | ((PORT->Group[0].IN.reg >> 21) & 0x80) ) ) 
+
+
+  #define setWriteDir() { PORT->Group[0].DIRSET.reg = DMASK; \
+                      PORT->Group[0].WRCONFIG.reg = (DMASK & 0xFFFF) | (0<<22) | (1<<28) | (1<<30); \
+                      PORT->Group[0].WRCONFIG.reg = (DMASK>>16) | (0<<22) | (1<<28) | (1<<30) | (1<<31); \
+                          }
+  #define setReadDir()  { PORT->Group[0].DIRCLR.reg = DMASK; \
+                      PORT->Group[0].WRCONFIG.reg = (DMASK & 0xFFFF) | (1<<17) | (1<<28) | (1<<30); \
+                      PORT->Group[0].WRCONFIG.reg = (DMASK>>16) | (1<<17) | (1<<28) | (1<<30) | (1<<31); \
+                          }
+  #define write8(x)     { write_8(x); WR_STROBE; }
+  #define write16(x)    { uint8_t h = (x)>>8, l = x; write8(h); write8(l); }
+  #define READ_8(dst)   { RD_STROBE; dst = read_8(); RD_IDLE; }
+  #define READ_16(dst)  { uint8_t hi; READ_8(hi); READ_8(dst); dst |= (hi << 8); }
+  // Shield Control macros.
+  #define PIN_LOW(port, pin)    (port).OUTCLR.reg |= (1<<(pin))
+  #define PIN_HIGH(port, pin)   (port).OUTSET.reg |= (1<<(pin))
+  #define PIN_OUTPUT(port, pin) (port).DIR.reg |= (1<<(pin))
 
 #endif
 
-#define write8(x)     { write_8(x); WR_STROBE; }
-#define write16(x)    { uint8_t h = (x)>>8, l = x; write8(h); write8(l); }
-
-#define READ_8(dst)   { RD_STROBE; dst = read_8(); RD_IDLE; }
-#define READ_16(dst)  { uint8_t hi; READ_8(hi); READ_8(dst); dst |= (hi << 8); }
-
-#define PIN_LOW(p, b)        (p) &= ~(1<<(b))
-#define PIN_HIGH(p, b)       (p) |= (1<<(b))
-#define PIN_OUTPUT(p, b)     *(&p-1) |= (1<<(b))
 
 #define wait_ms(ms)  delay(ms)
 #define MIPI_DCS_REV1   (1<<0)

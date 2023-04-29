@@ -53,6 +53,13 @@ void begin(void)
   _lcd_rev = ((_lcd_capable & REV_SCREEN) != 0);
   setRotation(0);             //PORTRAIT
   invertDisplay(false);
+#ifdef __DEBUG
+#ifdef __SAMD21G18A__
+    SerialUSB.println(F("Begin TFT init"));
+#else
+    Serial.println(F("Begin TFT init"));
+#endif
+#endif      
 }
 
 //
@@ -63,9 +70,9 @@ void reset(void)
   CS_IDLE;
   RD_IDLE;
   WR_IDLE;
-  // digitalWrite(5, LOW);
-  // delay(200);
-  // digitalWrite(5, HIGH);
+  digitalWrite(5, LOW);
+  delay(200);
+  digitalWrite(5, HIGH);
 }
 
 //
@@ -217,9 +224,30 @@ void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
   CD_DATA;
   while (h-- > 0) {
     end = w;
+#if USING_16BIT_BUS
+#define STROBE_16BIT {WR_ACTIVE; WR_IDLE;}
+        write16(color);        //we could just do the strobe 
+        uint8_t lo = end & 7;
+        uint8_t hi = end >> 3;
+        if (hi)
+            do {
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+                STROBE_16BIT;
+            } while (--hi > 0);
+        while (lo-- > 0) {
+            STROBE_16BIT;
+        }
+#else
     do {
       write16(color);
     } while (--end != 0);
+#endif
   }
   CS_IDLE;
 }
@@ -298,16 +326,29 @@ void bmpDraw(char *filename, int x, int y)
   if((x >= _width) || (y >= _height)) return;
 
 #ifdef __DEBUG
+#ifdef __SAMD21G18A__
+  SerialUSB.println();
+  SerialUSB.print("Loading image '");
+  SerialUSB.print(filename);
+  SerialUSB.println('\'');
+#else
   Serial.println();
   Serial.print("Loading image '");
   Serial.print(filename);
   Serial.println('\'');
 #endif
+#endif
   // Open requested file on SD card
+#ifndef __SAMD21G18A__
   SPCR = spi_save;
+#endif
   if ((bmpFile = SD.open(filename)) == NULL) {
 #ifdef __DEBUG
-	  Serial.print("File not found");
+  #ifdef __SAMD21G18A__
+    SerialUSB.print("File not found");
+  #else
+    Serial.print("File not found");
+  #endif
 #endif
 	  return;
   }
@@ -316,16 +357,24 @@ void bmpDraw(char *filename, int x, int y)
   if(read16(bmpFile) == 0x4D42) { // BMP signature
 
 #ifdef __DEBUG
-	  Serial.print(F("File size: ")); Serial.println(read32(bmpFile));
+  #ifdef __SAMD21G18A__
+      SerialUSB.print(F("File size: ")); SerialUSB.println(read32(bmpFile));
+  #else
+      Serial.print(F("File size: ")); Serial.println(read32(bmpFile));
+  #endif
 #else
     (void)read32(bmpFile);
 #endif
 	  (void)read32(bmpFile); // Read & ignore creator bytes
 	  bmpImageoffset = read32(bmpFile); // Start of image data
 #ifdef __DEBUG
-	  Serial.print(F("Image Offset: ")); Serial.println(bmpImageoffset, DEC);
-	  // Read DIB header
-	  Serial.print(F("Header size: ")); Serial.println(read32(bmpFile));
+  #ifdef __SAMD21G18A__
+      SerialUSB.print(F("Image Offset: ")); SerialUSB.println(bmpImageoffset, DEC);
+      SerialUSB.print(F("Header size: ")); SerialUSB.println(read32(bmpFile));
+  #else
+      Serial.print(F("Image Offset: ")); Serial.println(bmpImageoffset, DEC);
+      Serial.print(F("Header size: ")); Serial.println(read32(bmpFile));
+  #endif
 #else
     (void)read32(bmpFile);
 #endif
@@ -335,16 +384,27 @@ void bmpDraw(char *filename, int x, int y)
 	  if(read16(bmpFile) == 1) { // # planes -- must be '1'
 	    bmpDepth = read16(bmpFile); // bits per pixel
 #ifdef __DEBUG
-	    Serial.print(F("Bit Depth: ")); Serial.println(bmpDepth);
+  #ifdef __SAMD21G18A__
+        SerialUSB.print(F("Bit Depth: ")); SerialUSB.println(bmpDepth);
+  #else
+        Serial.print(F("Bit Depth: ")); Serial.println(bmpDepth);
+  #endif
 #endif
 
 	    if((bmpDepth == 24) && (read32(bmpFile) == 0)) { // 0 = uncompressed
 		    goodBmp = true; // Supported BMP format -- proceed!
 #ifdef __DEBUG
+  #ifdef __SAMD21G18A__
+		    SerialUSB.print(F("Image size: "));
+        SerialUSB.print(bmpWidth);
+		    SerialUSB.print('x');
+		    SerialUSB.println(bmpHeight);
+  #else
 		    Serial.print(F("Image size: "));
         Serial.print(bmpWidth);
 		    Serial.print('x');
 		    Serial.println(bmpHeight);
+  #endif
 #endif
  
         // BMP rows are padded (if needed) to 4-byte boundary
@@ -364,7 +424,9 @@ void bmpDraw(char *filename, int x, int y)
         if((y+h-1) >= _height) h = _height - y;
  
         // Set TFT address window to clipped image bounds
+#ifndef __SAMD21G18A__
         SPCR = 0;
+#endif
         setAddrWindow(x, y, x+w-1, y+h-1);
  
 		    for (row=0; row<h; row++) { 
@@ -372,7 +434,9 @@ void bmpDraw(char *filename, int x, int y)
 		      if(flip) pos = bmpImageoffset + (bmpHeight - 1 - row) * rowSize;
 		      else pos = bmpImageoffset + row * rowSize;
           
+#ifndef __SAMD21G18A__
 		      SPCR = spi_save;
+#endif
 		      if(bmpFile.position() != pos) { // Need seek?
 			      bmpFile.seek(pos);
 			      buffidx = sizeof(sdbuffer); // Force buffer reload
@@ -383,12 +447,16 @@ void bmpDraw(char *filename, int x, int y)
 			      if (buffidx >= sizeof(sdbuffer)) { // Indeed
 			        // Push LCD buffer to the display first
 			        if(lcdidx > 0) {
+#ifndef __SAMD21G18A__
 				        SPCR	= 0;
+#endif
 				        pushColors(lcdbuffer, lcdidx, first);
 				        lcdidx = 0;
 				        first	= false;
 			        }
+#ifndef __SAMD21G18A__
 			        SPCR = spi_save;
+#endif
 			        bmpFile.read(sdbuffer, sizeof(sdbuffer));
 			        buffidx = 0; // Set index to beginning
 			      }
@@ -402,13 +470,21 @@ void bmpDraw(char *filename, int x, int y)
 		    } // end scanline
 		    // Write any remaining data to LCD
 		    if(lcdidx > 0) {
+#ifndef __SAMD21G18A__
 		      SPCR = 0;
+#endif
 		      pushColors(lcdbuffer, lcdidx, first);
 		    }
 #ifdef __DEBUG
+  #ifdef __SAMD21G18A__
+        SerialUSB.print(F("Loaded in "));
+        SerialUSB.print(millis() - startTime);
+        SerialUSB.println(" ms");
+  #else
         Serial.print(F("Loaded in "));
         Serial.print(millis() - startTime);
         Serial.println(" ms");
+  #endif
 #endif
 	    } // end goodBmp
 	  }
@@ -416,7 +492,11 @@ void bmpDraw(char *filename, int x, int y)
  
   bmpFile.close();
 #ifdef __DEBUG
+  #ifdef __SAMD21G18A__
+  if(!goodBmp) SerialUSB.println("BMP format not recognized.");
+  #else
   if(!goodBmp) Serial.println("BMP format not recognized.");
+  #endif
 #endif
 }
  

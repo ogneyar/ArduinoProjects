@@ -1,7 +1,9 @@
 
 // Uno
 
-#define __DEBUG 1
+// #define __DEBUG 1
+// #define __SAMD21G18A__
+
 
 #include "defines.h"
 #include "tft.h"
