@@ -15,6 +15,8 @@
 
 #define TFT_DC    9
 #define TFT_RST   8 
+// если есть CS
+#define TFT_CS 10
 
 #include <SPI.h>
 #include <Adafruit_GFX.h>
@@ -25,10 +27,16 @@ Arduino_ST7789 lcd = Arduino_ST7789(TFT_DC, TFT_RST);
 
 void setup(void) 
 {
+  pinMode(TFT_CS,HIGH);
+  digitalWrite(TFT_CS,LOW);
   lcd.init(240, 240);
   lcd.fillScreen(BLACK);
   delay(1000);
   lcd.fillScreen(WHITE);
+  delay(1000);
+  lcd.fillScreen(YELLOW);
+  delay(1000);
+  lcd.fillScreen(GREEN);
 }
 
 void loop(){}

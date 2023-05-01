@@ -23,14 +23,30 @@ uint16_t  _lcd_xor, _lcd_capable, _width, _height, rotation;
 //
 void setup(void) 
 {
+#ifdef __SAMD21G18A__
+  SerialUSB.begin(9600);
+  while(!SerialUSB) ;
+  SerialUSB.println("Hello!");
+#else
+  Serial.begin(9600);
+  while(!Serial) ;
+  Serial.println("Hello!");
+#endif
   begin();
-  testScreen();
+  // testScreen();
+  fillScreen(0xf800);
 }
 
 //
 void loop(void) 
 {
-
+#ifdef __SAMD21G18A__
+  SerialUSB.println("Loop!");
+#else
+  Serial.println("Loop!");
+#endif
+  fillScreen(0x0ff0);
+  delay(3000);
 }
 
 //
