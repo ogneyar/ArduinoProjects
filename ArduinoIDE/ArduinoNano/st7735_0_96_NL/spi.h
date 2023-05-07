@@ -35,7 +35,13 @@ void SPI_Master_SendByte(uint8_t data)
 {	
     // Запуск передачи данных
 	SPDR = data;
+  
+#ifdef __LGT8FX8P__ 
+	while(SPFR & (1 << RDEMPT)) ; // RDEMPT = 6
+	SPFR |= (1 << RDEMPT) | (1 << WREMPT) ; // WREMPT = 2
+#else
 	while(!(SPSR & (1 << SPIF))) ;
+#endif
 	asm volatile("nop");
 	// asm volatile("nop");	
 }

@@ -7,8 +7,8 @@
 #include <SPI.h>
 
   #define TFT_CS        10
-  #define TFT_RST        9 // Or set to -1 and connect to Arduino RESET pin
-  #define TFT_DC         8
+  #define TFT_DC         9
+  #define TFT_RST        8 // Or set to -1 and connect to Arduino RESET pin
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
@@ -18,17 +18,18 @@ float p = 3.1415926;
 void setup(void) {
   Serial.begin(9600);Serial.print(F("Hello! ST77xx TFT Test"));
 
+
   // Use this initializer if using a 1.8" TFT screen:
   //tft.initR(INITR_BLACKTAB);      // Init ST7735S chip, black tab
 
   // OR use this initializer if using a 1.8" TFT screen with offset such as WaveShare:
-   tft.initR(INITR_GREENTAB);      // Init ST7735S chip, green tab
+  //  tft.initR(INITR_GREENTAB);      // Init ST7735S chip, green tab
 
   // OR use this initializer (uncomment) if using a 1.44" TFT:
   //tft.initR(INITR_144GREENTAB); // Init ST7735R chip, green tab
 
   // OR use this initializer (uncomment) if using a 0.96" 160x80 TFT:
-  //tft.initR(INITR_MINI160x80);  // Init ST7735S mini display
+  tft.initR(INITR_MINI160x80);  // Init ST7735S mini display
 
   // OR use this initializer (uncomment) if using a 1.3" or 1.54" 240x240 TFT:
   //tft.init(240, 240);           // Init ST7789 240x240
@@ -49,6 +50,8 @@ void setup(void) {
   // Note that speed allowable depends on chip and quality of wiring, if you go too fast, you
   // may end up with a black screen some times, or all the time.
   //tft.setSPISpeed(40000000);
+  
+  tft.setRotation(1);
 
   Serial.println(F("Initialized"));
 
