@@ -13,10 +13,10 @@
 #define DD_SCK 		PB5		// pin 13
 
 
-
 void SPI_Master_Init() 
 {
-	DDR_SPI |= (1 << DD_MOSI) | (1 << DD_SCK) | (1 << DD_DC) | (1 << DD_RES) | (1 << DD_SS);
+  PORTD |= (1 << DD_RES);
+	DDR_SPI |= (1 << DD_MOSI) | (1 << DD_SCK) | (1 << DD_DC) | (1 << DD_SS); //| (1 << DD_RES);
 	
   SPCR |= (1 << SPE) | (1 << MSTR);
 	// Разрешить работу SPI, режим Master, установить скорость тактов
