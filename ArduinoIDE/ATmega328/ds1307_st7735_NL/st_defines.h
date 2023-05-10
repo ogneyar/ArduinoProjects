@@ -14,6 +14,29 @@
 #define _BLUE_GREEN 0x07FF  // голубой
 #define _RED_GREEN 0xF81F   // жёлтый
 
+#define RGB565RBG(r, g, b) ((((r)&0xF8) << 8) | (((b)&0xFC) << 3) | ((g) >> 3))
+
+#define BLACK RGB565RBG(0, 0, 0)
+#define NAVY RGB565RBG(0, 0, 123)
+#define DARKGREEN RGB565RBG(0, 125, 0)
+#define DARKCYAN RGB565RBG(0, 125, 123)
+#define MAROON RGB565RBG(123, 0, 0)
+#define PURPLE RGB565RBG(123, 0, 123)
+#define OLIVE RGB565RBG(123, 125, 0)
+#define LIGHTGREY RGB565RBG(198, 195, 198)
+#define DARKGREY RGB565RBG(123, 125, 123)
+#define BLUE RGB565RBG(0, 0, 255)
+#define GREEN RGB565RBG(0, 255, 0)
+#define CYAN RGB565RBG(0, 255, 255)
+#define RED RGB565RBG(255, 0, 0)
+#define MAGENTA RGB565RBG(255, 0, 255)
+#define YELLOW RGB565RBG(255, 255, 0)
+#define WHITE RGB565RBG(255, 255, 255)
+#define ORANGE RGB565RBG(255, 127, 0)
+#define GREENYELLOW RGB565RBG(173, 255, 41)
+#define PINK RGB565RBG(255, 130, 198)
+#define VIOLET RGB565RBG(255, 0, 127)
+
 
 // Some register settings
 #define ST7735_MADCTL_BGR 0x08

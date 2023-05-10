@@ -108,7 +108,7 @@ void showtime(void)
     }
 
     st7735_setCursor(78, height_segments);
-    if (points) st7735_print(":", _RED_GREEN);
+    if (points) st7735_print(":", GREENYELLOW);
     else st7735_print(":", textbgcolor);
     
     if (segment3 != (m >> 4))
