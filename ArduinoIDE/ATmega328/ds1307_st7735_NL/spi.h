@@ -5,9 +5,9 @@
 
 #define DDR_SPI 	DDRB
 #define PORT_SPI 	PORTB
-#define DD_RES 		PD7		// pin 8
-#define DD_DC 		PB0		//
-#define DD_BLK 		PB1		// pin 13
+#define DD_RES 		PD7		// pin 7
+#define DD_DC 		PB0		// pin 8
+#define DD_BLK 		PB1		// pin 9
 #define DD_SS 		PB2		// pin 10 // Slave Select
 #define DD_MOSI 	PB3		// pin 11
 #define DD_MISO 	PB4		// pin 12
@@ -16,8 +16,9 @@
 
 void SPI_Master_Init() 
 {
-  PORTD |= (1 << DD_RES);
-	DDR_SPI |= (1 << DD_MOSI) | (1 << DD_SCK) | (1 << DD_DC) | (1 << DD_SS); //| (1 << DD_RES);
+  DDRD |= (1 << DD_RES);
+	DDR_SPI |= (1 << DD_MOSI) | (1 << DD_SCK) | (1 << DD_DC) | (1 << DD_SS);// | (1 << DD_BLK);
+  // PORT_SPI |= (1 << DD_BLK);
 	
   SPCR |= (1 << SPE) | (1 << MSTR);
 	// Разрешить работу SPI, режим Master, установить скорость тактов

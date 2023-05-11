@@ -12,7 +12,7 @@ uint8_t _height = ST7735_HEIGHT;
 uint8_t cursor_x = 0, cursor_y = 0;
 uint8_t textsize_x = 1, textsize_y = 1;
 uint8_t wrap = 0;
-uint16_t textcolor = _WHITE, textbgcolor = _BLACK;
+uint16_t textcolor = WHITE, textbgcolor = BLACK, dotcolor = WHITE;
 
 
 // 
@@ -36,7 +36,8 @@ void st7735_setCursor(uint8_t x, uint8_t y);
 void st7735_setFontSize(uint8_t size);
 void st7735_setFontSize(uint8_t sizeX, uint8_t sizeY);
 void st7735_setFontColor(uint16_t color);
-void st7735_setFontBGcolor(uint16_t color);
+void st7735_setFontBgColor(uint16_t color);
+void st7735_setFontDotColor(uint16_t color);
 void st7735_setRotation(uint8_t r = 1);
 
 
@@ -396,9 +397,15 @@ void st7735_setFontColor(uint16_t color)
 }
 
 //
-void st7735_setFontBGcolor(uint16_t color)
+void st7735_setFontBgColor(uint16_t color)
 {
   textbgcolor = color;
+}
+
+//
+void st7735_setFontDotColor(uint16_t color)
+{
+  dotcolor = color;
 }
 
 void st7735_setRotation(uint8_t r)

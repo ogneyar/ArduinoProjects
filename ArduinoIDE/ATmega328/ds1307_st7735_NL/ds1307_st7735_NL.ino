@@ -29,6 +29,7 @@ uint8_t key = 235;  // ключ для проверки первого запу�
 
 
 void showtime(void);
+void beep(void);
 
 
 // прерывание инт0
@@ -40,16 +41,18 @@ ISR(INT0_vect) {
 void setup(void)
 {
   // Serial.begin(9600);
-
+  analogWrite(9, 30); // back light
+  
   SPI_Master_Init();
   st7735_init();
   st7735_clear();
 
   st7735_test_screen(100);
 
+  st7735_setFontBgColor(BLACK); 
+  st7735_setFontColor(OLIVE); 
+  st7735_setFontDotColor(DARKGREY); 
   st7735_fill(textbgcolor);
-  // st7735_setFontColor(_RED); 
-  st7735_setFontColor(_GREEN); 
   st7735_setFontSize(10, 8);
 
   i2c_ini();     // инициализация i2c
@@ -108,7 +111,7 @@ void showtime(void)
     }
 
     st7735_setCursor(78, height_segments);
-    if (points) st7735_print(":", GREENYELLOW);
+    if (points) st7735_print(":", dotcolor);
     else st7735_print(":", textbgcolor);
     
     if (segment3 != (m >> 4))
@@ -133,8 +136,31 @@ void showtime(void)
     // st7735_printNum(s >> 4);
     // st7735_printNum(s & 0x0F);
     
+    if ((segment1 == 1 && segment2 == 1 && segment3 == 0 && segment4 == 0 && (s >> 4) == 0) 
+      || (segment1 == 1 && segment2 == 7 && segment3 == 0 && segment4 == 0 && (s >> 4) == 0)) 
+    {
+      beep();
+    }
+
     update = 0;
   }
 }
 
-
+void beep(void)
+{
+  analogWrite(5, 30);
+  delay(500);
+  analogWrite(5, 130);
+  delay(500);
+  analogWrite(5, 30);
+  delay(500);
+  analogWrite(5, 130);
+  delay(500);
+  analogWrite(5, 220);
+  delay(250);
+  analogWrite(5, 190);
+  delay(250);
+  analogWrite(5, 160);
+  delay(250);
+  analogWrite(5, 0);
+}
