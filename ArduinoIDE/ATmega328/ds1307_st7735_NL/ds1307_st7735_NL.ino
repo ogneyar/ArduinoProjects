@@ -20,7 +20,7 @@ uint8_t segment4 = 10;
 uint8_t points = 0;
 
 int address = 0;    // адрес ключа
-uint8_t key = 235;  // ключ для проверки первого запуска
+uint8_t key = 234;  // ключ для проверки первого запуска
 
 #include <EEPROM.h>
 #include "buildTime.h"
