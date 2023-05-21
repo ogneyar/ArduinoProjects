@@ -1,0 +1,119 @@
+
+Nanjing WCH Microelectronics Co. 2022.10
+For the latest information, please go to our website.
+http://wch.cn
+
+
+File Directory
+  |
+  |-- CH32F103£º32-bit ARM Cortex-M3 core microcontroller
+  |      |-- DS
+  |      |      |--CH32F103DS0.PDF£ºCH32F103 Datasheet
+  |      |-- EVT: CH32F103 Evaluation Board and CH32F103 Related Routines
+  |      |      |-- PUB: 
+  |      |      |      |-- CH32F103 Evaluation Board Manual.pdf: CH32F103 Evaluation Board Description and Project Creation Instructions
+  |      |      |      |-- CH32F103SCH.pdf: CH32F103 Evaluation Board Schematic
+  |      |      |      |-- Keil.WCH32F1xx_DFP.1.0.0.pack: Download Device Pack package
+  |      |      |-- EXAM: 
+  |      |      |      |-- SRC  
+  |      |      |      |      |-- CMSIS: Core system headers
+  |      |      |      |      |-- Startup: CH32F103 Series Boot File
+  |      |      |      |      |-- StdPeriphDriver£ºBasic peripheral driver source files and headers
+  |      |      |      |      |-- Debug: Delay functions, serial debugging source files and header files
+  |      |      |      |-- ADC
+  |      |      |      |      |-- ADC_DMA£ºADC using DMA sampling routines
+  |      |      |      |      |-- AnalogWatchdog£ºAnalog Watchdog Routines
+  |      |      |      |      |-- Auto_Injection£ºAutomatic Injection Mode Routine
+  |      |      |      |      |-- Discontinuous_mode£ºIntermittent Mode Routines
+  |      |      |      |      |-- ExtLines_Trigger£ºExternally triggered ADC conversion routines
+  |      |      |      |      |-- Internal_Temperature£ºInternal temperature sensor routines
+  |      |      |      |-- BKP£ºBKP routines
+  |      |      |      |-- CAN
+  |      |      |      |      |-- Networking£ºCAN routines: normal mode, standard frame and extended frame data sending and receiving
+  |      |      |      |      |-- TestMode£ºTest modes, including silent mode, loopback mode, loopback silent mode
+  |      |      |      |      |-- Time-triggered£ºTime-triggered communication mode
+  |      |      |      |-- CRC£ºCRC routines
+  |      |      |      |-- DAC
+  |      |      |      |      |-- DAC_DMA£ºDAC using DMA conversion routines
+  |      |      |      |      |-- DAC_Exit_9_Trig£ºExternally triggered DAC conversion routines
+  |      |      |      |      |-- DAC_Noise_Generation£ºNoise waveform output routines
+  |      |      |      |      |-- DAC_Normal_OUT£ºNormal Output Routines
+  |      |      |      |      |-- DAC_Timer_Trig£ºTimer-triggered DAC conversion routines
+  |      |      |      |      |-- DAC_Triangle_Generation£ºTriangle Waveform Output Routine
+  |      |      |      |-- DMA
+  |      |      |      |      |-- DMA_MEM2MEM£ºMemory-to-Memory mode routines
+  |      |      |      |      |-- DMA_MEM2PERIP£ºMemory-to-Peripheral Mode, Peripheral-to-Memory Mode routines are available in each peripheral subroutine
+  |      |      |      |-- EXTI£ºExternal Interrupt Routine
+  |      |      |      |-- FLASH£ºFLASH erase/read/write, and fast programming 
+  |      |      |      |-- FreeRTOS£ºFreeRTOS porting routines
+  |      |      |      |-- GPIO£ºGPIO routines
+  |      |      |      |-- I2C
+  |      |      |      |      |-- I2C_7bit_Mode£º7-bit address mode, Master/Slave mode send/receive routines
+  |      |      |      |      |-- I2C_10bit_Mode£º10-bit address mode, Master/Slave mode send/receive routines
+  |      |      |      |      |-- I2C_DMA£ºI2C using DMA, Master/Slave mode send/receive routines
+  |      |      |      |      |-- I2C_EEPROM£ºI2C interface operation EEPROM peripheral routines
+  |      |      |      |      |-- I2C_PEC£ºMaster/Slave mode send/receive routines using PEC error checking
+  |      |      |      |-- IWDG£ºIndependent Watchdog routine
+  |      |      |      |-- IAP£ºIAP Upgrade Routine - Built-in Hex to Bin Tool and IAP Upgrade Tool 
+  |      |      |      |-- LiteOS_M£ºLiteOS_M Porting Routine
+  |      |      |      |-- PWR
+  |      |      |      |      |-- Sleep_Mode£ºLow-power consumption, Sleep mode routines
+  |      |      |      |      |-- Standby_Mode£ºLow-power consumption, Standby mode routines
+  |      |      |      |      |-- Stop_Mode£ºLow-power consumption, Stop mode routines
+  |      |      |      |-- RCC
+  |      |      |      |      |-- MCO£ºMCO Pin Clock Output Routines
+  |      |      |      |      |-- HSI_PLL_Source£ºHSI or HSI/2 as PLL input clock routines  
+  |      |      |      |-- RT-Thread£ºRT-Thread porting routines
+  |      |      |      |-- RTC£ºCalendar Routines
+  |      |      |      |-- SPI
+  |      |      |      |      |-- 1Lines_half-duplex£ºSingle-line half-duplex mode,Master/Slave mode data sending and receiving
+  |      |      |      |      |-- 2Lines_FullDuplex£ºDual-lines full-duplex mode, Master/Slave mode data sending and receiving
+  |      |      |      |      |-- FullDuplex_HardNSS£ºHardware NSS mode, Master/Slave mode data sending and receiving
+  |      |      |      |      |-- SPI_CRC£ºMaster/Slave mode send/receive routines using CRC error checks
+  |      |      |      |      |-- SPI_DMA£ºSPI using DMA, Master/Slave mode send/receive routines
+  |      |      |      |      |-- SPI_FLASH£ºSPI interface operation FLASH peripheral routines
+  |      |      |      |-- TencentOS_Tiny£ºTencentOS porting routines    
+  |      |      |      |-- TIM
+  |      |      |      |      |-- Clock_Select£ºClock Source Selection Routine
+  |      |      |      |      |-- ComplementaryOutput_DeadTime£ºComplementary output and deadband insertion mode routines
+  |      |      |      |      |-- ExtTrigger_Start_Two_Timer£ºExternal trigger to start two timer routines synchronously
+  |      |      |      |      |-- Input_Capture£ºInput Capture Routines
+  |      |      |      |      |-- One_Pulse£ºSingle Pulse Output Routine
+  |      |      |      |      |-- Output_Compare_Mode£ºOutput comparison mode routines
+  |      |      |      |      |-- PWM_Output£ºPWM Output Routines
+  |      |      |      |      |-- Synchro_ExtTrigger£ºSlave mode routines, including reset mode, gated mode, trigger mode
+  |      |      |      |      |-- Synchro_Timer£ºTimer synchronization mode
+  |      |      |      |      |-- TIM_DMA£ºTimer using DMA routines
+  |      |      |      |-- TOUCHKEY£ºTouchKey Detection Routine
+  |      |      |      |-- USART
+  |      |      |      |      |-- USART_DMA£ºUSART using DMA, Master/Slave mode send/receive routines
+  |      |      |      |      |-- USART_HalfDuplex£ºSingle-wire half-duplex mode, Master/Slave mode send/receive routines
+  |      |      |      |      |-- USART_HardwareFlowControl£ºHardware flow control mode, Master/Slave mode send/receive routines
+  |      |      |      |      |-- USART_Interrupt£ºUSART interrupt routines, Master/Slave mode send/receive routines
+  |      |      |      |      |-- USART_MultiProcessorCommunication£ºMulti-processor communication mode routines
+  |      |      |      |      |-- USART_Polling£ºPolling transceiver mode, Master/Slave mode transceiver routines
+  |      |      |      |      |-- USART_Printf£ºSerial port printing debugging routines
+  |      |      |      |      |-- USART_SynchronousMode£ºSynchronous mode, Master/Slave mode send/receive routines
+  |      |      |      |-- USB
+  |      |      |      |      |-- USBD
+  |      |      |      |      |      |-- CH372£ºSimulates a custom USB device (CH372 device) with endpoints 1, 3 down and 2, 4 up. Data down from endpoint 1 is uploaded from endpoint 3 and not reversed, and data down from endpoint 2 is uploaded from endpoint 4 and reversed.
+  |      |      |      |      |      |-- Compatibility_HID£ºSimulation of HID devices, data up and down via serial port
+  |      |      |      |      |      |-- CompositeKM£ºSimulates keyboard and mouse, use I/O to simulate keys, while simulated data can be uploaded through serial port 2.
+  |      |      |      |      |      |-- MSC_U-Disk: Simulates a simple USB flash drive, optionally using on-chip Flash or external SPI-Flash 
+  |      |      |      |      |      |      |-- MSC_CDROM: Simulate CDROM, need external SPI-Flash
+  |      |      |      |      |      |-- SimulateCDC£ºSimulates a CDC serial port and use serial port 2 to send and receive
+  |      |      |      |      |-- USBHD
+  |      |      |      |      |      |-- DEVICE
+  |      |      |      |      |      |      |-- CH372£ºSimulates a custom USB device (CH372 device) with endpoints 1, 3 down and 2, 4 up. Data down from endpoint 1 is uploaded from endpoint 3 and not reversed, and data down from endpoint 2 is uploaded from endpoint 4 and reversed.
+  |      |      |      |      |      |      |-- Compatibility_HID£ºSimulates HID devices, with data transmitted up and down through the serial port.
+  |      |      |      |      |      |      |-- CompositeKM£ºSimulate Keyboard and Mouse, use I/O to simulate keys, while simulated data can be uploaded through serial port 2.
+  |      |      |      |      |      |      |-- MSC_U-Disk: Simulates a simple USB flash drive, optionally using on-chip Flash or external SPI-Flash
+  |      |      |      |      |      |      |-- MSC_CDROM: Simulate CDROM, need external SPI-Flash
+  |      |      |      |      |      |      |-- SimulateCDC£ºSimulate a CDC serial port and use serial port 2 to send and receive. 
+  |      |      |      |      |      |-- HOST_IAP
+  |      |      |      |      |      |      |-- APP: APP used with HOST_IAP, the project has modified the starting location of the program, after compilation, you need to convert the file into a bin file and rename it to APP.bin
+  |      |      |      |      |      |      |-- HOST_IAP:  The host U disk IAP routine based on the U disk read file routine finishing, read the file with the name bit APP.bin from the U disk, write it to the internal flash, check it and jump automatically.
+  |      |      |      |      |      |-- HOST_KM: The host operates the Keyboard and Mouse, gets the data of the endpoints uploaded by the Keyboard and Mouse and prints it, supports U-port under level 1 hub
+  |      |      |      |      |      |-- HOST_MTP_FileSystem£ºEnumeration process of a USB host to a device that supports MTP and PTP protocols, supports MTP and PTP protocols, and reads its files  
+  |      |      |      |      |      |-- Host_Udisk£ºUSB host operation USB disk routine 
+  |      |      |      |-- WWDG£ºWindow Watchdog Routine
