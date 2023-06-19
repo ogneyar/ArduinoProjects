@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>WebServer</name>
-	<comment/>
+	<name>WebServer_v307</name>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -53,7 +53,7 @@
 	<filteredResources>
 		<filter>
 			<id>0</id>
-			<name/>
+			<name></name>
 			<type>22</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
