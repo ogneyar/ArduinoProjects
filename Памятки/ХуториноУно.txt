@@ -28,3 +28,9 @@
 			(DAC_OUT2)	PA5		 a5 o 				rx	 o d0	PA10 (USART1_RX)
 									x--				 ----x
 									   --------------
+
+
+										rst		sck		miso
+										 o 		 o 		 o
+										 o 		 o 		 o
+										gnd		mosi	+3v3
