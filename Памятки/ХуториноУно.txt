@@ -9,7 +9,7 @@
 									x					 x
 									x				scl	 o scl	PB10 (I2C2_SCL | USART3_TX)
 									x				sda	 o sda	PB11 (I2C2_SDA | USART3_RX)
-									x					 o aref	VDDA
+									x					 o aref	
 									x					 o gnd	VSS
 								 NC o				sck	 o d13	PB13 (SPI2_SCK)		*** PA5 (SPI1_SCK)	***	
 							  ioref o				miso o d12	PB14 (SPI2_MISO)	*** PA6 (SPI1_MISO)	***
