@@ -1,0 +1,30 @@
+
+
+
+									x-----Хутоино Уно----x
+									x 					 x
+									x					 x
+									x					 x
+									x					 x
+									x					 x
+									x				scl	 o scl	PB10 (I2C2_SCL | USART3_TX)
+									x				sda	 o sda	PB11 (I2C2_SDA | USART3_RX)
+									x					 o aref	VDDA
+									x					 o gnd	VSS
+								 NC o				sck	 o d13	PB13 (SPI2_SCK)		*** PA5 (SPI1_SCK)	***	
+							  ioref o				miso o d12	PB14 (SPI2_MISO)	*** PA6 (SPI1_MISO)	***
+						NRST	rst o				mosi o d11	PB15 (SPI2_MOSI)	*** PA7 (SPI1_MOSI)	***
+						VDD	   +3v3 o				ss	 o d10	PB12 (SPI2_NSS)		*** PA4 (SPI1_NSS)	***	
+						5V		+5v o					 o d9	PB9  (TIM4_CH4)
+						VSS		gnd o					 o d8	PB8  (TIM4_CH3)
+						VSS		gnd o 	 				 x
+						5V		vin	o 					 o d7	PB7  (I2C1_SDA | USBFS_DP)
+									x					 o d6	PB6  (I2C1_SCL | USBFS_DM)
+				(WKUP)	PA0		 a0 o  		  			 o d5	PB5  (SPI3_MOSI)
+			(TIM2_CH2)	PA1		 a1 o 					 o d4	PB4  (SPI3_MISO)
+(USART2_TX | TIM2_CH3)	PA2		 a2 o 					 o d3	PB3  (SPI3_SCK)
+(USART2_RX | TIM2_CH4)	PA3		 a3 o 					 o d2	PA15 (SPI3_NSS)
+			(DAC_OUT1)	PA4		 a4 o 				tx	 o d1	PA9  (USART1_TX)
+			(DAC_OUT2)	PA5		 a5 o 				rx	 o d0	PA10 (USART1_RX)
+									x--				 ----x
+									   --------------
