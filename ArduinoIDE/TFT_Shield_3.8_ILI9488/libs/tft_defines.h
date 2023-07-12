@@ -98,6 +98,8 @@
 #elif defined(__SAMD21G18A__)   //regular UNO shield on ZERO or M0_PRO
 
   #include "sam.h"
+  
+  //#define SPCR (*(uint8_t*)(0x50000000))
 
   // configure macros for the control pins
   #define RD_PORT PORT->Group[0]
