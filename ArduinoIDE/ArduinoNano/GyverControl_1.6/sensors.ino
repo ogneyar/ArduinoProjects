@@ -22,33 +22,50 @@ void getAllData() {
   sensorVals[4] = analogReadAverage(SENS_3) / 4;
   sensorVals[5] = analogReadAverage(SENS_4) / 4;
 
-#if (DALLAS_SENS1 == 1)
-#if (DALLAS_AMOUNT > 1)
-  for (byte i = 0; i < DALLAS_AMOUNT; i++) {
-    float thisDal = dallas[i].getTemp();
-    if (thisDal != 0) dallasBuf[i] = thisDal;
-    dallas[i].requestTemp();
-  }
-  float thisMin = 200.0, thisMax = -200.0, thisSum = 0.0;
-  for (byte i = 0; i < DALLAS_AMOUNT; i++) {
-    thisSum += dallasBuf[i];
-    if (dallasBuf[i] > thisMax) thisMax = dallasBuf[i];
-    if (dallasBuf[i] < thisMin) thisMin = dallasBuf[i];
-  }
 
-#if (DALLAS_MODE == 0)
-  sensorVals[2] = thisSum / DALLAS_AMOUNT;
-#elif (DALLAS_MODE == 1)
-  sensorVals[2] = thisMax;
-#elif (DALLAS_MODE == 2)
-  sensorVals[2] = thisMin;
+
+#if ( (DALLAS_SENS1 == 1) || (DALLAS_SENS2 == 1) )
+  #if (DALLAS_AMOUNT > 1)
+    for (byte i = 0; i < DALLAS_AMOUNT; i++) {
+      float thisDal = dallas[i].getTemp();
+      if (thisDal != 0) dallasBuf[i] = thisDal;
+      dallas[i].requestTemp();
+    }
+    float thisMin = 200.0, thisMax = -200.0, thisSum = 0.0;
+    for (byte i = 0; i < DALLAS_AMOUNT; i++) {
+      thisSum += dallasBuf[i];
+      if (dallasBuf[i] > thisMax) thisMax = dallasBuf[i];
+      if (dallasBuf[i] < thisMin) thisMin = dallasBuf[i];
+    }
+
+    #if (DALLAS_MODE == 0)
+      // sensorVals[2] = thisSum / DALLAS_AMOUNT;
+      sensorVals[3] = thisSum / DALLAS_AMOUNT;
+    #elif (DALLAS_MODE == 1)
+      // sensorVals[2] = thisMax;
+      sensorVals[3] = thisMax;
+    #elif (DALLAS_MODE == 2)
+      // sensorVals[2] = thisMin;
+      sensorVals[3] = thisMin;
+    #endif
+
+  #else
+    // sensorVals[2] = dallas.getTemp(); // sensorVals[2] - SENS_1
+    // dallas.requestTemp();
+    #if (DALLAS_SENS1 == 1)
+      sensorVals[2] = dallas1.getTemp(); // sensorVals[2] - SENS_1  
+      dallas1.requestTemp();
+    #endif
+    #if (DALLAS_SENS2 == 1)
+      sensorVals[3] = dallas2.getTemp(); // sensorVals[3] - SENS_2
+      dallas2.requestTemp();
+      // Serial.print("sensorVals[4]: ");
+      // Serial.println(sensorVals[4]);
+    #endif    
+  #endif
 #endif
 
-#else
-  sensorVals[2] = dallas.getTemp();
-  dallas.requestTemp();
-#endif
-#endif
+
 
 #if (USE_CO2 == 1)
 #if (CO2_PIN == 1)

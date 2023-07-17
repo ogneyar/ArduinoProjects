@@ -454,21 +454,24 @@ void printName() {
   lcd.setCursor(15, 0); lcd.print(F("Back"));
 }
 
-// позиции вывода первых двух датчиков
-#define POS_1 4
-#define POS_2 9
+// позиции вывода первых трёх датчиков (после влажности)
+#define POS_1 6
+#define POS_2 14
 
+/* Я ЭТО НЕ ИСПОЛЬЗУЮ */
+/*----------------------------------------------------------------------*/
 #if (USE_CO2 == 1)
-#if (CO2_PIN == 2)
-#if (DALLAS_SENS1 == 1)
-#define POS_1 3
-#define POS_2 8
-#else
-#define POS_1 4
-#define POS_2 8
+  #if (CO2_PIN == 2)
+    #if (DALLAS_SENS1 == 1)
+      #define POS_1 3
+      #define POS_2 8
+    #else
+      #define POS_1 4
+      #define POS_2 8
+    #endif
+  #endif
 #endif
-#endif
-#endif
+/*----------------------------------------------------------------------*/
 
 void redrawDebug() {
   lcd.setCursor(1, 0); lcd.print(F("DEBUG"));
@@ -509,69 +512,86 @@ void redrawDebug() {
   // 1 влажн
   //clearLine2(1);
   lcd.setCursor(0, 1); lcd.print((int)(sensorVals[1])); lcd.write(37); printSpace();
-
+  
+  // 2
   lcd.setCursor(POS_1, 1);
 #if (DALLAS_SENS1 == 1)
   // 2 даллас
-#if (DALLAS_AMOUNT > 1)
+  #if (DALLAS_AMOUNT > 1)
 
-#if (DALLAS_DISP == 0)
-  lcd.print(sensorVals[2], 1);
-#elif (DALLAS_DISP == 1)
-  static byte counter = 0;
-  if (counter % 2 == 0) {
-    lcd.print(counter / 2 + 1);
-    printSpace(); // костыль чтобы не рисовать значок градуса
-    printSpace();
-  }
-  else lcd.print(dallasBuf[counter / 2], 1);
-  counter++;
-  if (counter >= DALLAS_AMOUNT * 2) counter = 0;
-#endif
+    #if (DALLAS_DISP == 0)
+      lcd.print(sensorVals[2], 1);
+    #elif (DALLAS_DISP == 1)
+      static byte counter = 0;
+      if (counter % 2 == 0) {
+        lcd.print(counter / 2 + 1);
+        printSpace(); // костыль чтобы не рисовать значок градуса
+        printSpace();
+      }
+      else lcd.print(dallasBuf[counter / 2], 1);
+      counter++;
+      if (counter >= DALLAS_AMOUNT * 2) counter = 0;
+    #endif
+
+  #else
+    lcd.print(sensorVals[2], 1);
+  #endif
 
 #else
-  lcd.print(sensorVals[2], 1);
-#endif
-
-#else
-  // 2 аналог
-  lcd.print((int)sensorVals[2]);
+    // 2 аналог или термистор
+    lcd.print((int)sensorVals[2]);
 #endif
 
 #if (THERM1 == 1 || DALLAS_SENS1 == 1)
   lcd.write(223);
-#endif
+#endif    
   printSpace();
 
-  // 3 dht
-  lcd.setCursor(POS_2, 1);
 
-#if (DHT_SENS2 == 1)
-  printDash();
+  // 3
+  lcd.setCursor(POS_2, 1);  
+#if (DALLAS_SENS2 == 1)
+  // 3 даллас
+  lcd.print(sensorVals[3], 1);
 #else
-  // 3 аналог или термистор
-  lcd.print((int)sensorVals[3]);
+
+  #if (DHT_SENS2 == 1)
+    printDash();
+  #else
+    // 3 аналог или термистор
+    lcd.print((int)sensorVals[3]);
+  #endif
+
 #endif
 
-#if (THERM2 == 1)
+#if (THERM2 == 1 || DALLAS_SENS2 == 1)
   lcd.write(223);
 #endif
   printSpace();
+
+
   // 4 аналог или термистор
-  lcd.setCursor(13, 1); lcd.print((int)sensorVals[4]);
-#if (THERM3 == 1)
-  lcd.write(223);
-#endif
-  printSpace();
+  lcd.setCursor(13, 1);
+
+  // я не использую SENS3
+//   lcd.print((int)sensorVals[4]);
+// #if (THERM3 == 1)
+//   lcd.write(223);
+// #endif
+//   printSpace();
+
   // 5 аналог или термистор
-  lcd.setCursor(17, 1); lcd.print((int)sensorVals[5]);
-#if (THERM4 == 1)
-  lcd.write(223);
-  if ((int)sensorVals[5] < 10) lcd.print(' ');
-#else
-  if ((int)sensorVals[5] < 10) printSpace();
-  else if ((int)sensorVals[5] < 100) lcd.print(' ');
-#endif
+  lcd.setCursor(17, 1);   
+
+  // я не использую SENS4
+//   lcd.print((int)sensorVals[5]);
+// #if (THERM4 == 1)
+//   lcd.write(223);
+//   if ((int)sensorVals[5] < 10) lcd.print(' ');
+// #else
+//   if ((int)sensorVals[5] < 10) printSpace();
+//   else if ((int)sensorVals[5] < 100) lcd.print(' ');
+// #endif
 
   lcd.setCursor(0, 2); lcd.print(sensorVals[0], 1); lcd.write(223); printSpace();
   lcd.setCursor(6, 2); lcd.print(F("R:"));

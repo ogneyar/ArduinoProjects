@@ -1,7 +1,7 @@
 void setup() {
 // #if (DEBUG_TEST_ENABLE == 1)
-//   Serial.begin(9600);
-//   Serial.println("test");
+  // Serial.begin(9600);
+  // Serial.println("test");
 // #endif
 
 #if (DEBUG_ENABLE == 1)

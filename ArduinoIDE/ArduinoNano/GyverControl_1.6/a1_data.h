@@ -123,14 +123,19 @@ MicroDS3231 rtc;
 GyverBME280 bme;
 #endif
 
-#if (DALLAS_SENS1 == 1)
-#include <microDS18B20.h>
-#if (DALLAS_AMOUNT > 1)
-MicroDS18B20 dallas[DALLAS_AMOUNT];
-float dallasBuf[DALLAS_AMOUNT];
-#else
-MicroDS18B20 dallas(SENS_1);
-#endif
+#if ( (DALLAS_SENS1 == 1) || (DALLAS_SENS2 == 1) )
+  #include <microDS18B20.h>
+  #if (DALLAS_AMOUNT > 1)
+    MicroDS18B20 dallas[DALLAS_AMOUNT];
+    float dallasBuf[DALLAS_AMOUNT];
+  #else
+    #if (DALLAS_SENS1 == 1)
+      MicroDS18B20 dallas1(SENS_1);
+    #endif
+    #if (DALLAS_SENS2 == 1)
+      MicroDS18B20 dallas2(SENS_2);
+    #endif
+  #endif
 #endif
 
 #if (DHT_SENS2 == 1)
@@ -526,6 +531,9 @@ const char *directionNames[]  = {
 
 #if (DALLAS_SENS1 == 1)
 #define SENS1_NAME "Dall"
+#endif
+#if (DALLAS_SENS2 == 1)
+#define SENS2_NAME "Dal2"
 #endif
 
 #if (THERM1 == 1)
