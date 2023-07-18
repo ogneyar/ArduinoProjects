@@ -1,5 +1,5 @@
 
-// ATmega328p
+// ATmega8
 
 // INT0 на PD2
 // I2C_CLK на PC5 (A5)
