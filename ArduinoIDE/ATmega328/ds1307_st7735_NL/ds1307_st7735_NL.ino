@@ -88,6 +88,8 @@ void setup(void)
 void loop(void) {
   if ( ! settingPressed ) showTime();
   settingPressed = setTime();
+  // beep();
+  // delay(1000);
 }
 
 //
@@ -329,19 +331,20 @@ void showTime(void)
 
 void beep(void)
 {
-  analogWrite(5, 30);
-  delay(400);
+  analogWrite(5, 40);
+  delay(500);
   analogWrite(5, 130);
-  delay(400);
-  analogWrite(5, 30);
-  delay(400);
+  delay(500);
+  analogWrite(5, 60);
+  delay(500);
   analogWrite(5, 130);
-  delay(400);
-  analogWrite(5, 220);
-  delay(200);
-  analogWrite(5, 190);
-  delay(200);
-  analogWrite(5, 160);
-  delay(200);
+  delay(500);
+  analogWrite(5, 200);
+  delay(250);
+  analogWrite(5, 150);
+  delay(250);
+  analogWrite(5, 100);
+  delay(250);
   analogWrite(5, 0);
+  delay(1000);
 }

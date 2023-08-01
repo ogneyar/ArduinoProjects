@@ -1,0 +1,6 @@
+Создаем проект для МК К1986ВК025 в IAR EW for RISC-V - 
+http://support.milandr.ru/base/primenenie/programmirovanie-32-razryadnykh-mk/nachalo-raboty/37450/
+
+
+Создаем проект для МК К1986ВК025 в IDE Eclipse - 
+http://support.milandr.ru/base/primenenie/programmirovanie-32-razryadnykh-mk/nachalo-raboty/37102/

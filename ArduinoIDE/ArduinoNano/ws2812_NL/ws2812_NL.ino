@@ -56,16 +56,16 @@ void loop() {
 
     switch(step) {
       case 1:
-        ws2812_setOne(0xffffff);  // диод 0, цвет белый
+        ws2812_setOne(0xffffff);  // цвет белый
       break;
       case 2:
-        ws2812_setOne(0xff0000);  // диод 0, цвет белый
+        ws2812_setOne(0xff0000);  // цвет зелёный
       break;
       case 3:      
-        ws2812_setOne(0x00ff00);  // диод 0, цвет белый
+        ws2812_setOne(0x00ff00);  // цвет красный
       break;
       case 4:
-        ws2812_setOne(0x0000ff);  // диод 0, цвет белый
+        ws2812_setOne(0x0000ff);  // цвет синий
       break;
       default: break;
     }
