@@ -20,7 +20,7 @@ uint8_t segment4 = 10;
 uint8_t points = 0;
 
 int address = 0;    // адрес ключа
-uint8_t key = 234;  // ключ для проверки первого запуска
+uint8_t key = 236;  // ключ для проверки первого запуска
 
 bool settingPressed = false;
 bool flagButton1 = false;
@@ -30,6 +30,18 @@ uint8_t h, m, s;
 uint8_t hour1, hour2;
 uint8_t min1, min2;
 uint8_t height_segments = 57;
+
+/***************
+for beep atmega8
+****************/
+//---------------------
+#if defined(__AVR_ATmega8__)
+byte pin = 5;
+byte value = 255;
+int pause1 = 0x000001c0;
+int pause2 = 0x00000180;
+#endif
+//---------------------
 
 #define button1Pin A0 // кнопка настроек
 #define button2Pin A1 // кнопка часов
@@ -44,6 +56,21 @@ uint8_t height_segments = 57;
 bool setTime(void);
 void showTime(void);
 void beep(void);
+
+/***************
+for beep atmega8
+****************/
+//---------------------
+#if defined(__AVR_ATmega8__)
+void beep7(int pause = pause1);
+void beep6(int pause = pause1);
+void beep5(int pause = pause1);
+void beep4(int pause = pause1);
+void beep3(int pause = pause2);
+void beep2(int pause = pause2);
+void beep1(int pause = pause2);
+#endif
+//---------------------
 
 
 // прерывание инт0
@@ -79,7 +106,7 @@ void setup(void)
   if (EEPROM.read(address) != key) {  // значение ключа
     EEPROM.write(address, key);
     // установить время == времени компиляции
-    ds1307_settime(BUILD_HOUR, BUILD_MIN, BUILD_SEC);
+    ds1307_settime(BUILD_HOUR, BUILD_MIN+1, 0);
   }
 
   sei(); // разрешить прерывания
@@ -329,6 +356,15 @@ void showTime(void)
 
 void beep(void)
 {
+#if defined(__AVR_ATmega8__)
+  beep4();
+  beep7();
+  beep4();
+  beep6();
+  beep3();
+  beep2();
+  beep1();
+#elif defined(__AVR_ATmega328P__)
   analogWrite(5, 30);
   delay(400);
   analogWrite(5, 130);
@@ -345,4 +381,100 @@ void beep(void)
   delay(200);
   analogWrite(5, 0);
   delay(1000);
+#else
+#error "beep(): unknow MK"
+#endif
 }
+
+
+/**********************************************
+****************
+beep for atmega8 (цыганский стиль)
+****************
+**********************************************/
+
+#if defined(__AVR_ATmega8__)
+//
+void beep7(int pause)
+{
+  for (int i = 0; i < pause; i++)
+  {    
+    analogWrite(pin, value);
+    _delay_us(1000);
+    analogWrite(pin, 0);
+    _delay_us(700);
+  }
+}
+//
+void beep6(int pause)
+{
+  for (int i = 0; i < pause; i++)
+  {    
+    analogWrite(pin, value);
+    _delay_us(1000);
+    analogWrite(pin, 0);
+    _delay_us(600);
+  }
+}
+//
+void beep5(int pause)
+{
+  for (int i = 0; i < pause; i++)
+  {    
+    analogWrite(pin, value);
+    _delay_us(1000);
+    analogWrite(pin, 0);
+    _delay_us(500);
+  }
+}
+//
+void beep4(int pause)
+{
+  for (int i = 0; i < pause; i++)
+  {    
+    analogWrite(pin, value);
+    _delay_us(1000);
+    analogWrite(pin, 0);
+    _delay_us(400);
+  }
+}
+//
+void beep3(int pause)
+{
+  for (int i = 0; i < pause; i++)
+  {    
+    analogWrite(pin, value);
+    _delay_us(1000);
+    analogWrite(pin, 0);
+    _delay_us(300);
+  }
+}
+//
+void beep2(int pause)
+{
+  for (int i = 0; i < pause; i++)
+  {    
+    analogWrite(pin, value);
+    _delay_us(1000);
+    analogWrite(pin, 0);
+    _delay_us(200);
+  }
+}
+//
+void beep1(int pause)
+{
+  for (int i = 0; i < pause; i++)
+  {    
+    analogWrite(pin, value);
+    _delay_us(1000);
+    analogWrite(pin, 0);
+    _delay_us(100);
+  }
+}
+#endif
+
+/**********************************************
+****************
+*******
+****************
+**********************************************/

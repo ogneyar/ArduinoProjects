@@ -2,20 +2,32 @@
 // поиск файла
 find / "file.txt"
 
-
 // просмотр содержимого папки
 ls -la
-
 
 // ссылка
 ln /home/admin/file.txt /home/admin/desctop
 
-
 // разрешения на чтение запись и исполнение
 chmod ugo+rwx /home/admin/file.txt
-
 
 // копирование файла
 cp /home/admin/file.txt /home/admin/desctop
 
+// создание группы
+groupadd images
 
+// добавление пользователя в группу 
+usermod -aG images admin
+
+// узнать в каких группах состоит
+groups admin
+
+// узнать членов группы
+members images
+
+// назначить права на папку группе
+chgrp images /images
+
+// смена и владельца и группы (-R рекурсия) 
+chown -R admin:admin /images

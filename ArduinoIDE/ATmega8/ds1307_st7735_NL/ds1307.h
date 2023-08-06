@@ -31,7 +31,7 @@ void ds1307_ini(void) {
   EICRA |= (1 << ISC01);      // прерывание по спаду инт0 ATmega328p
   EIMSK |= (1 << INT0);       // разрешить прерывание инт0 ATmega328p
 #else
-#error "unknow MK"
+#error "ds1307_ini(): unknow MK"
 #endif
   ds1307_writebyte(7, 0x10);  // запуск частоты 1гц
 }
