@@ -1,0 +1,33 @@
+
+
+			
+				GND		 *****		GND
+				GND		 *	 *		GND
+				3V3		 *****		VIN
+				3V3					VIN
+	SPI1_MOSI	PF0					PA0
+	SPI1_MOSI	PF1					PA1
+	SPI1_MOSI	PF2					PA2
+	SPI1_MOSI	PF3					PA3
+		[M0]	PF4					PA4
+		[M1]	PF5					PA5
+		[M2]	PF6					PA6		RXD1
+				USB-DP				PA7		TXD1
+				USB-DN				PB10
+				BUCC				PB9
+				PE7					PB8
+				PE6					PB7
+				WUP					PB6
+				nRST				PB5
+				PE3					PB4
+				PE2					PB3
+				PE1					PB2		HL2
+				PE0					PB1		HL1
+		JTMS	PD0					PB0
+		JTCK	PD1					PC0		SCL
+		JNRST	PD2					PC1		SDA
+		JTDI	PD3					PC2		HL3
+		JTDO	PD4					PD6
+				PD7					PD5		BTN
+				   o   o   o   o   o
+				  rst dio gnd clk 3v3    
