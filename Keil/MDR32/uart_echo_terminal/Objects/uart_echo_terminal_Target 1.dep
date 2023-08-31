@@ -1,7 +1,7 @@
 Dependencies for Project 'uart_echo_terminal', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 6180000::V6.18::ARMCLANG
-F (.\main.c)(0x63B7E847)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/MDR32F9Q2I-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc-D__UVISION_VERSION="538" -D_RTE_ -D_RTE_-o ./objects/main.o -MD)
-I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x624C4A6A)
+F (.\main.c)(0x64F06274)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/MDR32F9Q2I-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc-D__UVISION_VERSION="538" -D_RTE_ -D_RTE_-o ./objects/main.o -MD)
+I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x64F06198)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
 I (RTE\_Target_1\RTE_Components.h)(0x63B2B63D)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\inc\MDR32F9Q2I.h)(0x624C4A6A)
@@ -16,11 +16,11 @@ I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\SPL\MD
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\SPL\MDR32FxQI\inc\MDR32FxQI_rst_clk.h)(0x624C4A6A)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\SPL\MDR32FxQI\inc\MDR32FxQI_eeprom.h)(0x624C4A6A)
 F (RTE/Device/MDR32F9Q2I/MDR32F9Q2I.sct)(0x624C4A6A)()
-F (RTE/Device/MDR32F9Q2I/MDR32FxQI_config.h)(0x624C4A6A)()
+F (RTE/Device/MDR32F9Q2I/MDR32FxQI_config.h)(0x64F06198)()
 F (RTE/Device/MDR32F9Q2I/startup_MDR32F9Q2I.S)(0x624C4A4C)(--target=arm-arm-none-eabi -mcpu=cortex-m3 -masm=auto -c-gdwarf-4 -D__EVAL-I./RTE/Device/MDR32F9Q2I-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc-D__UVISION_VERSION=538 -D_RTE_ -D_RTE_-o ./objects/startup_mdr32f9q2i.o)
 F (RTE/Device/MDR32F9Q2I/system_MDR32F9Q2I.c)(0x624C4A6A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/MDR32F9Q2I-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc-D__UVISION_VERSION="538" -D_RTE_ -D_RTE_-o ./objects/system_mdr32f9q2i.o -MD)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\inc\MDR32F9Q2I.h)(0x624C4A6A)
-I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x624C4A6A)
+I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x64F06198)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
 I (RTE\_Target_1\RTE_Components.h)(0x63B2B63D)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626F912E)
@@ -32,7 +32,7 @@ I (RTE\Device\MDR32F9Q2I\system_MDR32F9Q2I.h)(0x624C4A6A)
 F (RTE/Device/MDR32F9Q2I/system_MDR32F9Q2I.h)(0x624C4A6A)()
 F (C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_eeprom.c)(0x624C4A6A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/MDR32F9Q2I-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc-D__UVISION_VERSION="538" -D_RTE_ -D_RTE_-o ./objects/mdr32fxqi_eeprom.o -MD)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\SPL\MDR32FxQI\inc\MDR32FxQI_eeprom.h)(0x624C4A6A)
-I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x624C4A6A)
+I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x64F06198)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
 I (RTE\_Target_1\RTE_Components.h)(0x63B2B63D)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\inc\MDR32F9Q2I.h)(0x624C4A6A)
@@ -44,7 +44,7 @@ I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu
 I (RTE\Device\MDR32F9Q2I\system_MDR32F9Q2I.h)(0x624C4A6A)
 F (C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c)(0x624C4A6A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/MDR32F9Q2I-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc-D__UVISION_VERSION="538" -D_RTE_ -D_RTE_-o ./objects/mdr32fxqi_port.o -MD)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\SPL\MDR32FxQI\inc\MDR32FxQI_port.h)(0x624C4A6A)
-I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x624C4A6A)
+I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x64F06198)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
 I (RTE\_Target_1\RTE_Components.h)(0x63B2B63D)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\inc\MDR32F9Q2I.h)(0x624C4A6A)
@@ -56,7 +56,7 @@ I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu
 I (RTE\Device\MDR32F9Q2I\system_MDR32F9Q2I.h)(0x624C4A6A)
 F (C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_rst_clk.c)(0x624C4A6A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/MDR32F9Q2I-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc-D__UVISION_VERSION="538" -D_RTE_ -D_RTE_-o ./objects/mdr32fxqi_rst_clk.o -MD)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\SPL\MDR32FxQI\inc\MDR32FxQI_rst_clk.h)(0x624C4A6A)
-I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x624C4A6A)
+I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x64F06198)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
 I (RTE\_Target_1\RTE_Components.h)(0x63B2B63D)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\inc\MDR32F9Q2I.h)(0x624C4A6A)
@@ -68,7 +68,7 @@ I (C:\Users\ogney\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu
 I (RTE\Device\MDR32F9Q2I\system_MDR32F9Q2I.h)(0x624C4A6A)
 F (C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_uart.c)(0x624C4A6A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier-I./RTE/Device/MDR32F9Q2I-I./RTE/_Target_1-IC:/Users/ogney/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc-IC:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc-D__UVISION_VERSION="538" -D_RTE_ -D_RTE_-o ./objects/mdr32fxqi_uart.o -MD)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\SPL\MDR32FxQI\inc\MDR32FxQI_uart.h)(0x624C4A6A)
-I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x624C4A6A)
+I (RTE\Device\MDR32F9Q2I\MDR32FxQI_config.h)(0x64F06198)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6252A728)
 I (RTE\_Target_1\RTE_Components.h)(0x63B2B63D)
 I (C:\Users\ogney\AppData\Local\Arm\Packs\Milandr\MDR32FxQI\1.0\Libraries\CMSIS\MDR32FxQI\DeviceSupport\MDR32F9Q2I\inc\MDR32F9Q2I.h)(0x624C4A6A)

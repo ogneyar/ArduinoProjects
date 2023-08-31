@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\uart_echo_terminal.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\uart_echo_terminal.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Fri Jan  6 12:22:18 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6180002: Last Updated: Thu Aug 31 12:50:47 2023
 <BR><P>
 <H3>Maximum Stack Usage =        180 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -495,7 +495,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[44]"></a>UART_GetFlagStatus</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, mdr32fxqi_uart.o(.text.UART_GetFlagStatus))
+<P><STRONG><a name="[45]"></a>UART_GetFlagStatus</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, mdr32fxqi_uart.o(.text.UART_GetFlagStatus))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = UART_GetFlagStatus
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -509,24 +509,24 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[45]"></a>UART_ReceiveData</STRONG> (Thumb, 14 bytes, Stack size 4 bytes, mdr32fxqi_uart.o(.text.UART_ReceiveData))
+<P><STRONG><a name="[46]"></a>UART_ReceiveData</STRONG> (Thumb, 14 bytes, Stack size 4 bytes, mdr32fxqi_uart.o(.text.UART_ReceiveData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = UART_ReceiveData
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[46]"></a>UART_SendData</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, mdr32fxqi_uart.o(.text.UART_SendData))
+<P><STRONG><a name="[44]"></a>UART_SendData</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, mdr32fxqi_uart.o(.text.UART_SendData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = UART_SendData
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[2b]"></a>main</STRONG> (Thumb, 334 bytes, Stack size 40 bytes, main.o(.text.main))
+<P><STRONG><a name="[2b]"></a>main</STRONG> (Thumb, 672 bytes, Stack size 40 bytes, main.o(.text.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 180<LI>Call Chain = main &rArr; UART_Init &rArr; RST_CLK_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SendData
-<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_ReceiveData
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_GetFlagStatus
+<BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_ReceiveData
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_GetFlagStatus
+<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SendData
 <LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Cmd
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Init
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_BRGInit

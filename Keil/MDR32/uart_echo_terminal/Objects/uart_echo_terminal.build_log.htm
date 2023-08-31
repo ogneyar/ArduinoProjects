@@ -26,7 +26,7 @@ Project File Date:  01/02/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.18', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
 compiling main.c...
 main.c(5): warning: In file included from...
 C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc\MDR32FxQI_port.h(200): warning: padding size of 'PORT_InitTypeDef' with 1 byte to alignment boundary [-Wpadded]
@@ -36,11 +36,81 @@ main.c(4): warning: In file included from...
 C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc\MDR32FxQI_uart.h(243): warning: padding size of 'UART_InitTypeDef' with 2 bytes to alignment boundary [-Wpadded]
 typedef struct
         ^
+main.c(110): warning: while loop has empty body [-Wempty-body]
+        while (UART_GetFlagStatus (MDR_UART2, UART_FLAG_TXFE) != SET);
+                                                                     ^
+main.c(110): note: put the semicolon on a separate line to silence this warning
+3 warnings generated.
+assembling startup_MDR32F9Q2I.S...
+compiling system_MDR32F9Q2I.c...
+compiling MDR32FxQI_eeprom.c...
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_eeprom.c(374): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+    Mask = 0xFF << Shift;
+         ~ ~~~~~^~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_eeprom.c(403): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+    Mask = 0xFFFF << Shift;
+         ~ ~~~~~~~^~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_eeprom.c(481): warning: variable 'tmp' set but not used [-Wunused-but-set-variable]
+    volatile uint32_t i, tmp;
+                         ^
+3 warnings generated.
+compiling MDR32FxQI_port.c...
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(122): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+            tmpreg_OE     = (tmpreg_OE     & ~mask_s) | (PORT_InitStruct->PORT_OE        <<  pos);
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(123): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+            tmpreg_FUNC   = (tmpreg_FUNC   & ~mask_l) | (PORT_InitStruct->PORT_FUNC      << (pos * 2));
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(124): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+            tmpreg_ANALOG = (tmpreg_ANALOG & ~mask_s) | (PORT_InitStruct->PORT_MODE      <<  pos);
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(126): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                                                      | (PORT_InitStruct->PORT_PULL_DOWN <<  pos);
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(125): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+            tmpreg_PULL   = (tmpreg_PULL   & ~mask_d) | (PORT_InitStruct->PORT_PULL_UP   << (pos + 16))
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(128): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                                                      | (PORT_InitStruct->PORT_PD        <<  pos);
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(127): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+            tmpreg_PD     = (tmpreg_PD     & ~mask_d) | (PORT_InitStruct->PORT_PD_SHM    << (pos + 16))
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(129): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+            tmpreg_PWR    = (tmpreg_PWR    & ~mask_l) | (PORT_InitStruct->PORT_SPEED     << (pos * 2));
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(130): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+            tmpreg_GFEN   = (tmpreg_GFEN   & ~mask_s) | (PORT_InitStruct->PORT_GFEN      <<  pos);
+                                                      ~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_port.c(23): warning: In file included from...
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc\MDR32FxQI_port.h(200): warning: padding size of 'PORT_InitTypeDef' with 1 byte to alignment boundary [-Wpadded]
+typedef struct
+        ^
+10 warnings generated.
+compiling MDR32FxQI_rst_clk.c...
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_rst_clk.c(192): warning: enumeration value 'RST_CLK_HSE_OFF' not explicitly handled in switch [-Wswitch-enum]
+    switch (RST_CLK_HSE)
+            ^~~~~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_rst_clk.c(317): warning: enumeration value 'RST_CLK_LSE_OFF' not explicitly handled in switch [-Wswitch-enum]
+    switch (RST_CLK_LSE)
+            ^~~~~~~~~~~
 2 warnings generated.
+compiling MDR32FxQI_uart.c...
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_uart.c(167): warning: implicit conversion changes signedness: 'unsigned int' to 'int32_t' (aka 'int') [-Wsign-conversion]
+                / UART_InitStruct->UART_BaudRate;
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_uart.c(191): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    tmpreg &= ~CR_FC_Mask;
+           ~~ ^~~~~~~~~~~
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/src/MDR32FxQI_uart.c(23): warning: In file included from...
+C:/Users/ogney/AppData/Local/Arm/Packs/Milandr/MDR32FxQI/1.0/Libraries/SPL/MDR32FxQI/inc\MDR32FxQI_uart.h(243): warning: padding size of 'UART_InitTypeDef' with 2 bytes to alignment boundary [-Wpadded]
+typedef struct
+        ^
+3 warnings generated.
 linking...
-Program Size: Code=3356 RO-data=224 RW-data=4 ZI-data=1664  
+Program Size: Code=3692 RO-data=224 RW-data=4 ZI-data=1664  
 FromELF: creating hex file...
-".\Objects\uart_echo_terminal.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\uart_echo_terminal.axf" - 0 Error(s), 21 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -73,18 +143,18 @@ Package Vendor: Milandr
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Milandr::Device:Startup:2.0.2i
-      Include file:  Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc/MDR32F9Q2I.h
-      Source file:   Libraries/SPL/MDR32FxQI/src/IRQ_Handler_Template/MDR32F9Q2I_IT.c
-      Include file:  Libraries/SPL/MDR32FxQI/MDR32FxQI_config.h
-      Source file:   Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/startup/system_MDR32F9Q2I.c
-      Include file:  Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3/core_cm3.h
-      Include file:  Libraries/SPL/MDR32FxQI/inc/IRQ_Handler_Template/MDR32F9Q2I_IT.h
       Source file:   Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/startup/arm/startup_MDR32F9Q2I.S
+      Source file:   Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/startup/system_MDR32F9Q2I.c
       Include file:  Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/startup/system_MDR32F9Q2I.h
+      Include file:  Libraries/CMSIS/MDR32FxQI/DeviceSupport/MDR32F9Q2I/inc/MDR32F9Q2I.h
+      Include file:  Libraries/CMSIS/MDR32FxQI/CoreSupport/CM3/core_cm3.h
+      Include file:  Libraries/SPL/MDR32FxQI/MDR32FxQI_config.h
+      Include file:  Libraries/SPL/MDR32FxQI/inc/IRQ_Handler_Template/MDR32F9Q2I_IT.h
+      Source file:   Libraries/SPL/MDR32FxQI/src/IRQ_Handler_Template/MDR32F9Q2I_IT.c
 
    * Component: Milandr::Drivers:EEPROM:2.0.2i
-      Include file:  Libraries/SPL/MDR32FxQI/inc/MDR32FxQI_eeprom.h
       Source file:   Libraries/SPL/MDR32FxQI/src/MDR32FxQI_eeprom.c
+      Include file:  Libraries/SPL/MDR32FxQI/inc/MDR32FxQI_eeprom.h
 
    * Component: Milandr::Drivers:PORT:2.0.2i
       Include file:  Libraries/SPL/MDR32FxQI/inc/MDR32FxQI_port.h
@@ -95,9 +165,9 @@ Package Vendor: Milandr
       Source file:   Libraries/SPL/MDR32FxQI/src/MDR32FxQI_rst_clk.c
 
    * Component: Milandr::Drivers:UART:2.0.2i
-      Include file:  Libraries/SPL/MDR32FxQI/inc/MDR32FxQI_uart.h
       Source file:   Libraries/SPL/MDR32FxQI/src/MDR32FxQI_uart.c
-Build Time Elapsed:  00:00:01
+      Include file:  Libraries/SPL/MDR32FxQI/inc/MDR32FxQI_uart.h
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

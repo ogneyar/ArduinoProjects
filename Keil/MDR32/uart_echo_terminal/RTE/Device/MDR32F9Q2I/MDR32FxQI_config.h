@@ -98,7 +98,7 @@ extern "C" {
 #define HSI_Value       ((uint32_t)8000000)
 // <o> HSE clock value [Hz]
 // <i> Default: 8000000 (8MHz)
-#define HSE_Value       ((uint32_t)8000000)
+#define HSE_Value       ((uint32_t)16000000)
 // <o> HSE2 clock value [Hz] for MDR32F1QI
 // <i> Default: 25000000 (25MHz)
 #define HSE2_Value      ((uint32_t)25000000)
