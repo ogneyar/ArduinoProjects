@@ -12,7 +12,7 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("go");
+  // Serial.println("go");
   digitalWrite(LED1, HIGH);
   delay(1000);
   digitalWrite(LED1, LOW);

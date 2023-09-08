@@ -52,27 +52,3 @@ AT+CMGS="+79518233333" - отправка SMS, в конце необходим 
 "" - символ "ctrl + Z"
 
 
-
-AT+CNETSCAN - информация по «видимым» вышкам сотовой связи
-
-AT+SAPBR=3,1,"Contype","GPRS" // конфигурирование профиля доступа в Интернет
-
-AT+SAPBR=3,1,"APN","internet" // конфигурирование APN 
-
-AT+SAPBR=1,1 // запрос на открытие GPRS контекста
-
-AT+SAPBR=2,1 // запрос текущего IP адреса присвоенного оператором сотовой связи
-
-
-AT+HTTPINIT
-
-AT+HTTPPARA="CID",1
-
-AT+HTTPPARA="URL","http://api.lbs.yandex.net/geolocation"
-
-AT+HTTPDATA=668,10000 // первое число – длина сформированного XML-сообщения
-
-AT+HTTPACTION=1
-
-
-

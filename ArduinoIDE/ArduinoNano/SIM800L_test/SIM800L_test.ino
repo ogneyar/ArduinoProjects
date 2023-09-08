@@ -1,10 +1,11 @@
 
+// Nano
 
 #include <SoftwareSerial.h>
 
-SoftwareSerial SIM800(6,7); // rx sim in 6 pin // tx sim in 7 pin
+SoftwareSerial SIM800(7, 6); // tx sim in 7 pin // rx sim in 6 pin
 
-uint32_t bod = 115200; // 9600; // 
+uint32_t bod = 9600; // 115200; // 
 
 void setup() {
   Serial.begin(bod);
