@@ -37,7 +37,7 @@ void loop()
     Serial.println(F("No GPS detected: check wiring."));
     while(true);
   }
-  delay(10000);
+  // delay(10000);
 }
 
 void displayInfo()
