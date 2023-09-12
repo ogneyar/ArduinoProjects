@@ -9,7 +9,7 @@
 // для Nrf-Nano: CE (Chip Enable) - D10, CS/CSN (Chip Select) - D9
 RF24 radio(10, 9); // Создаём объект radio   для работы с библиотекой RF24, указывая номера выводов nRF24L01+ (CE, CSN)
 // Servo servo;    // Создаём объект myservo для работы с функциями библиотеки Servo
-byte data[128];      // Создаём массив для приёма данных
+byte data[32];      // Создаём массив для приёма данных
 
 
 void setup(){
@@ -32,9 +32,12 @@ void loop(){
         // Serial.println(data[1]);
         // Serial.write(data[1]);
         for (byte i = 0; i < sizeof(data); i++) {
-          if (data[i] == '\0') break;
+          if (data[i] == '\0') {
+            Serial.println();
+            break;
+          }
           Serial.write(data[i]);
         }
-        Serial.println();
+        // Serial.println();
     }
 }
