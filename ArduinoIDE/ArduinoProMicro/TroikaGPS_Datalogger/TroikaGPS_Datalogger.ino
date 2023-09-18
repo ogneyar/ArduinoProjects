@@ -4,12 +4,14 @@
 
 #include <SPI.h>
 #include <SD.h>
+#include <nRF24L01.h>  // Подключаем файл настроек из библиотеки RF24
+#include <RF24.h>      // Подключаем библиотеку для работы с nRF24L01+
+#include <TroykaGPS.h> // библиотека для работы с GPS устройством
 
 const int chipSelect = 4;
 
+bool SDsuccessFlag = false;
 
-// библиотека для работы с GPS устройством
-#include <TroykaGPS.h>
 // serial-порт к которому подключён GPS-модуль
 #define GPS_SERIAL    Serial1
 // создаём объект класса GPS и передаём в него объект Serial1 
@@ -26,30 +28,42 @@ char latitudeBase60[MAX_SIZE_MASS];
 char longitudeBase60[MAX_SIZE_MASS];
 
 
+// для Nrf-Nano: CE (Chip Enable) - D10, CS/CSN (Chip Select) - D9
+RF24 radio(10, 9); // Создаём объект radio для работы с библиотекой RF24, указывая номера выводов nRF24L01+ (CE, CSN)
+char data[] = "Hello, bro!";       // Создаём массив для передачи данных
+
+
 
 void setup()
 { 
-  // открываем последовательный порт для мониторинга действий в программе
-  // и передаём скорость 115200 бод
-  Serial.begin(115200);
+  Serial.begin(9600);
   // ждём, пока не откроется монитор последовательного порта
   // для того, чтобы отследить все события в программе
-  while (!Serial) {
-  }
+  // while (!Serial) ;
+  delay(6000);
+
   Serial.print("Serial init OK\r\n");
   
 
   Serial.print("Initializing SD card...\r\n");
 
   // see if the card is present and can be initialized:
-  if (!SD.begin(chipSelect)) {
+  if (!(SDsuccessFlag = SD.begin(chipSelect))) {
     Serial.println("Card failed, or not present");
     // don't do anything more:
-    while (1);
+    // while (1);
+  }else {
+    Serial.println("card initialized.");
   }
-  Serial.println("card initialized.");
+
   // открываем Serial-соединение с GPS-модулем
-  GPS_SERIAL.begin(115200);
+  GPS_SERIAL.begin(9600);
+  
+  radio.begin();                                        // Инициируем работу nRF24L01+
+  radio.setChannel(5);                                  // Указываем канал передачи данных (от 0 до 127), 5 - значит передача данных осуществляется на частоте 2,405 ГГц (на одном канале может быть только 1 приёмник и до 6 передатчиков)
+  radio.setDataRate     (RF24_1MBPS);                   // Указываем скорость передачи данных (RF24_250KBPS, RF24_1MBPS, RF24_2MBPS), RF24_1MBPS - 1Мбит/сек
+  radio.setPALevel      (RF24_PA_HIGH);                 // Указываем мощность передатчика (RF24_PA_MIN=-18dBm, RF24_PA_LOW=-12dBm, RF24_PA_HIGH=-6dBm, RF24_PA_MAX=0dBm)
+  radio.openWritingPipe (0x1234567890LL);               // Открываем трубу с идентификатором 0x1234567890 для передачи данных (на ожном канале может быть открыто до 6 разных труб, которые должны отличаться только последним байтом идентификатора)
 }
  
 void loop()
@@ -57,12 +71,14 @@ void loop()
   // если пришли данные с GPS-модуля
   if (gps.available()) {
 
-    // open the file. note that only one file can be open at a time,
-    // so you have to close this one before opening another.
-    File dataFile = SD.open("data_GPS.txt", FILE_WRITE);
+    Serial.println("GPS available");
+
+    File dataFile;
+    if (SDsuccessFlag) dataFile = SD.open("dataGPS.txt", FILE_WRITE);
 
     // считываем данные и парсим
     gps.readParsing();
+
     // проверяем состояние GPS-модуля
     switch(gps.getState()) {
       // всё OK
@@ -110,19 +126,33 @@ void loop()
         Serial.print(gps.getYear());
   */   
   
-
-
         // if the file is available, write to it:
-        if (dataFile) {
+        if (dataFile && SDsuccessFlag) {
+          dataFile.println("---------------------------------");
           dataFile.print("latitudeBase60: ");
           dataFile.println(latitudeBase60);
           dataFile.print("longitudeBase60: ");
           dataFile.println(longitudeBase60);
+          dataFile.print("getLatitudeBase10: ");
+          dataFile.println(String(gps.getLatitudeBase10(), 6));
+          dataFile.print("getLongitudeBase10: ");
+          dataFile.println(String(gps.getLongitudeBase10(), 6));
+          dataFile.print("Sat: ");
+          dataFile.println(gps.getSat());
+          dataFile.print("Speed: ");
+          dataFile.println(gps.getSpeedKm());
+          dataFile.print("Altitude: ");
+          dataFile.println(gps.getAltitude());
+          dataFile.print("Time: ");
+          dataFile.println(strTime);
+          dataFile.print("Date: ");
+          dataFile.println(strDate);
+          dataFile.println("---------------------------------\r\n");
           dataFile.close();
         }
         // if the file isn't open, pop up an error:
         else {
-          Serial.println("error opening data_GPS.txt");
+          // Serial.println("error opening data_GPS.txt");
         }
 
 
@@ -133,13 +163,13 @@ void loop()
         
 
         // if the file is available, write to it:
-        if (dataFile) {
-          dataFile.print("GPS error data");
+        if (dataFile && SDsuccessFlag) {
+          dataFile.println("GPS error data");
           dataFile.close();
         }
         // if the file isn't open, pop up an error:
         else {
-          Serial.println("error opening data_GPS.txt");
+          // Serial.println("error opening data_GPS.txt");
         }
 
 
@@ -151,37 +181,28 @@ void loop()
         
 
         // if the file is available, write to it:
-        if (dataFile) {
-          dataFile.print("GPS no connect to satellites!!!");
+        if (dataFile && SDsuccessFlag) {
+          dataFile.println("GPS no connect to satellites!!!");
           dataFile.close();
         }
         // if the file isn't open, pop up an error:
         else {
-          Serial.println("error opening data_GPS.txt");
+          // Serial.println("error opening data_GPS.txt");
         }
 
+      break;
 
+      default:
+        Serial.println("case default");
+        delay(1000);
+      break;
+    } 
 
-        break;
-    }
-
-
-    // while(true);
-    
-
+  }else {
+    Serial.println("send data at nRF module");
+    delay(1000);
+    radio.write(&data, sizeof(data));
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 

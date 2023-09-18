@@ -34,6 +34,11 @@ int16_t PENRADIUS = 3;
 uint16_t identifier, oldcolor, currentcolor;
 uint8_t Orientation = 0;    //PORTRAIT
 
+// char bmp[20][7] = {
+//   "01.bmp", "02.bmp", "03.bmp", "04.bmp", "05.bmp", "06.bmp", "07.bmp", "08.bmp", "09.bmp", "10.bmp", 
+//   "11.bmp", "12.bmp", "13.bmp", "14.bmp", "15.bmp", "16.bmp", "17.bmp", "18.bmp", "19.bmp", "20.bmp"
+// };
+
 
 void show_tft(void);
 void buttonClearScreen(void);
@@ -64,7 +69,7 @@ void setup(void)
 {
 #ifdef __DEBUG
   Serial.begin(9600);
-  Serial.print("Touch Screen And Show BMP files on TFT");
+  Serial.println("Touch Screen And Show BMP files on TFT");
 #endif   
   //
   begin(); // SPFD5408 can use ILI9320 driver (0x9320)
@@ -176,63 +181,38 @@ void loop()
       SPCR = 0;
       // fill(0xf800);
       
-      while (1) { // Ниже это типа индийский код (:
-        // fillDelay(0xf800, del);
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0001.bmp", 0, 0);scan();
-        bmpDraw("01.bmp", 0, 0);scan();
-        // fillDelay(0x0ff0, del);
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0002.bmp", 0, 0);scan();     
-        bmpDraw("02.bmp", 0, 0);scan();   
-        // fillDelay(0x008f, del);
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0003.bmp", 0, 0);scan();       
-        bmpDraw("03.bmp", 0, 0);scan(); 
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0004.bmp", 0, 0);scan();        
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0005.bmp", 0, 0);scan();        
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0006.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0007.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0008.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0009.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0010.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0011.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0012.bmp", 0, 0);scan();   
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0013.bmp", 0, 0);scan();        
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0014.bmp", 0, 0);scan();        
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0015.bmp", 0, 0);scan();        
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0016.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0017.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0018.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0019.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0020.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0021.bmp", 0, 0);scan();
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0022.bmp", 0, 0);scan();   
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0023.bmp", 0, 0);scan();        
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0024.bmp", 0, 0);scan();        
-        // drawRect(90, 160, 40, 60, WHITE); 
-        // bmpDraw("0025.bmp", 0, 0);scan();
+      while (1) { 
+      
+        for (byte i = 1; i <= 20; i++) {
+          String bmpStr = "";
+          if (i < 10) bmpStr = "0";
+          bmpStr += String(i) + ".bmp";
+
+          char bmpChar[13]; // 8 символов имя, 1 точка, 3 символа разширения и 1 символ конца строки
+          byte j = 0;
+          do {
+            bmpChar[j] = bmpStr[j];
+            j++;
+          }while(bmpStr[j-1] != '\0');
+
+          if (SD.exists(bmpChar)) { bmpDraw(bmpChar, 0, 0); scan(); }
+        }
+
+        // for (byte i = 0; i < sizeof(bmp); i++) {
+        //   if (SD.exists(bmp[i])) { bmpDraw(bmp[i], 0, 0); scan(); }
+        // }
+
+        // Ниже это типа индийский код (:
+        // if (SD.exists("01.bmp")) { bmpDraw("01.bmp", 0, 0); scan(); }
+        // if (SD.exists("02.bmp")) { bmpDraw("02.bmp", 0, 0); scan(); }
+        // if (SD.exists("03.bmp")) { bmpDraw("03.bmp", 0, 0); scan(); }
+        // if (SD.exists("04.bmp")) { bmpDraw("04.bmp", 0, 0); scan(); }
+        // if (SD.exists("05.bmp")) { bmpDraw("05.bmp", 0, 0); scan(); }
+        // if (SD.exists("06.bmp")) { bmpDraw("06.bmp", 0, 0); scan(); }
+        // if (SD.exists("07.bmp")) { bmpDraw("07.bmp", 0, 0); scan(); }
+        // if (SD.exists("08.bmp")) { bmpDraw("08.bmp", 0, 0); scan(); }
+        // if (SD.exists("09.bmp")) { bmpDraw("09.bmp", 0, 0); scan(); }
+        // if (SD.exists("10.bmp")) { bmpDraw("10.bmp", 0, 0); scan(); }
       }
       
       // начальное меню
