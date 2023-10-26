@@ -1,0 +1,15 @@
+
+                            -----------
+UART1_CK / TIM2_CH1 / PD4  |  1     20  |  PD3 / AIN4 / TIM2_CH2 / ADC_ETR
+    UART1_TX / AIN5 / PD5  |  2     19  |  PD2 / AIN3
+    UART1_RX / AIN6 / PD6  |  3     18  |  PD1 / SWIM
+                     NRST  |  4     17  |  PC7 / SPI_MISO
+              OSCIN / PA1  |  5     16  |  PC6 / SPI_MOSI
+             OSCOUT / PA2  |  6     15  |  PC5 / SPI_CLK
+                Vss (GND)  |  7     14  |  PC4 / TIM1_CH4 / CLK_CCO / AIN2
+                VCAP (*1)  |  8     13  |  PC3 / TIM1_CH3 /
+                Vdd (+Ub)  |  9     12  |  PB4 / I2C_SCL
+           TIM2_CH3 / PA3  | 10     11  |  PB5 / I2C_SDA / LED
+                            -----------
+							
+							
