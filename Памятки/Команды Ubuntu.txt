@@ -31,3 +31,14 @@ chgrp images /images
 
 // смена и владельца и группы (-R рекурсия) 
 chown -R admin:admin /images
+
+// наследование прав доступа (-d указывает, что команда задаёт права по умолчанию, -m на редактирование прав)
+setfacl -d --recursive -m u::rwx,g::rwx,o::r-x /images/	
+
+// установка прав доступа для отдельных пользователей и групп
+setfacl -d --recursive -m u:usr1cv8:rwx /images
+setfacl -d --recursive -m g:grp1cv8:rwx /images
+
+// удаление прав доступа для отдельных пользователей и групп
+setfacl --recursive -x d:u:admin /images
+setfacl --recursive -x d:g:images /images

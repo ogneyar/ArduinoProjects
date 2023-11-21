@@ -1,5 +1,5 @@
 
-// Lolin_C3_mini
+// Lolin_C3_mini, ESP32-WROOM, Lolin_S2_mini
 
 #include <WiFi.h>
 #include <WiFiClient.h>
@@ -10,6 +10,10 @@
 #ifndef STASSID
 #define STASSID "MyWiFi)"
 #define STAPSK  "11111111"
+#endif
+
+#ifndef LED_BUILTIN
+#define LED_BUILTIN 1
 #endif
 
 const char* host = "esp32-webupdate";
@@ -75,6 +79,12 @@ void setup(void) {
   } else {
     Serial.println("WiFi Failed");
   }
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(1000);
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(1000);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void loop(void) {

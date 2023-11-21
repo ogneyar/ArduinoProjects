@@ -4,9 +4,10 @@
 // Lolin_S2_mini (LED_BUILTIN 15)
 // ESP32C3_WeAct (LED_BUILTIN 8)
 // ESP32_Lite(ESP32_Dev_Module) (LED_BUILTIN 8)
+// ESP32_WROOM-DA (LED_BUILTIN 1) TX0
 
 #ifndef LED_BUILTIN
-#define LED_BUILTIN 15
+#define LED_BUILTIN 1
 #endif
 
 void setup() {
