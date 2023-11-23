@@ -183,7 +183,7 @@ void loop()
       
       while (1) { 
       
-        for (byte i = 1; i <= 20; i++) {
+        for (byte i = 1; i <= 40; i++) {
           String bmpStr = "";
           if (i < 10) bmpStr = "0";
           bmpStr += String(i) + ".bmp";
