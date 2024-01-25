@@ -1,0 +1,24 @@
+
+// создание ветки dev
+git branch dev
+
+// переход на ветку dev
+git checkout dev
+
+// индексация всех изменённых файлов
+git add .
+
+// фиксация всех изменений
+git commit -m "#autocommit"
+
+// отправка всех фиксаций на сервер
+git push -u origin master
+
+// слияние с веткой dev (находясь в другой ветке)
+git merge dev
+
+// удаление ветки dev
+git branch --delete dev
+
+// pull-request в ветку master репозитория LearnWpf
+git request-pull origin/master //ogneyar/LearnWpf

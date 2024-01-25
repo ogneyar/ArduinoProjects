@@ -1,0 +1,16 @@
+
+// подтягивание пакетов
+dotnet restore
+
+// сборка проекта
+dotnet build
+
+// запуск проекта
+dotnet run
+
+// запуск тестов
+dotnet test
+
+// сбор всех файлов для дальнейшей передачи программы заказчику
+dotnet publish
+dotnet publish -c Release

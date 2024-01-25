@@ -1,0 +1,7 @@
+
+create table users (id integer primary key autoincrement, login text not null, pass text not null, email text);
+
+insert into users (login, pass, email) values ('test', '34567', 'test@mail.ru');
+
+select * from users;
+ 

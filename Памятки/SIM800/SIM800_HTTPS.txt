@@ -1,0 +1,93 @@
+
+#include <SoftwareSerial.h>
+SoftwareSerial SIM800serial (2, 3);
+
+#define OK 1
+#define NOTOK 2
+#define TIMEOUT 3
+String txt;
+
+void setup() {
+  pinMode(5, OUTPUT);
+  digitalWrite(5, HIGH); //SIM800 ON only for this module
+  Serial.begin(9600);
+  SIM800serial.begin(9600);
+  delay(5000);
+  SIM800command("AT", "OK", "ERROR", 500, 5);
+}
+
+void loop() {
+  SIM800command("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"", "OK", "ERROR", 2000, 1); //Set bearer parameters
+  SIM800command("AT+SAPBR=3,1,\"APN\",\"internet\"", "OK", "ERROR", 2000, 1); //Set bearer parameters
+  SIM800command("AT+SAPBR=1,1", "OK", "ERROR", 5000, 1); //To open a GPRS context
+  SIM800command("AT+SAPBR=2,1", "OK", "ERROR", 5000, 1); ///To query the GPRS context
+  SIM800command("AT+HTTPINIT", "OK", "ERROR", 30000, 1); //Initialize HTTP Service
+  SIM800command("AT+HTTPPARA=\"CID\",1", "OK", "ERROR", 10000, 1); //Bearer profile identifier
+  //SIM800command("AT+HTTPPARA=\"URL\",\"httpbin.org/get?humidity=54.03&temp=32.76\"", "OK", "ERROR", 20000, 1);//HTTP client URL
+  //SIM800command("AT+HTTPPARA=\"URL\",\"worldtimeapi.org/api/timezone/Europe/Kyiv\"", "OK", "ERROR", 20000, 1);//HTTP client URL
+  SIM800command("AT+HTTPPARA=\"URL\",\"api.openweathermap.org/data/2.5/weather?lat=50.45&lon=30.52&units=metric&appid=ce8fddffd4e813706d35881313af380c\"", "OK", "ERROR", 20000, 1); //HTTP client URL
+  SIM800command("AT+HTTPPARA=\"REDIR\",1", "OK", "ERROR", 5000, 1); //Set the redirection
+  SIM800command("AT+HTTPSSL=1", "OK", "ERROR", 5000, 1); //Enable SSL function
+  SIM800command("AT+HTTPACTION=0", "0,200,", "ERROR", 20000, 1); //HTTP Method 0-GET; 1-POST; 2-HEAD
+  SIM800command("AT+HTTPREAD", "HTTPREAD", "ERROR", 20000, 1); //Read the HTTP Server Response
+  SIM800command("AT+HTTPTERM", "HTTPTERM", "ERROR", 20000, 1); //Terminate HTTP Service
+  SIM800command("AT+SAPBR=0,1", "+SAPBR:", "ERROR", 2000, 1); //Close bearer
+  delay(10000);
+}
+
+
+
+byte SIM800command(String command, String response1, String response2, uint16_t timeOut, uint16_t repetitions) {
+  byte returnValue = NOTOK;
+  byte countt = 0;
+  
+  while (countt < repetitions && returnValue != OK) {
+    SIM800serial.println(command);
+    
+    if (SIM800waitFor(response1, response2, timeOut) == OK) {
+      returnValue = OK;
+    } else {returnValue = NOTOK;}
+    countt++;
+  }
+  
+  return returnValue;
+}
+
+byte SIM800waitFor(String response1, String response2, uint16_t timeOut) {
+  uint16_t entry = 0;
+  uint16_t count = 0;
+  String reply = SIM800read();
+  byte retVal = 99;
+
+  do {
+    reply = SIM800read();
+    delay(1);
+    entry ++;
+  } while ((reply.indexOf(response1) + reply.indexOf(response2) == -2) && entry < timeOut );
+
+  if (entry >= timeOut) {
+    retVal = TIMEOUT;
+  } else {
+    if (reply.indexOf(response1) + reply.indexOf(response2) > -2) retVal = OK;
+    else retVal = NOTOK;
+  }
+  
+  return retVal;
+}
+
+String SIM800read() {
+  String reply = "";
+  
+  if (SIM800serial.available())  {
+    reply = SIM800serial.readString();
+  }
+
+  if (reply!=""){
+    Serial.print("Reply: ");
+    Serial.println(reply);
+    txt = reply;
+  }
+  
+  return reply;
+}
+

@@ -43,8 +43,8 @@ void setup() {
   timerCounter0(32, ocr0b); // шим на PD5 (5 пин ардуины к Аноду)
   
   key = EEPROM.read(address);
-  if (key != 237) { // значение ключа
-      EEPROM.write(address, 237);
+  if (key != 235) { // значение ключа
+      EEPROM.write(address, 235);
       // установить время == времени компиляции
 //      rtc.setTime(COMPILE_TIME); // так
       rtc.setTime(BUILD_SEC, BUILD_MIN, BUILD_HOUR, BUILD_DAY, BUILD_MONTH, BUILD_YEAR); // или так    
