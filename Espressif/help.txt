@@ -1,0 +1,30 @@
+
+// список плат
+idf.py --list-targets
+
+// выбор платы esp32c2
+idf.py set-target esp32c2
+
+// вызов меню
+idf.py menuconfig
+
+// в меню смена частоты МК
+Component config --> 
+	Hardware Settings --> 
+		Main XTAL Config --> 
+			Main XTAL frequency, then change CONFIG_XTAL_FREQ_SEL to 26 MHz.
+
+// сборка проекта
+idf.py build
+
+// прошивка
+idf.py -p com11 flash
+
+// монитор порта
+idf.py -p com11 monitor
+ 
+// или прошивка и монитор порта сразу
+idf.py -p com11 flash monitor
+
+// очистка памяти
+idf.py -p PORT erase-flash
